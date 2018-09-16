@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vehicular emissions inventory with VEIN</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vehicular emissions inventory with VEIN" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="ibarraespinosa/veinbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vehicular emissions inventory with VEIN" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sergio Ibarra-Espinosa">
+
+
+<meta name="date" content="2018-09-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="traffic.html">
+<link rel="next" href="est.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">veinbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i>Purpose</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i>Structure</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#definitions-and-sources-of-information"><i class="fa fa-check"></i><b>1.1</b> Definitions and sources of information</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#approaches"><i class="fa fa-check"></i><b>1.1.1</b> Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#required-r-packages-and-dependencies"><i class="fa fa-check"></i><b>1.3</b> Required R packages and dependencies</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#data-inside-the-vein-model"><i class="fa fa-check"></i><b>1.4</b> Data inside the VEIN model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#emission-factors-from-cetesb"><i class="fa fa-check"></i><b>1.4.1</b> Emission factors from CETESB</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#mileage-functions-of-brazilian-fleet"><i class="fa fa-check"></i><b>1.4.2</b> Mileage functions of Brazilian Fleet</a></li>
+<li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#temporal-factors-for-passenger-cars"><i class="fa fa-check"></i><b>1.4.3</b> Temporal factors for Passenger Cars</a></li>
+<li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#profile-for-cold-starts-of-passenger-cars"><i class="fa fa-check"></i><b>1.4.4</b> Profile for cold starts of Passenger Cars</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>2</b> Basics of R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic.html"><a href="basic.html#brief-history"><i class="fa fa-check"></i><b>2.1</b> Brief history</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basic.html"><a href="basic.html#installation-1"><i class="fa fa-check"></i><b>2.1.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic.html"><a href="basic.html#using-r"><i class="fa fa-check"></i><b>2.2</b> Using R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="basic.html"><a href="basic.html#r-objects"><i class="fa fa-check"></i><b>2.2.1</b> R objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic.html"><a href="basic.html#factors"><i class="fa fa-check"></i><b>2.2.2</b> Factors</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic.html"><a href="basic.html#missing-values"><i class="fa fa-check"></i><b>2.2.3</b> Missing Values</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic.html"><a href="basic.html#matrices"><i class="fa fa-check"></i><b>2.2.4</b> Matrices</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic.html"><a href="basic.html#arrays"><i class="fa fa-check"></i><b>2.2.5</b> Arrays</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="st.html"><a href="st.html"><i class="fa fa-check"></i><b>3</b> Structuring an Emissions Inventory</a><ul>
+<li class="chapter" data-level="3.1" data-path="st.html"><a href="st.html#veinstructure"><i class="fa fa-check"></i><b>3.1</b> Overview of emissions inventorying using VEIN</a></li>
+<li class="chapter" data-level="3.2" data-path="st.html"><a href="st.html#the-inventory-function"><i class="fa fa-check"></i><b>3.2</b> The <code>inventory</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
+<li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
+<li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.2</b> Main functions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.2.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.2.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.2.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.2.4</b> The function <code>my_age</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.2.5</b> The class <code>Vehicles</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.2.6</b> Other traffic functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.3</b> Vehicular composition</a></li>
+<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.4</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
+<li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
+<li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
+<li class="chapter" data-level="5.4" data-path="ef.html"><a href="ef.html#cold-starts"><i class="fa fa-check"></i><b>5.4</b> Cold Starts</a></li>
+<li class="chapter" data-level="5.5" data-path="ef.html"><a href="ef.html#det"><i class="fa fa-check"></i><b>5.5</b> Deterioration</a></li>
+<li class="chapter" data-level="5.6" data-path="ef.html"><a href="ef.html#evaporative-emissions-ef_evap"><i class="fa fa-check"></i><b>5.6</b> Evaporative emissions <code>ef_evap</code></a></li>
+<li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
+<li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
+<li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
+<li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
+<li class="chapter" data-level="6.2" data-path="est.html"><a href="est.html#the-emis_cold-function"><i class="fa fa-check"></i><b>6.2</b> The <code>emis_cold</code> function</a></li>
+<li class="chapter" data-level="6.3" data-path="est.html"><a href="est.html#the-emis_evap-function"><i class="fa fa-check"></i><b>6.3</b> The <code>emis_evap</code> function</a></li>
+<li class="chapter" data-level="6.4" data-path="est.html"><a href="est.html#the-emis_paved-function"><i class="fa fa-check"></i><b>6.4</b> The <code>emis_paved</code> function</a></li>
+<li class="chapter" data-level="6.5" data-path="est.html"><a href="est.html#ew"><i class="fa fa-check"></i><b>6.5</b> The <code>emis_wear</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="post.html"><a href="post.html"><i class="fa fa-check"></i><b>7</b> Post estimation with <code>emis_post</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="post.html"><a href="post.html#emissions-by-street"><i class="fa fa-check"></i><b>7.1</b> Emissions by street</a></li>
+<li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
+<li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
+<li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
+<li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
+<li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
+<li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
+<li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
+<li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
+<li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
+<li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="check.html"><a href="check.html"><i class="fa fa-check"></i><b>10</b> Quality check and errors</a><ul>
+<li class="chapter" data-level="10.1" data-path="check.html"><a href="check.html#guidance-from-emepeea-air-pollutant-emission-inventory-guidebook"><i class="fa fa-check"></i><b>10.1</b> Guidance from EMEP/EEA air pollutant emission inventory guidebook</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="check.html"><a href="check.html#key-categories"><i class="fa fa-check"></i><b>10.1.1</b> Key categories</a></li>
+<li class="chapter" data-level="10.1.2" data-path="check.html"><a href="check.html#uncertainty"><i class="fa fa-check"></i><b>10.1.2</b> Uncertainty</a></li>
+<li class="chapter" data-level="10.1.3" data-path="check.html"><a href="check.html#quality-assurance-and-quality-check"><i class="fa fa-check"></i><b>10.1.3</b> Quality Assurance and Quality Check</a></li>
+<li class="chapter" data-level="10.1.4" data-path="check.html"><a href="check.html#inventory-managment-cycle"><i class="fa fa-check"></i><b>10.1.4</b> Inventory managment cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="check.html"><a href="check.html#avoiding-errors-with-vein"><i class="fa fa-check"></i><b>10.2</b> Avoiding errors with VEIN</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="check.html"><a href="check.html#traffic-flow"><i class="fa fa-check"></i><b>10.2.1</b> Traffic flow</a></li>
+<li class="chapter" data-level="10.2.2" data-path="check.html"><a href="check.html#vehicular-composition-2"><i class="fa fa-check"></i><b>10.2.2</b> Vehicular composition</a></li>
+<li class="chapter" data-level="10.2.3" data-path="check.html"><a href="check.html#units"><i class="fa fa-check"></i><b>10.2.3</b> Units</a></li>
+<li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
+<li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
+<li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-fast-example-of-vein.html"><a href="appendix-a-fast-example-of-vein.html"><i class="fa fa-check"></i>Appendix A: Fast Example of VEIN</a></li>
+<li class="chapter" data-level="" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html"><i class="fa fa-check"></i>Appendix B: Detailed Example of VEIN</a><ul>
+<li class="chapter" data-level="A.3" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
+<li class="chapter" data-level="A.4" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
+<li class="chapter" data-level="A.5" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vehicular emissions inventory with VEIN</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ef" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Emission Factors</h1>
+<p>An emission factor is the amount of mass of pollutant generated by activities <span class="citation">(Pulles and Heslinga <a href="#ref-pulles2010art">2010</a>)</span>. In the case of vehicles, the emission factors are generally known as the mass of pollutant per traveled distance <span class="math inline">\(g \cdot km^{-1}\)</span> in metric units. The distance unit could be different, like miles for instance. The type of units depends on measurement used when developing the emission factors.</p>
+<p>There are hot and cold exhaust emisions. <em>Hot</em> exhaust emissions are produced by a vehicle when its engine and exhaust after-treatment system are at their normal operational temperatures and <em>Cold</em> during the vehicle warm-up phase <span class="citation">(P et al. <a href="#ref-trlef">2009</a>)</span>.</p>
+<p>The emission factors comes from measurement of pollutants emitted by the sources. In the case of vehicles, the dynanometer measurements the emission factors are the mass of pollutant collected during the distance traveled by a vehicle following a specific driving cycle. The Federal Test Procedure (FTP) is a test to certify the vehicle emissions under the driving cycles such as FTP-75. This driving cycle has a duration of 1874 <span class="math inline">\(s\)</span> for a distance of 17783 <span class="math inline">\(m\)</span> and average speed of 34.12 <span class="math inline">\(km \cdot h^{-1}\)</span> <span class="citation">(Barlow <a href="#ref-tim">2009</a>)</span>.</p>
+<p>In the literature it is possible to find different type of emission factors. For instance, in europe, during the development of the project Assesment of Reliability of Transport Emission Models and Inventory Systems (ARTEMIS), it was developed the <em>traffic situation model</em>. This concept consists in the combination of parameters that affects the vehicle kinematics and engine operation: type of road, sinuosity and gradient, trafffic conditions or level of service (free-flow, heavy, saturated and stop and go) and average speed by speed limit of the road <span class="citation">(Boulter and Barlow <a href="#ref-artemis">2009</a>)</span>. Measurenets of vehicular emissions under each traffic situation led to emission factors by traffic situation, used in the Handbook of Emission Factors (HBEFA, www.hbefa.net).</p>
+<p>There is another approach based on 1 Hz measurement of emissions. Here, the pollutants are measured on real live traffic driving. Emission factors can be derived here using mainly two approaches. One approach is applying the Vehicular Specific Power (VSP) <span class="citation">(Jimenez et al. <a href="#ref-jimenez1999vehicle">1999</a>)</span>. This methods is used in the MOtor Vehicle Emission Simulator (MOVES) <span class="citation">(Koupal et al. <a href="#ref-koupal2003design">2003</a>)</span> and the International Vehicle Emissions model (IVE) <span class="citation">(Davis et al. <a href="#ref-Davisetal2005">2005</a>)</span>. Another approach is to apply the Passenger car and Heavy-duty Emission Model (PHEM), which is based on instantaneous engine power demand and engine speed developed during the Artemis project <span class="citation">(Barlow <a href="#ref-tim">2009</a>, <span class="citation">Boulter and Barlow (<a href="#ref-artemis">2009</a>)</span>)</span>.</p>
+<p>Perhaps the most used approach to obtain emission factors are the speed functions. As the emissions tests on driving cycles are valid for only one average speed, measuring emissions of different driving cycles at different average speeds, allow to obtain point clouds where a regressions is applied, obtaining an emission factor as a speed function. The literature shows experiments in diffferent parts of the world, such as in Chile <span class="citation">(Corvalán, Osses, and Urrutia <a href="#ref-Corvalanetal2002">2002</a>)</span> and Europe <span class="citation">(Ntziachristos and Samaras <a href="#ref-ntziachristos2000speed">2000</a>)</span>. However, probably the most used source of emission factors as speed functions are the European emission guidelines developed by the European Monitoring and Evaluation Programme (EMEP, <a href="http://www.emep.int/" class="uri">http://www.emep.int/</a>) and published by the European Environment Agency (EEA, <a href="https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep" class="uri">https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep</a>) <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. These emission factors are included in the VEIN model.</p>
+<p>Another aspect important in vehicular emissions is the degradation of the emissions of aged vehicles. Over the time, different part of the vehicles suffer deterioration, increasing the emissions. Therefore, approachas have been developed to account of this effect in inventories. One approach consists in determining functions that increment the emissions by accumulated mileage, such as studies of <span class="citation">Corvalán and Vargas (<a href="#ref-CorvalanVargas2003">2003</a>)</span>.</p>
+<p>In Brazil, the emission factors are reported by the Environmental Protection Agency of São Paulo <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>, in their vehicular emissions inventory report. Light vehicles emission factors comes from average measurements of the FTP75 driving cycle, motorcycle emission factors comes from average measurements of World Motorcycle Test Cycle (WMTC) and HDV with from the European Stationary Cycle (ETC).</p>
+<p>As the VEIN model was developed in Brazil, but user of other parts of the world may be intereted in using the model, the approach in VEIN has to allow flexibility to the user. Therefore, the emission factors approach in VEIN consists in three options, as shown on Fig. (<a href="ef.html#fig:diaef">5.1</a>). The first approach consists in local emissions factors by age of use, such as the one from <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>, denoted as local_ef in the green circle. The second approach consists in selecting speed functions from <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span>, availabe in VEIN and denoted as the grey box as speed_ef. The third approach conists in incorporate speed variation from the speed function into the local emission factors by age of use. In any case, VEIN count with function to account of the degradation of emissions due to accumulated mileage denotes in grey box as emis_det. These emissions are entered into the estimation emission function.</p>
+<p>The following sections show how to do these calculation in VEIN, step by step.</p>
+<div class="figure" style="text-align: center"><span id="fig:diaef"></span>
+<img src="figuras/dia5.png" alt="Structuring an emissions inventories with VEIN" width="100%" />
+<p class="caption">
+Figure 5.1: Structuring an emissions inventories with VEIN
+</p>
+</div>
+<div id="speedef" class="section level2">
+<h2><span class="header-section-number">5.1</span> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></h2>
+<p>The estimation of emissions in VEIn is shown the equation <a href="ef.html#eq:emi">(5.1)</a>:</p>
+<span class="math display" id="eq:emi">\[\begin{equation}
+EH_{i,j,k,l,m} =F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} \cdot DF_{j,k}
+\tag{5.1}
+\end{equation}\]</span>
+<p>Where <span class="math inline">\(EH_{i,j,k,l,m}\)</span> is the emissions for each street link <span class="math inline">\(i\)</span>, vehicle category from composition <span class="math inline">\(k\)</span>, hour <span class="math inline">\(l\)</span> and pollutant <span class="math inline">\(m\)</span>, where <span class="math inline">\(F_{i,j,k,l}\)</span> is the vehicular flow calculated in Eq. 1. <span class="math inline">\(L_i\)</span> is the length of the street link <span class="math inline">\(i\)</span>. <span class="math inline">\(EF(V_{i,l})_{j,k,m}\)</span> is the emission factor of each pollutant <span class="math inline">\(m\)</span>. <span class="math inline">\(DF_{j,k}\)</span> is the deterioration factor for vehicle of type <span class="math inline">\(j\)</span> and age of use <span class="math inline">\(k\)</span>, explained in detial in section <a href="ef.html#det">5.5</a>.</p>
+<p>These function return speed functions as <span class="math inline">\(f(V)\)</span>. The functions comes from the EMEP/EEA emissions guidelines <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span> and are available in PDF reports. The equations and their parameter were translated to spreedsheets and loaded internally in VEIN. Therefore, the user only must enter the required parameters obtaining the desired function. The functions respect the assumptions and speed limits.</p>
+<div id="emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></h3>
+<p>The arguments for <code>ef_ldv_speed</code> are:</p>
+<ul>
+<li><code>v</code>: Category vehicle: “PC”, “LCV”, “Motorcycle” or “Moped”.</li>
+<li><code>t</code>: Sub-category of of vehicle: PC: “ECE_1501”, “ECE_1502”, “ECE_1503”, “ECE_1504” , “IMPROVED_CONVENTIONAL”, “OPEN_LOOP”, “ALL”, “2S” or “4S”. LCV: “4S”, Motorcycle: “2S” or “4S”. Moped: “2S” or “4S”.</li>
+<li><code>cc</code>: Size of engine in cc: PC: “&lt;=1400”, “&gt;1400”, “1400_2000”, “&gt;2000”, “&lt;=800”, “&lt;=2000”. Motorcycle: “&gt;=50” (for “2S”), “&lt;=250”, “250_750”, “&gt;=750”. Moped: “&lt;=50”. LCV : “&lt;3.5” for gross weight.</li>
+<li><code>f</code>: Type of fuel: “G”, “D”, “LPG” or “FH” (Full Hybrid: starts by electric motor).</li>
+<li><code>eu</code>: Euro standard: “PRE”, “I”, “II”, “III”, “III+DPF”, “IV”, “V”, “VI” or “VIc”.</li>
+<li><code>p</code>: Pollutant: “CO”, “FC”, “NOx”, “HC” or “PM”.</li>
+<li><code>k</code>: Multiplication factor.</li>
+<li><code>show.equation</code>: Option to see or not the equation parameters.</li>
+</ul>
+<p>It is very important that the user enter the right value into the arguments because the final category must match. If the user enters values that do not match, the resulting speed function will be wrong. There are 146 matchs. The probably most used combinations are:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-51">Table 5.1: </span>Most used combinations for emission factors for LDV</caption>
+<thead>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">v</td>
+<td align="left">PC LCV Motorcycles</td>
+</tr>
+<tr class="even">
+<td align="left">t</td>
+<td align="left">4S</td>
+</tr>
+<tr class="odd">
+<td align="left">cc</td>
+<td align="left">&lt;=1400 1400_2000 &gt;2000</td>
+</tr>
+<tr class="even">
+<td align="left">f</td>
+<td align="left">G D</td>
+</tr>
+<tr class="odd">
+<td align="left">eu</td>
+<td align="left">PRE I II III IV V VI</td>
+</tr>
+<tr class="even">
+<td align="left">p</td>
+<td align="left">CO NOx HC FC PM</td>
+</tr>
+</tbody>
+</table>
+<p>The returning speed function represents how a type of vehicle emits pollutants on average. Fig. (<a href="ef.html#fig:figef">5.2</a>) shows the emissions of CO by Passenger Cars with with technologies Pre Euro and Euro I from <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. Higher emissions occure at low average speeds and older vehicles with technologies pre Euro emit more than vehicles with Euro I. Even more, the average emissions of Pre Euro are 29.31 <span class="math inline">\(g \cdot km^{-1}\)</span> and Euro I 2.61 <span class="math inline">\(g \cdot km^{-1}\)</span>, meaning that, on average, a vehicle Pre euro is 14 times than a vehicle with euro I.</p>
+<p>The Fig. (<a href="ef.html#fig:figef">5.2</a>) shows the plot using the package ggplot2 <span class="citation">(Wickham <a href="#ref-ggplot2">2009</a>)</span>. This package requires that the data must be in long format.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">library</span>(ggplot2)
+ef1 &lt;-<span class="st"> </span><span class="kw">ef_ldv_speed</span>(<span class="dt">v =</span> <span class="st">&quot;PC&quot;</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;G&quot;</span>,
+                    <span class="dt">eu =</span> <span class="st">&quot;PRE&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>, <span class="dt">show.equation =</span> F)
+ef2 &lt;-<span class="st"> </span><span class="kw">ef_ldv_speed</span>(<span class="dt">v =</span> <span class="st">&quot;PC&quot;</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;G&quot;</span>,
+                    <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>, <span class="dt">show.equation =</span> F)
+V &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">110</span>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EF =</span> <span class="kw">c</span>(<span class="kw">ef1</span>(V), <span class="kw">ef2</span>(V)))
+df<span class="op">$</span>V =<span class="st"> </span>V
+df<span class="op">$</span>Euro &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;PRE&quot;</span>, <span class="dv">111</span>), <span class="kw">rep</span>(<span class="st">&quot;I&quot;</span>, <span class="dv">111</span>)),
+                  <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;PRE&quot;</span>, <span class="st">&quot;I&quot;</span>))
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(V, EF, <span class="dt">colour =</span> Euro)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;CO[g/km]&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;[km/h]&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:figef"></span>
+<img src="veinbook_files/figure-html/figef-1.svg" alt="Emission factor as a speed function" width="80%" />
+<p class="caption">
+Figure 5.2: Emission factor as a speed function
+</p>
+</div>
+</div>
+<div id="emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></h3>
+<p>The arguments for <code>ef_hdv_speed</code> are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(ef_hdv_speed)</code></pre></div>
+<pre><code>## function (v, t, g, eu, x, gr = 0, l = 0.5, p, k = 1, show.equation = FALSE) 
+## NULL</code></pre>
+<ul>
+<li><code>v</code> :Category vehicle: “Coach”, “Trucks” or “Ubus”</li>
+<li><code>t</code> Sub-category of of vehicle: “3Axes”, “Artic”, “Midi”, “RT,”Std&quot; and “TT”</li>
+<li><code>g</code> Gross weight of each category: “&lt;=18”, “&gt;18”, “&lt;=15”, “&gt;15 &amp; &lt;=18”, “&lt;=7.5”, - “&gt;7.5 &amp; &lt;=12”, “&gt;12 &amp; &lt;=14”, “&gt;14 &amp; &lt;=20”, “&gt;20 &amp; &lt;=26”, “&gt;26 &amp; &lt;=28”, “&gt;28 &amp; &lt;=32”, “&gt;32”, “&gt;20 &amp; &lt;=28”, “&gt;28 &amp; &lt;=34”, “&gt;34 &amp; &lt;=40”, “&gt;40 &amp; &lt;=50” or “&gt;50 &amp; &lt;=60”</li>
+<li>`eu Euro emission standard: “PRE”, “I”, “II”, “III”, “IV” and “V”</li>
+<li>`gr Gradient or slope of road: -0.06, -0.04, -0.02, 0.00, 0.02. 0.04 or 0.06</li>
+<li><code>l</code> Load of the vehicle: 0.0, 0.5 or 1.0</li>
+<li><code>p</code> Pollutant: “CO”, “FC”, “NOx” or “HC”</li>
+<li><code>k</code> Multiplication factor</li>
+<li><code>show.equation</code> Option to see or not the equation parameters</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">V &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">130</span>
+ef1 &lt;-<span class="st"> </span><span class="kw">ef_hdv_speed</span>(<span class="dt">v =</span> <span class="st">&quot;Trucks&quot;</span>,<span class="dt">t =</span> <span class="st">&quot;RT&quot;</span>, <span class="dt">g =</span> <span class="st">&quot;&lt;=7.5&quot;</span>,
+                    <span class="dt">e =</span> <span class="st">&quot;II&quot;</span>, <span class="dt">gr =</span> <span class="dv">0</span>,
+<span class="dt">l =</span> <span class="fl">0.5</span>, <span class="dt">p =</span> <span class="st">&quot;HC&quot;</span>, <span class="dt">show.equation =</span> <span class="ot">FALSE</span>)
+ef2 &lt;-<span class="st"> </span><span class="kw">ef_hdv_speed</span>(<span class="dt">v =</span> <span class="st">&quot;Trucks&quot;</span>,<span class="dt">t =</span> <span class="st">&quot;RT&quot;</span>, <span class="dt">g =</span> <span class="st">&quot;&lt;=7.5&quot;</span>,
+                    <span class="dt">e =</span> <span class="st">&quot;II&quot;</span>, <span class="dt">gr =</span> <span class="fl">0.06</span>,
+<span class="dt">l =</span> <span class="fl">0.5</span>, <span class="dt">p =</span> <span class="st">&quot;HC&quot;</span>, <span class="dt">show.equation =</span> <span class="ot">FALSE</span>)
+<span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">130</span>, <span class="kw">ef1</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">130</span>), <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,
+     <span class="dt">ylab =</span> <span class="st">&quot;HC [g/km]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Speed [km/h]&quot;</span>)
+<span class="kw">lines</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">130</span>, <span class="kw">ef2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">130</span>), <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="veinbook_files/figure-html/unnamed-chunk-53-1.svg" width="672" /></p>
+</div>
+</div>
+<div id="localef" class="section level2">
+<h2><span class="header-section-number">5.2</span> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></h2>
+<p>The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code> creates the classes with the same names. The class <code>EmissionFactors</code> is also a data-frame with numeric columns with units of <span class="math inline">\(g \cdot km^{-1}\)</span>. This class is not used in critical steps of VEIN, and it has a purpose of only creating data-frame with numeric columns with units. The this function is applied to a numeric vector, it just convert it to <code>units</code> adding units to it.</p>
+<p>In the case of <code>EmissionFactorsList</code>, this class is a list of functions <span class="math inline">\(f(V)\)</span>. This is usefull because the <code>emis</code> function, seen in detail on chapter <a href="est.html#est">6</a>, requires that the emission factors are functions of Velocity <span class="math inline">\(f(V)\)</span>, regardless <span class="math inline">\(f(V)\)</span> is constant or not. When this function is applied to a data-frame or to a matrix, it returns a list and each columns of the data-frame or matrix is another list. Also, each row of the original data-frame is converted to a <span class="math inline">\(f(V)\)</span>.</p>
+<p>The arguements or <code>EmissionFactorsList</code> and <code>EmissionFactors</code> are:</p>
+<p>-<code>x</code>: Object with class “data.frame”, “matrix” or “numeric”</p>
+<p>The following lines of ode show examples using <code>EmissionFactors</code>. Firstly, it is loaded the dataset of emission factors <em>fe2015</em> for CO and the vehicles PC using gasoline PC_G and Light Trucks LT. The class of fe2015 is data-frame. The subset of the data is named DF_CO. When we see the first 6 elemens of the data-frame are numbers without units.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">data</span>(fe2015) <span class="co">#CETESB Emission factors</span>
+DF_CO &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant<span class="op">==</span><span class="st">&quot;CO&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;PC_G&quot;</span>, <span class="st">&quot;LT&quot;</span>)]
+<span class="kw">head</span>(DF_CO)</code></pre></div>
+<pre><code>##    PC_G    LT
+## 1 0.171 0.027
+## 2 0.216 0.012
+## 3 0.237 0.012
+## 4 0.273 0.005
+## 5 0.275 0.379
+## 6 0.204 0.416</code></pre>
+<p>The object EF_CO has class<code>EmissionFactors</code> and “data-frame” and each observation has the units <span class="math inline">\(g \cdot km^{-1}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EF_CO &lt;-<span class="st"> </span><span class="kw">EmissionFactors</span>(DF_CO)
+<span class="kw">head</span>(EF_CO)</code></pre></div>
+<pre><code>## EmissionFactors:
+##         PC_G         LT
+## 1 0.171 g/km 0.027 g/km
+## 2 0.216 g/km 0.012 g/km
+## 3 0.237 g/km 0.012 g/km
+## 4 0.273 g/km 0.005 g/km
+## 5 0.275 g/km 0.379 g/km
+## 6 0.204 g/km 0.416 g/km</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(EF_CO)</code></pre></div>
+<pre><code>## [1] &quot;EmissionFactors&quot; &quot;data.frame&quot;</code></pre>
+<p>The plot of an object with class <code>EmissionFactors</code> shows maximum 9 emission factors. Fig. (<a href="ef.html#fig:efco">5.3</a>) shows the emission factors of both categories, where newer vehicles emit less and older vehicles emit more.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(EF_CO, <span class="dt">xlab =</span> <span class="st">&quot;Age of use&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efco"></span>
+<img src="veinbook_files/figure-html/efco-1.svg" alt="Emission factor of PC and LT by age of use" width="80%" />
+<p class="caption">
+Figure 5.3: Emission factor of PC and LT by age of use
+</p>
+</div>
+<p>Regarding the class <code>EmissionFactorsList</code>, the <code>print</code> and <code>summary</code> methods are very simply, ony showing a description of the object. The example of the following lines of code also uses the same set of Emission Factors from <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>. The resulting object, EF_COL, has class <code>EmissionFactorsList</code> and <code>list</code>. The print of the object shows only a description of the first and last member of the list object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(DF_CO)
+<span class="kw">class</span>(EFL_CO)</code></pre></div>
+<pre><code>## [1] &quot;EmissionFactorsList&quot; &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO</code></pre></div>
+<pre><code>## This EmissionFactorsList has  2  lists
+## First has  36  functions
+## Last has  36  functions</code></pre>
+<p>Indeed, we want to see the content of the <code>EmissionFactorsList</code> we would have to extract the elements of the list. EFL_CO has two list, each one for PC and LT. Then, each list has 36 functions, the command <code>class(EFL_CO[[1]][[1]])</code> shows the object is a functon <span class="math inline">\(f(V)\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## function(V) x[j,i]
+## &lt;environment: 0x55eba7416b90&gt;</code></pre>
+<p>Also, as the speed functions are constant, there is no need to add values of V.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]](<span class="dv">100</span>) <span class="co"># constant speed function</span></code></pre></div>
+<pre><code>## [1] 0.171</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]](<span class="dv">0</span>)   <span class="co"># constant speed function</span></code></pre></div>
+<pre><code>## [1] 0.171</code></pre>
+<p>Finally, after extracting the value, Fig. (<a href="ef.html#fig:efco2">5.4</a>) shows the same figure as Fig. (<a href="ef.html#fig:efco">5.3</a>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">efco1 &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="cf">function</span>(i) EFL_CO[[<span class="dv">1</span>]][[i]]())
+efco2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="cf">function</span>(i) EFL_CO[[<span class="dv">2</span>]][[i]]())
+df &lt;-<span class="st"> </span><span class="kw">EmissionFactors</span>(<span class="kw">cbind</span>(efco1, efco2))
+<span class="kw">plot</span>(df, <span class="dt">xlab =</span> <span class="st">&quot;Age of use&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efco2"></span>
+<img src="veinbook_files/figure-html/efco2-1.svg" alt="Emission factor of PC and LT" width="80%" />
+<p class="caption">
+Figure 5.4: Emission factor of PC and LT
+</p>
+</div>
+</div>
+<div id="scale" class="section level2">
+<h2><span class="header-section-number">5.3</span> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></h2>
+<p>The functions on section <a href="ef.html#speedef">5.1</a> and <a href="ef.html#localef">5.2</a> showed the speed and local emission factors respectivly. However, the user might have local and constant emission factors depending only on age of use, but also, outputs from a traffic demand model which includes speed. Under those circumnstances, it would be interesting to investigate the effects of the average speed of traffic flow. VEIN includes a function to transform a constant emission factor by age of use into a speed dependent function.</p>
+<p>This functions are called <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code>. The concept is explained in detail in my Ph.D thesis <span class="citation">(Ibarra-Espinosa <a href="#ref-ibarrathesis">2017</a>)</span>. The idea is comes from revisitng the nature of the local emission factors. The Brazilian emission factors consist of average measurements emissions certification tests which use the driving cycles Federal Test Procedure FTP-75 for LDV, World Motorcycle Test Cycle (WMTC) for motorcycles, and also the European Stationary Cycle (ESC) for HDV <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span>. The average speed of FTP-75 and WMTC are known, being 34.2 <span class="math inline">\(km \cdot h^{-1}\)</span> and 54.7 <span class="math inline">\(km \cdot h^{-1}\)</span> based to the reference report on driving cycles from the Transport and Research Laboratory (TRL) <span class="citation">(Barlow <a href="#ref-tim">2009</a>)</span>. In the case of ESC, the user might search on literature a way to relate this cycle with an average speed.</p>
+<p>Coming back to the <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span> emission factors, these are annual average values of emissions for the different technologies to accomplish Brazilian emission standards, which are valid only for a specific average speed.If two vehicles have similar technology but different emission factors, one constant and other speed function, it would be possble to relate them. These functions use the speed to relate both emission factors. The condition to transform a contant emission factor into a speed dependent function is that, the new speed dependent function must be the same value at the speed which is representative the local factor, and the values at other speeds are the incorporation of the speed variation. The equation <a href="ef.html#eq:efscaled">(5.2)</a> shows the procedure:</p>
+<span class="math display" id="eq:efscaled">\[\begin{equation}
+EF_{scaled}(V_{i,l})_{j,k,m}=EF(V_{i,l})_{j,k,m} \cdot \frac{EFlocal_{j,k,m}}{{EF(Vdc_{i,l})_{j,k,m}}}
+\tag{5.2}
+\end{equation}\]</span>
+<p>Where <span class="math inline">\(EF_{scaled}(V_{i,l})_{j,k,m}\)</span> is the scaled emission factor and <span class="math inline">\(EF(V_{i,l})_{j,k,m}\)</span> is the Copert emission factor for each street link <span class="math inline">\(i\)</span>, vehicle from composition <span class="math inline">\(k\)</span>, hour <span class="math inline">\(l\)</span> and pollutant <span class="math inline">\(m\)</span>. <span class="math inline">\(EFlocal_{j,k,m}\)</span> represents the constant emission factor (not as speed functions). <span class="math inline">\(EF(Vdc_{i,l})_{j,k,m}\)</span> are Copert emission factors with average speed value of the respective driving cycle for the vehicular category <span class="math inline">\(j\)</span>.</p>
+<p>The functions <code>ef_ldv_scaled</code> and <code>ef_hdv</code>_scaled` returns scaled emissions factors automatically. The arguments are:</p>
+<ul>
+<li><code>df</code>: Data-frame with emission factors (Deprecated in 0.3.10).</li>
+<li><code>dfcol</code>: Numeric vector with the emission factors constant by age of use. These emission factors are the target to incorporate peed variation.</li>
+<li><code>SDC</code>: A number with the speed of the driving cycle of the emission factors from the argumetn <code>dfcol</code>. The resulting speed functions will return the same values of dfcol at the speed <code>SDC</code>. The default is 34.12 “km/h”.</li>
+<li><code>v</code>. Category vehicle: “PC”, “LCV”, “Motorcycle” or “Moped”.</li>
+<li><code>t</code>. Character; sub-category of of vehicle: PC: “ECE_1501”, “ECE_1502”, “ECE_1503”, “ECE_1504” , “IMPROVED_CONVENTIONAL”, “OPEN_LOOP”, “ALL”, “2S” or “4S”. LCV: “4S”, Motorcycle: “2S” or “4S”. Moped: “2S” or “4S”. The default is <code>4S</code>.</li>
+<li><code>cc</code>. Character; size of engine in cc: PC: “&lt;=1400”, “&gt;1400”, “1400_2000”, “&gt;2000”, “&lt;=800”, “&lt;=2000”. Motorcycle: “&gt;=50” (for “2S”), “&lt;=250”, “250_750”, “&gt;=750”. Moped: “&lt;=50”. LCV : “&lt;3.5” for gross weight.</li>
+<li><code>f</code>: Character; type of fuel: “G”, “D”, “LPG” or “FH” (Full Hybrid: starts by electric motor).</li>
+<li><code>eu</code>: Character; euro standard: “PRE”, “I”, “II”, “III”, “III+DPF”, “IV”, “V”, “VI” or “VIc”.</li>
+<li><code>p</code>: Character; pollutant: “CO”, “FC”, “NOx”, “HC” or “PM”.</li>
+</ul>
+<p>And the argument of <code>ef_hdv_scaled</code> are:</p>
+</div>
+<div id="cold-starts" class="section level2">
+<h2><span class="header-section-number">5.4</span> Cold Starts</h2>
+<p>Cold start emissions are produced during engine startup, when the engine and/or catalytic converter system has not reached its normal operational temperature. Sev- eral studies have shown the significant impact for these types of emissions <span class="citation">(Chen et al. <a href="#ref-chenetal2011">2011</a>, <span class="citation">Weilenmann, Favez, and Alvarez (<a href="#ref-Weilenmannetal2009">2009</a>)</span>)</span>. Under this condition emissions will be higher, and if the atmospheric temperature decreases, cold start emissions will increase regardless of whether the catalyst has reached its optimum temperature for functioning <span class="citation">(Boulter and Barlow <a href="#ref-artemis">2009</a>)</span>. VEIN also considers cold start emissions using the approach outlined in Copert <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>, as shown in equation <a href="ef.html#eq:cold">(5.3)</a>.</p>
+<span class="math display" id="eq:cold">\[\begin{equation}
+EC_{i,j,k,l,m} =\beta_{j} \cdot F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} \cdot DF_{j.k} \cdot \left(EF_{\mbox{cold}}(ta_n,V_{i,l})_{j,k,m}-1\right)
+\tag{5.3}
+\end{equation}\]</span>
+<p>This approach adds two terms to Eq. . The first term <span class="math inline">\(EF_{cold}(ta_n,V_{i,l})_{j,k,m}-1\)</span> is the emission factors for cold start conditions at each street link <span class="math inline">\(i\)</span>, vehicle category from composition <span class="math inline">\(k\)</span>, hour <span class="math inline">\(l\)</span> and pollutant <span class="math inline">\(m\)</span> and monthly average temperature <span class="math inline">\(n\)</span>. <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span> suggest using monthly average temperature. This is an important aspect that will be reviewed in future versions of VEIN.</p>
+<p>The second term <span class="math inline">\(\beta_j\)</span> is defined as the fraction of mileage driven with a cold engine/catalyst <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. The VEIN model incorporates a dataset of cold starts recorded during the implementation of the International Vehicle Emissions (IVE) model <span class="citation">(Davis et al. <a href="#ref-Davisetal2005">2005</a>)</span> in São Paulo <span class="citation">(Lents et al. <a href="#ref-ivesp">2004</a>)</span>, which provides the hourly mileage driven with cold start conditions.</p>
+<p>The function for cold start emission factors is <code>ef_ldv_cold</code> and their arguments are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(ef_ldv_cold)</code></pre></div>
+<pre><code>## function (v = &quot;LDV&quot;, ta, cc, f, eu, p, k = 1, show.equation = FALSE) 
+## NULL</code></pre>
+<p>where:</p>
+<ul>
+<li><code>v</code>: Category vehicle: “LDV”.</li>
+<li><code>ta</code>: Ambient temperature. Monthly men can be used.</li>
+<li><code>cc</code>: Size of engine in cc: “&lt;=1400”, “1400_2000” or “&gt;2000”.</li>
+<li><code>f</code>: Type of fuel: “G”, “D” or “LPG”.</li>
+<li><code>eu</code>: Euro standard: “PRE”, “I”, “II”, “III”, “IV”, “V”, “VI” or “VIc”.</li>
+<li><code>p</code>: Pollutant: “CO”, “FC”, “NOx”, “HC” or “PM”.</li>
+<li><code>k</code>: Multiplication factor.</li>
+<li><code>show.equation</code>: Option to see or not the equation parameters.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ef1 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">-5</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
+ef2 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">0</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
+ef3 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">5</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
+ef4 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">10</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efcold"></span>
+<img src="veinbook_files/figure-html/efcold-1.svg" alt="Cold Emission factor of PC CO (g/km)" width="80%" />
+<p class="caption">
+Figure 5.5: Cold Emission factor of PC CO (g/km)
+</p>
+</div>
+<p>There is another function called <code>ef_ldv_cold_list</code> which will be deprecated soon.</p>
+</div>
+<div id="det" class="section level2">
+<h2><span class="header-section-number">5.5</span> Deterioration</h2>
+<p>By default, VEIN includes deterioration factors from Copert <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. However, it is possible to include other sources, such as from <span class="citation">(Corvalán and Vargas <a href="#ref-CorvalanVargas2003">2003</a>)</span> or included deteriorated local emission factors. This aspesct is faced in vein with the function <code>emis_det</code>. This function returns deteriorated factors, as numeric vectors, which must be multiplied with the emission factors of vehicles with 0 mileage.</p>
+<p>The arguments of this functions are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(emis_det)</code></pre></div>
+<pre><code>## function (po, cc, eu, km) 
+## NULL</code></pre>
+<p>where:</p>
+<ul>
+<li><code>p</code>: Pollutant.</li>
+<li><code>cc</code>: Size of engine in cc.</li>
+<li><code>eu</code>: Euro standard: “PRE”, “I”, “II”, “III”, “III”, “IV”, “V”, “VI”.</li>
+<li><code>km</code>: mileage in km. VEIN includes a dataset of mileage function named “fkm”.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(fe2015)
+<span class="kw">data</span>(fkm)
+pckma &lt;-<span class="st"> </span><span class="kw">cumsum</span>(fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>)) <span class="co">#only vehicles with catalizer</span>
+x1 &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, ]
+x1E3 &lt;-<span class="st"> </span><span class="kw">subset</span>(x1, x1<span class="op">$</span>Euro_LDV <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;III&quot;</span>, <span class="st">&quot;IV&quot;</span>, <span class="st">&quot;V&quot;</span>))<span class="op">$</span>PC_G
+x1E1 &lt;-<span class="st"> </span><span class="kw">subset</span>(x1, x1<span class="op">$</span>Euro_LDV <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;II&quot;</span>))<span class="op">$</span>PC_G
+det_E3 &lt;-<span class="st"> </span><span class="kw">emis_det</span>(<span class="dt">po =</span> <span class="st">&quot;CO&quot;</span>, <span class="dt">cc =</span> <span class="dv">1000</span>, <span class="dt">eu =</span> <span class="st">&quot;III&quot;</span>,
+                   <span class="dt">km =</span> pckma[<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x1E3)])
+det_E1 &lt;-<span class="st"> </span><span class="kw">emis_det</span>(<span class="dt">po =</span> <span class="st">&quot;CO&quot;</span>, <span class="dt">cc =</span> <span class="dv">1000</span>, <span class="dt">eu =</span> <span class="st">&quot;III&quot;</span>,
+                   <span class="dt">km =</span> pckma[(<span class="kw">length</span>(x1E3) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="dv">23</span> ])
+original_EF &lt;-<span class="st"> </span>x1<span class="op">$</span>PC
+deteriorated_EF &lt;-<span class="st"> </span>x1<span class="op">$</span>PC <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(det_E3, det_E1, <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">13</span>))
+<span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="dt">y =</span> original_EF, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">15</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,
+     <span class="dt">ylab =</span> <span class="st">&quot;CO[g/km]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Age of use&quot;</span>)
+<span class="co">#     main = &quot;Deteriorated (red) and not-deteriorated (blue) EF CO&quot;)</span>
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="dt">y =</span> deteriorated_EF,  <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efDET"></span>
+<img src="veinbook_files/figure-html/efDET-1.svg" alt="Deteriorated (red) and not-deteriorated (blue) EF CO" width="80%" />
+<p class="caption">
+Figure 5.6: Deteriorated (red) and not-deteriorated (blue) EF CO
+</p>
+</div>
+</div>
+<div id="evaporative-emissions-ef_evap" class="section level2">
+<h2><span class="header-section-number">5.6</span> Evaporative emissions <code>ef_evap</code></h2>
+<p>Evaporative emissions are important sources of hydrocarbons and these emissions are produced by vaporization of fuel due to variations in ambient temperatures <span class="citation">(Mellios and Ntziachristos <a href="#ref-MelliosNtziachristos2016">2016</a>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2017">2017</a>)</span>)</span>. There are three types of emissions: <strong>diurnal emissions</strong>, due to increases in atmospheric temperature, which lead to thermal expansion of vapor fuel inside the tank; <strong>running losses</strong>, when the fuel evaporates inside the tank due to normal operation of the vehicle; and <strong>hot soak</strong> emissions, which occur when the hot engine is turned off. These methods implemented in VEIN were sourced from the evaporative emissions methods of Copert Tier 2 <span class="citation">(Mellios and Ntziachristos <a href="#ref-MelliosNtziachristos2016">2016</a>)</span>. VEIN it is also possible to use local emission factors. Here I’m showing both approaches:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Tier 2 copert approach</li>
+</ol>
+<span class="math display" id="eq:ev1">\[\begin{equation}
+EV_{j,k} =\sum_{s}D_{s} \cdot \sum_{j}F_{j} \cdot (HS_{j,k}+de_{j,k}+RL_{j,k}) 
+\tag{5.4}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(EV_{j}\)</span> are the volatile organic compounds (VOC) evaporative emissions due to each type of vehicle <span class="math inline">\(j\)</span>. <span class="math inline">\(D_s\)</span> is the “seasonal days” or number of days when the mean monthly temperature is within a determined range: [-5<span class="math inline">\(^{\circ}\)</span>,10<span class="math inline">\(^{\circ}\)</span>C], [0<span class="math inline">\(^{\circ}\)</span>, 15<span class="math inline">\(^{\circ}\)</span>C], [10<span class="math inline">\(^{\circ}\)</span>, 25<span class="math inline">\(^{\circ}\)</span>C] and [20<span class="math inline">\(^{\circ}\)</span>, 35<span class="math inline">\(^{\circ}\)</span>C]. <span class="math inline">\(F_{j,k}\)</span> is the number of vehicles according to the same type <span class="math inline">\(j\)</span> and age of use <span class="math inline">\(k\)</span>. <span class="math inline">\(HS_{j,k}\)</span>, <span class="math inline">\(de_{j,k}\)</span> and <span class="math inline">\(RL_{j,k}\)</span> are average hot/warm soak, diurnal and running losses evaporative emissions (<span class="math inline">\(\mathrm{g \cdot day^{-1}}\)</span>), respectively, according to the vehicle type <span class="math inline">\(j\)</span> and age of use <span class="math inline">\(k\)</span>. <span class="math inline">\(HS_{j,k}\)</span> and <span class="math inline">\(RL_{j,k}\)</span> are obtained using equations also sourced from <span class="citation">(Mellios and Ntziachristos <a href="#ref-MelliosNtziachristos2016">2016</a>)</span>:</p>
+<span class="math display" id="eq:ev2">\[\begin{equation}
+HS_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{shc}+(1-p) \cdot e_{swc})+(1-c) \cdot e_{shfi} )
+\tag{5.5}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(x\)</span> are the number of trips per day for the vehicular type <span class="math inline">\(j\)</span> and age of use <span class="math inline">\(k\)</span>. <span class="math inline">\(c\)</span> is the fraction of vehicles with fuel return systems. <span class="math inline">\(p\)</span> is the fraction of trips finished with hot engine, for example, an engine that has reached its normal operating temperature and the catalyst has reached its light-off temperature <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. The light-off temperature is the temperature at the point when catalytic reactions occur inside a catalytic converter. <span class="math inline">\(e_{shc}\)</span> and <span class="math inline">\(e_{swc}\)</span> are average hot-soak and warm-soak emission factors for gasoline vehicles with carburettor or fuel return systems (<span class="math inline">\(\mathrm{g \cdot parking^{-1}}\)</span>). <span class="math inline">\(e_{shfi}\)</span> is the average hot-soak emission factors for gasoline vehicles equipped with fuel injection and non-return fuel systems (<span class="math inline">\(\mathrm{g \cdot parking^{-1}}\)</span>). The Eq. <a href="ef.html#eq:ev3">(5.6)</a> shows the procedure.</p>
+<span class="math display" id="eq:ev3">\[\begin{equation}
+RL_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{rhc}+(1-p) \cdot e_{rwc})+(1-c) \cdot e_{rhfi} )
+\tag{5.6}
+\end{equation}\]</span>
+<p><span class="math inline">\(x\)</span> and <span class="math inline">\(p\)</span> have the same meanings of Eq. <a href="ef.html#eq:ev2">(5.5)</a>. <span class="math inline">\(e_{rhc}\)</span> and <span class="math inline">\(e_{rwc}\)</span> are average hot and warm running losses emission factors for gasoline vehicles with carburettor or fuel return systems (<span class="math inline">\(\mathrm{g \cdot trip^{-1}}\)</span>) and <span class="math inline">\(e_{rhfi}\)</span> are average hot running losses emission factors for gasoline vehicles equipped with fuel injection and non-return fuel systems (<span class="math inline">\(\mathrm{g \cdot trip^{-1}}\)</span>). It is recommended to estimate the number of trips per day <span class="citation">(Mellios and Ntziachristos <a href="#ref-MelliosNtziachristos2016">2016</a>)</span>, <span class="math inline">\(x\)</span>, as the division between the mileage and 365 times the length of trip: <span class="math inline">\(x = \frac{mileage_j}{(365 \cdot ltrip)}\)</span>. However, the mileage of a vehicle is not constant throughout the years. Therefore, VEIN incorporates a dataset of equations to estimate mileage of different types of vehicles by age of use <span class="citation">(Bruni and Bales <a href="#ref-BruniBales2013">2013</a>)</span>.</p>
+<p>The function for evaporative emission factors is <code>ef_evap</code> and it arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(ef_evap)</code></pre></div>
+<pre><code>## function (ef, v, cc, dt, ca, k = 1, show = FALSE) 
+## NULL</code></pre>
+<p>where:</p>
+<ul>
+<li><p><code>ef</code>: Name of evaporative emission factor as <em>eshotc</em> (<span class="math inline">\(g \cdot proced^-1\)</span>): mean hot-soak with carburator, <em>eswarmc</em> (<span class="math inline">\(g \cdot proced^-1\)</span>): mean cold and warm-soak with carburator, eshotfi: mean hot-soak with fuel injection, <em>erhotc</em> (<span class="math inline">\(g \cdot trip^-1\)</span>): mean hot running losses with carburator, <em>erwarmc</em> (<span class="math inline">\(g \cdot trip^-1\)</span>) mean cold and warm running losses, <em>erhotfi</em> (<span class="math inline">\(g \cdot trip^-1\)</span>) mean hot running losses with fuel injection.</p></li>
+<li><code>v</code>: Type of vehicles, “PC”, “Motorcycles”, “Motorcycles_2S” and “Moped”</li>
+<li><code>cc</code>: Size of engine in cc. PC “&lt;=1400”, “1400_2000” and “2000” Motorcycles_2S: “&lt;=50”. Motorcyces: “&gt;50”, “&lt;250”, “250_750” and “&gt;750”</li>
+<li><code>dt</code>: Average daily temperature variation: “-5_10”, “0_15”, “10_25” and “20_35”</li>
+<li><code>ca</code>: Size of canister: “no” meaning no canister, “small”, “medium” and “large”</li>
+<li><code>k</code>: multiplication factor</li>
+<li><p><code>show</code>: when TRUE shows row of table with respective emission factor.</p></li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(cptcity)
+dt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;-5_10&quot;</span>, <span class="st">&quot;0_15&quot;</span>, <span class="st">&quot;10_25&quot;</span>, <span class="st">&quot;20_35&quot;</span>)
+ef &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(i){
+  <span class="kw">ef_evap</span>(<span class="dt">ef =</span> <span class="st">&quot;erhotc&quot;</span>,<span class="dt">v =</span> <span class="st">&quot;PC&quot;</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>,
+                <span class="dt">dt =</span> dt[i], <span class="dt">ca =</span> <span class="st">&quot;no&quot;</span>,
+                <span class="dt">show =</span> <span class="ot">TRUE</span>)
+})</code></pre></div>
+<pre><code>##        ef  units veh     cc    dt canister    g
+## 28 erhotc g/trip  PC &lt;=1400 -5_10       no 1.67
+##        ef  units veh     cc   dt canister    g
+## 21 erhotc g/trip  PC &lt;=1400 0_15       no 2.39
+##        ef  units veh     cc    dt canister    g
+## 14 erhotc g/trip  PC &lt;=1400 10_25       no 3.25
+##       ef  units veh     cc    dt canister    g
+## 7 erhotc g/trip  PC &lt;=1400 20_35       no 5.42</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ef =</span> ef, <span class="dt">temp =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>))
+<span class="kw">source</span>(<span class="st">&quot;theme_black.R&quot;</span>)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> temp, <span class="dt">y =</span> ef)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">fill =</span> <span class="kw">cpt</span>(<span class="dt">n =</span> <span class="dv">4</span>), <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Temperature[C]&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;RL Evaporative NMHC [g/trip]&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_black</span>()</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:rlevap"></span>
+<img src="veinbook_files/figure-html/rlevap-1.svg" alt="Running losses evaporative emission actors (g/trip)" width="100%" />
+<p class="caption">
+Figure 5.7: Running losses evaporative emission actors (g/trip)
+</p>
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Alternative approach</li>
+</ol>
+<p>The evaporative emission factors mentioned before are suitable for top-down estimations. That approach also requires knowledge of the ‘procedure’ and ‘trips’. In this section it is introduced an alternative which consists in transform the emission factors into <span class="math inline">\(g \cdot km^-1\)</span> and then do a bottom-up estimation.</p>
+<p>In order to do that, we need to follows assumptions. First, we consider that the number of procedures is equal to trips. Then estimates how many trips per day are produced each day and then estiamtes how many kilometers are driven each day and convert th emission factors as shown on Eq. <a href="ef.html#eq:efev2">(5.7)</a>.</p>
+<span class="math display" id="eq:efev2">\[\begin{equation}
+EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot B(\frac{km}{day})^{-1}
+\tag{5.7}
+\end{equation}\]</span>
+<p>Clearly, we need to know A <span class="math inline">\((\frac{trips}{day})\)</span> and B<span class="math inline">\((\frac{km}{day})^{-1}\)</span>. Diurnal evaporative emissions factors are expressed as <span class="math inline">\((\frac{g}{day})\)</span>. To conbvert to <span class="math inline">\((\frac{g}{km})\)</span> we only need the kilometers driven each day <span class="math inline">\(\frac{km}{day}^{-1}\)</span>.</p>
+<p>Now, it will be shown an example with the evaporative emission factors from <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>. These emission factors are based on the methodology Tier 2 from -@<span class="citation">Mellios and Ntziachristos (<a href="#ref-MelliosNtziachristos2016">2016</a>)</span>. If we consider evaporative emission factors of Passenger Cars using Gasoline (blended with 25% of Ethanol) <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span> and 4.6 <span class="math inline">\((\frac{trips}{day})\)</span> <span class="citation">(Ibarra-Espinosa <a href="#ref-ibarrathesis">2017</a>)</span>.</p>
+<pre><code>##   year ed_20_35 eshot_20_35 erhot_20_35
+## 1 2015     0.06        0.09        0.03
+## 2 2014     0.10        0.10        0.04
+## 3 2013     0.12        0.13        0.05
+## 4 2012     0.19        0.16        0.06
+## 5 2011     0.19        0.17        0.14
+## 6 2010     0.08        0.08        0.06</code></pre>
+<p>The variable ed_20_35 are diurnal evaporative emission factors in <span class="math inline">\(g \cdot day^{-1}\)</span> and eshot_20_35 and erhot_20_35 <span class="math inline">\(g \cdot trip^{-1}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">data</span>(fkm)
+evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span> <span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span> <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>  <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+<span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, 
+     <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>,
+     <span class="dt">xlab =</span> <span class="st">&quot;Age of use&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;EV NMHC [g/km]&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, 
+      <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">15</span>)
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>, 
+      <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">17</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:efEVAP"></span>
+<img src="veinbook_files/figure-html/efEVAP-1.svg" alt="Hot Soak (blue), Diurnal (green) and Running Losses (red) EF (g/km)" width="100%" />
+<p class="caption">
+Figure 5.8: Hot Soak (blue), Diurnal (green) and Running Losses (red) EF (g/km)
+</p>
+</div>
+</div>
+<div id="emission-factors-of-wear-ef_wear" class="section level2">
+<h2><span class="header-section-number">5.7</span> Emission factors of wear <code>ef_wear</code></h2>
+<p>Wear emissions are very important because they contribute with an important fraction of PM from tyre and break wear. VEIN includes these functions from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span> which incudewear emissions factors form tyre, break and road abrassion.</p>
+<p>The arguments are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(ef_wear)</code></pre></div>
+<pre><code>## function (wear, type, pol = &quot;TSP&quot;, speed, load = 0.5, axle = 2) 
+## NULL</code></pre>
+<ul>
+<li><code>wear</code>: Character; type of wear: “tyre”, “break” and “road” type: Character; type of vehicle: “2W”, “PC”, “LCV”, ’HDV&quot;</li>
+<li><code>pol</code>: Character; pollutant: “TSP”, “PM10”, “PM2.5”, “PM1” and “PM0.1”</li>
+<li><code>speed</code>: List of speeds</li>
+<li><code>load</code>: Load of the HDV</li>
+<li><code>axle</code>: Number of axle of the HDV</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+?ef_wear</code></pre></div>
+</div>
+<div id="emission-factors-from-tunnel-studies" class="section level2">
+<h2><span class="header-section-number">5.8</span> Emission factors from tunnel studies</h2>
+<p>With VEIN you can choose three type of emissions factors, speed functions, local emission factors or scaled factors. In this section i will show how to expand the use of local emission factors considering tunnel emission factors <span class="citation">(Pérez-Martinez et al. <a href="#ref-perez2014emission">2014</a>)</span>, from the International Vehicle Emissions (IVE) Model <span class="citation">(Davis et al. <a href="#ref-Davisetal2005">2005</a>)</span> applied in Colombia <span class="citation">(González et al. <a href="#ref-gonzalez2017relative">2017</a>)</span>.</p>
+<p><span class="citation">Pérez-Martinez et al. (<a href="#ref-perez2014emission">2014</a>)</span> measured air pollutant concentrations in two tunnels in São Paulo city, one with predominant use of LDV vehicles and another with more HDV. The resulting emission factors for the fleet are shown on Table <a href="ef.html#tab:eftun">5.2</a>.</p>
+<table>
+<caption><span id="tab:eftun">Table 5.2: </span>Emission factors from tunnels in São Paulo 2014</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">CO</th>
+<th align="right">NOx</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LDV</td>
+<td align="right">5.8 g/km</td>
+<td align="right">0.3 g/km</td>
+</tr>
+<tr class="even">
+<td>HDV</td>
+<td align="right">3.6 g/km</td>
+<td align="right">9.2 g/km</td>
+</tr>
+</tbody>
+</table>
+<p>If we want to compare with the <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span> emission factors, we would have to weight these factors with the fleet. The weight mean emission factor of CO and Passenger Cars (PC) is 1.40 <span class="math inline">\(g \cdot km^{-1}\)</span> and for Light Trucks (LT) is 0.60 <span class="math inline">\(g \cdot km^{-1}\)</span>. In the case of NOx, Passenger Cars (PC) is 0.16 <span class="math inline">\(g \cdot km^{-1}\)</span> and for Light Trucks (LT) is 3.24 <span class="math inline">\(g \cdot km^{-1}\)</span>. The emission factors from the example are for vehicles with 0 kilometers without deterioration. Anyways, tunnel emission factors are higher that the weighted emission factors from CETESB.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">data</span>(fe2015)
+fecoPC &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;PC_G&quot;</span>]
+fecoLT &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;LT&quot;</span>]
+fenoxPC &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;NOx&quot;</span>, <span class="st">&quot;PC_G&quot;</span>]
+fenoxLT &lt;-<span class="st"> </span>fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;NOx&quot;</span>, <span class="st">&quot;LT&quot;</span>]
+PC &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">name =</span> <span class="st">&quot;PC&quot;</span>, <span class="dt">agemax =</span> <span class="dv">36</span>, <span class="dt">message =</span> <span class="ot">FALSE</span>)
+LT &lt;-<span class="st"> </span><span class="kw">age_hdv</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">name =</span> <span class="st">&quot;LT&quot;</span>, <span class="dt">agemax =</span> <span class="dv">36</span>, <span class="dt">message =</span> <span class="ot">FALSE</span>)
+<span class="kw">weighted.mean</span>(fecoPC, PC)  <span class="co"># PC CO</span></code></pre></div>
+<pre><code>## [1] 1.40355</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">weighted.mean</span>(fecoLT, LT)  <span class="co"># LT CO</span></code></pre></div>
+<pre><code>## [1] 0.5971173</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">weighted.mean</span>(fenoxPC, PC) <span class="co"># PC NOx </span></code></pre></div>
+<pre><code>## [1] 0.1699646</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">weighted.mean</span>(fenoxLT, LT) <span class="co"># LT NOx</span></code></pre></div>
+<pre><code>## [1] 3.241522</code></pre>
+<p>If the user want to use tunnel emission factors from <span class="citation">Pérez-Martinez et al. (<a href="#ref-perez2014emission">2014</a>)</span> in VEIN, the user would have to use the same value for all respective categories of the vehicular composition. For instance, after running <code>inventory</code>, include tunnel emission factors in each <code>*input.R</code>.</p>
+</div>
+<div id="emission-factors-from-international-vehicle-emissions-ive" class="section level2">
+<h2><span class="header-section-number">5.9</span> Emission factors from International Vehicle Emissions (IVE)</h2>
+<p>The IVE models applies the vehicle specific power (VSP) methodology to predict emissions <span class="citation">(Jimenez et al. <a href="#ref-jimenez1999vehicle">1999</a>)</span>. The formlula is shown on Eq. <a href="ef.html#eq:vsp">(5.8)</a>.</p>
+<span class="math display" id="eq:vsp">\[\begin{equation}
+VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
+\tag{5.8}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(v\)</span> is velocity <span class="math inline">\((m \cdot s^{-1})\)</span>, <span class="math inline">\(a\)</span> is the second by second acceleration <span class="math inline">\((m \cdot s^{-2})\)</span> and grade the second by second change in height defined as <span class="math inline">\(\frac{(h_{t=0} - h_{t=-1})}{v}\)</span>; being <span class="math inline">\(h\)</span> as altitude <span class="math inline">\(m\)</span>. This method requires that the user measures the activity Global Position System (GPS) recordings second by second and/or emissions measurements with Portable Emissions Measurement Systems (PEMS).</p>
+<p><span class="citation">González et al. (<a href="#ref-gonzalez2017relative">2017</a>)</span> measure the vehicular activity in the city of Manizales, Colombia. In htis case, there were not PEMS measurements, but IVE allows to produce emission factors from the GPS recordings based on Mobile EPA emissions model<span class="citation">(Arbor <a href="#ref-arbor2003user">2003</a>, <span class="citation">Davis et al. (<a href="#ref-Davisetal2005">2005</a>)</span>)</span>.</p>
+<p>The resulting emission factors varies for each type of vehicle and includes several pollutants. If the user wants to use IVE emission factors in vein would have to add them in each <code>*input.R</code>, after running <code>inventory</code>.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-pulles2010art">
+<p>Pulles, Tim, and Dick Heslinga. 2010. “The Art of Emission Inventorying.” <em>TNO, Utrecht</em>.</p>
+</div>
+<div id="ref-trlef">
+<p>P, Boulter, Barlow T, Latham S, and McCrae I. 2009. “Emission Factors 2009 Report 1. a Review of Methods for Determining Hot Exhaust Emission Factors for Road Vehicles.” Transport Research Lalboratory.</p>
+</div>
+<div id="ref-tim">
+<p>Barlow. 2009. “A Reference Book of Driving Cycles for Use in the Measurement of Road Vehicle Emissions.” Transport Research Lalboratory.</p>
+</div>
+<div id="ref-artemis">
+<p>Boulter, and Barlow. 2009. “ARTEMIS: Assessment and Reliability of Transport Emission Models and Inventory Systems Final Report.” Transport Research Lalboratory.</p>
+</div>
+<div id="ref-jimenez1999vehicle">
+<p>Jimenez, Jose L, Peter McClintock, GJ McRae, David D Nelson, and Mark S Zahniser. 1999. “Vehicle Specific Power: A Useful Parameter for Remote Sensing and Emission Studies.” In <em>Ninth Crc on-Road Vehicle Emissions Workshop, San Diego, ca</em>.</p>
+</div>
+<div id="ref-koupal2003design">
+<p>Koupal, John, Mitch Cumberworth, Harvey Michaels, Megan Beardsley, and David Brzezinski. 2003. “Design and Implementation of Moves: EPA‘s New Generation Mobile Source Emission Model.” <em>Ann Arbor</em> 1001: 48105.</p>
+</div>
+<div id="ref-Davisetal2005">
+<p>Davis, Nicole, James Lents, Mauricio Osses, Nick Nikkila, and Matthew Barth. 2005. “Part 3: Developing Countries: Development and Application of an International Vehicle Emissions Model.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 8 (1939). Transportation Research Board of the National Academies: 155–65.</p>
+</div>
+<div id="ref-Corvalanetal2002">
+<p>Corvalán, Roberto M, Mauricio Osses, and Cristian M Urrutia. 2002. “Hot Emission Model for Mobile Sources: Application to the Metropolitan Region of the City of Santiago, Chile.” <em>Journal of the Air &amp; Waste Management Association</em> 52 (2). Taylor &amp; Francis: 167–74.</p>
+</div>
+<div id="ref-ntziachristos2000speed">
+<p>Ntziachristos, Leonidas, and Zissis Samaras. 2000. “Speed-Dependent Representative Emission Factors for Catalyst Passenger Cars and Influencing Parameters.” <em>Atmospheric Environment</em> 34 (27). Elsevier: 4611–9.</p>
+</div>
+<div id="ref-NtziachristosSamaras2016">
+<p>Ntziachristos, L, and Z Samaras. 2016. “EMEP/Eea Emission Inventory Guidebook; Road Transport: Passenger Cars, Light Commercial Trucks, Heavy-Duty Vehicles Including Buses and Motorcycles.” <em>European Environment Agency, Copenhagen</em>.</p>
+</div>
+<div id="ref-CorvalanVargas2003">
+<p>Corvalán, Roberto M, and David Vargas. 2003. “Experimental Analysis of Emission Deterioration Factors for Light Duty Catalytic Vehicles Case Study: Santiago, Chile.” <em>Transportation Research Part D: Transport and Environment</em> 8 (4). Elsevier: 315–22.</p>
+</div>
+<div id="ref-CETESB2015">
+<p>CETESB. 2015. “Emissões Veiculares No Estado de São Paulo 2014.”</p>
+</div>
+<div id="ref-ggplot2">
+<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer New York. <a href="http://had.co.nz/ggplot2/book" class="uri">http://had.co.nz/ggplot2/book</a>.</p>
+</div>
+<div id="ref-ibarrathesis">
+<p>Ibarra-Espinosa, Sergio. 2017. “Air Pollution Modeling in São Paulo Using Bottom-up Vehicular Emissions Inventories.” PhD thesis, University of São Paulo.</p>
+</div>
+<div id="ref-chenetal2011">
+<p>Chen, Rong-Horng, Li-Bin Chiang, Chung-Nan Chen, and Ta-Hui Lin. 2011. “Cold-Start Emissions of an Si Engine Using Ethanol–Gasoline Blended Fuel.” <em>Applied Thermal Engineering</em> 31 (8). Elsevier: 1463–7.</p>
+</div>
+<div id="ref-Weilenmannetal2009">
+<p>Weilenmann, Martin, Jean-Yves Favez, and Robert Alvarez. 2009. “Cold-Start Emissions of Modern Passenger Cars at Different Low Ambient Temperatures and Their Evolution over Vehicle Legislation Categories.” <em>Atmospheric Environment</em> 43 (15). Elsevier: 2419–29.</p>
+</div>
+<div id="ref-ivesp">
+<p>Lents, James, Nicole Davis, Nick Nikkila, and Mauricio Osses. 2004. “São Paulo Vehicle Activity Study.” 605 South Palm Street, Suite C, La Habra, CA 90631, USA: International Sustainable System Research Center.</p>
+</div>
+<div id="ref-MelliosNtziachristos2016">
+<p>Mellios, G, and L Ntziachristos. 2016. “EMEP/Eea Emission Inventory Guidebook; Gasoline Evaporation from Vehicles.” European Environment Agency, Copenhagen.</p>
+</div>
+<div id="ref-Andradeetal2017">
+<p>Andrade, Maria de Fatima, Prashant Kumar, Edmilson Dias de Freitas, Rita Yuri Ynoue, Jorge Martins, Leila D Martins, Thiago Nogueira, et al. 2017. “Air Quality in the Megacity of São Paulo: Evolution over the Last 30 Years and Future Perspectives.” <em>Atmospheric Environment</em> 159. Elsevier: 66–82. doi:<a href="https://doi.org/https://doi.org/10.1016/j.atmosenv.2017.03.051">https://doi.org/10.1016/j.atmosenv.2017.03.051</a>.</p>
+</div>
+<div id="ref-BruniBales2013">
+<p>Bruni, Antonio De Castro, and Marcelo Pereira Bales. 2013. “Curvas de Intensidade de Uso Por Tipo de Veículo Automotor Da Frota Da Cidade de São Paulo.” CETESB.</p>
+</div>
+<div id="ref-NtziachristosBoulter2009">
+<p>Ntziachristos, L, and P Boulter. 2009. “EMEP/Eea Emission Inventory Guidebook; Road Transport: Automobile Tyre and Break Wear and Road Abrasion.” <em>European Environment Agency, Copenhagen</em>.</p>
+</div>
+<div id="ref-perez2014emission">
+<p>Pérez-Martinez, PJ, RM Miranda, T Nogueira, ML Guardani, A Fornaro, R Ynoue, and MF Andrade. 2014. “Emission Factors of Air Pollutants from Vehicles Measured Inside Road Tunnels in S  ao Paulo: Case Study Comparison.” <em>Int. J. Environ. Sci. Te.</em> 11 (8). Springer: 2155–68.</p>
+</div>
+<div id="ref-gonzalez2017relative">
+<p>González, CM, CD Gómez, NY Rojas, H Acevedo, and BH Aristizábal. 2017. “Relative Impact of on-Road Vehicular and Point-Source Industrial Emissions of Air Pollutants in a Medium-Sized Andean City.” <em>Atmospheric Environment</em> 152. Elsevier: 279–89.</p>
+</div>
+<div id="ref-arbor2003user">
+<p>Arbor, A. 2003. “User’s Guide to Mobile 6.1 and Mobile 6.2.” <em>Assessment and Standard Division, Office of Transportation and Air Quality, USEPA, Mich</em>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="traffic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="est.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/master/inst/examples/05-ef.Rmd",
+"text": "Edit"
+},
+"download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

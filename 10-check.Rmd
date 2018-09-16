@@ -1,0 +1,410 @@
+# Quality check and errors {#check}
+
+This last chapter of this book presents to aspestcs fthat must be considered
+for any practicioner interested in developing emissions inventories. The first
+part covers a summary of the EMEP/EEA air pollutant emission inventory 
+guidebook 2016, Technical guidance to prepare national emission inventories
+[@guia], based on the Intergovernmental Panel on Climate Change (IPCC)
+2006 Good Practice Guidance [@change20062006. The second part consists in 
+advices and specific considerations for avoinding errors when runnign VEIN in 
+each part of the inventory.
+
+## Guidance from EMEP/EEA air pollutant emission inventory guidebook
+
+I believe that this part of this capter delivers knowledge that you really
+will gain with experience. But even with experience you can get lost, and 
+returning to this part would save you. This part is based on the EMEP/EEA air 
+pollutant emission inventory guidebook [@guia].
+
+
+### Key categories
+
+Key categories are the most important  **source** categories. This section is based
+on the chapter Key category analysis and methodological choice [@guiak] of the 
+EMEP/EEA air pollutant emission  inventory guidebook 2013. They are important 
+because they are responsabile for most of pollution in a determined region.
+For instance, it has been described that vehicles are the most important
+source of pollution in mega-cities [@molina2004megacities]. Evenmore, in the 
+case of São Paulo, the official emissions inventory informs that vehicles are
+responsabiel for mor than `r round(100*162.90/167.08)` \% of $CO$,
+`r round(100*34.82/44.1)` \% of $HC$, `r round(100*54.33/80.43)` \% of $NO_X$,
+and only `r round(100*1.48/5.05)` \% of $PM$ and `r round(100*1.56/7.15)` \% of
+$SO_X$ [@CETESB2015]. This shown another characteristics of key categories:
+they depend of specific pollutants.
+
+For another example, consider a city which suffers cold weather with use
+bio-mass burning for cooking and heating. The main source of $PM_{2.5}$ will
+be certainly bio-mass burning.
+
+Now consider an industrial region with industrial process that emit too much
+$SO_X$. The key-cateogries might be industrial sources.
+
+And one more example, consider a huge mega-city with electric mobility. However,
+the main source of electricity are thermoelectric based on carbon (the key).
+
+This implies that it should be a nomemclature for categorizing and naming sources.
+IPCC, has a nomenclature for instance.
+
+The ideia behind key categories, is that most efforts must be applied in this
+categories, obtainging the highest level of detail with less uncertainty. Hence,
+the emissions guidelines [@guia] proposes three levels of complexity estimation
+methods, known as Tier Methods. The complexity increases from level 1, 2 and 3.
+The VEIN tier is 3, which is that the most complex function of vehicular
+emissions estimations are incporated, with the exception of evaporative.
+I need to improve that part.
+
+- Tier 1: a simpler method which include available activity and emissions factors.
+- Tier 2: Similar to Tier 1, but includes more specific emission factors.
+- Tier 3: Most complex methodologies with higher level of detail, temporal
+and spatial.
+
+### Uncertainty
+
+This is a very important part in any emissions inventory and a dedicated chapter
+or section should be made in any report/paper. This section is based on the 
+chapter Uncertainties [@guiau] of the EMEP/EEA air pollutant emission inventory
+guidebook 2013.The 2006 IPCC Guidelines chapter states that estimating the 
+uncertainty of an inventory is needed [@change20062006].
+
+It is recommended to use 95% confidence interval. This means that:
+
+- there is a  95% of probability that the actual value of the quantity estimates
+is within the interval defined by the confidence interval.
+- The probability of the actual value will be outside the range it is 5%.
+
+The general form for estimating emissions was shown on Eq. \@ref(eq:efGERAL) [@guiau].
+This equation will be the base for calculating the uncertainty. This section
+is applied when measurements are made, for the case of activity or emission
+factors. In those case, it is possible calculate the required confiden intervals.
+
+#### Default uncertainty ranges
+
+_Activity data_
+
+The following table is taking directly form -@guia and propose indicative
+ranges that could be applies in cases where no independed data are available.
+
+- National official statistics: - .
+- Update of last year's statistics using Gross Economic Growth factors: 0 - 2%.
+- International Energy Agency (IEA) statistics: OECD: 2 - 3%, non-OECD 5-10%.
+- United Nation data bases: 5 - 10%.
+- Default values, other sources: 30 - 100%.
+
+_Emission factors_
+
+The following table is taking directly form -@guia and propose rating definitions
+for emission factors[@guia].
+
+- A: An estimate based on a large number of measurements made at a large number of facilities that fully represent the sector. Error: 10 o 30%.
+- B: An estimate based on a large number of measurements made at a large number of facilities that represent a large part of the sector. Error: 20 to 60%
+- C: An estimate based on a number of measurements made at a small number of representative facilities, or an engineering judgement based on a number of relevant facts. Error: 50 to 200%.
+- D: An estimate based on single measurements, or an engineering calculation derived from a number of relevant facts. Error: 100 to 300%.
+- E: An estimate based on an engineering calculation derived from assumptions only. Error: Order of magnitude.
+
+In -@guia appears ratings for road transport emission factors that diffier from the
+ratings that appear in -@NtziachristosSamaras2016. To preserve consistenty in this book,
+here is presented the precision indicators, Table 4-1 of -@NtziachristosSamaras2016 report.
+
+```{r precision, echo = FALSE}
+df <- data.frame(
+  Category = c("PC G w/o Catalyst",
+               "PC G w Catalyst",
+               "PC D",
+               "PC LPG",
+               "PC LPG w/o Catalyst",
+               "PC LPG w Catalyst",
+               "PC 2 strokes",
+               "LCV G",
+               "LCV D",
+               "HDV G",
+               "HDV D",
+               "MC cc <50",
+               "MC cc > 50 2 strokes",
+               "MC cc > 50 4 strokes",
+               "Cold-start PC G Pre Euro",
+               "Cold-start PC G Euros",
+               "Cold-start PC D Pre Euro",
+               "Cold-start PC D Euros",
+               "Cold-start PC LPG",
+               "Cold-start LCV G",
+               "Cold-start LCV F"),
+  NOx = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  CO = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  NMHC = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  CH4 = c(rep("A", 3),"-", "A", "D", "D", "C","C", "C", "D",rep("B", 3), "-", "A", "-", "A", rep("-", 3)),
+  PM = c(rep("-", 2), "A", "-", "D", "D", "-", "-", "A", "-", "A", rep("-", 5), "C", "A", "-", "-", "D"),
+  N2O = c("C","A","B","-", "C","D", "D", "B", "B", "D", rep("B", 4), rep("-", 7)),
+  NH3 = c("C","A","B", "-", "C", rep("D", 2), rep("B", 2), "D", rep("B", 4), rep("-", 7)),
+  CO2 = c(rep("A", 6), "B", rep("A", 2), "D", rep("A", 4), "B", "A", "B", "A", "B", rep("D", 2))
+)
+knitr::kable(df, caption = "Precision indicators (Ntziachristos and Samaras 2016)")
+```
+
+Uncertainties can be aggregated with two approaches
+
+- _Rule A_: uncertainties are combined by _addition_, as shown in Eq. \@ref(eq:sumun):
+
+\begin{equation}
+U_{total}=\frac{\sqrt{\sum_{i = 1}^{n}(U_i \cdot x_i )^2}}{\sum_{i = 1}^{n}}
+(\#eq:sumun)
+\end{equation}
+
+Where, $x$ are the quantities, $U_i$ are the uncertain quantities and the percentage 
+uncertainties (half the 95% confidence interval) associated with them, respectivly.
+$U_{total}$ is the percentage uncertinti in the sum of the quantites (half the
+95% confidence interval divided by the total (i.e. mean) and expressed as
+percentage).
+
+- _Rule B_: uncertainties are combined by _multiplication_, as shown on Eq. \@ref(eq:sumul):
+
+\begin{equation}
+U_{total}=\sqrt{\sum_{i = 1}^{n}(U_i)^2} 
+(\#eq:sumul)
+\end{equation}
+
+Where, $U_i$ are the percentage quantities (hal the 95% confidence interval) 
+associated with each of the quantities. $U_{total}$ is the percentage in the
+product of the quantities (half the 95% confidence interval divided by the total
+and expressed as percentage).
+
+Alternatively, a Monte Carlo simulation can be done.
+
+### Quality Assurance and Quality Check
+
+This section is mostly based on the chapter Inventory management, improvement and 
+QA/QC [@guiaqa] of the EMEP/EEA air pollutant emission inventory  guidebook 2013.
+
+According to Wikipedia:
+
+- **Quality assurance (QA)** is a way of preventing mistakes and defects 
+in manufactured products and avoiding problems when delivering solutions or 
+services to customers [@wiki:qa].
+- **Quality control (QC)** is a process by which entities review the quality of 
+all factors involved in production [@wiki:qc].
+
+The main reference in QA/QC are the International Organization for 
+Standardization ISO 9000 [@wiki:iso].
+
+The idea is to avoid errors in the development of the inventory. Hence, it is 
+very important that the objective of the inventory, frequency and spatial
+and temporal resolution must be very clear. As mentioned before, the inventory
+can have a purpose of policy application or scientific. In any case, the QAQC 
+procedures should be explicitly stated covering five data quality objectives
+**transparency**, **consistency**, **comparability**, **completeness** and **acccuracy**. 
+
+This means that another researcher/practicioner should be able to reproduce the results.
+However, this is not always the case. Evenmore, it has been shown that there 
+are currently a crisis of reproducibility in science, where 'more than 70% of 
+researchers have tried and failed to reproduce another scientist's experiments,
+and more than half have failed to reproduce their own experiments' [@baker2016there]. 
+I believe that emissions inventories should guarantee the reproducibility of results,
+in scientific and policy application inventories.
+
+### Inventory managment cycle
+
+Another important aspect is the inventory managment cycle. The inventory manager
+is responsabile for institutional arrangments, meet deadlines and for the inventory managment cycle. The inventory complier gets the data and estimate the emissions
+with the respective Tier. 
+
+The cycle is: 
+
+1. Priorization of improvements: As the resources are limited, priorization must
+be given to key categories.
+2. Data-collection: It is important to stablish formal agreements needs with
+data providers using protocols. The protocols must cleary show the data needed,
+its format, content and dates of delivery.
+3. Inventory compilation. The inventory compiler estimate the emissions.
+4. Consolidation. The inventory manager consolidates all the emissions ensuring
+quality in data and methods for estimating emissions.
+5. Data Quality Review. 
+6. Reporting. 
+7. Lessons learned and improvement review.
+8. Inventory Managment Report.
+9. Quality Assurance and Quality Control Plan.
+
+
+## Avoiding errors with VEIN
+
+The first part of this chapter covered some fundamental aspects in emissions
+inventory managment for quality assurance and quality control. This part
+covers typical erros that I've faced using VEIN and I hope it help users
+how to avoid them.
+
+Currently, VEIN does not have grafical user interface (GUI) and runs on R [@R],
+which  can be intimidating for new users. Also, even experienced users can do
+mistakes. If you find a mistake, write it down to abooid it in future. Be organized.
+I recommend to code your inventory keeping in mind that you will have to check your
+scripts in the future, so it would be nice if in the first try your code looks
+nice. And also, don't panic.
+
+### Traffic flow
+
+One of the first inputs of it is the traffic flow data. You must have an agreement
+with data providers to get the data. Also, the compiler must understand the format of 
+the data. In my experience, data providers comes from government agencies with limitated
+resources and few time. This means that, if there is not a formal agreement, they
+won't speed too much time for processing their data to meet your needs (because it
+is not part of their jobs). And even, if there was a formal agreement, the data
+processing must be done by the data compiler.
+
+The data provided in this book covers a travel demand output for Metropolitan
+Are ofSão Paulo (MASP) made by the Traffic Company Engineering of São Paulo, for the 
+year 2012. The has the same content inside VEIN package, with the exception
+that covers the whole MASP. The data originally is in format MAPINFO. Therefore,
+the package **sf** must be used to read the data.
+
+```{r eval = FALSE}
+library(sf)
+net <- st_read("data/masp.TAB")
+```
+
+The section \@ref(#traffic) shows details about this data. 
+
+- Have a meeting with data delivers to check and solve any doubt regarding 
+the data.
+- Check if your data is projected or not. The data probably will be projected
+with a UTM zone, for instance code 31983 http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-23s/. VEIN imports
+functions from `sf` and `lwgeom` which depend on GEOS libraries. This means that
+VEIN can work with data projected or not. Nevertheless, I suggest to work
+with projected data for your location.
+- Ensure that the data is correctly read and that there are no objects of class 
+`factor` in the columns.
+- Make sure that of what are the units of the traffic flow and remember that
+most of VEIN functions are designed to work with hourly traffic flow.
+- Plot the data. Check if the data looks fine or have some mistakes.
+- Calculate the length of each road. Make proper transformations and **make sure**
+**that resulting length of road as `units` km**. I suggest to use the name lkm. 
+This can be easily done with in R with packages `sf` and `units` installed. 
+Let's say that your data is named _net_ and your data is already projected. Also,
+that your traffic flow is named _ldv_ for light duty vehicles and _hdv_ for heavy
+duty vehicles.
+
+```{r eval = FALSE}
+plot(net["ldv"], axes = T)
+plot(net["hdv"], axes = T)
+net$lkm <- sf::st_length(net) #returns distance in meters
+net$$lkm <- units::set_units(net$lkm, km) #transform meters in km
+```
+
+Despite that this transformation can be done by dividing lkm by 1000, this would
+be wrong because the `units` wouldn't change and they must be `km`. Hence, using
+the functions of the `units` package is the recommended way.
+
+### Vehicular composition
+
+The vehicular composition is a critical part in the emissions inventories for
+vehicles. It consists in the percentage of each type of vehicle and technology.
+Despite that it seems pretty straightforward, making a mistake in this part
+of the emissions inventories would cost lots of time. **Developing an**
+**emissions inventory is a complex task, you must take great care in simple**
+**calculations, because if the resutls are not consistent, it can take LOTS**
+**of time, to find the error, usually when the dealines are dead**.
+
+The function `inventory` needs the vehicular composition to create the respective
+directories to run VEIN. I have the feeling that most of model users like 
+structured models with clear input and outputs. VEIN is not like that, and this
+is in part due to the nature of the emissions inventories. I could  design a 
+model that works perfectly with one type of input, but in real life, a desired
+input is not always easy to get. For instance, the traffic simulation used inside
+the model is not easy to get, even in cities of developed countries. Hence,
+the inventory compiler must struggle to do their job. Therefore, VEIN was
+designed with flexibility and verstility on mind.
+
+Anyways, the vehicular composition are the number of each type the following 
+vehicles: PC, LCV, HGB, BUS, MC. Then, each sub category will be divided
+by type of age of use. For instance, the vehicular emissions inventory for
+São Paulo State considers 4 type of vehicles:
+
+- Particulate Cars using gasohol (Gasoline with 25% of ethanol, PC_25).
+- Particulate Cars Flex using gasohol (Gasoline with 25% of ethanol, PC_F25).
+- Particulate Cars Flex using ethanol (Gasoline with 25% of ethanol, PC_FE100).
+- Particulate Cars using ethanol (Gasoline with 25% of ethanol, PC_E100).
+
+This means that the number of PC is 4.
+
+Then each of this vehicles is divided by age of use. As consecuence, we must
+know when each of these vehicle entered and went out of the market. Again,
+for São Paulo conditions, Flex engines entered into market in 2003 and nowadays
+must of new cars are flex. Vehicles with engines designed for burning ethanol
+had a peak in early 80s, but they went of the market in 2006. Gasoline vehicles
+have been in circulation from the beginning and CETESB inventory considers a
+life span of 40 years of use.
+
+The same analyses must be done with each of the vehicle categories.
+
+The distribution by age of use indirectly shows the technology associated with
+emission standards by age of use.
+
+
+<!-- A few days ago, I was developing an inventory in which my team was evaluating -->
+<!-- the impact in air quality of a new type of fuel on the city of São Paulo. The -->
+<!-- results were consistens comparison base case with scenario, however, the magnitud  -->
+<!-- of the emissions are too high. The air quality simulatiosn showed a clear  -->
+<!-- bias, constant over time. I struggled to find any error without results. -->
+<!-- Until I remembered the words of my former boss _Plot the results, becaust it is_ -->
+<!-- _easier fo find any mistake_. I did it, and this is was the result. -->
+
+### Units
+
+Currently, VEIN checks that the variable lkm (length) must be in km. This is
+to avoid that the user wrongly enter length in meters or without units. As a 
+result, the emissions woult be huge and wrong.
+
+In the case of vehicles, currently there are not designed a unit of "vehicles" in
+VEIN. In transportation studies, it is used the unit "equivalent vehicle" which
+standarize each type of vehicle by its size. For instance, LCV are sometimes
+equivalent of 1.2 vehicles. Buses or HGV can be equuvalent to 2 or more vehicles.
+however, there are no such typeof this things in VEIN and units managment is 
+designed to control emission factors and length.
+
+The temporal dimension is also an aspect difficult to handle regarding the units.
+This is because, sometimes mileage are correctly in km, but the timespan is in 
+one year. Threfore, the units magament is degined to avoid errors with emission
+factors and calculation of emissions. This means that a future version of VEIN
+will erradicate all temporal dimensions ensure right calculation of mass only.
+This means that VEIN will not chech if the data is hourly or anunual.
+
+
+### Emission factors
+
+When I started this book, VEIN contained few emission factors. Now, the version
+`r packageVersion("vein")` has all the 2016 emission factors of CETESB,
+almost 100 emisision factors from the European Emission guidelines
+the all the BASE emission factors from the International Vehicle Model (IVE). The
+functions to access this data are:
+
+- ef_cetesb.
+- ef_ldv_speed.
+- ef_hdv_speed.
+- ef_ive.
+
+I will be working to import emission factors from HBEFA model which are based
+traffic situation (very cool).
+
+
+### Deterioration
+
+VEIN currently cover the deterioration emission factors from the Euroepan 
+emission guidelines. This values results in a simply numeric vector
+depending on standard, mileage, type of vehicle and pollutant. However,
+it would be possible to use any other deterioation factors.
+
+Ensure to use correctly the data and cite respective literature.
+
+### Fuel evaluation
+
+It is a good practice to ensure that the mass of fuel consumed of vehicle in your
+study area, matchs the fuel sale son your area. If not, calibrate your emissions
+by number of vehicles (if bottom-up) or a combination of vehicles and mileage 
+(if top-down) to match fuel sales.
+
+### Emissions estimation
+
+Most of emission functions returns an array of emissions, which means a matrix
+of matrices. The idea was that each dimension has a meaning but I've been
+thinking that it is not necessary and each dimension should have different
+nature, for instance, it is not necessary two dimensions for time, despite
+that one indicates hour and the other days. So I mght change that in future. 
+Dont panic, I'm always trying to change the functions without breaking older code.
+
+I hope you liked this book.

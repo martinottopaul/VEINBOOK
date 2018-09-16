@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vehicular emissions inventory with VEIN</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vehicular emissions inventory with VEIN" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="ibarraespinosa/veinbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vehicular emissions inventory with VEIN" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sergio Ibarra-Espinosa">
+
+
+<meta name="date" content="2018-09-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="ef.html">
+<link rel="next" href="post.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">veinbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i>Purpose</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i>Structure</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#definitions-and-sources-of-information"><i class="fa fa-check"></i><b>1.1</b> Definitions and sources of information</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#approaches"><i class="fa fa-check"></i><b>1.1.1</b> Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#required-r-packages-and-dependencies"><i class="fa fa-check"></i><b>1.3</b> Required R packages and dependencies</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#data-inside-the-vein-model"><i class="fa fa-check"></i><b>1.4</b> Data inside the VEIN model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#emission-factors-from-cetesb"><i class="fa fa-check"></i><b>1.4.1</b> Emission factors from CETESB</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#mileage-functions-of-brazilian-fleet"><i class="fa fa-check"></i><b>1.4.2</b> Mileage functions of Brazilian Fleet</a></li>
+<li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#temporal-factors-for-passenger-cars"><i class="fa fa-check"></i><b>1.4.3</b> Temporal factors for Passenger Cars</a></li>
+<li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#profile-for-cold-starts-of-passenger-cars"><i class="fa fa-check"></i><b>1.4.4</b> Profile for cold starts of Passenger Cars</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>2</b> Basics of R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic.html"><a href="basic.html#brief-history"><i class="fa fa-check"></i><b>2.1</b> Brief history</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basic.html"><a href="basic.html#installation-1"><i class="fa fa-check"></i><b>2.1.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic.html"><a href="basic.html#using-r"><i class="fa fa-check"></i><b>2.2</b> Using R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="basic.html"><a href="basic.html#r-objects"><i class="fa fa-check"></i><b>2.2.1</b> R objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic.html"><a href="basic.html#factors"><i class="fa fa-check"></i><b>2.2.2</b> Factors</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic.html"><a href="basic.html#missing-values"><i class="fa fa-check"></i><b>2.2.3</b> Missing Values</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic.html"><a href="basic.html#matrices"><i class="fa fa-check"></i><b>2.2.4</b> Matrices</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic.html"><a href="basic.html#arrays"><i class="fa fa-check"></i><b>2.2.5</b> Arrays</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="st.html"><a href="st.html"><i class="fa fa-check"></i><b>3</b> Structuring an Emissions Inventory</a><ul>
+<li class="chapter" data-level="3.1" data-path="st.html"><a href="st.html#veinstructure"><i class="fa fa-check"></i><b>3.1</b> Overview of emissions inventorying using VEIN</a></li>
+<li class="chapter" data-level="3.2" data-path="st.html"><a href="st.html#the-inventory-function"><i class="fa fa-check"></i><b>3.2</b> The <code>inventory</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
+<li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
+<li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.2</b> Main functions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.2.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.2.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.2.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.2.4</b> The function <code>my_age</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.2.5</b> The class <code>Vehicles</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.2.6</b> Other traffic functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.3</b> Vehicular composition</a></li>
+<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.4</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
+<li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
+<li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
+<li class="chapter" data-level="5.4" data-path="ef.html"><a href="ef.html#cold-starts"><i class="fa fa-check"></i><b>5.4</b> Cold Starts</a></li>
+<li class="chapter" data-level="5.5" data-path="ef.html"><a href="ef.html#det"><i class="fa fa-check"></i><b>5.5</b> Deterioration</a></li>
+<li class="chapter" data-level="5.6" data-path="ef.html"><a href="ef.html#evaporative-emissions-ef_evap"><i class="fa fa-check"></i><b>5.6</b> Evaporative emissions <code>ef_evap</code></a></li>
+<li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
+<li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
+<li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
+<li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
+<li class="chapter" data-level="6.2" data-path="est.html"><a href="est.html#the-emis_cold-function"><i class="fa fa-check"></i><b>6.2</b> The <code>emis_cold</code> function</a></li>
+<li class="chapter" data-level="6.3" data-path="est.html"><a href="est.html#the-emis_evap-function"><i class="fa fa-check"></i><b>6.3</b> The <code>emis_evap</code> function</a></li>
+<li class="chapter" data-level="6.4" data-path="est.html"><a href="est.html#the-emis_paved-function"><i class="fa fa-check"></i><b>6.4</b> The <code>emis_paved</code> function</a></li>
+<li class="chapter" data-level="6.5" data-path="est.html"><a href="est.html#ew"><i class="fa fa-check"></i><b>6.5</b> The <code>emis_wear</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="post.html"><a href="post.html"><i class="fa fa-check"></i><b>7</b> Post estimation with <code>emis_post</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="post.html"><a href="post.html#emissions-by-street"><i class="fa fa-check"></i><b>7.1</b> Emissions by street</a></li>
+<li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
+<li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
+<li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
+<li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
+<li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
+<li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
+<li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
+<li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
+<li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
+<li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="check.html"><a href="check.html"><i class="fa fa-check"></i><b>10</b> Quality check and errors</a><ul>
+<li class="chapter" data-level="10.1" data-path="check.html"><a href="check.html#guidance-from-emepeea-air-pollutant-emission-inventory-guidebook"><i class="fa fa-check"></i><b>10.1</b> Guidance from EMEP/EEA air pollutant emission inventory guidebook</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="check.html"><a href="check.html#key-categories"><i class="fa fa-check"></i><b>10.1.1</b> Key categories</a></li>
+<li class="chapter" data-level="10.1.2" data-path="check.html"><a href="check.html#uncertainty"><i class="fa fa-check"></i><b>10.1.2</b> Uncertainty</a></li>
+<li class="chapter" data-level="10.1.3" data-path="check.html"><a href="check.html#quality-assurance-and-quality-check"><i class="fa fa-check"></i><b>10.1.3</b> Quality Assurance and Quality Check</a></li>
+<li class="chapter" data-level="10.1.4" data-path="check.html"><a href="check.html#inventory-managment-cycle"><i class="fa fa-check"></i><b>10.1.4</b> Inventory managment cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="check.html"><a href="check.html#avoiding-errors-with-vein"><i class="fa fa-check"></i><b>10.2</b> Avoiding errors with VEIN</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="check.html"><a href="check.html#traffic-flow"><i class="fa fa-check"></i><b>10.2.1</b> Traffic flow</a></li>
+<li class="chapter" data-level="10.2.2" data-path="check.html"><a href="check.html#vehicular-composition-2"><i class="fa fa-check"></i><b>10.2.2</b> Vehicular composition</a></li>
+<li class="chapter" data-level="10.2.3" data-path="check.html"><a href="check.html#units"><i class="fa fa-check"></i><b>10.2.3</b> Units</a></li>
+<li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
+<li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
+<li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-fast-example-of-vein.html"><a href="appendix-a-fast-example-of-vein.html"><i class="fa fa-check"></i>Appendix A: Fast Example of VEIN</a></li>
+<li class="chapter" data-level="" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html"><i class="fa fa-check"></i>Appendix B: Detailed Example of VEIN</a><ul>
+<li class="chapter" data-level="A.3" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
+<li class="chapter" data-level="A.4" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
+<li class="chapter" data-level="A.5" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vehicular emissions inventory with VEIN</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="est" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Estimation of emissions</h1>
+<p>The emissions estimation process was shown on Eq. <a href="ef.html#eq:emi">(5.1)</a> on chapter <a href="ef.html#ef">5</a>. In this equation, it was shown that how the emissions are obtained by multiplying the traffifc flow with the distance that each car travels (length of the road if it is a road network), and emissions and deterioration factors.</p>
+<p>In this chapter I will show how VEIN interprets this and other emission equations to estimate emissions. At the end of each section The Fig. <a href="est.html#fig:diaemis">6.1</a> showsa diagram with the estimation process. The pink boxes hows VEIN classes, the circle data and the grey boxes functions. The object <code>Vehicles</code> is a class consisting in a matrix of vehicles with untis <span class="math inline">\(1 \cdot h^{-1}\)</span>, as shown on chapter <a href="traffic.html#traffic">4</a>, however, <em>the units in <code>Vehicles</code> is not a requirement for estimating emissions</em>. The object of class <code>Speed</code> is a matrix of speeds with the number of columns as the calculated speeds at different hours at each row. This object can be present or not, depending on the type of emission factor considered, for instant, emission factors not depending on speed. The object class of <code>EmissionFactorsList</code> are list of functions depending on speed as <span class="math inline">\(f(V)\)</span>. Each function can depend on speed or not as shown on chapter <a href="ef.html#ef">5</a>, section <a href="ef.html#localef">5.2</a>. Lastly, the object lkm is the length of the road expressed in <span class="math inline">\(lkm\)</span>.</p>
+<p>The function <code>emis</code> reads the inputs and estimates the emissions producing an object with class <code>EmissionsArray</code> which has 4 dimensions, number of streets, ages of use of vehicle, number of hours and number of days. <!-- Newer --> <!-- versions of VEIN, since version XX, includes `EmissionsArray` of only three --> <!-- dimensions, streets, ages of use of vehicle, number of hours, so that, if --> <!-- the estimations coversone week, it will have $168 = 7 \cdot 24$ hours. --></p>
+<div class="figure" style="text-align: center"><span id="fig:diaemis"></span>
+<img src="figuras/dia6.png" alt="Emissions estimation process with VEIN" width="80%" />
+<p class="caption">
+Figure 6.1: Emissions estimation process with VEIN
+</p>
+</div>
+<p>The estimation process is done with the emissions functions. The emissions estimations functions are:</p>
+<ul>
+<li><code>emis</code> for hot emissions,</li>
+<li><code>emis_cold</code> for cold start emissions,</li>
+<li><code>emis_evap</code> for evaporative emissions,</li>
+<li><code>emis_paved</code> for resuspension emissions on paved roads, and</li>
+<li><code>emis_wear</code> for wear of breakes, tyres and roads.</li>
+</ul>
+<p>These functions perform internal checks for ensuring that the length lkm has the unit of <span class="math inline">\(km\)</span>. This means that, if <code>lkm</code> has units different than <span class="math inline">\(km\)</span>, the function will not run. These function runs internally <code>lapply</code> which are faster <code>for</code> written in C. Despite that these functions are fast, i will try to make them faster with some RCPP implementation in future.</p>
+<div id="the-emis-function" class="section level2">
+<h2><span class="header-section-number">6.1</span> The <code>emis</code> function</h2>
+<p>The arguments of <code>emis</code> are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis)</code></pre></div>
+<pre><code>## function (veh, lkm, ef, speed = 34, agemax = ifelse(is.data.frame(veh), 
+##     ncol(veh), ncol(veh[[1]])), profile, hour = nrow(profile), 
+##     day = ncol(profile), array = T) 
+## NULL</code></pre>
+<ul>
+<li><code>veh</code>: “Vehicles” data-frame or list of “Vehicles” data-frame. Each data-frame has number of columns matching the age distribution of that type of vehicle. The number of rows is equal to the number of streets link.</li>
+<li><code>lkm</code>: Length of each link that must in <span class="math inline">\(km\)</span>. As consequence, emission factors must be in <span class="math inline">\(g \cdot km^{-1}\)</span>.</li>
+<li><code>ef</code>: “EmissionFactorsList”. A list of emission factors as speed functions. Each element has the form <span class="math inline">\(f(V)\)</span>. The implicit unit is <span class="math inline">\(g \cdot km^{-1}\)</span>.</li>
+<li><code>speed</code>: “Speed” object. A Speed data-frame with number of columns as hours.</li>
+<li><code>agemax</code>: Age of oldest vehicles of the vehicles veh. The information of this argument can be obtained from the <code>veh</code> argument Therefore, this argument will be deprecated.</li>
+<li><code>profile</code>: Numerical or dataframe or matrix with nrows equal to the hours and cols to each day. This is traffic data normalized to the hour of the input traffic data.</li>
+<li><code>hour</code>: Number of considered hours in estimation. As this information can be derived form the argument <code>profile</code>, the default value is the number of rows of the matrix profile.</li>
+<li><code>day</code>: Number of considered days in estimation. As this information can be derived form the argument <code>profile</code>, the default value is the number of coluns of the matrix profile.</li>
+<li><code>array</code>: When FALSE produces a dataframe of the estimation. When TRUE expects a profile as a dataframe producing an array with dimensions (streets x columns x hours x days)</li>
+</ul>
+</div>
+<div id="the-emis_cold-function" class="section level2">
+<h2><span class="header-section-number">6.2</span> The <code>emis_cold</code> function</h2>
+<p>The arguments of <code>emis_cold</code> are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_cold)</code></pre></div>
+<pre><code>## function (veh, lkm, ef, efcold, beta, speed = 34, agemax = if (!inherits(x = veh, 
+##     what = &quot;list&quot;)) {
+##     ncol(veh)
+## } else {
+##     ncol(veh[[1]])
+## }, profile, hour = nrow(profile), day = ncol(profile), array = TRUE) 
+## NULL</code></pre>
+<p>The arguments are similar with <code>emis</code> with the difference that it is added two arguments:</p>
+<ul>
+<li><code>efcold</code>: List of functions of cold start emission factors of vehicular categories. Technically, each function is also of the form <span class="math inline">\(f(V)\)</span>.</li>
+<li><code>beta</code>: Datraframe with the hourly cold-start distribution to each day of the period. Number of rows are hours and columns are days. It represents the fraction of mileage driven under cold-start conditions.</li>
+</ul>
+<p>The equation for estimating cold-start emissions is on Eq. <a href="ef.html#eq:cold">(5.3)</a>.</p>
+</div>
+<div id="the-emis_evap-function" class="section level2">
+<h2><span class="header-section-number">6.3</span> The <code>emis_evap</code> function</h2>
+<p>The estimation of evaporative emissions applies Tier 2 from <span class="citation">Mellios and Ntziachristos (<a href="#ref-MelliosNtziachristos2016">2016</a>)</span>. The approach followed in VEIN was very simply, consisting in only adding elements of a data-frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_evap)</code></pre></div>
+<pre><code>## function (veh, name, size, fuel, aged, nd4, nd3, nd2, nd1, hs_nd4, 
+##     hs_nd3, hs_nd2, hs_nd1, rl_nd4, rl_nd3, rl_nd2, rl_nd1, d_nd4, 
+##     d_nd3, d_nd2, d_nd1) 
+## NULL</code></pre>
+<ul>
+<li><code>veh</code>: this are the number of vehicles at each age of use and for each street. It is a <code>Vehicles</code> object.</li>
+<li><code>name</code>: Character indicating the name of the vehicle.</li>
+<li><code>size</code>: Character indicating the size of the vehicle.</li>
+<li><code>fuel</code>: Character indicating the fuel of the vehicle.</li>
+<li><code>age</code>: Numeric vector with the age distribution, for instance, 1:40 for vehicles between 1 and 40 years of use.</li>
+<li><code>nd4</code>: Number of days of your perdiof of study with monthly average temperature between 20 and 35 celcius degrees. If the period of time is a year, this is the annual number of days under that condition.</li>
+<li><code>nd3</code>: Number of days of your perdiof of study with monthly average temperature between 10 and 25 celcius degrees.</li>
+<li><code>nd2</code>: Number of days of your perdiof of study with monthly average temperature between 0 and 15 celcius degrees.</li>
+<li><code>nd1</code>: Number of days of your perdiof of study with monthly average temperature between -5 and 10 celcius degrees.</li>
+<li><code>hs_nd4</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 20 and 35 celcius degrees</li>
+<li><code>hs_nd3</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 10 and 25 celcius degrees</li>
+<li><code>hs_nd2</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 0 and 15 celcius degrees</li>
+<li><code>hs_nd1</code>: Number of average daily hot-soak evaporative emissions for days with temperature between -5 and 10 celcius degrees</li>
+<li><code>rl_nd4</code>: Number of average daily running losses evaporative emissions for days with temperature between 20 and 35 celcius degrees</li>
+<li><code>rl_nd3</code>: Number of average daily running losses evaporative emissions for days with temperature between 10 and 25 celcius degrees</li>
+<li><code>rl_nd2</code>: Number of average daily running losses evaporative emissions for days with temperature between 0 and 15 celcius degrees</li>
+<li><code>rl_nd1</code>: Number of average daily running losses evaporative emissions for days with temperature between -5 and 10 celcius degrees</li>
+<li><code>d_nd4</code>: Number of average daily diurnal evaporative emissions for days with temperature between 20 and 35 celcius degrees</li>
+<li><code>d_nd3</code>: Number of average daily diurnal evaporative emissions for days with temperature between 10 and 25 celcius degrees</li>
+<li><code>d_nd2</code>: Number of average daily diurnal evaporative emissions for days with temperature between 0 and 15 celcius degrees</li>
+<li><code>d_nd1</code>: Number of average daily diurnal evaporative emissions for days with temperature between -5 and 10 celcius degrees</li>
+</ul>
+</div>
+<div id="the-emis_paved-function" class="section level2">
+<h2><span class="header-section-number">6.4</span> The <code>emis_paved</code> function</h2>
+<p>Evaporative emissions are emissions of resuspended dust due to traffic circulating ober paved or non-paved roads. These emissions can be an important source of mass particulate matter, and several cities programs that aims to improve air quality by diminishing these emissions <span class="citation">(Amato et al. <a href="#ref-AMATO20103070">2010</a>)</span>. However, these emissions are not considered by in the European emissions guidelines, where their focus is on primary particles and not those resulting from the resuspension of previously deposited material <span class="citation">(Ntziachristos and Boulter <a href="#ref-NtziachristosBoulter2009">2009</a>)</span>.</p>
+<p>The method adopted in VEIN comes from the USEPA <span class="citation">(USA-EPA <a href="#ref-paved">2016</a>)</span> which presents equations for annual, daily and hourly estimations:</p>
+<span class="math display" id="eq:res1">\[\begin{equation}
+EF_{paved}=k \cdot sL^{0.91} \cdot W^{1.02}
+\tag{6.1}
+\end{equation}\]</span>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(EF_{paved}\)</span> is the emission factor of particulate matter.</li>
+<li><span class="math inline">\(k\)</span> particle size splitter.</li>
+<li><span class="math inline">\(sL\)</span> road surface silt loading <span class="math inline">\(g \cdot m^{-2}\)</span>.</li>
+<li><span class="math inline">\(W\)</span> average weight.</li>
+</ul>
+<p>Equation <a href="est.html#eq:res1">(6.1)</a> can be extrapolated to consider natural mitigation of rainy periods of time with daily basis:</p>
+<span class="math display" id="eq:res2">\[\begin{equation}
+EF_{anual} = EF_{paved} \cdot (1 - \frac{P}{4 \cdot N})
+\tag{6.2}
+\end{equation}\]</span>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(EF_{anual}\)</span> anual or long term emission factor.</li>
+<li><span class="math inline">\(P\)</span> number of days with accumulated rain above 0.254 mm.</li>
+<li><span class="math inline">\(N\)</span> total number of days.</li>
+</ul>
+<p>or hourly</p>
+<span class="math display" id="eq:res2">\[\begin{equation}
+EF_{hourly} = EF_{paved} \cdot (1 - \frac{1.2 \cdot P}{N})
+\tag{6.2}
+\end{equation}\]</span>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(EF_{annual}\)</span> annual or long term emission factor.</li>
+<li><span class="math inline">\(P\)</span> number of hours with accumulated rain above 0.254 mm.</li>
+<li><span class="math inline">\(N\)</span> total number of hours. For instance, 8760 for 1 year.</li>
+</ul>
+<p>The function <code>emis_paved</code> has the arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_paved)</code></pre></div>
+<pre><code>## function (veh, lkm, k = 0.62, sL1 = 0.6, sL2 = 0.2, sL3 = 0.06, 
+##     sL4 = 0.03, W) 
+## NULL</code></pre>
+<p>Where,</p>
+<p>-<code>veh</code>: It is an array with dimenssions number of streets x hours of day x days of week. - <code>lkm</code>: Length of each link. - <code>k</code>: K_PM30 = 3.23, K_PM15 = 0.77, K_PM10 = 0.62 and K_PM2.5 = 0.15. - <code>sL1</code>: Silt loading (g/m2) for roads with ADT &lt;= 500. - <code>sL2</code>: Silt loading (g/m2) for roads with ADT &gt; 500 and &lt;= 5000. - <code>sL3</code>: Silt loading (g/m2) for roads with ADT &gt; 5000 and &lt;= 1000. - <code>sL4</code>: Silt loading (g/m2) for roads with ADT &gt; 10000. - <code>W</code>: array of dimensions of veh. It consists in the hourly averaged weight of traffic fleet in each road.</p>
+<p>For instance, Lets create an array of vehicles. The funcion <code>adt</code> calculates the amount pf vehicles at all hours. Lets use the <code>data(net)</code> asumming no buses. Let’s calculate the total traffic for only 24 hours with the same profile. For simplicity, let’s assume that all vehicle are expressed in <em>vehicle equivalent</em> and it is a dry period.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">data</span>(net)
+<span class="kw">data</span>(profiles)
+vkpc  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.75</span>, <span class="dv">1</span>, <span class="kw">matrix</span>(profiles<span class="op">$</span>PC_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>]))
+vklcv  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.1</span>, <span class="dv">1</span>, <span class="kw">matrix</span>(profiles<span class="op">$</span>LCV_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>]))
+vkmc  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.15</span>, <span class="dv">1</span>, <span class="kw">matrix</span>(profiles<span class="op">$</span>MC_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>]))
+vkhgv  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>hdv, <span class="dv">1</span>, <span class="kw">matrix</span>(profiles<span class="op">$</span>HGV_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>]))
+vk &lt;-<span class="st"> </span>vkpc <span class="op">+</span><span class="st"> </span>vklcv <span class="op">+</span><span class="st"> </span>vkmc <span class="op">+</span><span class="st"> </span>vkhgv
+<span class="kw">dim</span>(vk)</code></pre></div>
+<pre><code>## [1] 1505   24</code></pre>
+<p><code>W</code> is the average hourly fleet weight. It ahs the same dimensions of <code>adt2</code>. Let’s assume an individual weight of PC is 1, LCV 1.5, HGV = 10 and MC 0.5. This example is a simplification, <code>adt</code> should be calculated with full characterization of the fleet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wpc  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.75</span>, <span class="dv">1</span>, profiles<span class="op">$</span>PC_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>])<span class="op">*</span><span class="dv">1</span>
+wlcv  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.1</span>, <span class="dv">1</span>, profiles<span class="op">$</span>LCV_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>])<span class="op">*</span><span class="fl">1.5</span>
+wmc  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>ldv<span class="op">*</span><span class="fl">0.15</span>, <span class="dv">1</span>, profiles<span class="op">$</span>MC_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>])<span class="op">*</span><span class="fl">0.5</span>
+whgv  &lt;-<span class="st"> </span><span class="kw">vkm</span>(net<span class="op">$</span>hdv, <span class="dv">1</span>, profiles<span class="op">$</span>HGV_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>])<span class="op">*</span><span class="dv">10</span>
+W &lt;-<span class="st"> </span>(wpc <span class="op">+</span><span class="st"> </span>wlcv <span class="op">+</span><span class="st"> </span>wmc <span class="op">+</span><span class="st"> </span>whgv)<span class="op">/</span>vk
+W[<span class="kw">is.na</span>(W)] &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="kw">dim</span>(W)</code></pre></div>
+<pre><code>## [1] 1505   24</code></pre>
+<p>and now we estimate the emissions with the default values form PM10.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi &lt;-<span class="st"> </span><span class="kw">emis_paved</span>(<span class="dt">veh =</span> vk, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">W =</span> W)
+emi[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
+<pre><code>## Result for Emissions 
+##              h1            h2            h3            h4
+## 1 28.492378 g/h 41.326236 g/h 27.987685 g/h 30.978253 g/h
+## 2 48.704190 g/h 31.257192 g/h 27.139666 g/h 34.919757 g/h
+## 3  4.360828 g/h  2.327479 g/h  1.576257 g/h  1.744684 g/h
+## 4 10.371056 g/h  5.535283 g/h  3.748702 g/h  4.149262 g/h</code></pre>
+</div>
+<div id="ew" class="section level2">
+<h2><span class="header-section-number">6.5</span> The <code>emis_wear</code> function</h2>
+<p>Wear emissions can be very important, in fact, these are second most important source of particulate matter in Europe <span class="citation">(Lükewille, Tista, and Hoenders <a href="#ref-eear">2017</a>)</span>. These methods in VEIN comes from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span> which include wear of “tyre”, “break” and “road”.</p>
+<p>The arguments of the function <code>emis_wear</code> are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_wear)</code></pre></div>
+<pre><code>## function (veh, lkm, ef, what = &quot;tyre&quot;, speed, agemax = ncol(veh), 
+##     profile, hour = nrow(profile), day = ncol(profile)) 
+## NULL</code></pre>
+<p>Where,</p>
+<ul>
+<li><code>veh</code>: Object of class “Vehicles”.</li>
+<li><code>lkm</code>: Length of the road.</li>
+<li><code>ef</code>: list of emission factor functions class “EmissionFactorsList”, length equals to hours.</li>
+<li><code>agemax</code>: Age of oldest vehicles for that category</li>
+<li><code>profile</code>: Dataframe or matrix with nrows equal to hours and ncol as days of the week</li>
+<li><code>hour</code>: Number of considered hours in estimation, with default value as number of rows of profile.</li>
+<li><code>day</code>: Number of considered days in estimation, with default value as number of columns of profile.</li>
+</ul>
+<p>Let’s estimate wear emissions!</p>
+<p>First, we get the emission factor with the <code>ef_wear</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
+<span class="kw">data</span>(net)
+<span class="kw">data</span>(profiles)
+pro &lt;-<span class="st"> </span>profiles<span class="op">$</span>PC_JUNE_<span class="dv">2012</span>[, <span class="dv">1</span>] <span class="co"># 24 hours</span>
+pc_week &lt;-<span class="st"> </span><span class="kw">temp_fact</span>(net<span class="op">$</span>ldv<span class="op">+</span>net<span class="op">$</span>hdv, pro)
+df &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, net<span class="op">$</span>ps, net<span class="op">$</span>ffs, net<span class="op">$</span>capacity, net<span class="op">$</span>lkm, <span class="dt">alpha =</span> <span class="dv">1</span>)
+ef &lt;-<span class="st"> </span><span class="kw">ef_wear</span>(<span class="dt">wear =</span> <span class="st">&quot;tyre&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;PC&quot;</span>, <span class="dt">pol =</span> <span class="st">&quot;PM10&quot;</span>, 
+                            <span class="dt">speed =</span> df)</code></pre></div>
+<p>Then we estimate emissions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi &lt;-<span class="st"> </span><span class="kw">emis_wear</span>(<span class="dt">veh =</span> <span class="kw">age_ldv</span>(net<span class="op">$</span>ldv, <span class="dt">name =</span> <span class="st">&quot;VEH&quot;</span>), <span class="dt">speed =</span> df,
+                 <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> ef, <span class="dt">profile =</span>  pro)</code></pre></div>
+<pre><code>## Average age of VEH is 11.17</code></pre>
+<pre><code>## Number of VEH is 1946.95 * 10^3 veh</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">emis_post</span>(emi, <span class="dt">pollutant =</span> <span class="st">&quot;PM&quot;</span>, <span class="dt">by =</span> <span class="st">&quot;streets_wide&quot;</span>)
+df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
+<pre><code>## Result for Emissions 
+##              V1            V2             V3             V4
+## 1 2.0689049 g/h 1.0160833 g/h 0.56468672 g/h 0.52486176 g/h
+## 2 0.7614073 g/h 0.3743085 g/h 0.20803274 g/h 0.19336135 g/h
+## 3 0.1116298 g/h 0.0548773 g/h 0.03049965 g/h 0.02834868 g/h
+## 4 0.2768287 g/h 0.1360872 g/h 0.07563435 g/h 0.07030028 g/h</code></pre>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-MelliosNtziachristos2016">
+<p>Mellios, G, and L Ntziachristos. 2016. “EMEP/Eea Emission Inventory Guidebook; Gasoline Evaporation from Vehicles.” European Environment Agency, Copenhagen.</p>
+</div>
+<div id="ref-AMATO20103070">
+<p>Amato, F., X. Querol, C. Johansson, C. Nagl, and A. Alastuey. 2010. “A Review on the Effectiveness of Street Sweeping, Washing and Dust Suppressants as Urban Pm Control Methods.” <em>Science of the Total Environment</em> 408 (16): 3070–84. doi:<a href="https://doi.org/https://doi.org/10.1016/j.scitotenv.2010.04.025">https://doi.org/10.1016/j.scitotenv.2010.04.025</a>.</p>
+</div>
+<div id="ref-NtziachristosBoulter2009">
+<p>Ntziachristos, L, and P Boulter. 2009. “EMEP/Eea Emission Inventory Guidebook; Road Transport: Automobile Tyre and Break Wear and Road Abrasion.” <em>European Environment Agency, Copenhagen</em>.</p>
+</div>
+<div id="ref-paved">
+<p>USA-EPA. 2016. “AP42 Compilation of Emission Factors; Resuspenssion Emissions from Paved Roads.” <em>Environment Protection Agency, USA</em>.</p>
+</div>
+<div id="ref-eear">
+<p>Lükewille, Anke, Melanie Tista, and Roel Hoenders. 2017. “European Union Emission Inventory Report 1990–2010 Under the Unece Convention on Long-Range Transboundary Air Pollution (Lrtap).” EEA technical report.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ef.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="post.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/master/inst/examples/06-est.Rmd",
+"text": "Edit"
+},
+"download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

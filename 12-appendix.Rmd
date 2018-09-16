@@ -1,0 +1,344 @@
+# (APPENDIX) Appendix {-} 
+
+# Appendix A: Fast Example of VEIN  {-}
+
+
+```{r eval = FALSE}
+library(vein)
+inventory(name = file.path(tempdir(), "YourCity"),
+          show.dir = TRUE,
+          show.scripts = TRUE)
+source(paste0(file.path(tempdir(), "YourCity"), "main.R"))
+```
+
+
+# Appendix B: Detailed Example of VEIN  {-}
+## Network
+
+
+```{r eval = FALSE}
+inventory(file.path(tempdir(), "YourCity"))
+setwd("YourCity")
+data(net) # Loads the traffic demand simulation for west São Paulo
+data(net)
+data(pc_profile)
+pc_week <- temp_fact(net$ldv+net$hdv, pc_profile)
+speed <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm)
+saveRDS(net, file = "network/net.rds")
+saveRDS(speed, file = "network/speed.rds")
+```
+
+## Vehicular composition [@CETESB2015]
+
+The vehicular composition `vehcomp` has 5 types of vehicles: Passenger Carss (PC),
+Light Commercial Vehicles (LCV), Heavy Good Vehicles or trucks (HGV), Buses (BUS),
+and Motorcycles (MC). The default value of this argument is:
+`c(PC = 4, LCV = 5, HGV = 5, BUS = 3, MC = 9)`, which means that there are 4
+types of PC, 5 of LCV, 5 of trucks, 3 of buses and 9 types of motorcycles. This
+composition comes from the vehicular emissions inventory of the Environmental
+Agency of São Paulo, Brazil [@CETESB2015]. In Brazil, the fuel used in vehicles
+is blended with ethanol with and biodiesel. The user can use **any** vehicular
+composition that representes its fleet with up-to 99 type of vehicles per
+category. The default composition according Brazilian emissions inventory
+is:
+
+_Passenger Cars (PC)_
+
+1. Passenger Cars using Gasoline blended with 25\% of ethanol (E25).
+1. Passenger Cars with Flex engine using Gasoline blended with 25\% of ethanol (FE25).
+1. Passenger Cars with Flex engine using 100\% of ethanol (FE100).
+1. Passenger Cars with engines that uses only ethanol (E100).
+
+
+_Light Commercial Vehicles (LCV)_
+
+1. Light Commercial Vehicles with gross weight (GW) less than 3.8 t using
+Gasoline blended with 25\% of ethanol (E25).
+1. Light Commercial Vehicles with GW less than 3.8 t with Flex engine using
+Gasoline blended with 25\% of ethanol (FE25).
+1. Light Commercial Vehicles  with GW less than 3.8 t with Flex engine using
+100\% of ethanol (FE100).
+1. Light Commercial Vehicles  with GW less than 3.8 t with engines that uses
+only ethanol (E100).
+1. Light Commercial Vehicles  with GW less than 3.8 t with engines that uses
+only ethanol (E100).
+
+_Heavy Good Vehicles (HGV) or Trucks_
+
+1. Semi Light Trucks (SLT) with 3.8 t < GW < 6 t using Diesel blended with 5\%
+of biodiesel (B5).
+1. Light Trucks (LT) with 6 t < GW < 10 t using Diesel blended with 5\% of
+biodiesel (B5).
+1. Medium Trucks (MT) with 10 t < GW < 15 t using Diesel blended with 5\% of
+biodiesel (B5).
+1. Semi Heavy Trucks (SHT) with 15 t < GW on a Rigid Truck (RT)  and GW < 40 on
+an Articulated Truck (AT) using Diesel blended with 5\% of bodiesel (B5).
+1. Heavy Trucks (HT) with 15 t < GW on a RT  and GW >= 40 on an AT using Diesel
+blended with 5\% of bodiesel (B5).
+
+
+_Buses_
+
+1. Urban Bus (UB) using Diesel blended with 5\% of biodiesel (B5).
+1. Small Urban Bus (SUB) using Diesel blended with 5\% of biodiesel (B5).
+1. Motorway Bus (MB) or Coach using Diesel blended with 5\% of biodiesel (B5).
+
+_Motorcycles (MC)_
+
+1. Motorcycles with engine cc < 150 using Gasoline blended with 25\% of ethanol
+(E25).
+1. Motorcycles with engine 150 < cc < 500 using Gasoline blended with 25\% of 
+ethanol (E25).
+1. Motorcycles with engine cc > 500 using Gasoline blended with 25\% of ethanol
+(E25).
+1. Motorcycles with engine cc < 150 with Flex engine using Gasoline blended
+with 25\% of ethanol (FE25).
+1. Motorcycles with engine 150 < cc < 500 with Flex engine using Gasoline
+blended with 25\% of ethanol (FE25).
+1. Motorcycles with engine cc > 500 with Flex engine using Gasoline blended
+with 25\% of ethanol (FE25).
+1. Motorcycles with engine cc < 150 with Flex engine using 100\% of ethanol
+(FE100).
+1. Motorcycles with engine 150 < cc < 500 with Flex engine using 100\% of
+ethanol (FE100).
+1. Motorcycles with engine cc > 500 with Flex engine using 100\% of ethanol
+(FE100).
+
+## Traffic data
+
+The vehicular composition will split the traffic simulation as shown on next
+table. The simulation has traffic for Light Duty Vehicles and Heavy Good
+Vehicles, therefore, the vehicular composition must split this categories and
+considerations:
+
+- Passenger Cars (PC) = 75% of Light Duty Vehicles (LDV) of traffic simulation.
+- Light Commercial Vehicles (LCV) = 10% of LDV of traffic simulation.
+- Motorcycles (MC) = 15% of LDV on traffic simulation.
+- Heavy Good Vehicles (HGV) = 75% of Heavy Duty Vehicles (HDV).
+- Buses =  = 25% of Heavy Duty Vehicles (HDV).
+- LCV and PC have vehicles with flex engines capable to run with any mixture of
+gasoline and ethanol [@2005-01-4130].
+- Type of fuel consumed consists in gasoline blended with 25% of ethanol (E25).
+- The vehicular composition consists in type of vehicles and type of fuel.
+Optionally, the user could have a wider vehicular composition considering more
+sizes, gross weight, etc.
+- The percentages in composition apply for each type of vehicle PC, LCV, HGV,
+BUS and MC.
+
+**Passenger Cars**
+
+The vehicular composition consisted in PC using E25, PC with Flex engines using
+E25 and E100, and OC with engines for consuming only E100. The PC with Flex
+engines entered into Brazilian market in 2003, therefore, at year 2015 flex
+vehicles has 13 years of use. On the other case, PC with engines for E100 went
+out of the market in 2007, therefore, the newest PC with E100 engine has 9 years
+of use.
+
+```{r comppc, echo=FALSE}
+  Vehicles = c("PC_E25","PC_FE25", "PC_FE100", "PC_E100")
+  Composition = c("37.25%","22.26%","37.97%", "2.44%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of PC for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+```{r eval = FALSE}
+PC_E25 <- age_ldv(x = net$ldv,name = "PC_E25",
+                  k = 75/100*37.25)
+PC_FE25 <- age_ldv(x = net$ldv, name = "PC_FE25", agemax = 13,
+                   k = 75/100*22.26)
+PC_FE100 <- age_ldv(x = net$ldv, name = "PC_FE100", agemax = 13,
+                    k = 75/100*37.97)
+PC_E100 <- age_ldv(x = net$ldv, name = "PC_E100", agemin = 9,
+                   k = 75/100*2.44)
+saveRDS(PC_E25, file = "veh/PC_E25.rds")
+saveRDS(PC_FE25, file = "veh/PC_FE25.rds")
+saveRDS(PC_FE100, file = "veh/PC_FE100.rds")
+saveRDS(PC_E100, file = "veh/PC_E100.rds")
+```
+
+
+**Light Commercial Vehicles**
+
+The engine/fuel type affects in the same way to LCV with PC vehicles. However,
+this category has a fraction of vehicles being driven with diesel. In Brazil,
+all diesle is blended with approximatly 5% of biodiesel, then it is named as
+B5. The categorization of the names in LCV is similar with PC.
+
+```{r complcv, echo = FALSE}
+  Vehicles = c("LCV_E25", "LCV_FE25", "LCV_FE100", "LCV_E100", "LCV_B5")
+  Composition = c("39.13%","15.21%","25.90%", "1.18%","18.58%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of LCV for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+```{r eval = FALSE}
+LCV_E25 <- age_ldv(x = net$ldv,name = "LCV_E25",
+                   k = 10/100*39.13)
+LCV_FE25 <- age_ldv(x = net$ldv, name = "LCV_FE25", agemax = 13,
+                    k = 10/100*15.21)
+LCV_FE100 <- age_ldv(x = net$ldv, name = "LCV_FE100", agemax = 13,
+                     k = 10/100*25.90)
+LCV_E100 <- age_ldv(x = net$ldv, name = "LCV_E100", agemin = 9,
+                    k = 10/100*1.18)
+LCV_B5 <- age_ldv(x = net$ldv, name = "LCV_B5",
+                  k = 10/100*18.58)
+saveRDS(LCV_E25, file = "veh/LCV_E25.rds")
+saveRDS(LCV_FE25, file = "veh/LCV_FE25.rds")
+saveRDS(LCV_FE100, file = "veh/LCV_FE100.rds")
+saveRDS(LCV_E100, file = "veh/LCV_E100.rds")
+saveRDS(LCV_B5, file = "veh/LCV_B5.rds")
+```
+
+
+**Heavy Good Vehicles**
+
+HGV uses diesel which is blended with approximatly 5% of biodiesel from sugar-
+cane. 
+
+
+```{r comphgv, echo=FALSE}
+
+Vehicles = c("SLT", "LT", "MT", "SHT", "HT")
+Composition = c("8.38%","25.50%", "15.28%", "24.98%", "25.85%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+caption = 'Vehicular composition of HGV for applied in this book',
+booktabs = TRUE,
+align = "c"
+)
+```
+
+
+
+```{r eval = FALSE}
+HGV_SLT_B5 <- age_hdv(x = net$hdv,name = "HGV_SLT_B5",
+                      k = 75/100*8.38)
+HGV_LT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*25.50)
+HGV_MT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*15.28)
+HGV_SHT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5", 
+                      k = 75/100*24.98)
+HGV_HT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*25.85)
+saveRDS(HGV_LT_B5, file = "veh/HGV_SLT_B5.rds")
+saveRDS(HGV_SLT_B5, file = "veh/HGV_LT_B5.rds")
+saveRDS(HGV_MT_B5, file = "veh/HGV_MT_B5.rds")
+saveRDS(HGV_SHT_B5, file = "veh/HGV_SHT_B5.rds")
+saveRDS(HGV_HT_B5, file = "veh/HGV_HT_B5.rds")
+```
+
+
+
+**Buses**
+
+In Brazil there are many type of buses, but in this book we are focussing in the
+most abundandt: Urban Buses, Small Urban Buses and Motoreway Buses ro Coach.
+According to the Secretary or Urban Mobility of São Paulo
+(Sptrans, http://www.sptrans.com.br/), the fleet has an average age of use of
+5 years and 5 monthts. To achieve this average age, the agemax of this vehicles
+is 10 years of use.
+
+```{r compbus, echo=FALSE}
+
+  Vehicles = c("UB", "SUB", "MB")
+  Composition = c("77.43%", "9.07%", "13.5%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of BUS for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+
+
+```{r eval = FALSE}
+UB_B5 <- age_hdv(x = net$ldv,name = "UB_B5", agemax = 10,
+                 k = 25/100*77.43)
+SUB_B5 <- age_hdv(x = net$ldv, name = "SUB_B5", 
+                  k = 25/100*9.07)
+MB_B5 <- age_hdv(x = net$ldv, name = "MB_B5",
+                 k = 25/100*13.5)
+saveRDS(HGV_LT_B5, file = "veh/HGV_SLT_B5.rds")
+saveRDS(HGV_SLT_B5, file = "veh/HGV_LT_B5.rds")
+saveRDS(HGV_MT_B5, file = "veh/HGV_MT_B5.rds")
+```
+
+
+
+**Motorcycles**
+
+The vehicular composition consisted in Motorcycles using E25, and recnetly,
+in year 2010, entered into the market flex motorcycles, which can use
+gasoline E25 or ethano E100. Therefore, the oldest flex MC is 6 years old.
+
+
+```{r compmc, echo=FALSE}
+
+  Vehicles = c("MC_150_E25","MC_150_500_E25", "MC_500_E25",
+             "MC_150_FE25","MC_150_500_FE25", "MC_500_FE25",
+             "MC_150_FE100","MC_150_500_FE100", "MC_500_FE100")
+  Composition = c("72.97%", "11.28%", "3.15%",
+            "3.93%", "0.57%", "0.16%",
+            "6.69%", "0.98%", "0.27%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of MC for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+
+```{r eval = FALSE}
+MC_150_E25 <- age_hdv(x = net$ldv,name = "MC_150_E25",
+                      k = 15/100*72.97)
+MC_150_500_E25 <- age_hdv(x = net$ldv, name = "MC_150_500_E25", 
+                          k = 15/100*11.28)
+MC_500_E25 <- age_hdv(x = net$ldv, name = "MC_500_E25",
+                      k = 15/100*3.15)
+
+MC_150_FE25 <- age_hdv(x = net$ldv,name = "MC_150_FE25", agemax = 6,
+                       k = 15/100*3.93)
+MC_150_500_FE25 <- age_hdv(x = net$ldv, name = "MC_150_500_FE25", agemax = 6, k = 15/100*0.57)
+MC_500_FE25 <- age_hdv(x = net$ldv, name = "MC_500_FE25", agemax = 6,
+                       k = 15/100*0.16)
+
+MC_150_FE100 <- age_hdv(x = net$ldv,name = "MC_150_FE100", agemax = 6,
+                        k = 15/100*6.69)
+MC_150_500_FE100 <- age_hdv(x = net$ldv, name = "MC_150_500_FE100", agemax = 6,
+                            k = 15/100*0.98)
+MC_500_FE100 <- age_hdv(x = net$ldv, name = "MC_500_FE100", agemax = 6,
+                        k = 15/100*0.27)
+
+saveRDS(MC_150_E25, file = "veh/MC_150_E25.rds")
+saveRDS(MC_150_500_E25, file = "veh/MC_150_500_E25.rds")
+saveRDS(MC_500_E25, file = "veh/MC_500_E25.rds")
+
+saveRDS(MC_150_FE25, file = "veh/MC_150_FE25.rds")
+saveRDS(MC_150_500_FE25, file = "veh/MC_150_500_FE25.rds")
+saveRDS(MC_500_FE25, file = "veh/MC_500_FE25.rds")
+
+saveRDS(MC_150_FE100, file = "veh/MC_150_FE100.rds")
+saveRDS(MC_150_500_FE100, file = "veh/MC_150_500_FE100.rds")
+saveRDS(MC_500_FE100, file = "veh/MC_500_FE100.rds")
+
+```
+
+
+
+
+# Appendix B {-}

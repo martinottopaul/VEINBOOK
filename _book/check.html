@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vehicular emissions inventory with VEIN</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vehicular emissions inventory with VEIN" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="ibarraespinosa/veinbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vehicular emissions inventory with VEIN" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sergio Ibarra-Espinosa">
+
+
+<meta name="date" content="2018-09-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="ep.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">veinbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i>Purpose</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i>Structure</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#definitions-and-sources-of-information"><i class="fa fa-check"></i><b>1.1</b> Definitions and sources of information</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#approaches"><i class="fa fa-check"></i><b>1.1.1</b> Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#required-r-packages-and-dependencies"><i class="fa fa-check"></i><b>1.3</b> Required R packages and dependencies</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#data-inside-the-vein-model"><i class="fa fa-check"></i><b>1.4</b> Data inside the VEIN model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#emission-factors-from-cetesb"><i class="fa fa-check"></i><b>1.4.1</b> Emission factors from CETESB</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#mileage-functions-of-brazilian-fleet"><i class="fa fa-check"></i><b>1.4.2</b> Mileage functions of Brazilian Fleet</a></li>
+<li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#temporal-factors-for-passenger-cars"><i class="fa fa-check"></i><b>1.4.3</b> Temporal factors for Passenger Cars</a></li>
+<li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#profile-for-cold-starts-of-passenger-cars"><i class="fa fa-check"></i><b>1.4.4</b> Profile for cold starts of Passenger Cars</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>2</b> Basics of R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic.html"><a href="basic.html#brief-history"><i class="fa fa-check"></i><b>2.1</b> Brief history</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basic.html"><a href="basic.html#installation-1"><i class="fa fa-check"></i><b>2.1.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic.html"><a href="basic.html#using-r"><i class="fa fa-check"></i><b>2.2</b> Using R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="basic.html"><a href="basic.html#r-objects"><i class="fa fa-check"></i><b>2.2.1</b> R objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic.html"><a href="basic.html#factors"><i class="fa fa-check"></i><b>2.2.2</b> Factors</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic.html"><a href="basic.html#missing-values"><i class="fa fa-check"></i><b>2.2.3</b> Missing Values</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic.html"><a href="basic.html#matrices"><i class="fa fa-check"></i><b>2.2.4</b> Matrices</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic.html"><a href="basic.html#arrays"><i class="fa fa-check"></i><b>2.2.5</b> Arrays</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="st.html"><a href="st.html"><i class="fa fa-check"></i><b>3</b> Structuring an Emissions Inventory</a><ul>
+<li class="chapter" data-level="3.1" data-path="st.html"><a href="st.html#veinstructure"><i class="fa fa-check"></i><b>3.1</b> Overview of emissions inventorying using VEIN</a></li>
+<li class="chapter" data-level="3.2" data-path="st.html"><a href="st.html#the-inventory-function"><i class="fa fa-check"></i><b>3.2</b> The <code>inventory</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
+<li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
+<li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.2</b> Main functions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.2.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.2.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.2.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.2.4</b> The function <code>my_age</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.2.5</b> The class <code>Vehicles</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.2.6</b> Other traffic functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.3</b> Vehicular composition</a></li>
+<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.4</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
+<li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
+<li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
+<li class="chapter" data-level="5.4" data-path="ef.html"><a href="ef.html#cold-starts"><i class="fa fa-check"></i><b>5.4</b> Cold Starts</a></li>
+<li class="chapter" data-level="5.5" data-path="ef.html"><a href="ef.html#det"><i class="fa fa-check"></i><b>5.5</b> Deterioration</a></li>
+<li class="chapter" data-level="5.6" data-path="ef.html"><a href="ef.html#evaporative-emissions-ef_evap"><i class="fa fa-check"></i><b>5.6</b> Evaporative emissions <code>ef_evap</code></a></li>
+<li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
+<li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
+<li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
+<li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
+<li class="chapter" data-level="6.2" data-path="est.html"><a href="est.html#the-emis_cold-function"><i class="fa fa-check"></i><b>6.2</b> The <code>emis_cold</code> function</a></li>
+<li class="chapter" data-level="6.3" data-path="est.html"><a href="est.html#the-emis_evap-function"><i class="fa fa-check"></i><b>6.3</b> The <code>emis_evap</code> function</a></li>
+<li class="chapter" data-level="6.4" data-path="est.html"><a href="est.html#the-emis_paved-function"><i class="fa fa-check"></i><b>6.4</b> The <code>emis_paved</code> function</a></li>
+<li class="chapter" data-level="6.5" data-path="est.html"><a href="est.html#ew"><i class="fa fa-check"></i><b>6.5</b> The <code>emis_wear</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="post.html"><a href="post.html"><i class="fa fa-check"></i><b>7</b> Post estimation with <code>emis_post</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="post.html"><a href="post.html#emissions-by-street"><i class="fa fa-check"></i><b>7.1</b> Emissions by street</a></li>
+<li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
+<li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
+<li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
+<li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
+<li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
+<li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
+<li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
+<li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
+<li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
+<li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="check.html"><a href="check.html"><i class="fa fa-check"></i><b>10</b> Quality check and errors</a><ul>
+<li class="chapter" data-level="10.1" data-path="check.html"><a href="check.html#guidance-from-emepeea-air-pollutant-emission-inventory-guidebook"><i class="fa fa-check"></i><b>10.1</b> Guidance from EMEP/EEA air pollutant emission inventory guidebook</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="check.html"><a href="check.html#key-categories"><i class="fa fa-check"></i><b>10.1.1</b> Key categories</a></li>
+<li class="chapter" data-level="10.1.2" data-path="check.html"><a href="check.html#uncertainty"><i class="fa fa-check"></i><b>10.1.2</b> Uncertainty</a></li>
+<li class="chapter" data-level="10.1.3" data-path="check.html"><a href="check.html#quality-assurance-and-quality-check"><i class="fa fa-check"></i><b>10.1.3</b> Quality Assurance and Quality Check</a></li>
+<li class="chapter" data-level="10.1.4" data-path="check.html"><a href="check.html#inventory-managment-cycle"><i class="fa fa-check"></i><b>10.1.4</b> Inventory managment cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="check.html"><a href="check.html#avoiding-errors-with-vein"><i class="fa fa-check"></i><b>10.2</b> Avoiding errors with VEIN</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="check.html"><a href="check.html#traffic-flow"><i class="fa fa-check"></i><b>10.2.1</b> Traffic flow</a></li>
+<li class="chapter" data-level="10.2.2" data-path="check.html"><a href="check.html#vehicular-composition-2"><i class="fa fa-check"></i><b>10.2.2</b> Vehicular composition</a></li>
+<li class="chapter" data-level="10.2.3" data-path="check.html"><a href="check.html#units"><i class="fa fa-check"></i><b>10.2.3</b> Units</a></li>
+<li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
+<li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
+<li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-fast-example-of-vein.html"><a href="appendix-a-fast-example-of-vein.html"><i class="fa fa-check"></i>Appendix A: Fast Example of VEIN</a></li>
+<li class="chapter" data-level="" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html"><i class="fa fa-check"></i>Appendix B: Detailed Example of VEIN</a><ul>
+<li class="chapter" data-level="A.3" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
+<li class="chapter" data-level="A.4" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
+<li class="chapter" data-level="A.5" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vehicular emissions inventory with VEIN</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="check" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Quality check and errors</h1>
+<p>This last chapter of this book presents to aspestcs fthat must be considered for any practicioner interested in developing emissions inventories. The first part covers a summary of the EMEP/EEA air pollutant emission inventory guidebook 2016, Technical guidance to prepare national emission inventories <span class="citation">(McGlade and Vidic <a href="#ref-guia">2009</a>)</span>, based on the Intergovernmental Panel on Climate Change (IPCC) 2006 Good Practice Guidance [<span class="citation">Change (<a href="#ref-change20062006">2006</a>)</span>. The second part consists in advices and specific considerations for avoinding errors when runnign VEIN in each part of the inventory.</p>
+<div id="guidance-from-emepeea-air-pollutant-emission-inventory-guidebook" class="section level2">
+<h2><span class="header-section-number">10.1</span> Guidance from EMEP/EEA air pollutant emission inventory guidebook</h2>
+<p>I believe that this part of this capter delivers knowledge that you really will gain with experience. But even with experience you can get lost, and returning to this part would save you. This part is based on the EMEP/EEA air pollutant emission inventory guidebook <span class="citation">(McGlade and Vidic <a href="#ref-guia">2009</a>)</span>.</p>
+<div id="key-categories" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> Key categories</h3>
+<p>Key categories are the most important <strong>source</strong> categories. This section is based on the chapter Key category analysis and methodological choice <span class="citation">(J <a href="#ref-guiak">2013</a>)</span> of the EMEP/EEA air pollutant emission inventory guidebook 2013. They are important because they are responsabile for most of pollution in a determined region. For instance, it has been described that vehicles are the most important source of pollution in mega-cities <span class="citation">(Molina and Molina <a href="#ref-molina2004megacities">2004</a>)</span>. Evenmore, in the case of São Paulo, the official emissions inventory informs that vehicles are responsabiel for mor than 97 % of <span class="math inline">\(CO\)</span>, 79 % of <span class="math inline">\(HC\)</span>, 68 % of <span class="math inline">\(NO_X\)</span>, and only 29 % of <span class="math inline">\(PM\)</span> and 22 % of <span class="math inline">\(SO_X\)</span> <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span>. This shown another characteristics of key categories: they depend of specific pollutants.</p>
+<p>For another example, consider a city which suffers cold weather with use bio-mass burning for cooking and heating. The main source of <span class="math inline">\(PM_{2.5}\)</span> will be certainly bio-mass burning.</p>
+<p>Now consider an industrial region with industrial process that emit too much <span class="math inline">\(SO_X\)</span>. The key-cateogries might be industrial sources.</p>
+<p>And one more example, consider a huge mega-city with electric mobility. However, the main source of electricity are thermoelectric based on carbon (the key).</p>
+<p>This implies that it should be a nomemclature for categorizing and naming sources. IPCC, has a nomenclature for instance.</p>
+<p>The ideia behind key categories, is that most efforts must be applied in this categories, obtainging the highest level of detail with less uncertainty. Hence, the emissions guidelines <span class="citation">(McGlade and Vidic <a href="#ref-guia">2009</a>)</span> proposes three levels of complexity estimation methods, known as Tier Methods. The complexity increases from level 1, 2 and 3. The VEIN tier is 3, which is that the most complex function of vehicular emissions estimations are incporated, with the exception of evaporative. I need to improve that part.</p>
+<ul>
+<li>Tier 1: a simpler method which include available activity and emissions factors.</li>
+<li>Tier 2: Similar to Tier 1, but includes more specific emission factors.</li>
+<li>Tier 3: Most complex methodologies with higher level of detail, temporal and spatial.</li>
+</ul>
+</div>
+<div id="uncertainty" class="section level3">
+<h3><span class="header-section-number">10.1.2</span> Uncertainty</h3>
+<p>This is a very important part in any emissions inventory and a dedicated chapter or section should be made in any report/paper. This section is based on the chapter Uncertainties <span class="citation">(Pulles T <a href="#ref-guiau">2013</a>)</span> of the EMEP/EEA air pollutant emission inventory guidebook 2013.The 2006 IPCC Guidelines chapter states that estimating the uncertainty of an inventory is needed <span class="citation">(Change <a href="#ref-change20062006">2006</a>)</span>.</p>
+<p>It is recommended to use 95% confidence interval. This means that:</p>
+<ul>
+<li>there is a 95% of probability that the actual value of the quantity estimates is within the interval defined by the confidence interval.</li>
+<li>The probability of the actual value will be outside the range it is 5%.</li>
+</ul>
+<p>The general form for estimating emissions was shown on Eq. <a href="intro.html#eq:efGERAL">(1.1)</a> <span class="citation">(Pulles T <a href="#ref-guiau">2013</a>)</span>. This equation will be the base for calculating the uncertainty. This section is applied when measurements are made, for the case of activity or emission factors. In those case, it is possible calculate the required confiden intervals.</p>
+<div id="default-uncertainty-ranges" class="section level4">
+<h4><span class="header-section-number">10.1.2.1</span> Default uncertainty ranges</h4>
+<p><em>Activity data</em></p>
+<p>The following table is taking directly form <span class="citation">McGlade and Vidic (<a href="#ref-guia">2009</a>)</span> and propose indicative ranges that could be applies in cases where no independed data are available.</p>
+<ul>
+<li>National official statistics: - .</li>
+<li>Update of last year’s statistics using Gross Economic Growth factors: 0 - 2%.</li>
+<li>International Energy Agency (IEA) statistics: OECD: 2 - 3%, non-OECD 5-10%.</li>
+<li>United Nation data bases: 5 - 10%.</li>
+<li>Default values, other sources: 30 - 100%.</li>
+</ul>
+<p><em>Emission factors</em></p>
+<p>The following table is taking directly form <span class="citation">McGlade and Vidic (<a href="#ref-guia">2009</a>)</span> and propose rating definitions for emission factors<span class="citation">(McGlade and Vidic <a href="#ref-guia">2009</a>)</span>.</p>
+<ul>
+<li>A: An estimate based on a large number of measurements made at a large number of facilities that fully represent the sector. Error: 10 o 30%.</li>
+<li>B: An estimate based on a large number of measurements made at a large number of facilities that represent a large part of the sector. Error: 20 to 60%</li>
+<li>C: An estimate based on a number of measurements made at a small number of representative facilities, or an engineering judgement based on a number of relevant facts. Error: 50 to 200%.</li>
+<li>D: An estimate based on single measurements, or an engineering calculation derived from a number of relevant facts. Error: 100 to 300%.</li>
+<li>E: An estimate based on an engineering calculation derived from assumptions only. Error: Order of magnitude.</li>
+</ul>
+<p>In <span class="citation">McGlade and Vidic (<a href="#ref-guia">2009</a>)</span> appears ratings for road transport emission factors that diffier from the ratings that appear in <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span>. To preserve consistenty in this book, here is presented the precision indicators, Table 4-1 of <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> report.</p>
+<table>
+<caption><span id="tab:precision">Table 10.1: </span>Precision indicators (Ntziachristos and Samaras 2016)</caption>
+<thead>
+<tr class="header">
+<th align="left">Category</th>
+<th align="left">NOx</th>
+<th align="left">CO</th>
+<th align="left">NMHC</th>
+<th align="left">CH4</th>
+<th align="left">PM</th>
+<th align="left">N2O</th>
+<th align="left">NH3</th>
+<th align="left">CO2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PC G w/o Catalyst</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">-</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">PC G w Catalyst</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">-</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">PC D</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">PC LPG</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">PC LPG w/o Catalyst</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">D</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">PC LPG w Catalyst</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">PC 2 strokes</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">D</td>
+<td align="left">-</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">B</td>
+</tr>
+<tr class="even">
+<td align="left">LCV G</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">C</td>
+<td align="left">-</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">LCV D</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">C</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">HDV G</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">C</td>
+<td align="left">-</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="left">HDV D</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">D</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">MC cc &lt;50</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">-</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">MC cc &gt; 50 2 strokes</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">-</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">MC cc &gt; 50 4 strokes</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">B</td>
+<td align="left">-</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">Cold-start PC G Pre Euro</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">B</td>
+</tr>
+<tr class="even">
+<td align="left">Cold-start PC G Euros</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">B</td>
+<td align="left">A</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">Cold-start PC D Pre Euro</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">-</td>
+<td align="left">C</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">B</td>
+</tr>
+<tr class="even">
+<td align="left">Cold-start PC D Euros</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">A</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">Cold-start PC LPG</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">C</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">B</td>
+</tr>
+<tr class="even">
+<td align="left">Cold-start LCV G</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="left">Cold-start LCV F</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">D</td>
+<td align="left">-</td>
+<td align="left">D</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">D</td>
+</tr>
+</tbody>
+</table>
+<p>Uncertainties can be aggregated with two approaches</p>
+<ul>
+<li><em>Rule A</em>: uncertainties are combined by <em>addition</em>, as shown in Eq. <a href="check.html#eq:sumun">(10.1)</a>:</li>
+</ul>
+<span class="math display" id="eq:sumun">\[\begin{equation}
+U_{total}=\frac{\sqrt{\sum_{i = 1}^{n}(U_i \cdot x_i )^2}}{\sum_{i = 1}^{n}}
+\tag{10.1}
+\end{equation}\]</span>
+<p>Where, <span class="math inline">\(x\)</span> are the quantities, <span class="math inline">\(U_i\)</span> are the uncertain quantities and the percentage uncertainties (half the 95% confidence interval) associated with them, respectivly. <span class="math inline">\(U_{total}\)</span> is the percentage uncertinti in the sum of the quantites (half the 95% confidence interval divided by the total (i.e. mean) and expressed as percentage).</p>
+<ul>
+<li><em>Rule B</em>: uncertainties are combined by <em>multiplication</em>, as shown on Eq. <a href="check.html#eq:sumul">(10.2)</a>:</li>
+</ul>
+<span class="math display" id="eq:sumul">\[\begin{equation}
+U_{total}=\sqrt{\sum_{i = 1}^{n}(U_i)^2} 
+\tag{10.2}
+\end{equation}\]</span>
+<p>Where, <span class="math inline">\(U_i\)</span> are the percentage quantities (hal the 95% confidence interval) associated with each of the quantities. <span class="math inline">\(U_{total}\)</span> is the percentage in the product of the quantities (half the 95% confidence interval divided by the total and expressed as percentage).</p>
+<p>Alternatively, a Monte Carlo simulation can be done.</p>
+</div>
+</div>
+<div id="quality-assurance-and-quality-check" class="section level3">
+<h3><span class="header-section-number">10.1.3</span> Quality Assurance and Quality Check</h3>
+<p>This section is mostly based on the chapter Inventory management, improvement and QA/QC <span class="citation">(J et al. <a href="#ref-guiaqa">2013</a>)</span> of the EMEP/EEA air pollutant emission inventory guidebook 2013.</p>
+<p>According to Wikipedia:</p>
+<ul>
+<li><strong>Quality assurance (QA)</strong> is a way of preventing mistakes and defects in manufactured products and avoiding problems when delivering solutions or services to customers <span class="citation">(Wikipedia contributors <a href="#ref-wiki:qa">2018</a><a href="#ref-wiki:qa">b</a>)</span>.</li>
+<li><strong>Quality control (QC)</strong> is a process by which entities review the quality of all factors involved in production <span class="citation">(Wikipedia contributors <a href="#ref-wiki:qc">2018</a><a href="#ref-wiki:qc">c</a>)</span>.</li>
+</ul>
+<p>The main reference in QA/QC are the International Organization for Standardization ISO 9000 <span class="citation">(Wikipedia contributors <a href="#ref-wiki:iso">2018</a><a href="#ref-wiki:iso">a</a>)</span>.</p>
+<p>The idea is to avoid errors in the development of the inventory. Hence, it is very important that the objective of the inventory, frequency and spatial and temporal resolution must be very clear. As mentioned before, the inventory can have a purpose of policy application or scientific. In any case, the QAQC procedures should be explicitly stated covering five data quality objectives <strong>transparency</strong>, <strong>consistency</strong>, <strong>comparability</strong>, <strong>completeness</strong> and <strong>acccuracy</strong>.</p>
+<p>This means that another researcher/practicioner should be able to reproduce the results. However, this is not always the case. Evenmore, it has been shown that there are currently a crisis of reproducibility in science, where ‘more than 70% of researchers have tried and failed to reproduce another scientist’s experiments, and more than half have failed to reproduce their own experiments’ <span class="citation">(Baker <a href="#ref-baker2016there">2016</a>)</span>. I believe that emissions inventories should guarantee the reproducibility of results, in scientific and policy application inventories.</p>
+</div>
+<div id="inventory-managment-cycle" class="section level3">
+<h3><span class="header-section-number">10.1.4</span> Inventory managment cycle</h3>
+<p>Another important aspect is the inventory managment cycle. The inventory manager is responsabile for institutional arrangments, meet deadlines and for the inventory managment cycle. The inventory complier gets the data and estimate the emissions with the respective Tier.</p>
+<p>The cycle is:</p>
+<ol style="list-style-type: decimal">
+<li>Priorization of improvements: As the resources are limited, priorization must be given to key categories.</li>
+<li>Data-collection: It is important to stablish formal agreements needs with data providers using protocols. The protocols must cleary show the data needed, its format, content and dates of delivery.</li>
+<li>Inventory compilation. The inventory compiler estimate the emissions.</li>
+<li>Consolidation. The inventory manager consolidates all the emissions ensuring quality in data and methods for estimating emissions.</li>
+<li>Data Quality Review.</li>
+<li>Reporting.</li>
+<li>Lessons learned and improvement review.</li>
+<li>Inventory Managment Report.</li>
+<li>Quality Assurance and Quality Control Plan.</li>
+</ol>
+</div>
+</div>
+<div id="avoiding-errors-with-vein" class="section level2">
+<h2><span class="header-section-number">10.2</span> Avoiding errors with VEIN</h2>
+<p>The first part of this chapter covered some fundamental aspects in emissions inventory managment for quality assurance and quality control. This part covers typical erros that I’ve faced using VEIN and I hope it help users how to avoid them.</p>
+<p>Currently, VEIN does not have grafical user interface (GUI) and runs on R <span class="citation">(R Core Team <a href="#ref-R">2017</a>)</span>, which can be intimidating for new users. Also, even experienced users can do mistakes. If you find a mistake, write it down to abooid it in future. Be organized. I recommend to code your inventory keeping in mind that you will have to check your scripts in the future, so it would be nice if in the first try your code looks nice. And also, don’t panic.</p>
+<div id="traffic-flow" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Traffic flow</h3>
+<p>One of the first inputs of it is the traffic flow data. You must have an agreement with data providers to get the data. Also, the compiler must understand the format of the data. In my experience, data providers comes from government agencies with limitated resources and few time. This means that, if there is not a formal agreement, they won’t speed too much time for processing their data to meet your needs (because it is not part of their jobs). And even, if there was a formal agreement, the data processing must be done by the data compiler.</p>
+<p>The data provided in this book covers a travel demand output for Metropolitan Are ofSão Paulo (MASP) made by the Traffic Company Engineering of São Paulo, for the year 2012. The has the same content inside VEIN package, with the exception that covers the whole MASP. The data originally is in format MAPINFO. Therefore, the package <strong>sf</strong> must be used to read the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+net &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/masp.TAB&quot;</span>)</code></pre></div>
+<p>The section @ref(#traffic) shows details about this data.</p>
+<ul>
+<li>Have a meeting with data delivers to check and solve any doubt regarding the data.</li>
+<li>Check if your data is projected or not. The data probably will be projected with a UTM zone, for instance code 31983 <a href="http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-23s/" class="uri">http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-23s/</a>. VEIN imports functions from <code>sf</code> and <code>lwgeom</code> which depend on GEOS libraries. This means that VEIN can work with data projected or not. Nevertheless, I suggest to work with projected data for your location.</li>
+<li>Ensure that the data is correctly read and that there are no objects of class <code>factor</code> in the columns.</li>
+<li>Make sure that of what are the units of the traffic flow and remember that most of VEIN functions are designed to work with hourly traffic flow.</li>
+<li>Plot the data. Check if the data looks fine or have some mistakes.</li>
+<li>Calculate the length of each road. Make proper transformations and <strong>make sure</strong> <strong>that resulting length of road as <code>units</code> km</strong>. I suggest to use the name lkm. This can be easily done with in R with packages <code>sf</code> and <code>units</code> installed. Let’s say that your data is named <em>net</em> and your data is already projected. Also, that your traffic flow is named <em>ldv</em> for light duty vehicles and <em>hdv</em> for heavy duty vehicles.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(net[<span class="st">&quot;ldv&quot;</span>], <span class="dt">axes =</span> T)
+<span class="kw">plot</span>(net[<span class="st">&quot;hdv&quot;</span>], <span class="dt">axes =</span> T)
+net<span class="op">$</span>lkm &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_length</span>(net) <span class="co">#returns distance in meters</span>
+net<span class="op">$</span><span class="er">$</span>lkm &lt;-<span class="st"> </span>units<span class="op">::</span><span class="kw">set_units</span>(net<span class="op">$</span>lkm, km) <span class="co">#transform meters in km</span></code></pre></div>
+<p>Despite that this transformation can be done by dividing lkm by 1000, this would be wrong because the <code>units</code> wouldn’t change and they must be <code>km</code>. Hence, using the functions of the <code>units</code> package is the recommended way.</p>
+</div>
+<div id="vehicular-composition-2" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Vehicular composition</h3>
+<p>The vehicular composition is a critical part in the emissions inventories for vehicles. It consists in the percentage of each type of vehicle and technology. Despite that it seems pretty straightforward, making a mistake in this part of the emissions inventories would cost lots of time. <strong>Developing an</strong> <strong>emissions inventory is a complex task, you must take great care in simple</strong> <strong>calculations, because if the resutls are not consistent, it can take LOTS</strong> <strong>of time, to find the error, usually when the dealines are dead</strong>.</p>
+<p>The function <code>inventory</code> needs the vehicular composition to create the respective directories to run VEIN. I have the feeling that most of model users like structured models with clear input and outputs. VEIN is not like that, and this is in part due to the nature of the emissions inventories. I could design a model that works perfectly with one type of input, but in real life, a desired input is not always easy to get. For instance, the traffic simulation used inside the model is not easy to get, even in cities of developed countries. Hence, the inventory compiler must struggle to do their job. Therefore, VEIN was designed with flexibility and verstility on mind.</p>
+<p>Anyways, the vehicular composition are the number of each type the following vehicles: PC, LCV, HGB, BUS, MC. Then, each sub category will be divided by type of age of use. For instance, the vehicular emissions inventory for São Paulo State considers 4 type of vehicles:</p>
+<ul>
+<li>Particulate Cars using gasohol (Gasoline with 25% of ethanol, PC_25).</li>
+<li>Particulate Cars Flex using gasohol (Gasoline with 25% of ethanol, PC_F25).</li>
+<li>Particulate Cars Flex using ethanol (Gasoline with 25% of ethanol, PC_FE100).</li>
+<li>Particulate Cars using ethanol (Gasoline with 25% of ethanol, PC_E100).</li>
+</ul>
+<p>This means that the number of PC is 4.</p>
+<p>Then each of this vehicles is divided by age of use. As consecuence, we must know when each of these vehicle entered and went out of the market. Again, for São Paulo conditions, Flex engines entered into market in 2003 and nowadays must of new cars are flex. Vehicles with engines designed for burning ethanol had a peak in early 80s, but they went of the market in 2006. Gasoline vehicles have been in circulation from the beginning and CETESB inventory considers a life span of 40 years of use.</p>
+<p>The same analyses must be done with each of the vehicle categories.</p>
+<p>The distribution by age of use indirectly shows the technology associated with emission standards by age of use.</p>
+<!-- A few days ago, I was developing an inventory in which my team was evaluating -->
+<!-- the impact in air quality of a new type of fuel on the city of São Paulo. The -->
+<!-- results were consistens comparison base case with scenario, however, the magnitud  -->
+<!-- of the emissions are too high. The air quality simulatiosn showed a clear  -->
+<!-- bias, constant over time. I struggled to find any error without results. -->
+<!-- Until I remembered the words of my former boss _Plot the results, becaust it is_ -->
+<!-- _easier fo find any mistake_. I did it, and this is was the result. -->
+</div>
+<div id="units" class="section level3">
+<h3><span class="header-section-number">10.2.3</span> Units</h3>
+<p>Currently, VEIN checks that the variable lkm (length) must be in km. This is to avoid that the user wrongly enter length in meters or without units. As a result, the emissions woult be huge and wrong.</p>
+<p>In the case of vehicles, currently there are not designed a unit of “vehicles” in VEIN. In transportation studies, it is used the unit “equivalent vehicle” which standarize each type of vehicle by its size. For instance, LCV are sometimes equivalent of 1.2 vehicles. Buses or HGV can be equuvalent to 2 or more vehicles. however, there are no such typeof this things in VEIN and units managment is designed to control emission factors and length.</p>
+<p>The temporal dimension is also an aspect difficult to handle regarding the units. This is because, sometimes mileage are correctly in km, but the timespan is in one year. Threfore, the units magament is degined to avoid errors with emission factors and calculation of emissions. This means that a future version of VEIN will erradicate all temporal dimensions ensure right calculation of mass only. This means that VEIN will not chech if the data is hourly or anunual.</p>
+</div>
+<div id="emission-factors-1" class="section level3">
+<h3><span class="header-section-number">10.2.4</span> Emission factors</h3>
+<p>When I started this book, VEIN contained few emission factors. Now, the version 0.4.6 has all the 2016 emission factors of CETESB, almost 100 emisision factors from the European Emission guidelines the all the BASE emission factors from the International Vehicle Model (IVE). The functions to access this data are:</p>
+<ul>
+<li>ef_cetesb.</li>
+<li>ef_ldv_speed.</li>
+<li>ef_hdv_speed.</li>
+<li>ef_ive.</li>
+</ul>
+<p>I will be working to import emission factors from HBEFA model which are based traffic situation (very cool).</p>
+</div>
+<div id="deterioration" class="section level3">
+<h3><span class="header-section-number">10.2.5</span> Deterioration</h3>
+<p>VEIN currently cover the deterioration emission factors from the Euroepan emission guidelines. This values results in a simply numeric vector depending on standard, mileage, type of vehicle and pollutant. However, it would be possible to use any other deterioation factors.</p>
+<p>Ensure to use correctly the data and cite respective literature.</p>
+</div>
+<div id="fuel-evaluation" class="section level3">
+<h3><span class="header-section-number">10.2.6</span> Fuel evaluation</h3>
+<p>It is a good practice to ensure that the mass of fuel consumed of vehicle in your study area, matchs the fuel sale son your area. If not, calibrate your emissions by number of vehicles (if bottom-up) or a combination of vehicles and mileage (if top-down) to match fuel sales.</p>
+</div>
+<div id="emissions-estimation" class="section level3">
+<h3><span class="header-section-number">10.2.7</span> Emissions estimation</h3>
+<p>Most of emission functions returns an array of emissions, which means a matrix of matrices. The idea was that each dimension has a meaning but I’ve been thinking that it is not necessary and each dimension should have different nature, for instance, it is not necessary two dimensions for time, despite that one indicates hour and the other days. So I mght change that in future. Dont panic, I’m always trying to change the functions without breaking older code.</p>
+<p>I hope you liked this book.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-guia">
+<p>McGlade, J, and S Vidic. 2009. “EMEP/Eea Air Pollutant Emission Inventory Guidebook 2009: Technical Guidance to Prepare National Emission Inventories.” Technical report 9/2009, EEA, Copenhagen, Denmark.</p>
+</div>
+<div id="ref-change20062006">
+<p>Change, IPOC. 2006. “2006 Ipcc Guidelines for National Greenhouse Gas Inventories.” <em>2013-04-28]. Http://Www.ipcc-Nggip.iges.or.jp./public/2006gl/Index.html</em>.</p>
+</div>
+<div id="ref-guiak">
+<p>J, Goodwin. 2013. “EMEP/Eea Air Pollutant Emission Inventory Guidebook 2013: Key Category Analysis and Methodological Choice.” Technical report 2013, EEA, Copenhagen, Denmark.</p>
+</div>
+<div id="ref-molina2004megacities">
+<p>Molina, Mario J, and Luisa T Molina. 2004. “Megacities and Atmospheric Pollution.” <em>Journal of the Air &amp; Waste Management Association</em> 54 (6). Taylor &amp; Francis: 644–80.</p>
+</div>
+<div id="ref-CETESB2015">
+<p>CETESB. 2015. “Emissões Veiculares No Estado de São Paulo 2014.”</p>
+</div>
+<div id="ref-guiau">
+<p>Pulles T, Kuenen J. 2013. “EMEP/Eea Air Pollutant Emission Inventory Guidebook 2013: Uncertainties.” Technical report 2013, EEA, Copenhagen, Denmark.</p>
+</div>
+<div id="ref-NtziachristosSamaras2016">
+<p>Ntziachristos, L, and Z Samaras. 2016. “EMEP/Eea Emission Inventory Guidebook; Road Transport: Passenger Cars, Light Commercial Trucks, Heavy-Duty Vehicles Including Buses and Motorcycles.” <em>European Environment Agency, Copenhagen</em>.</p>
+</div>
+<div id="ref-guiaqa">
+<p>J, Goodwin, Pulles T, Ardenne J, Tooly L, and Rypdal K. 2013. “EMEP/Eea Air Pollutant Emission Inventory Guidebook 2013: Inventory Managment, Improvement and Qa/Qc.” Technical report 2013, EEA, Copenhagen, Denmark.</p>
+</div>
+<div id="ref-wiki:qa">
+<p>Wikipedia contributors. 2018b. “Quality Assurance — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Quality_assurance&amp;oldid=847736226" class="uri">https://en.wikipedia.org/w/index.php?title=Quality_assurance&amp;oldid=847736226</a>.</p>
+</div>
+<div id="ref-wiki:qc">
+<p>Wikipedia contributors. 2018c. “Quality Control — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Quality_control&amp;oldid=850408288" class="uri">https://en.wikipedia.org/w/index.php?title=Quality_control&amp;oldid=850408288</a>.</p>
+</div>
+<div id="ref-wiki:iso">
+<p>Wikipedia contributors. 2018a. “ISO 9000 — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=ISO_9000&amp;oldid=849979440" class="uri">https://en.wikipedia.org/w/index.php?title=ISO_9000&amp;oldid=849979440</a>.</p>
+</div>
+<div id="ref-baker2016there">
+<p>Baker, Monya. 2016. “Is There a Reproducibility Crisis? A Nature Survey Lifts the Lid on How Researchers View the’crisis Rocking Science and What They Think Will Help.” <em>Nature</em> 533 (7604). Nature Publishing Group: 452–55.</p>
+</div>
+<div id="ref-R">
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ep.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/master/inst/examples/10-check.Rmd",
+"text": "Edit"
+},
+"download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

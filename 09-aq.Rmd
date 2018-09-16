@@ -1,0 +1,354 @@
+# Inputs for atmospheric models with `eixport` Package {#ep}
+
+This last chapter of this book is about generating inputs for atmospheric
+models, specifically, **WRF-Chem** [@Grelletal2005]. As the Pacific Northwest 
+National Laboratory (PNNL, https://www.pnnl.gov/atmospheric/research/wrf-chem/)
+defines:
+
+
+**The Weather Research and Forecasting (WRF) model is a next generation **
+**meteorological model being developed collaboratively among several agencies**
+**(NOAA/NCEP, NOAA/ESRL, NCAR). WRF-Chem is a version of WRF that also**
+**simultaneously simulates the emission, turbulent mixing, transport,**
+**transformation, and fate of trace gases and aerosols.**
+
+Initially, VEIN counted with the function `emis_wrf` which created a data.frame
+object of hourly gridded emissions with each pollutant as a column, from the
+first cell to the last. The data-frame extendend in long format to each hour.
+This data.frame was designed to be used with script Another Asimilation
+System for WRF (AS4WRF) [@VaraVelaetal2015] written in NCL [@ncl]. 
+
+This approach was effective and already tested for some Latinamerican cities
+[@micro], [@icshmo]. However, this function depends on external software which
+may not be available. Therefore, me andsome collegues developed the package
+`eixport` [@eixport], [@eixport2], which is an R package to read and export
+emissions to atmospheric models. `eixport` currently covers the models
+WRF-Chem [@Grelletal2005], SPM-BRAMS [@Freitasetal2005] and R-LINE [@rline], but
+only the WRF-Chem interface has been fully implemented. Therefore, this chapter
+covers only this model.
+
+The concept of connecting VEIN and Wrf-Chem via eixport is quite simple with
+two approaches:
+
+1. Generating `GriddedEmissionsArray` for the wrfinput grid and inputting this
+emissions into the wrfchemi input file..
+2. Generating gridded emissions data-frame for AS4WRF.
+
+## WRFChem input with wrfinput and `GriddedEmissionsArray`
+
+```{r , eval = FALSE, include = FALSE}
+library(DiagrammeR)
+
+p1 <- grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = TB,
+            fontname = Helvetica]
+
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = white,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      wrfinput_d0x;
+      wrfcheminput;
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      GriddedEmissionsArray;
+      EmissionsArray;
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      make_grid;
+      emis_grid;
+      emis_post;
+      emis_merge;
+ 
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = green,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      wrf_create;
+      wrf_put;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+      wrfinput_d0x -> {make_grid wrf_create}
+      EmissionsArray -> emis_post
+      emis_post -> emis_merge
+      {make_grid emis_merge} -> {emis_grid}
+      emis_grid -> GriddedEmissionsArray
+      GriddedEmissionsArray -> wrf_put
+      {wrf_put wrf_create} -> wrfcheminput
+      }
+      ")
+```
+
+The process for generation WRF-Chem input files with `GriddedEmissionsArray` is
+shown on Fig. \@ref(fig:gea). Pink boxes are classes, grey boxes are `vein`
+functions, green functions are  `eixport` functions and white boxes, external
+objects. Here, the external input file is the **wrfinputd_0x**
+file, where the **x** is for the domain. This file is inputted into the function
+`make_grid` which creates a polygon grid needed by `emis_grid`. The main
+characteristic of this grid, is that it has the resolution of the wrfinput
+file.
+
+The wrfinpiut_d0x file isalso used by the `eixport` function `wrf_create` to
+create a wrfchemi input file with zeroes.
+
+The objects with class `EmissionsArray` for each type of vehicle and pollutant are 
+processed by the function `emis_post` which create street emissions. Then, the function
+`emis_merge` merges all the street emissions files from `emis_post_ into one
+street emissions by pollutant ehich is inputted into function `emis_grid` to
+create a polygon grid of emissions, class Spatial Feature `sf` [@sf], [@RJ-2018-009].
+Then, the spatial gridded emissions are inputted into the contructor function
+`GriddedEmissionsArray` to create an object of that class, and the dimensions
+of the wrfinput file, that is, the sanem number of spatial rows and columns.
+
+Finally, the `GriddedEmissionsArray` objects are inputted into the wrfchemi
+file with the `eixport` function `wrf_put`.
+
+```{r gea, echo = FALSE, fig.cap='Generation of wrfchem inputs using GriddedEmissionsArray', out.width='50%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/gea.png")
+```
+
+Example
+
+### Creating a WRF-Chem input file
+
+The emission file will be generated with traffic simulation from the 
+Traffic Engineering Company (CET) for 2012, which consists
+in traffic flow for morning rush hour of Light Duty Vehicles (LDV) and
+Heavy Good Vehicles (HGV). The emission factors will be the data `fe2015`
+and the wrfinput comes from the `eixport` package. Let's go:
+
+#### 0) Network
+
+The object net has a class `SpatialLinesDataFrame`, we transform it into a
+`sf`object. The length of the road is the field 'lkm' in the object net, which
+are in km but has no units. We must add the right units in order to use `vein`
+
+```{r}
+require(vein)
+require(sf)
+require(units)
+net <- readRDS("figuras/net.rds")
+class(net)
+net <- st_as_sf(net)
+net[1, ]
+net$lkm <- set_units(st_length(net), km) # ensure right units
+```
+
+
+#### 1) Vehicular composition
+
+In this case, the vehicular composition consits in only to vehicles, Passenger
+Cars using Gasoline with 25\% of Ethanol and Light Trucks consuming Diesel with 
+5\% od biodiesel. Also, the emission factors cover $CO$. The
+temporal distribution will cover only one hour.
+
+```{r}
+PC_E25 <- age_ldv(net$ldv)
+LT_B5 <- age_hdv(net$hdv)
+```
+
+#### 2) Emission factors
+
+The emission factors used comes from -@CETESB2015, which are constant by age of use.
+In practice, this data.frame is like an Excel spreadsheet. Then, the constructor
+function `EmissionFactorsList` convert our numeric vector, which is the column
+of our data.frame, into required type of object of the `emis` function. Parenthesis
+were added in order to print the objects in one line.
+
+```{r}
+data(fe2015)
+(EF_CO_PC_E25 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "PC_G"]))
+(EF_CO_LT_B5 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "LT"]))
+```
+#### 3) Estimation of emissions
+
+The estimation of emissions is shown in the following code chunk in a simplified
+way. The emissions array are aggregated.
+
+```{r}
+data(profiles)
+emi1 <- emis(veh = PC_E25, lkm = net$lkm, ef = EF_CO_PC_E25,
+             profile = profiles$PC_JUNE_2012)
+emi2 <- emis(veh = LT_B5, lkm = net$lkm, ef = EF_CO_PC_E25,
+             profile = profiles$HGV_JUNE_2012)
+emi = emi1 + emi2
+```
+
+#### 4) Post-estimations
+
+The resulting emissions array `emi` is now processed with `emis_post`.
+
+```{r}
+co_street <- emis_post(arra = emi, by = "streets_wide", net = net)
+```
+
+
+#####  4a WRFChem input file with `eixport`
+
+Now it is time generate the emissions grid. In order to create a wrfchem input
+file, we need a wrfinput file. In this case, the wrfinput coversa wider area
+of the emissions, located in São Paulo, Brazil. The wrfinput file is available
+from the R package `eixport`.
+
+```{r}
+wrf <- paste(system.file("extdata", package = "eixport"),
+             "/wrfinput_d02", sep="")
+g  <- make_grid(wrf)
+plot(st_geometry(g), axes = TRUE)
+plot(st_geometry(co_street), add = TRUE)
+```
+
+Notice that weh we create grid from the path to wrfinput, there is a message
+with *Number of lat points 51* and *Number of lon points 63*. This information
+is crytical for later conversions. Now that we have the street emissions and the
+grid, we can obtain our gridded emissions:
+
+```{r}
+gCO <- emis_grid(spobj = co_street, g = g)
+names(gCO)
+gCO$geometry
+```
+
+This function requires the package `lwgeom` when the data is in latitude and
+longitude degrees. There are some messages about the total emissions of 
+street and grid. This was made in order to ensure that emis_grid is conservative.
+The resulting object `gCO` is an `sf` object of POLYGON. In order to plot the
+emissions, i selected the emissions above 1, because it is easier to see the 
+plot. If we plot the gridded emissions, we will see:
+
+
+```{r GEmi, fig.cap="Gridded emissions (mol/h)"}
+gCO$V9 <- gCO$V9*(12 + 16)^-1
+plot(gCO[gCO$V9 >1, "V9"], axes = TRUE,  nbreaks = 50,
+     pal = cptcity::cpt(colorRampPalette = T),
+     main = "Emissions of CO at 08:00 (mol/h)")
+```
+
+The emissions are mostly distributed into main roads, as expected. The next step
+is create the `GriddedEmissionsArray` that will be inputted into the `eixport`
+functions. The `GriddedEmissionsArray` is a contructor function that reads
+class, `SpatialPolygonDataFrame`, `sf` of POLYGONs, a `data.frame` or a `matrix`
+to create an Array of the gridded emissions. The dimensions are lat, lon, mass
+and time. Therefore, it is important to know the number of lat and lon points!
+
+```{r GEA, fig.cap="GriddedEmissionsArray (mol/h)"}
+gCOA <- GriddedEmissionsArray(x = gCO, cols = 63, rows = 51, times = 168)
+plot(gCOA, col = cptcity::cpt())
+```
+
+The image is similar to the plot of the gridded emissions, which means that it
+is correct. Now we can input the our new created object `gCOA` into the wrfchem
+input file, but first, we need to create it. This is done using the `eixport`
+functions.
+
+We first load the library `eixport`. Then load the data `emis_opt` which has the
+emissions options for WRFchem. In this case, we are creating an wrfchem input
+file with 40 pollutants, with 0.
+
+```{r}
+library(eixport)
+data(emis_opt)
+emis_opt[["ecb05_opt1"]]
+wrf_create(wrfinput_dir = system.file("extdata", package = "eixport"),
+           wrfchemi_dir = tempdir(),
+           frames_per_auxinput5 = 168,
+           domains = 2,
+           variaveis = emis_opt[["ecb05_opt1"]],
+           verbose = F)
+
+```
+
+The wrfchemi input file was created on a temporal directory with the function
+`tempdir`. Now we can input our `GriddedEmissionsArray` into our new
+wrfchem input file.
+
+```{r}
+f <- list.files(path = tempdir(), full.names = T, pattern = "wrfchemi_d02")
+f
+wrf_put(file = f, name = "E_CO", POL = gCOA)
+```
+
+Then, we just check our resulting NetCDF file plotting the emissions we just put.
+
+```{r Fwrf, eval = FALSE}
+wrf_plot(f, "E_CO")
+```
+
+```{r wrf,  echo = FALSE, fig.cap="Wrfchem input file (NetCDF) (mol/h)", out.width='80%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/wrf2.png")
+
+```
+
+##### 4b WRFChem input file with `emis_wrf`
+
+`emis_wrf` creates a `data.frame` with columns lat, long, id, pollutants, local time 
+and GMT time. This dataframe has the proper format to be used with WRF assimilation 
+system: "ASimilation System 4 WRF (AS4WRF, -@angel)
+
+```{r}
+args(emis_wrf)
+```
+
+
+where:
+
+- `sdf`: Gridded emissions, which can be a SpatialPolygonsDataFrame, or a list of 
+SpatialPolygonsDataFrame, or a sf object of "POLYGON". The user must enter a list with
+36 SpatialPolygonsDataFrame with emissions for the mechanism CBM-Z.
+- `nr`: Number of repetitions of the emissions period
+- `dmyhm`: String indicating Day Month Year Hour and Minute in the format "d-m-Y H:M" 
+e.g.: "01-05-2014 00:00" It represents the time of the first hour of emissions in 
+Local Time
+- `tz`: Time zone as required in for function as.POSIXct
+- `crs`: Coordinate reference system, e.g: "+init=epsg:4326". Used to transform the coordinates of the output
+- `islist`: logical value to indicate if sdf is a list or not
+- `utc`: ignored.
+
+In this case, we can use our gridded emissions directly here:
+
+```{r}
+gCO$id <- NULL
+df <- emis_wrf(sdf = gCO, dmyhm = "06-10-2014 00:00",
+               tz = "America/Sao_Paulo", islist = FALSE)
+head(df)
+```
+
+Then you must export this `data.frame` into a .txt file. You must include
+the number of columns to match your luped species and also take out the columns
+time_lt, time_utc and dutch. These three columns are just informative.
+
+```{r}
+df <- df[,1:4]
+write.table(x = df, file = tempfile(), sep = "\t",
+            col.names = TRUE, row.names = FALSE)
+```
+
+Finally, in order to generate the wrfchem input file, you must have the 
+resulting .txt file, a wrfinput file with the same grid spacing, the NCL
+script AS4WRF and a namelist. AS4WRF and the namelist can be obtained contacting
+angel.vela@iag.usp.br and alvv1986@gmail.com.
+

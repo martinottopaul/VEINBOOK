@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error in inventory(name = name, show.dir = TRUE, show.scripts = TRUE) : \n  could not find function \"inventory\"\n"}
