@@ -1,0 +1,270 @@
+# Basics of R {#basic}
+
+## Brief history
+
+R is a programming language developed by Ross Ihaka and Robert Genleman in 1993 
+[@ihaka1996r]. A good resource about R is the book  programming for data science 
+[@peng2015r]. R can be explained as a free version of S-PLUS programming 
+language (http://www.solutionmetrics.com.au/products/splus/default.html). It is 
+free and recognized a GNU spftware (https://www.gnu.org/software/software.html)
+with GNU General Public License (GPLV2-GPLV3) license. This feature allowed that many 
+developers started improving and adding code over the years. 
+
+R includes several statistical functions, therefore, user who just want to use 
+the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous
+publications such as the book "R packages: organize, test, document, and share
+your code" [@wickham2015r], or "The art of R programming: A tour of statistical software  design" [@matloff2011art]. 
+
+### Installation
+
+R can be installed in different OS including Linux, Windows, Mac and Solaris. 
+The webpage https://cran.r-project.org/ shows how to install R in any platform.
+A popular Integrated development environment (IDE) is **RStudio** https://www.rstudio.com/, which contains many useful integrated options. 
+However, R can be run on the terminal and use any text editor to write scripts.
+
+## Using R
+
+If we type at the R promt 
+```{r}
+x <- 1   # Not printing  results
+x        # Print results
+print(x) # Explicit print x
+```
+
+Rhe integer 1 was _assigned_ (<-) to x, then writing x or print(x) will show
+the value of x. Instead of numbers, can be assigned other expressions
+such as strings, dates or other objects. R includes several statistical 
+functions. For instance, if we type 'pi' at the terminal, it will print
+the pi number.
+
+```{r}
+pi
+```
+
+### R objects
+
+There are five basic classes (or atomic classes).
+
+- character.
+- numeric.
+- integer.
+- complex.
+- logical (TRUE/FALSE or just T or F).
+
+Objects of the same class can be grouped in **vectors**. Vectors are created with 
+writting **c()** with the elements of the vector inside the parenthesis, separated
+by colon. In fact, **c** is a builtin function to create vectors. In this case,
+the vector v1 contain a sequence of three integers, from 1 to 3. The resulting 
+class is numeric.
+
+```{r}
+v1 <- 1:3
+v2 <- c(1, 2, 3)
+identical(v1, v2)
+v1
+class(v1)
+```
+
+With the operator `[` we can get specific elements of your vectors. In the 
+following code it is also used the function `length`, which simply returns
+the length of an object.
+
+```{r}
+v1[1]          # first element of v1
+v1[length(v1)] # last element element of v1
+```
+
+
+If we create a vector with numbers and letter, the resulting vector will
+be "character" converting the numbers in characters.
+
+```{r}
+v2 <- c(1:3,"a")
+v2
+class(v2)
+```
+
+Objects can be converted to other classes with the "as.*" functions. For instance,
+If we convert the vector v2 to numeric, it will recognize the numbers adding an 
+`r NA` into the position of the character.
+
+```{r}
+as.numeric(v2)
+```
+
+
+### Factors
+
+Factors represents categorical data. A typical example is a character vector of
+days of the week. The function `factor` creates factors, to see help type 
+`?factor`. The following example will use this function with the arguments `x`
+and `levels`. 
+
+```{r}
+dow <- factor(x = c("Wednesday", "Monday", "Thursday", "Friday"),
+              levels =  c("Monday", "Tuesday", "Wednesday", "Thursday",
+                          "Friday"))
+dow
+```
+
+### Missing Values
+
+Missing values in data-sets are a typical source of headache in r users. 
+Fortunatly, R counts with several tools to avoid these headaches. These tools
+are fhe functions `is.na` to check for NA (not available) and `is.nan` (not
+a number). This functions returns logical values.
+
+```{r}
+n <- c(1, NA)
+is.na(n)
+n <- c(1, NaN)
+is.na(n)
+is.nan(n)
+```
+
+
+### Matrices
+
+Matrices are structure with rows and columns. They can be created using the 
+`matrix` function and also, using vectors. Remember, if you want to know more
+about any function you just have to type ? and function, for instance:`?matrix`
+will open the help documentation for the function `matrix`. Let's create a
+matrix using vectors:
+
+```{r}
+a <- 1:12  #numeric vector
+(m <- matrix(data = a, nrow = 3, ncol = 4))
+```
+
+We can check the dimensions of our matrix `m` with `dim`, which are 3 and 4.
+
+```{r}
+dim(m)
+```
+
+In order to get the elements of matrix `m` we can use `[` operator:
+```{r}
+m[1, 1] # first element
+m[, 1]  # firs column
+m[1, ]  # firs row
+m[3,4]  # last element
+```
+
+
+### Arrays
+
+Arrays are like matrices inside other matrices. In fact, a matrix is a 
+2-dimensional array. Let's create an array create an array using the same vector
+a and same dimensiones of m, 3 and 4. `array` has three arguments, `data`, `dim`
+ and `dimnames`. In th argument `dim` let's add the number 2, resulting
+ in an array of two matrices identical to `m`.
+
+```{r}
+(a <- array(data = a, dim = c(3,4,2)))
+```
+
+
+We can subset elements from array also with the `[` operator.
+
+```{r}
+a[1, 1, 1] # first element
+dim(a)     # dimensions
+a[3, 4, 2] # last element
+```
+
+### Lists
+
+List are objects that can contain elements of different classes. I like to call
+lists as bags. In a bag you can put almost anything. Also, inside the bag,
+you can put other bags with different things. This means that you can have a
+list of lists of any R object. Lists can be created with the `list` function.
+Let's create an empty list. Then we will use the vecctor `a` to create another
+list.
+
+```{r}
+a <- 1:3          # vector of three elements
+l1 <- list()      # empty list
+l1 <- list(a)     # vector of three elements
+length(l1)        # length 1
+l1 <- as.list(a)  # vector a as list
+length(l1)        # three elements 
+```
+
+As mentioned, the list can have lists inside.
+
+```{r}
+l1 <- list(list(a),                    # three numeric elements
+            list(TRUE, TRUE, FALSE))   # three logical elements
+length(l1)                             # length 2
+```
+
+### Data-Frames
+
+"Data-frames are used to store tabular data in R" [@peng2015r]. You can think
+in data-frames as spreadsheet-like objects. They are similar with matrix and
+you can have a matrix and a data-frame with the same dimensions. Basically,
+you have rows and columns, columns can have different classes, and the columns
+usually have a one-word name.
+
+As this type of object is very used by scientists, there are R packages created
+to work with this type of ojects. Below some of them:
+
+- `data.frame`: This is not a package, for a class and function from the `base`.
+With this functionyou can create data-frames.
+- `data-table` [@datatable]: `data.tables` objects has the class `data.table` 
+which inherits from the class `data-frame`, which means that they share common 
+characteristics. However, the big difference with `data-table` is the efficiency
+with memory. It includes function such as `fread` for reading millions of 
+observations in seconds.
+- `tidyr`[@tidyr]: Sometimes your data is in long format and you need it in wide
+format, and viceversa. This package does the job.
+- `readxl` [@readxl]: Good package for importing Excel and LibreOffice files. I
+recommend  this packages for newbies.
+- `sf` [@sf]: This package presents the class `sf` and introduce the list-column
+of spatial geometry.
+
+Let's create a data-frame.
+
+```{r}
+a <- 1:3
+b <- 3:5
+(ab <- data.frame(a, b))
+class(ab)
+```
+
+
+### Names
+
+In R you can put names in almost everything. Below examples for `vectors`, 
+`matrix` and `data.frames`.
+
+```{r}
+names(ab)                # original names
+names(ab) <- c("c", "d")
+names(ab)                # new names
+```
+
+## Inputting data into R
+
+Your data can be in different formats. In this sections i will show you how you
+can input text and comma separated values files, which is a very common task. 
+Let's say that you uses an spreadsheet program such as Microsoft Excel or
+LibreOffice. Then you might want to export your data into R.
+
+- Your first check if the first row of your data has name or not. If they do
+have names, this means that they have a header.
+- Then click on 'Save as' and search text file with extension .txt or CSV.
+- Then you your file with a note bloc, gedit  or other tool to check if the
+decimal character is point '.' and the separator character is comma ',' or 
+semicolon ';' or other character. This depends on the regional confugarion of 
+your spreadsheet software.
+- If your file has extension '.txt', use `read.table` and if is '.csv', use
+`read.csv`.
+
+Once you check, you can import your '.txt' or '.csv' files in R:
+
+```{r eval = FALSE}
+a <- read.csv("path/to/file.csv", sep = ",", header = T)
+a <- read.tablesv("path/to/file.txt", sep = ",", header = T)
+```
+

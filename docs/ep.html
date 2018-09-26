@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vehicular emissions inventory with VEIN</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vehicular emissions inventory with VEIN" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="ibarraespinosa/veinbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vehicular emissions inventory with VEIN" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sergio Ibarra-Espinosa">
+
+
+<meta name="date" content="2018-09-26">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="he.html">
+<link rel="next" href="check.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">veinbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i>Purpose</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i>Structure</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#definitions-and-sources-of-information"><i class="fa fa-check"></i><b>1.1</b> Definitions and sources of information</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#approaches"><i class="fa fa-check"></i><b>1.1.1</b> Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#required-r-packages-and-dependencies"><i class="fa fa-check"></i><b>1.3</b> Required R packages and dependencies</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#data-inside-the-vein-model"><i class="fa fa-check"></i><b>1.4</b> Data inside the VEIN model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#emission-factors-from-cetesb"><i class="fa fa-check"></i><b>1.4.1</b> Emission factors from CETESB</a></li>
+<li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#mileage-functions-of-brazilian-fleet"><i class="fa fa-check"></i><b>1.4.2</b> Mileage functions of Brazilian Fleet</a></li>
+<li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#temporal-factors-for-passenger-cars"><i class="fa fa-check"></i><b>1.4.3</b> Temporal factors for Passenger Cars</a></li>
+<li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#profile-for-cold-starts-of-passenger-cars"><i class="fa fa-check"></i><b>1.4.4</b> Profile for cold starts of Passenger Cars</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>2</b> Basics of R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic.html"><a href="basic.html#brief-history"><i class="fa fa-check"></i><b>2.1</b> Brief history</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basic.html"><a href="basic.html#installation-1"><i class="fa fa-check"></i><b>2.1.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic.html"><a href="basic.html#using-r"><i class="fa fa-check"></i><b>2.2</b> Using R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="basic.html"><a href="basic.html#r-objects"><i class="fa fa-check"></i><b>2.2.1</b> R objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic.html"><a href="basic.html#factors"><i class="fa fa-check"></i><b>2.2.2</b> Factors</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic.html"><a href="basic.html#missing-values"><i class="fa fa-check"></i><b>2.2.3</b> Missing Values</a></li>
+<li class="chapter" data-level="2.2.4" data-path="basic.html"><a href="basic.html#matrices"><i class="fa fa-check"></i><b>2.2.4</b> Matrices</a></li>
+<li class="chapter" data-level="2.2.5" data-path="basic.html"><a href="basic.html#arrays"><i class="fa fa-check"></i><b>2.2.5</b> Arrays</a></li>
+<li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
+<li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
+<li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="st.html"><a href="st.html"><i class="fa fa-check"></i><b>3</b> Structuring an Emissions Inventory</a><ul>
+<li class="chapter" data-level="3.1" data-path="st.html"><a href="st.html#veinstructure"><i class="fa fa-check"></i><b>3.1</b> Overview of emissions inventorying using VEIN</a></li>
+<li class="chapter" data-level="3.2" data-path="st.html"><a href="st.html#the-inventory-function"><i class="fa fa-check"></i><b>3.2</b> The <code>inventory</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
+<li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
+<li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.2</b> Main functions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.2.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.2.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.2.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.2.4</b> The function <code>my_age</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.2.5</b> The class <code>Vehicles</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.2.6</b> Other traffic functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.3</b> Vehicular composition</a></li>
+<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.4</b> Application</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
+<li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
+<li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
+<li class="chapter" data-level="5.4" data-path="ef.html"><a href="ef.html#cold-starts"><i class="fa fa-check"></i><b>5.4</b> Cold Starts</a></li>
+<li class="chapter" data-level="5.5" data-path="ef.html"><a href="ef.html#det"><i class="fa fa-check"></i><b>5.5</b> Deterioration</a></li>
+<li class="chapter" data-level="5.6" data-path="ef.html"><a href="ef.html#evaporative-emissions-ef_evap"><i class="fa fa-check"></i><b>5.6</b> Evaporative emissions <code>ef_evap</code></a></li>
+<li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
+<li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
+<li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
+<li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
+<li class="chapter" data-level="6.2" data-path="est.html"><a href="est.html#the-emis_cold-function"><i class="fa fa-check"></i><b>6.2</b> The <code>emis_cold</code> function</a></li>
+<li class="chapter" data-level="6.3" data-path="est.html"><a href="est.html#the-emis_evap-function"><i class="fa fa-check"></i><b>6.3</b> The <code>emis_evap</code> function</a></li>
+<li class="chapter" data-level="6.4" data-path="est.html"><a href="est.html#the-emis_paved-function"><i class="fa fa-check"></i><b>6.4</b> The <code>emis_paved</code> function</a></li>
+<li class="chapter" data-level="6.5" data-path="est.html"><a href="est.html#ew"><i class="fa fa-check"></i><b>6.5</b> The <code>emis_wear</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="post.html"><a href="post.html"><i class="fa fa-check"></i><b>7</b> Post estimation with <code>emis_post</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="post.html"><a href="post.html#emissions-by-street"><i class="fa fa-check"></i><b>7.1</b> Emissions by street</a></li>
+<li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
+<li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
+<li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
+<li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
+<li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
+<li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
+<li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
+<li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
+<li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
+<li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="check.html"><a href="check.html"><i class="fa fa-check"></i><b>10</b> Quality check and errors</a><ul>
+<li class="chapter" data-level="10.1" data-path="check.html"><a href="check.html#guidance-from-emepeea-air-pollutant-emission-inventory-guidebook"><i class="fa fa-check"></i><b>10.1</b> Guidance from EMEP/EEA air pollutant emission inventory guidebook</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="check.html"><a href="check.html#key-categories"><i class="fa fa-check"></i><b>10.1.1</b> Key categories</a></li>
+<li class="chapter" data-level="10.1.2" data-path="check.html"><a href="check.html#uncertainty"><i class="fa fa-check"></i><b>10.1.2</b> Uncertainty</a></li>
+<li class="chapter" data-level="10.1.3" data-path="check.html"><a href="check.html#quality-assurance-and-quality-check"><i class="fa fa-check"></i><b>10.1.3</b> Quality Assurance and Quality Check</a></li>
+<li class="chapter" data-level="10.1.4" data-path="check.html"><a href="check.html#inventory-managment-cycle"><i class="fa fa-check"></i><b>10.1.4</b> Inventory managment cycle</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="check.html"><a href="check.html#avoiding-errors-with-vein"><i class="fa fa-check"></i><b>10.2</b> Avoiding errors with VEIN</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="check.html"><a href="check.html#traffic-flow"><i class="fa fa-check"></i><b>10.2.1</b> Traffic flow</a></li>
+<li class="chapter" data-level="10.2.2" data-path="check.html"><a href="check.html#vehicular-composition-2"><i class="fa fa-check"></i><b>10.2.2</b> Vehicular composition</a></li>
+<li class="chapter" data-level="10.2.3" data-path="check.html"><a href="check.html#units"><i class="fa fa-check"></i><b>10.2.3</b> Units</a></li>
+<li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
+<li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
+<li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-fast-example-of-vein.html"><a href="appendix-a-fast-example-of-vein.html"><i class="fa fa-check"></i>Appendix A: Fast Example of VEIN</a></li>
+<li class="chapter" data-level="" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html"><i class="fa fa-check"></i>Appendix B: Detailed Example of VEIN</a><ul>
+<li class="chapter" data-level="A.3" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
+<li class="chapter" data-level="A.4" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
+<li class="chapter" data-level="A.5" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i>Appendix B</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vehicular emissions inventory with VEIN</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ep" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Inputs for atmospheric models with <code>eixport</code> Package</h1>
+<p>This last chapter of this book is about generating inputs for atmospheric models, specifically, <strong>WRF-Chem</strong> <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span>. As the Pacific Northwest National Laboratory (PNNL, <a href="https://www.pnnl.gov/atmospheric/research/wrf-chem/" class="uri">https://www.pnnl.gov/atmospheric/research/wrf-chem/</a>) defines:</p>
+<p><strong>The Weather Research and Forecasting (WRF) model is a next generation </strong> <strong>meteorological model being developed collaboratively among several agencies</strong> <strong>(NOAA/NCEP, NOAA/ESRL, NCAR). WRF-Chem is a version of WRF that also</strong> <strong>simultaneously simulates the emission, turbulent mixing, transport,</strong> <strong>transformation, and fate of trace gases and aerosols.</strong></p>
+<p>Initially, VEIN counted with the function <code>emis_wrf</code> which created a data.frame object of hourly gridded emissions with each pollutant as a column, from the first cell to the last. The data-frame extendend in long format to each hour. This data.frame was designed to be used with script Another Asimilation System for WRF (AS4WRF) <span class="citation">(Vara-Vela et al. <a href="#ref-VaraVelaetal2015">2016</a>)</span> written in NCL <span class="citation">(Boulder <a href="#ref-ncl">2017</a>)</span>.</p>
+<p>This approach was effective and already tested for some Latinamerican cities <span class="citation">(Ibarra et al. <a href="#ref-micro">2015</a>)</span>, <span class="citation">(Ibarra, Ynoue, and Vara-Vela <a href="#ref-icshmo">2015</a>)</span>. However, this function depends on external software which may not be available. Therefore, me andsome collegues developed the package <code>eixport</code> <span class="citation">(Ibarra-Espinosa, Schuch, and Dias de Freitas <a href="#ref-eixport">2018</a>)</span>, <span class="citation">(Ibarra-Espinosa, Schuch, and de Freitas <a href="#ref-eixport2">2017</a>)</span>, which is an R package to read and export emissions to atmospheric models. <code>eixport</code> currently covers the models WRF-Chem <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span>, SPM-BRAMS <span class="citation">(Freitas et al. <a href="#ref-Freitasetal2005">2005</a>)</span> and R-LINE <span class="citation">(Snyder et al. <a href="#ref-rline">2013</a>)</span>, but only the WRF-Chem interface has been fully implemented. Therefore, this chapter covers only this model.</p>
+<p>The concept of connecting VEIN and Wrf-Chem via eixport is quite simple with two approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Generating <code>GriddedEmissionsArray</code> for the wrfinput grid and inputting this emissions into the wrfchemi input file..</li>
+<li>Generating gridded emissions data-frame for AS4WRF.</li>
+</ol>
+<div id="wrfchem-input-with-wrfinput-and-griddedemissionsarray" class="section level2">
+<h2><span class="header-section-number">9.1</span> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></h2>
+<p>The process for generation WRF-Chem input files with <code>GriddedEmissionsArray</code> is shown on Fig. <a href="ep.html#fig:gea">9.1</a>. Pink boxes are classes, grey boxes are <code>vein</code> functions, green functions are <code>eixport</code> functions and white boxes, external objects. Here, the external input file is the <strong>wrfinputd_0x</strong> file, where the <strong>x</strong> is for the domain. This file is inputted into the function <code>make_grid</code> which creates a polygon grid needed by <code>emis_grid</code>. The main characteristic of this grid, is that it has the resolution of the wrfinput file.</p>
+<p>The wrfinpiut_d0x file isalso used by the <code>eixport</code> function <code>wrf_create</code> to create a wrfchemi input file with zeroes.</p>
+<p>The objects with class <code>EmissionsArray</code> for each type of vehicle and pollutant are processed by the function <code>emis_post</code> which create street emissions. Then, the function <code>emis_merge</code> merges all the street emissions files from <code>emis_post_ into one street emissions by pollutant ehich is inputted into function</code>emis_grid<code>to create a polygon grid of emissions, class Spatial Feature</code>sf<code>[@sf], [@RJ-2018-009]. Then, the spatial gridded emissions are inputted into the contructor function</code>GriddedEmissionsArray` to create an object of that class, and the dimensions of the wrfinput file, that is, the sanem number of spatial rows and columns.</p>
+<p>Finally, the <code>GriddedEmissionsArray</code> objects are inputted into the wrfchemi file with the <code>eixport</code> function <code>wrf_put</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:gea"></span>
+<img src="figuras/gea.png" alt="Generation of wrfchem inputs using GriddedEmissionsArray" width="50%" />
+<p class="caption">
+Figure 9.1: Generation of wrfchem inputs using GriddedEmissionsArray
+</p>
+</div>
+<p>Example</p>
+<div id="creating-a-wrf-chem-input-file" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Creating a WRF-Chem input file</h3>
+<p>The emission file will be generated with traffic simulation from the Traffic Engineering Company (CET) for 2012, which consists in traffic flow for morning rush hour of Light Duty Vehicles (LDV) and Heavy Good Vehicles (HGV). The emission factors will be the data <code>fe2015</code> and the wrfinput comes from the <code>eixport</code> package. Let’s go:</p>
+<div id="network" class="section level4">
+<h4><span class="header-section-number">9.1.1.1</span> 0) Network</h4>
+<p>The object net has a class <code>SpatialLinesDataFrame</code>, we transform it into a <code>sf</code>object. The length of the road is the field ‘lkm’ in the object net, which are in km but has no units. We must add the right units in order to use <code>vein</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(vein)
+<span class="kw">require</span>(sf)
+<span class="kw">require</span>(units)</code></pre></div>
+<pre><code>## Loading required package: units</code></pre>
+<pre><code>## udunits system database from /usr/share/xml/udunits</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;figuras/net.rds&quot;</span>)
+<span class="kw">class</span>(net)</code></pre></div>
+<pre><code>## [1] &quot;SpatialLinesDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(net)
+net[<span class="dv">1</span>, ]</code></pre></div>
+<pre><code>## Simple feature collection with 1 feature and 11 fields
+## geometry type:  LINESTRING
+## dimension:      XY
+## bbox:           xmin: -46.66878 ymin: -23.63199 xmax: -46.66663 ymax: -23.63095
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##          Id Inode Jnode ldv hdv     ps ffs lanes capacity    lkm via
+## 1 8827-9642  8827  9642  60  14 23.661  30     1      400 0.2474   7
+##                         geometry
+## 1 LINESTRING (-46.66878 -23.6...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net<span class="op">$</span>lkm &lt;-<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_length</span>(net), km) <span class="co"># ensure right units</span></code></pre></div>
+</div>
+<div id="vehicular-composition-1" class="section level4">
+<h4><span class="header-section-number">9.1.1.2</span> 1) Vehicular composition</h4>
+<p>In this case, the vehicular composition consits in only to vehicles, Passenger Cars using Gasoline with 25% of Ethanol and Light Trucks consuming Diesel with 5% od biodiesel. Also, the emission factors cover <span class="math inline">\(CO\)</span>. The temporal distribution will cover only one hour.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PC_E25 &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(net<span class="op">$</span>ldv)</code></pre></div>
+<pre><code>## Average age of age is 11.17</code></pre>
+<pre><code>## Number of age is 24708.77 * 10^3 veh</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LT_B5 &lt;-<span class="st"> </span><span class="kw">age_hdv</span>(net<span class="op">$</span>hdv)</code></pre></div>
+<pre><code>## Average age of age is 17.12</code></pre>
+<pre><code>## Number of age is 2809.3 * 10^3 veh</code></pre>
+</div>
+<div id="emission-factors" class="section level4">
+<h4><span class="header-section-number">9.1.1.3</span> 2) Emission factors</h4>
+<p>The emission factors used comes from <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>, which are constant by age of use. In practice, this data.frame is like an Excel spreadsheet. Then, the constructor function <code>EmissionFactorsList</code> convert our numeric vector, which is the column of our data.frame, into required type of object of the <code>emis</code> function. Parenthesis were added in order to print the objects in one line.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(fe2015)
+(EF_CO_PC_E25 &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;PC_G&quot;</span>]))</code></pre></div>
+<pre><code>## This EmissionFactorsList has  36  functions</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(EF_CO_LT_B5 &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;LT&quot;</span>]))</code></pre></div>
+<pre><code>## This EmissionFactorsList has  36  functions</code></pre>
+</div>
+<div id="estimation-of-emissions" class="section level4">
+<h4><span class="header-section-number">9.1.1.4</span> 3) Estimation of emissions</h4>
+<p>The estimation of emissions is shown in the following code chunk in a simplified way. The emissions array are aggregated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(profiles)
+emi1 &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> PC_E25, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> EF_CO_PC_E25,
+             <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2012</span>)</code></pre></div>
+<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
+## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
+<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
+<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
+<pre><code>## 1845699.9 kg emissions in 24 hours and 7 days</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi2 &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> LT_B5, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> EF_CO_PC_E25,
+             <span class="dt">profile =</span> profiles<span class="op">$</span>HGV_JUNE_<span class="dv">2012</span>)</code></pre></div>
+<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
+## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
+<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
+<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
+<pre><code>## 2222757.56 kg emissions in 24 hours and 7 days</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi =<span class="st"> </span>emi1 <span class="op">+</span><span class="st"> </span>emi2</code></pre></div>
+</div>
+<div id="post-estimations" class="section level4">
+<h4><span class="header-section-number">9.1.1.5</span> 4) Post-estimations</h4>
+<p>The resulting emissions array <code>emi</code> is now processed with <code>emis_post</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">co_street &lt;-<span class="st"> </span><span class="kw">emis_post</span>(<span class="dt">arra =</span> emi, <span class="dt">by =</span> <span class="st">&quot;streets_wide&quot;</span>, <span class="dt">net =</span> net)</code></pre></div>
+<div id="a-wrfchem-input-file-with-eixport" class="section level5">
+<h5><span class="header-section-number">9.1.1.5.1</span> 4a WRFChem input file with <code>eixport</code></h5>
+<p>Now it is time generate the emissions grid. In order to create a wrfchem input file, we need a wrfinput file. In this case, the wrfinput coversa wider area of the emissions, located in São Paulo, Brazil. The wrfinput file is available from the R package <code>eixport</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wrf &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;eixport&quot;</span>),
+             <span class="st">&quot;/wrfinput_d02&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)
+g  &lt;-<span class="st"> </span><span class="kw">make_grid</span>(wrf)</code></pre></div>
+<pre><code>## path to wrfinput</code></pre>
+<pre><code>## using grid info from: /home/sergio/R/x86_64-pc-linux-gnu-library/3.4/eixport/extdata/wrfinput_d02 
+## Number of lat points 51
+## Number of lon points 63</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(g), <span class="dt">axes =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(co_street), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="veinbook_files/figure-html/unnamed-chunk-113-1.svg" width="672" /></p>
+<p>Notice that weh we create grid from the path to wrfinput, there is a message with <em>Number of lat points 51</em> and <em>Number of lon points 63</em>. This information is crytical for later conversions. Now that we have the street emissions and the grid, we can obtain our gridded emissions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCO &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(<span class="dt">spobj =</span> co_street, <span class="dt">g =</span> g)</code></pre></div>
+<pre><code>## Sum of street emissions 4068457459.79</code></pre>
+<pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
+<pre><code>## Sum of gridded emissions 4068457459.79</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(gCO)</code></pre></div>
+<pre><code>##   [1] &quot;id&quot;       &quot;V1&quot;       &quot;V2&quot;       &quot;V3&quot;       &quot;V4&quot;       &quot;V5&quot;      
+##   [7] &quot;V6&quot;       &quot;V7&quot;       &quot;V8&quot;       &quot;V9&quot;       &quot;V10&quot;      &quot;V11&quot;     
+##  [13] &quot;V12&quot;      &quot;V13&quot;      &quot;V14&quot;      &quot;V15&quot;      &quot;V16&quot;      &quot;V17&quot;     
+##  [19] &quot;V18&quot;      &quot;V19&quot;      &quot;V20&quot;      &quot;V21&quot;      &quot;V22&quot;      &quot;V23&quot;     
+##  [25] &quot;V24&quot;      &quot;V25&quot;      &quot;V26&quot;      &quot;V27&quot;      &quot;V28&quot;      &quot;V29&quot;     
+##  [31] &quot;V30&quot;      &quot;V31&quot;      &quot;V32&quot;      &quot;V33&quot;      &quot;V34&quot;      &quot;V35&quot;     
+##  [37] &quot;V36&quot;      &quot;V37&quot;      &quot;V38&quot;      &quot;V39&quot;      &quot;V40&quot;      &quot;V41&quot;     
+##  [43] &quot;V42&quot;      &quot;V43&quot;      &quot;V44&quot;      &quot;V45&quot;      &quot;V46&quot;      &quot;V47&quot;     
+##  [49] &quot;V48&quot;      &quot;V49&quot;      &quot;V50&quot;      &quot;V51&quot;      &quot;V52&quot;      &quot;V53&quot;     
+##  [55] &quot;V54&quot;      &quot;V55&quot;      &quot;V56&quot;      &quot;V57&quot;      &quot;V58&quot;      &quot;V59&quot;     
+##  [61] &quot;V60&quot;      &quot;V61&quot;      &quot;V62&quot;      &quot;V63&quot;      &quot;V64&quot;      &quot;V65&quot;     
+##  [67] &quot;V66&quot;      &quot;V67&quot;      &quot;V68&quot;      &quot;V69&quot;      &quot;V70&quot;      &quot;V71&quot;     
+##  [73] &quot;V72&quot;      &quot;V73&quot;      &quot;V74&quot;      &quot;V75&quot;      &quot;V76&quot;      &quot;V77&quot;     
+##  [79] &quot;V78&quot;      &quot;V79&quot;      &quot;V80&quot;      &quot;V81&quot;      &quot;V82&quot;      &quot;V83&quot;     
+##  [85] &quot;V84&quot;      &quot;V85&quot;      &quot;V86&quot;      &quot;V87&quot;      &quot;V88&quot;      &quot;V89&quot;     
+##  [91] &quot;V90&quot;      &quot;V91&quot;      &quot;V92&quot;      &quot;V93&quot;      &quot;V94&quot;      &quot;V95&quot;     
+##  [97] &quot;V96&quot;      &quot;V97&quot;      &quot;V98&quot;      &quot;V99&quot;      &quot;V100&quot;     &quot;V101&quot;    
+## [103] &quot;V102&quot;     &quot;V103&quot;     &quot;V104&quot;     &quot;V105&quot;     &quot;V106&quot;     &quot;V107&quot;    
+## [109] &quot;V108&quot;     &quot;V109&quot;     &quot;V110&quot;     &quot;V111&quot;     &quot;V112&quot;     &quot;V113&quot;    
+## [115] &quot;V114&quot;     &quot;V115&quot;     &quot;V116&quot;     &quot;V117&quot;     &quot;V118&quot;     &quot;V119&quot;    
+## [121] &quot;V120&quot;     &quot;V121&quot;     &quot;V122&quot;     &quot;V123&quot;     &quot;V124&quot;     &quot;V125&quot;    
+## [127] &quot;V126&quot;     &quot;V127&quot;     &quot;V128&quot;     &quot;V129&quot;     &quot;V130&quot;     &quot;V131&quot;    
+## [133] &quot;V132&quot;     &quot;V133&quot;     &quot;V134&quot;     &quot;V135&quot;     &quot;V136&quot;     &quot;V137&quot;    
+## [139] &quot;V138&quot;     &quot;V139&quot;     &quot;V140&quot;     &quot;V141&quot;     &quot;V142&quot;     &quot;V143&quot;    
+## [145] &quot;V144&quot;     &quot;V145&quot;     &quot;V146&quot;     &quot;V147&quot;     &quot;V148&quot;     &quot;V149&quot;    
+## [151] &quot;V150&quot;     &quot;V151&quot;     &quot;V152&quot;     &quot;V153&quot;     &quot;V154&quot;     &quot;V155&quot;    
+## [157] &quot;V156&quot;     &quot;V157&quot;     &quot;V158&quot;     &quot;V159&quot;     &quot;V160&quot;     &quot;V161&quot;    
+## [163] &quot;V162&quot;     &quot;V163&quot;     &quot;V164&quot;     &quot;V165&quot;     &quot;V166&quot;     &quot;V167&quot;    
+## [169] &quot;V168&quot;     &quot;geometry&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCO<span class="op">$</span>geometry</code></pre></div>
+<pre><code>## Geometry set for 3213 features 
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: -47.43966 ymin: -24.4031 xmax: -45.57575 ymax: -23.00105
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## First 5 geometries:</code></pre>
+<pre><code>## POLYGON ((-47.41831 -24.35009, -47.41831 -24.38...</code></pre>
+<pre><code>## POLYGON ((-47.38871 -24.35053, -47.38871 -24.38...</code></pre>
+<pre><code>## POLYGON ((-47.35907 -24.35097, -47.35907 -24.38...</code></pre>
+<pre><code>## POLYGON ((-47.32947 -24.35143, -47.32947 -24.38...</code></pre>
+<pre><code>## POLYGON ((-47.29984 -24.35187, -47.29984 -24.38...</code></pre>
+<p>This function requires the package <code>lwgeom</code> when the data is in latitude and longitude degrees. There are some messages about the total emissions of street and grid. This was made in order to ensure that emis_grid is conservative. The resulting object <code>gCO</code> is an <code>sf</code> object of POLYGON. In order to plot the emissions, i selected the emissions above 1, because it is easier to see the plot. If we plot the gridded emissions, we will see:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCO<span class="op">$</span>V9 &lt;-<span class="st"> </span>gCO<span class="op">$</span>V9<span class="op">*</span>(<span class="dv">12</span> <span class="op">+</span><span class="st"> </span><span class="dv">16</span>)<span class="op">^-</span><span class="dv">1</span>
+<span class="kw">plot</span>(gCO[gCO<span class="op">$</span>V9 <span class="op">&gt;</span><span class="dv">1</span>, <span class="st">&quot;V9&quot;</span>], <span class="dt">axes =</span> <span class="ot">TRUE</span>,  <span class="dt">nbreaks =</span> <span class="dv">50</span>,
+     <span class="dt">pal =</span> cptcity<span class="op">::</span><span class="kw">cpt</span>(<span class="dt">colorRampPalette =</span> T),
+     <span class="dt">main =</span> <span class="st">&quot;Emissions of CO at 08:00 (mol/h)&quot;</span>)</code></pre></div>
+<div class="figure"><span id="fig:GEmi"></span>
+<img src="veinbook_files/figure-html/GEmi-1.svg" alt="Gridded emissions (mol/h)" width="672" />
+<p class="caption">
+Figure 9.2: Gridded emissions (mol/h)
+</p>
+</div>
+<p>The emissions are mostly distributed into main roads, as expected. The next step is create the <code>GriddedEmissionsArray</code> that will be inputted into the <code>eixport</code> functions. The <code>GriddedEmissionsArray</code> is a contructor function that reads class, <code>SpatialPolygonDataFrame</code>, <code>sf</code> of POLYGONs, a <code>data.frame</code> or a <code>matrix</code> to create an Array of the gridded emissions. The dimensions are lat, lon, mass and time. Therefore, it is important to know the number of lat and lon points!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCOA &lt;-<span class="st"> </span><span class="kw">GriddedEmissionsArray</span>(<span class="dt">x =</span> gCO, <span class="dt">cols =</span> <span class="dv">63</span>, <span class="dt">rows =</span> <span class="dv">51</span>, <span class="dt">times =</span> <span class="dv">168</span>)</code></pre></div>
+<pre><code>## This GriddedEmissionsArray has:
+##  51 lat points
+##  63 lon points
+##  168 hours</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(gCOA, <span class="dt">col =</span> cptcity<span class="op">::</span><span class="kw">cpt</span>())</code></pre></div>
+<div class="figure"><span id="fig:GEA"></span>
+<img src="veinbook_files/figure-html/GEA-1.svg" alt="GriddedEmissionsArray (mol/h)" width="672" />
+<p class="caption">
+Figure 9.3: GriddedEmissionsArray (mol/h)
+</p>
+</div>
+<p>The image is similar to the plot of the gridded emissions, which means that it is correct. Now we can input the our new created object <code>gCOA</code> into the wrfchem input file, but first, we need to create it. This is done using the <code>eixport</code> functions.</p>
+<p>We first load the library <code>eixport</code>. Then load the data <code>emis_opt</code> which has the emissions options for WRFchem. In this case, we are creating an wrfchem input file with 40 pollutants, with 0.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(eixport)
+<span class="kw">data</span>(emis_opt)
+emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]]</code></pre></div>
+<pre><code>##  [1] &quot;E_NO2&quot;    &quot;E_XYL&quot;    &quot;E_TOL&quot;    &quot;E_TERP&quot;   &quot;E_SO2&quot;    &quot;E_ORA2&quot;  
+##  [7] &quot;E_OLT&quot;    &quot;E_OLI&quot;    &quot;E_OL2&quot;    &quot;E_NO&quot;     &quot;E_NH3&quot;    &quot;E_ISO&quot;   
+## [13] &quot;E_HCL&quot;    &quot;E_HCHO&quot;   &quot;E_ETH&quot;    &quot;E_CSL&quot;    &quot;E_CO&quot;     &quot;E_CH3OH&quot; 
+## [19] &quot;E_C2H5OH&quot; &quot;E_ALD&quot;    &quot;E_ALDX&quot;   &quot;E_HC3&quot;    &quot;E_HC5&quot;    &quot;E_HC8&quot;   
+## [25] &quot;E_KET&quot;    &quot;E_PM25I&quot;  &quot;E_PM25J&quot;  &quot;E_ECI&quot;    &quot;E_ECJ&quot;    &quot;E_ORGI&quot;  
+## [31] &quot;E_ORGJ&quot;   &quot;E_SO4I&quot;   &quot;E_SO4J&quot;   &quot;E_NO3I&quot;   &quot;E_NO3J&quot;   &quot;E_SO4C&quot;  
+## [37] &quot;E_NO3C&quot;   &quot;E_ORGC&quot;   &quot;E_ECC&quot;    &quot;E_PM10&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_create</span>(<span class="dt">wrfinput_dir =</span> <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;eixport&quot;</span>),
+           <span class="dt">wrfchemi_dir =</span> <span class="kw">tempdir</span>(),
+           <span class="dt">frames_per_auxinput5 =</span> <span class="dv">1</span>,
+           <span class="dt">domains =</span> <span class="dv">2</span>,
+           <span class="dt">variaveis =</span> emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]],
+           <span class="dt">verbose =</span> F)</code></pre></div>
+<p>The wrfchemi input file was created on a temporal directory with the function <code>tempdir</code>. Now we can input our <code>GriddedEmissionsArray</code> into our new wrfchem input file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="kw">tempdir</span>(), <span class="dt">full.names =</span> T, <span class="dt">pattern =</span> <span class="st">&quot;wrfchemi_d02&quot;</span>)
+f</code></pre></div>
+<pre><code>## [1] &quot;/tmp/Rtmp3yqgZh/wrfchemi_d02_2011-08-01_00:00:00&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_put</span>(<span class="dt">file =</span> f, <span class="dt">name =</span> <span class="st">&quot;E_CO&quot;</span>, <span class="dt">POL =</span> gCOA)</code></pre></div>
+<pre><code>## [1] &quot;ncvar_put: warning: you asked to write 3213 values, but the passed data array has 539784 entries!&quot;</code></pre>
+<p>Then, we just check our resulting NetCDF file plotting the emissions we just put.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_plot</span>(f, <span class="st">&quot;E_CO&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:wrf"></span>
+<img src="figuras/wrf2.png" alt="Wrfchem input file (NetCDF) (mol/h)" width="80%" />
+<p class="caption">
+Figure 9.4: Wrfchem input file (NetCDF) (mol/h)
+</p>
+</div>
+</div>
+<div id="b-wrfchem-input-file-with-emis_wrf" class="section level5">
+<h5><span class="header-section-number">9.1.1.5.2</span> 4b WRFChem input file with <code>emis_wrf</code></h5>
+<p><code>emis_wrf</code> creates a <code>data.frame</code> with columns lat, long, id, pollutants, local time and GMT time. This dataframe has the proper format to be used with WRF assimilation system: “ASimilation System 4 WRF (AS4WRF, <span class="citation">Vara-Vela (<a href="#ref-angel">2013</a>)</span>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(emis_wrf)</code></pre></div>
+<pre><code>## function (sdf, nr = 1, dmyhm, tz, crs = 4326, islist, utc) 
+## NULL</code></pre>
+<p>where:</p>
+<ul>
+<li><code>sdf</code>: Gridded emissions, which can be a SpatialPolygonsDataFrame, or a list of SpatialPolygonsDataFrame, or a sf object of “POLYGON”. The user must enter a list with 36 SpatialPolygonsDataFrame with emissions for the mechanism CBM-Z.</li>
+<li><code>nr</code>: Number of repetitions of the emissions period</li>
+<li><code>dmyhm</code>: String indicating Day Month Year Hour and Minute in the format “d-m-Y H:M” e.g.: “01-05-2014 00:00” It represents the time of the first hour of emissions in Local Time</li>
+<li><code>tz</code>: Time zone as required in for function as.POSIXct</li>
+<li><code>crs</code>: Coordinate reference system, e.g: “+init=epsg:4326”. Used to transform the coordinates of the output</li>
+<li><code>islist</code>: logical value to indicate if sdf is a list or not</li>
+<li><code>utc</code>: ignored.</li>
+</ul>
+<p>In this case, we can use our gridded emissions directly here:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCO<span class="op">$</span>id &lt;-<span class="st"> </span><span class="ot">NULL</span>
+df &lt;-<span class="st"> </span><span class="kw">emis_wrf</span>(<span class="dt">sdf =</span> gCO, <span class="dt">dmyhm =</span> <span class="st">&quot;06-10-2014 00:00&quot;</span>,
+               <span class="dt">tz =</span> <span class="st">&quot;America/Sao_Paulo&quot;</span>, <span class="dt">islist =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## You can create wrchem inputs directly with 
+## eixport::create and eixport::wrf_put
+## https://CRAN.R-project.org/package=eixport</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
+<pre><code>##    id      long       lat pollutant    time_lt            time_utc dutch
+## 1   1 -47.41831 -24.35009         0 2014-10-06 2014-10-06 03:00:00   600
+## 6   2 -47.38871 -24.35053         0 2014-10-06 2014-10-06 03:00:00   600
+## 11  3 -47.35907 -24.35097         0 2014-10-06 2014-10-06 03:00:00   600
+## 16  4 -47.32947 -24.35143         0 2014-10-06 2014-10-06 03:00:00   600
+## 21  5 -47.29984 -24.35187         0 2014-10-06 2014-10-06 03:00:00   600
+## 26  6 -47.27024 -24.35230         0 2014-10-06 2014-10-06 03:00:00   600</code></pre>
+<p>Then you must export this <code>data.frame</code> into a .txt file. You must include the number of columns to match your luped species and also take out the columns time_lt, time_utc and dutch. These three columns are just informative.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>df[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]
+<span class="kw">write.table</span>(<span class="dt">x =</span> df, <span class="dt">file =</span> <span class="kw">tempfile</span>(), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,
+            <span class="dt">col.names =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Finally, in order to generate the wrfchem input file, you must have the resulting .txt file, a wrfinput file with the same grid spacing, the NCL script AS4WRF and a namelist. AS4WRF and the namelist can be obtained contacting <a href="mailto:angel.vela@iag.usp.br">angel.vela@iag.usp.br</a> and <a href="mailto:alvv1986@gmail.com">alvv1986@gmail.com</a>.</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3>Appendix B</h3>
+<div id="refs" class="references">
+<div id="ref-Grelletal2005">
+<p>Grell, Georg A, Steven E Peckham, Rainer Schmitz, Stuart A McKeen, Gregory Frost, William C Skamarock, and Brian Eder. 2005. “Fully Coupled ‘Online’ Chemistry Within the Wrf Model.” <em>Atmospheric Environment</em> 39 (37). Elsevier: 6957–75.</p>
+</div>
+<div id="ref-VaraVelaetal2015">
+<p>Vara-Vela, A., M. F. Andrade, P. Kumar, R. Y. Ynoue, and A. G. Muñoz. 2016. “Impact of Vehicular Emissions on the Formation of Fine Particles in the São Paulo Metropolitan Area: A Numerical Study with the Wrf-Chem Model.” <em>Atmos. Chem. and Phys.</em> 16: 777–97. doi:<a href="https://doi.org/10.5194/acp-16-777-2016">10.5194/acp-16-777-2016</a>.</p>
+</div>
+<div id="ref-ncl">
+<p>Boulder, Colorado: UCAR/NCAR/CISL/TDD. 2017. “The Ncar Command Language (Ncl)(version 6.4. 0).” <a href="http://dx.doi.org/10.5065/D6WD3XH5" class="uri">http://dx.doi.org/10.5065/D6WD3XH5</a>.</p>
+</div>
+<div id="ref-micro">
+<p>Ibarra, Sergio, Amanda Rehein, Angel Vara-Vela, and Rita Ynoue. 2015. <em>Simulation for the Metropolitan Region of Porto Alegre</em>.</p>
+</div>
+<div id="ref-icshmo">
+<p>Ibarra, Sergio, Rita Ynoue, and Angel Vara-Vela. 2015. <em>Emissions Inventory and Atmospheric Simulation of 58 Urban Centers of South America</em>.</p>
+</div>
+<div id="ref-eixport">
+<p>Ibarra-Espinosa, Sergio, Daniel Schuch, and Edmilson Dias de Freitas. 2018. “Eixport: An R Package to Export Emissions to Atmospheric Models.” <em>The Journal of Open Source Software</em>. doi:<a href="https://doi.org/10.21105/joss.00607">10.21105/joss.00607</a>.</p>
+</div>
+<div id="ref-eixport2">
+<p>Ibarra-Espinosa, Sergio, Daniel Schuch, and Edmilson Dias de Freitas. 2017. <em>Eixport: An R Package to Export Emissions to Atmospheric Models</em>. <a href="https://CRAN.R-project.org/package=eixport" class="uri">https://CRAN.R-project.org/package=eixport</a>.</p>
+</div>
+<div id="ref-Freitasetal2005">
+<p>Freitas, Edmilson, Leila Martins, Pedro Silva Dias, and María de Fátima Andrade. 2005. “A Simple Photochemical Module Implemented in Rams for Tropospheric Ozone Concentration Forecast in the Metropolitan Area of São Paulo, Brazil: Coupling and Validation.” <em>Atmospheric Environment</em>, no. 39. Elsevier: 6352–61.</p>
+</div>
+<div id="ref-rline">
+<p>Snyder, Michelle G., Akula Venkatram, David K. Heist, Steven G. Perry, William B. Petersen, and Vlad Isakov. 2013. “RLINE: A Line Source Dispersion Model for Near-Surface Releases.” <em>Atmospheric Environment</em> 77: 748–56. doi:<a href="https://doi.org/https://doi.org/10.1016/j.atmosenv.2013.05.074">https://doi.org/10.1016/j.atmosenv.2013.05.074</a>.</p>
+</div>
+<div id="ref-CETESB2015">
+<p>CETESB. 2015. “Emissões Veiculares No Estado de São Paulo 2014.”</p>
+</div>
+<div id="ref-angel">
+<p>Vara-Vela, A. 2013. “Avaliação Do Impacto Da Mudança Dos Fatores de Emissão Veicular Na Formação de Ozônio Troposférico Na Região Metropolitana de São Paulo(RMSP).” PhD thesis, São Paulo, Brazil: Instituto de Astronomia, Geofísica e Ciências Atmosféricas, Universidade de São Paulo.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="he.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="check.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ibarraespinosa/VEINBOOK/edit/master/inst/examples/09-aq.Rmd",
+"text": "Edit"
+},
+"download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

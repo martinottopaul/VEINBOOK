@@ -1,0 +1,4722 @@
+--- 
+title: "Vehicular emissions inventory with VEIN"
+author: "Sergio Ibarra-Espinosa"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: krantz
+lot: yes
+lof: yes
+fontsize: 12pt
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
+number_sections: true
+output:
+  bookdown::gitbook:
+    hightlight: tango
+bookdown::pdf_book:
+keep_tex: yes
+includes:
+  in_header: preamble.tex
+theme: united
+always_allow_html: yes
+classoption: graybox,envcountchap,sectrefs
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: ibarraespinosa/veinbook
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+<!-- bookdown::render_book("index.Rmd", rmarkdown::pdf_document(toc = TRUE, number_sections = TRUE, fig_caption = TRUE,
+citation_package = "biblatex")) 
+https://gist.githubusercontent.com/marcora/cb37b2432c072e8e9d77/raw/a2d676766559c52981774193d88b0e9ff22bbb3d/gistfile1.txt
+-->
+
+<!-- https://tex.stackexchange.com/questions/137428/tlmgr-cannot-setup-tlpdb -->
+<!-- https://itsfoss.com/install-fonts-ubuntu-1404-1410/ -->
+<!-- tlmgr install alegreya -->
+<!-- https://fonts.google.com/specimen/Alegreya+SC?selection.family=Alegreya+SC -->
+
+# Preface {-}
+
+
+<!-- ```{r echo = F, eval = FALSE} -->
+<!-- knitr::include_graphics('figuras/p2v2.png') -->
+<!-- ``` -->
+
+<!-- ![](figuras/vein6_400.png) -->
+<!-- render_book("veinbook.Rmd", pdf_book()) -->
+
+<!-- render_book("veinbook.Rmd", epub_book()) -->
+
+This book is about the process for estimating vehicular emissions. This process
+is complex and _can_ be dificult. It is required a big amount of information related to traffic, emissions factors and then process the outpus for the desired purpose. 
+In this book this process is addressed with the **VEIN** [@gmd-2017-193] model, 
+which is an R package available at https://CRAN.R-project.org/package=vein}.
+
+
+## Purpose {-}
+
+I wrote this book to provide instructions to all possible users who want to 
+estimate vehicular emissions using VEIN. VEIN provides several function which
+are related to each other reading different traffic sources and emission factors
+for different pollutants. However, incorporating all the functions with
+input/output (I/O) process can be difficult. Moreover, communicating the
+recommended practices and instructions to a increasingly broader audience
+can be more difficult. Therefore, the purpose of this book is to reach the 
+maximum amount of interested people in a simple way. The language chosen is
+engligh because it is the global language.
+
+## Structure {-}
+
+Chapter \@ref(intro) covers the introduction to this book including the 
+installation of R packages and dependent libraries to several operative systems.
+Chapter \@ref(basic) covers basics commands using R. Chapter \@ref(st) presents 
+the function _inventory_ to produce an structure of directories and scripts 
+for runnin vein. Chapter \@ref(traffic) covers the required traffic data for
+inputting into VEIN including differenttypes and sources of information.
+Chapter \@ref(ef) includes the emission factors that are included into the
+package and also, examples for inputing and creating
+new emission factors. Chapter \@ref(est) presents the estimations functions and
+tips. Chapter \@ref(post) includes the functions to do post-estimations to 
+generate emission data-bases and also emissions at each street. Chapter 
+ \@ref(he) and \@ref(ep) provides applications into air quality
+modeling, some studies with to investigte health effects and lastly, the use of
+VEIN as a tool for environmental planning.
+
+## About the author {-}
+
+Sergio Ibarra Espinosa is a chilean Environmental and Loss Prevention Engineer
+from the Technologycal Metropolitan University (UTEM) where study the health
+effects of air pollution using R in year 2007. Then started working at the 
+National Center for Environment (CENMA) in Chile focused on emissions from vehicles,
+airports, biomass burning and minning industry. Then obtained a MSc. in 
+Environmental Planning and Managment from the University of Chile, with a 
+scholarship form CENMA. Then obtained a PhD. in Meteorology at the Institute of 
+Astronomy, Geophysics and Atmospheric Sciences (IAG) from the University of São 
+Paulo (USP) with scholarship from CAPEs during the first year and Becas Chile
+for the last three years. During his PhD. he learned programming with R and 
+developed the R package VEIN.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+\mainmatter
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction {#intro}
+
+## Definitions and sources of information
+
+Developing emissions inventories is a complex task. Therefore, before entering 
+into the details of the functions, it is good to provide some initial definitions.
+
+A good starting point is the book _"The Art of Emissions Inventorying"_ [@pulles2010art].
+This book provides general description of what is an emissions inventory. One of the early
+sources of information about emissions inventories and emissions factors is the
+Environmental Protection Agency (U.S.EPA) and its compilation of emission factors AP42 (https://www.epa.gov/air-emissions-factors-and-quantification).
+A third source of information are the European EMEP/EEA air pollutant emission inventory guidebook (https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/).
+
+An emissions inventory is the compilation of all mass emitted into the atmosphere
+by activities in a defined area during a lapse of time. The Eq. (\@ref(eq:efGERAL) shows the
+general form [@guia]:
+
+\begin{equation}
+Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{activity, pollutant}
+(\#eq:efGERAL)
+\end{equation}
+
+There are two main tpes of inventories based on the application, one type is for policy
+application and the other for scientific application [@pulles2010art]. 
+
+- Inventories for policy application include the National Greenhouse Gas Inventory for the parties under the United Nations Framework on Climate Change [@unfccc].
+- Emissions inventories with scientific applications include the Emission 
+Database for Global Atmospheric Research EDGAR [@edgar].
+
+Emissions inventories can be also multi medi ainventories, such as the Pollutant Release
+and Transfer Registers (PRTR) which include pollutants released to air, water and soil 
+and transferred off-site for treatment or disposal (http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/). However,
+the type of inventory covered in this book cover only the emissions released into the 
+atmosphere.
+
+### Approaches
+
+It is necessary show some definitions of vehicular emissions inventories approaches, 
+which in this case comes from the European Emissions Guidelines [@NtziachristosSamaras2016]:
+
+- **Top-down** inventories are uses input activity traffic data as fleet statistics,
+fuel consumption, representative speeds and country balances. The emissions factors
+uses representative speeds. This inventory are also know as _static_.
+- **Bottom-up** Input activity traffic data comes from traffic counts, traffic
+simulations, vehicle composition, speed recordings and length of the raods. The
+emission factors are speed or/and acceleration functions. These inventories are also 
+know as _dynamic_.
+- **Reconciliation** Both approaches can be reconciliated in urban emissions inventories
+with comparison of total mileage, cold start mileage or emission factors in order
+that the comparison with the total fuel consumption on the study area is satisfactory.
+This means that bottom-up and top-down vehicular emissions must match the fuel sales
+over a region of study. 
+
+## Installation
+
+The VEIN r-package can be installed from Comprehensive R Archive Network 
+[CRAN](https://cran.r-project.org/) directly:
+
+```{r, eval=FALSE, echo = TRUE}
+# CRAN
+install.packages("vein")
+```
+
+VEIN can be also installed from github:
+
+```{r, eval=FALSE}
+library(devtools)
+install_github("ibarraespinosa/vein")
+```
+
+The github installation requires that the _devtools_ package [@devtools] must be installes, including
+its dependencies.
+
+## Required R packages and dependencies
+
+In order to use the VE0IN package it is necesary to download other r-packages and its dependencies.
+The current dependencies of VEIN are:
+
+- **sp**. This is a package that provides clases and methods for spatial data [@sp] considering
+points, lines, polygons and grids.
+- **rgeos**. It is an interface to the "geometry Engine - Open Source ('GEOS') using the C 'API' for 
+topology operations on geometries" [@rgeos]. Depends on the library GEOS (http://trac.osgeo.org/geos). 
+- **rgdal**. Provides bindings to the 'Geospatial' Data Abstraction Library ('GDAL') (>= 1.6.3) and 
+access to projection/transformation operations from the 'PROJ.4' library [@rgdal]. Depends on the library GDAL
+(http://www.gdal.org/) and PROJ (http://proj4.org/).
+- **raster**. It is a package that provides tools for analyses and modeling of geographic data [@raster].
+- **units**. It i a package dor measurement units in R [@units]. This package depends on the library 
+udunits2 (http://www.unidata.ucar.edu/software/udunits/). I
+
+
+```{r, eval=FALSE}
+install.packages(c("sp", "rgeos", "rgdal", "raster", "units"))
+```
+
+
+In order to install these package it is necessary to install the dependencies into each operational system.
+The instructions are:
+
+**Ubuntu**
+```{bash eval=FALSE}
+sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo apt-get update
+sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev l
+ibproj-dev 
+```
+
+
+**Fedora**
+```{bash, eval=FALSE}
+sudo dnf install gdal-devel proj-devel proj-epsg proj-nad 
+geos-devel udunits2-devel
+```
+
+**Debian and other**
+
+Dockerfiles from [rocker geospatial](https://github.com/rocker-org/geospatial).
+
+**Windows**
+Via [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
+
+**MAC OS**
+```{bash, eval=FALSE}
+brew unlink gdal
+brew tap osgeo/osgeo4mac && brew tap --repair
+brew install proj
+brew install geos
+brew install udunits
+brew install gdal2 --with-armadillo --with-complete 
+--with-libkml --with-unsupported
+brew link --force gdal2
+```
+
+The new version of VEIN wil replace the spatial r-packages dependencies of 
+raster, rgeos and rgdal by the new **sf** [@sf] package and the units [@units] package.
+
+sf is a package that provides simple features access for R [@sf], which can be installed
+in this way:
+
+```{r, eval=FALSE}
+install.packages("sf")
+```
+
+or via devtools
+
+```{r eval=FALSE}
+library(devtools)
+install_github("r-spatial/sf")
+```
+
+
+## Data inside the VEIN model
+
+There are several datasets available inside the model:
+
+### Emission factors from CETESB
+
+- **fe2015**: Emission factors from Environmental Agency of Sao Paulo (CETESB).
+Pollutants included: "CH4", "CO", "CO2", "HC", "N2O", "NMHC", "NOx" and "PM". The
+type of vehicles included are Passenger Cars (PC) and 
+
+usage:
+```{r}
+library(vein, quietly = T)
+data(fe2015)
+```
+
+```{r, echo=FALSE}
+knitr::kable(
+    head(fe2015[, c(1:3, 11, 12)], 6), 
+  caption = 'Emission factors from CETESB in VEIN model',
+  booktabs = TRUE
+)
+```
+
+
+
+
+### Mileage functions of Brazilian Fleet
+
+- **fkm**: List of functions of mileage in km fro Brazilian fleet. Includes mileage functions
+based on more than 2 million recordings of vehicles [@BruniBales2013]. It consists
+in a list of age functions. The type of vehicles are Passneger Cars (PC), Light 
+Commercial Vehicles (LCV), Small Bus (SBUS), Trucks, Articulated Trucks (ATRUCKS),
+Motorcycles (MOTO) and Light vehicles' (LDV). The fuels are Gasoline using 25\% of
+ethanol (E25), Ethanol 100\% (E100) and Diesel with 5\% of biodiesel (B5). There are
+also vehicles with flex engines which can run either with E25, E100 or any mixture
+in between [@2005-01-4130]. The Fig. (\@ref(fig:mil) shows the mileage of PC using fuel E25.
+
+
+usage:
+```{r mil, fig.cap='Mileage of PC using E25', out.width='80%', fig.asp=.75, fig.align='center'}
+library(vein, quietly = T)
+data(fkm)
+names(fkm)
+age <- 1:50
+mileage <- fkm[["KM_PC_E25"]](1:50) 
+par(mar = c(4, 4, .1, .1))
+plot(y = mileage, x = age, pch = 19, type = "b")
+
+```
+
+- **net**: Road network of the west part of Sao Paulo city. It consistes in a 
+SpatialLinesDataFrame (class of sp) with the attributes ldv (light duty vehicles, 
+$1 \cdot h^{-1}$), hdv (heavy duty vehicles, $1 \cdot h^{-1}$), ps (peak speed, 
+$km \cdot h^{-1}$), ffs (free flow speed, $km \cdot h^{-1}$), tstreet (type of street), 
+lanes (number of lanes), capacity (capacity fo vehicles at each link, 1/h) and tmin (time
+for travelling each link, min). The Fig. (\@ref(traffic) shows more details.
+
+
+
+### Temporal factors for Passenger Cars
+
+Temporal factors (TF) are marix of jourly traffic data normalized for the hour
+of interest, normally the morning rush hour 08:00-09:00 in local time (LT) [@gmd-2017-193].
+This dataset cover 168 hours of one week and it is based on traffic counts
+of toll stations near the center of the city of SãoPaulo, Brazil. The Fig.
+(\@ref(fig:tf) shows the temporal factors for PC.
+
+usage:
+```{r tf, fig.cap='Temporal Factors for PC', out.width='80%', fig.asp=.75, fig.align='center'}
+library(vein, quietly = T)
+data(pc_profile)
+tf <- unlist(pc_profile)
+hours <- 1:168
+par(mar = c(4, 4, .1, .1))
+plot(y = tf, x = hours, pch = 16, type = "b")
+```
+
+
+
+### Profile for cold starts of Passenger Cars
+
+This is a profile with the hourly percentage of cold starts of Passenger Cars. This
+data covers 24 hours of a working day and it is based cold start recordings during the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005]
+in São Paulo [@ivesp]. The Fig. (\@ref(fig:cold) shows the cold-start profile.
+
+usage:
+```{r cold, fig.cap='Cold-starts profile for PC', out.width='80%', fig.asp=.75, fig.align='center'}
+library(vein, quietly = T)
+data(pc_cold)
+cold <- unlist(pc_cold)
+hours <- 1:24
+par(mar = c(4, 4, .1, .1))
+plot(y = cold, x = hours, pch = 16, type = "b")
+```
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+# Basics of R {#basic}
+
+## Brief history
+
+R is a programming language developed by Ross Ihaka and Robert Genleman in 1993 
+[@ihaka1996r]. A good resource about R is the book  programming for data science 
+[@peng2015r]. R can be explained as a free version of S-PLUS programming 
+language (http://www.solutionmetrics.com.au/products/splus/default.html). It is 
+free and recognized a GNU spftware (https://www.gnu.org/software/software.html)
+with GNU General Public License (GPLV2-GPLV3) license. This feature allowed that many 
+developers started improving and adding code over the years. 
+
+R includes several statistical functions, therefore, user who just want to use 
+the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous
+publications such as the book "R packages: organize, test, document, and share
+your code" [@wickham2015r], or "The art of R programming: A tour of statistical software  design" [@matloff2011art]. 
+
+### Installation
+
+R can be installed in different OS including Linux, Windows, Mac and Solaris. 
+The webpage https://cran.r-project.org/ shows how to install R in any platform.
+A popular Integrated development environment (IDE) is **RStudio** https://www.rstudio.com/, which contains many useful integrated options. 
+However, R can be run on the terminal and use any text editor to write scripts.
+
+## Using R
+
+If we type at the R promt 
+```{r}
+x <- 1   # Not printing  results
+x        # Print results
+print(x) # Explicit print x
+```
+
+Rhe integer 1 was _assigned_ (<-) to x, then writing x or print(x) will show
+the value of x. Instead of numbers, can be assigned other expressions
+such as strings, dates or other objects. R includes several statistical 
+functions. For instance, if we type 'pi' at the terminal, it will print
+the pi number.
+
+```{r}
+pi
+```
+
+### R objects
+
+There are five basic classes (or atomic classes).
+
+- character.
+- numeric.
+- integer.
+- complex.
+- logical (TRUE/FALSE or just T or F).
+
+Objects of the same class can be grouped in **vectors**. Vectors are created with 
+writting **c()** with the elements of the vector inside the parenthesis, separated
+by colon. In fact, **c** is a builtin function to create vectors. In this case,
+the vector v1 contain a sequence of three integers, from 1 to 3. The resulting 
+class is numeric.
+
+```{r}
+v1 <- 1:3
+v2 <- c(1, 2, 3)
+identical(v1, v2)
+v1
+class(v1)
+```
+
+With the operator `[` we can get specific elements of your vectors. In the 
+following code it is also used the function `length`, which simply returns
+the length of an object.
+
+```{r}
+v1[1]          # first element of v1
+v1[length(v1)] # last element element of v1
+```
+
+
+If we create a vector with numbers and letter, the resulting vector will
+be "character" converting the numbers in characters.
+
+```{r}
+v2 <- c(1:3,"a")
+v2
+class(v2)
+```
+
+Objects can be converted to other classes with the "as.*" functions. For instance,
+If we convert the vector v2 to numeric, it will recognize the numbers adding an 
+`r NA` into the position of the character.
+
+```{r}
+as.numeric(v2)
+```
+
+
+### Factors
+
+Factors represents categorical data. A typical example is a character vector of
+days of the week. The function `factor` creates factors, to see help type 
+`?factor`. The following example will use this function with the arguments `x`
+and `levels`. 
+
+```{r}
+dow <- factor(x = c("Wednesday", "Monday", "Thursday", "Friday"),
+              levels =  c("Monday", "Tuesday", "Wednesday", "Thursday",
+                          "Friday"))
+dow
+```
+
+### Missing Values
+
+Missing values in data-sets are a typical source of headache in r users. 
+Fortunatly, R counts with several tools to avoid these headaches. These tools
+are fhe functions `is.na` to check for NA (not available) and `is.nan` (not
+a number). This functions returns logical values.
+
+```{r}
+n <- c(1, NA)
+is.na(n)
+n <- c(1, NaN)
+is.na(n)
+is.nan(n)
+```
+
+
+### Matrices
+
+Matrices are structure with rows and columns. They can be created using the 
+`matrix` function and also, using vectors. Remember, if you want to know more
+about any function you just have to type ? and function, for instance:`?matrix`
+will open the help documentation for the function `matrix`. Let's create a
+matrix using vectors:
+
+```{r}
+a <- 1:12  #numeric vector
+(m <- matrix(data = a, nrow = 3, ncol = 4))
+```
+
+We can check the dimensions of our matrix `m` with `dim`, which are 3 and 4.
+
+```{r}
+dim(m)
+```
+
+In order to get the elements of matrix `m` we can use `[` operator:
+```{r}
+m[1, 1] # first element
+m[, 1]  # firs column
+m[1, ]  # firs row
+m[3,4]  # last element
+```
+
+
+### Arrays
+
+Arrays are like matrices inside other matrices. In fact, a matrix is a 
+2-dimensional array. Let's create an array create an array using the same vector
+a and same dimensiones of m, 3 and 4. `array` has three arguments, `data`, `dim`
+ and `dimnames`. In th argument `dim` let's add the number 2, resulting
+ in an array of two matrices identical to `m`.
+
+```{r}
+(a <- array(data = a, dim = c(3,4,2)))
+```
+
+
+We can subset elements from array also with the `[` operator.
+
+```{r}
+a[1, 1, 1] # first element
+dim(a)     # dimensions
+a[3, 4, 2] # last element
+```
+
+### Lists
+
+List are objects that can contain elements of different classes. I like to call
+lists as bags. In a bag you can put almost anything. Also, inside the bag,
+you can put other bags with different things. This means that you can have a
+list of lists of any R object. Lists can be created with the `list` function.
+Let's create an empty list. Then we will use the vecctor `a` to create another
+list.
+
+```{r}
+a <- 1:3          # vector of three elements
+l1 <- list()      # empty list
+l1 <- list(a)     # vector of three elements
+length(l1)        # length 1
+l1 <- as.list(a)  # vector a as list
+length(l1)        # three elements 
+```
+
+As mentioned, the list can have lists inside.
+
+```{r}
+l1 <- list(list(a),                    # three numeric elements
+            list(TRUE, TRUE, FALSE))   # three logical elements
+length(l1)                             # length 2
+```
+
+### Data-Frames
+
+"Data-frames are used to store tabular data in R" [@peng2015r]. You can think
+in data-frames as spreadsheet-like objects. They are similar with matrix and
+you can have a matrix and a data-frame with the same dimensions. Basically,
+you have rows and columns, columns can have different classes, and the columns
+usually have a one-word name.
+
+As this type of object is very used by scientists, there are R packages created
+to work with this type of ojects. Below some of them:
+
+- `data.frame`: This is not a package, for a class and function from the `base`.
+With this functionyou can create data-frames.
+- `data-table` [@datatable]: `data.tables` objects has the class `data.table` 
+which inherits from the class `data-frame`, which means that they share common 
+characteristics. However, the big difference with `data-table` is the efficiency
+with memory. It includes function such as `fread` for reading millions of 
+observations in seconds.
+- `tidyr`[@tidyr]: Sometimes your data is in long format and you need it in wide
+format, and viceversa. This package does the job.
+- `readxl` [@readxl]: Good package for importing Excel and LibreOffice files. I
+recommend  this packages for newbies.
+- `sf` [@sf]: This package presents the class `sf` and introduce the list-column
+of spatial geometry.
+
+Let's create a data-frame.
+
+```{r}
+a <- 1:3
+b <- 3:5
+(ab <- data.frame(a, b))
+class(ab)
+```
+
+
+### Names
+
+In R you can put names in almost everything. Below examples for `vectors`, 
+`matrix` and `data.frames`.
+
+```{r}
+names(ab)                # original names
+names(ab) <- c("c", "d")
+names(ab)                # new names
+```
+
+## Inputting data into R
+
+Your data can be in different formats. In this sections i will show you how you
+can input text and comma separated values files, which is a very common task. 
+Let's say that you uses an spreadsheet program such as Microsoft Excel or
+LibreOffice. Then you might want to export your data into R.
+
+- Your first check if the first row of your data has name or not. If they do
+have names, this means that they have a header.
+- Then click on 'Save as' and search text file with extension .txt or CSV.
+- Then you your file with a note bloc, gedit  or other tool to check if the
+decimal character is point '.' and the separator character is comma ',' or 
+semicolon ';' or other character. This depends on the regional confugarion of 
+your spreadsheet software.
+- If your file has extension '.txt', use `read.table` and if is '.csv', use
+`read.csv`.
+
+Once you check, you can import your '.txt' or '.csv' files in R:
+
+```{r eval = FALSE}
+a <- read.csv("path/to/file.csv", sep = ",", header = T)
+a <- read.tablesv("path/to/file.txt", sep = ",", header = T)
+```
+
+
+<!--chapter:end:02-basicsR.Rmd-->
+
+# Structuring an Emissions Inventory {#st}
+
+The description file of vein says:
+
+Elaboration of vehicular emissions inventories, consisting in four stages,
+
+1. pre-processing activity data,
+1. preparing emissions factors,
+1. estimating the emissions and
+1. post-processing of emissions in maps and databases.
+
+This means that vein provide functions to be used in each of the stages. However,
+in order follow these stages it is needed a structure of directories with
+scripts with vein functions. Therefore, it was created the function
+`inventory`, to create this structure.
+
+## Overview of emissions inventorying using VEIN {#veinstructure}
+
+```{r , eval = FALSE, include=FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='100%', fig.asp=.75, fig.align='center'}
+library(DiagrammeR)
+
+p1 <- grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = TB,
+            fontname = Helvetica]
+
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      Vehicles;
+      Speed;
+      EmissionFactors;
+      EmissionsArray;
+      GriddedEmissionsArray;
+
+
+
+      node [shape = circle,
+            style = filled,
+            fillcolor = SpringGreen,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      traffic;
+      profile;
+      local_ef;
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      age;
+      speed_ef;
+      scaled_ef;
+      emis;
+      emis_det;
+      emis_post;
+      speciate;
+      make_grid;
+      emis_grid;
+      emis_merge;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+
+      emis_det->{local_ef speed_ef}
+      traffic->netspeed
+      traffic->age
+      age->Vehicles
+      netspeed -> Speed
+      {Vehicles Speed profile}->emis
+      local_ef->{scaled_ef EmissionFactors}
+      speed_ef-> {scaled_ef  EmissionFactors}
+      scaled_ef -> EmissionFactors
+      EmissionFactors -> emis
+      emis -> EmissionsArray
+      EmissionsArray -> emis_post
+      emis_post->{speciate emis_merge emis_grid}
+      speciate -> emis_merge
+      {make_grid speciate emis_merge}->emis_grid
+      emis_grid -> {EmissionsGrid GriddedEmissionsArray}
+      }
+      ")
+p1
+```
+
+
+```{r diavein, echo = FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='100%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/dia1.png")
+```
+
+
+## The `inventory` function
+
+The inventory function creates creates a structure of directories and scripts
+to run vein. This structure is a suggestion and the user can use any other.
+The following code shows the arguments of the function. This is done using
+the base function `args` with `inventory`.
+
+```{r, message=FALSE, echo=FALSE}
+library(vein)
+```
+
+```{r}
+args(inventory)
+```
+
+The arguments are `name`, `vehcomp`, `scripts`, `show.dir`, `show.scripts` and
+`clear`.
+
+- The argument `name`
+
+name is a word to be used as main directory where directories and scripts are
+stored in. It consists in *one* word with ascii characters. It is also
+recommended to be used without any special character or accents, for instance:
+
+```{r, eval = FALSE}
+name = file.path(tempdir(), "YourCity")
+inventory(name = name, show.dir = TRUE, show.scripts = TRUE)
+```
+
+
+- The argument `vehcomp`
+
+This argument is very important and comes from _Vehicular Composition_, which is
+the classification of the fleet by type of use, type of fuel, size of engine and
+gross weight, based on definitions of @Corvalanetal2002. There is also the
+_technological composition_ of the fleet which relates the technological
+modifications of the car in order to accomplish the emissions standards. However,
+in vein uses a distribution by age of use as \@ref(traffic) shows.
+
+The vehicular composition `vehcomp` has 5 types of vehicles:
+
+1. Passenger Carss (PC).
+1. Light Commercial Vehicles (LCV). 
+1. Heavy Good Vehicles or trucks (HGV).
+1. Buses (BUS).
+1. Motorcycles (MC).
+
+The default value of this argument is: `c(PC = 1, LCV = 1, HGV = 1, BUS = 1, MC = 1)`, 
+which means that there are 1 types of PC, 1 of LCV, 1 of trucks, 1 of buses and
+1 types of motorcycles. This vehicular composition is only for ilutrasting that
+the user can chnge these values according its own data. Appendix B
+shows the vehicular composition from the vehicular emissions inventory of the 
+Environmental Agency of São Paulo, Brazil [@CETESB2015]. In Brazil, the fuel used 
+in vehicles is blended with ethanol with and biodiesel. The user can use **any** vehicular composition that representes its fleet with up-to 99 type of vehicles per
+category. For instance, if there are 4 types of PC in a fleet, `PC = 4`, and
+each one has a age of use distribution.
+
+
+- The argument `show.dir`
+
+This is a logical argument to decide if the output of the function will return
+print the new directories or not. The use is:
+
+```{r}
+name = file.path(tempdir(), "YourCity")
+inventory(name = name, show.dir = TRUE, show.scripts = FALSE)
+```
+
+`inventory` creates the direcrory "YourCity" and the sub directories: daily,
+ef, emi, est, images, network and veh.
+
+- **daily**: it is for storing the profiles saved as .csv files. For instance,
+`data(pc_profile)` is a matrix than could be saved as .csv.
+- **ef**: it is for storing the emission factors data-frame, similar to
+`data(fe2015)` but including one column for each of the categories of the
+vehicular composition. For instance, if PC = 5, there should be 5 columns with
+emission factors in this file. If LCV = 5, another 5 columns should be present,
+and so on.
+- **emi**: Directory with subdirectories matching the vehicular composition for
+saving the estimates. It is suggested to use .rds extension instead of .rda.
+- **est**: Directory with subdirectories matching the vehicular composition for
+for storing the scripts named `input.R`. 
+- **images**: Directory for saving images.
+- **network**: Directory for saving the road network with the required
+attributes. This file will include the vehicular flow per street to be used by functions `age_ldv`,  `age_hdv`,  `age_moto` or `my_ldv`.
+- **post**: Directory for storing the processed emissions. It includes the
+directories **df** for emissions by age of use, hou and other parameters,
+**streets** for storing the total emissions by streets and **grids** for storing
+total gridded emissions by pollutant.
+- **veh**: Directory for storing the distribution by age of use of each category
+of the vehicular composition. Those are data-frames with number of columns with
+the age distribution and the number of rows as the number of streets. The class
+of these objects is "Vehicles".
+
+
+devt
+- The argument `scripts`
+
+This argument adds scripts into the directories. The default is TRUE. The type
+of scrits create are:
+
+- main.R: Adds the `setwd("YourCity")`, `library(vein)`, `source(traffic.R)`,
+some comments and a loop for source all inputs. It is recommended not using
+the loop till it is certain that all scripts are correct.
+- traffic.R: Includes two lines with exampmles of how to use the `age_ldv`
+function and saving the output in the directory veh.
+- input.R: Each file has the scripts for reading the network, vehicles, emission
+factors and estimating emissions.
+
+- The argument `show.scripts`
+
+This argument prints the scripts created:
+
+```{r}
+name = file.path(tempdir(), "YourCity")
+inventory(name = name, show.dir = FALSE, show.scripts = TRUE)
+```
+
+- The argument `clear`
+
+This is a logical argument that deletes recursively when TRUE, or not when FALSE,
+the directory and created another one. Default is TRUE.
+
+The following chapters show the use of other vein functions inside an structure
+of directories and scripts with the name `inventory("YourCity")`.
+
+<!--chapter:end:03-appmasp.Rmd-->
+
+# Traffic data {#traffic}
+
+Traffic data is read in VEIN as spatial information. In other words, traffic data
+must in any vectorial line spatial format with the drivers provided by the 
+library **GDAL** (http://www.gdal.org/ogr_formats.html) called by the packages
+**rgdal** or **sf**. This means that traffic data must in in any GDAL spatial
+format. The Eq. \@ref(eq:flow) show how traffic data is treated into vein. 
+
+\begin{equation}
+F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
+(\#eq:flow)
+\end{equation}
+
+where $F^*_{i,j,k}$ is the vehicular flow at street link $i$ for vehicle type $j$ by
+age of use $k$. $j$ defines the vehicular composition according to their type of 
+use, type of fuel, size of engine and gross weight, based on definitions of
+[@Corvalanetal2002]. $Q_i$ is the traffic flow at street link $i$. $VC_{i,j}$ is
+the fraction of vehicles varying according to the type of vehicles $j$ in the
+composition for street link $i$.  $Age_{j,k}$ is the age distribution by vehicular
+composition $j$ and age of use $k$. This Equation shows that $VC$ splits the total
+vehicular flow $Q$ to identify the vehicular fraction, which varies according to the
+type of fuel, size of motor and gross weight. For example, if $Q$ is light duty
+vehicles (LDV) and it is known that 5\% of the $Q$ are passenger cars (PC), with
+engine lesser than 1400 cc, $VC$ is 0.05. This characterization of the fleet depends
+on the amount and quality of the available information. VEIN then multiplies the
+traffic with $Age$ to obtain the amount of each type of vehicle by age of use. 
+
+
+## Sources of traffic data
+
+### Travel demand outputs
+
+VEIN was developepd according to the available traffic data in São Pauo, Brazil.
+In this case, the available data was a 4-stage macroscopic travel
+model for morning rush hour and hourly traffic counts for morning and evening
+rush hours. The travel model is based on data from an Origin-Destination-Survey 
+(ODS) [@ODS] which started in the decade of 1950 in São Paulo. A classic reference 
+of a 4-stage modeling transport is [@OrtuzarWillumsen2002]. The 4 stages of the 
+traffic modeling includes characterization of trip attractions and productions by
+zone in some regions, distribution of these trips, preferred mode of transport for
+traveling and finally the allocation of the trips at each mode, in this case into
+the road network. The ODS is made every 10 years by Metro (http://www.metro.sp.gov.br/),
+which is the underground company, and they perform a smaller update of ODS after
+5 years. The information gathered in the ODS is massive with the participation of
+thousands of commuters. It helps to identify characteristics of the trips inside
+MASP. CET uses the information from ODS and performs the traffic simulation. In
+this case, it is a macro or strategic traffic simulation which represents the
+equilibrium between offer and supply of transportation at maximum load of the
+road network, that is, at the rush hour, which is from 08:00 to 09:00 Local Time (LT).
+
+VEIN incorporates an extract of a traffic model simulation for the west part of
+São Paulo named *net*. The Fig. (\@ref(fig:ldv) shows the traffic of Light Duty
+Vehicles (LDV). This data covers the surrounding area of the University of São
+Paulo. The information obtained from CET consists in:
+
+- _ldv_: Light Duty Vehicles (1/h).
+- _hdv_: Heavy Duty Vehicles (1/h).
+- _lkm_: Length of the link (km).
+- _ps_: Peak Speed (km/h).
+- _ffs_: Free Flow Speed (km/h).
+- _tstreet_: Type of street.
+- _lanes_: Number of lanes per link.
+- _capacity_: Capacity of vehicles in each link (1/h).
+- _tmin_: Time for travelling each link (min).
+
+The following scripts show how to load this data in R. This data has the class
+"SpatialLinesDataFrame" from the package [@sp]. This data was converted into
+an spatial feature "sf" object [@sf] because it consists in a data-frame with a
+list-column of geometry with the spatial attributes and it is easier to handle
+than an object class of sp. As entioned, future versions of VEIN will migrate
+to sf.
+
+The user must call the library vein first, then load the data net. The object
+net has the class "SpatialLinesDataFrame". This data can be seen loaded in R as:
+
+```{r}
+library(vein)
+library(sp)
+data(net)
+class(net)
+```
+
+The Fig. (\@ref(fig:ldv)) shows that traffic is concentrated in mains streets
+such as motorway Marginal Pinheiros, located at the north east part of the area. 
+
+```{r ldv, fig.cap='LDV at 08:00-09:00 (LT) in west São Paulo', out.width='80%', fig.asp=.75, fig.align='center'}
+library(vein)
+data(net)
+net$ldv <- as.numeric(net$ldv)
+spplot(net, "ldv", scales = list(draw = T),
+       col.regions = rev(bpy.colors(16)))
+```
+
+### Inteprolation of traffic counts
+
+Travel model simulation are not always available and the user interested in
+estimating vehicular emisisons with a bottom-up approach would have to look
+for alternatives to obtain traffic data at street level. These alternatives
+covers interpolating traffic data for different temporal resolutions. For
+instance, -@requia developed a vehicular bottom-up inventory using traffic
+counts and a geostatistic method called Global Moran's I test [@anselin]. It 
+measures the spatial autocorrelation. However, this technique requires that the
+observed values are normal, which is not the case for count data.
+
+Other authors were instested in predicting Anual Average Daily Traffic (AADT) or
+only ADT. -@lowry2014spatial presented a new method for predicting AADT based on
+the concept of origin-destination centrality. The idea is to obtain predictor
+variables directly from the road network. He identified origin and destination
+zones and added multiplication factors based on the land-use characteristics.
+
+-@zhao2001contributing tested several multiple stepwise regressions incorporating
+land-use characteristics. They considered several variables: number of lanes,
+classificatiion of road type, employment numbers and access to expressway with
+correlations between 0.66 and 0.82. -@lam2000estimation compared neural networks
+and regressions for a dataset of 13 locations. Kriging methods were used in AADT
+interpolation by -@eom2006improving, who predicted AADT for non-motorway streets.
+Also, -@selby2013spatial compared Kriging and geographically weighted regressions
+in the prediction of AADT.
+
+Another approach is to perform a spatial regression based on the distributio
+on the oberved data. As the data is counts of traffic, a poisson, quasi-poisson
+or negative binomial regressions can be used [@zeileis2008regression]. Recently,
+-@Ibarraetal2017a compared quasi-posson and negative binomial regresions
+predicting hourly traffic data, with better results with quasi-poisson approach
+and correlation of 0.72.
+
+Newer approaches involves using GPS data from smart phones and cars. 
+
+### Generating traffic flows from Origin-Destination-Surveys (ODS)
+
+The origin destination survey (ODS) is an important tool which quantifies the 
+amount of trips generated in the study area. ODS studies started decades ago. The
+oldest ODS paper on Google Scholar is entitles "FUNCTIONS OF A HIGHWAY-PLANNING SURVEY DEPARTMENT" by W. J. Sapp in 1938 at the TWENTY-FOURTH ANNUAL ROAD SCHOOL
+[@sapp1938runctions]. In this paper it is discussed the importance information
+for the trffic engineer, and Sapp even mentios: "The engineer must have the supporting data available to substantiate his decisions."
+
+Other study of 1942 shows talks about the importance of traffic counts, disucssing
+the elaboration of an origin destination survey where 8000 Boy Scouts of America
+participated counting traffic. The method for analyzing the data consisted in
+countign the vehicles identifying the licence plate in order to determine the
+origin (the first time the vehicle was recorded), the route of vehicles, the
+destination and the approximate time for the trip.
+
+After those pioneer studies many many other studies went deeper into the subject. 
+And after that, with the irruption of new technologies, new software, use of 
+smarthphones with GPS, satellites and big technological centers own by companies 
+such as Google (http://www.google.com), new ways for characterizing trips were
+developed. In this section i will briefly mention the Google Distance Matrix 
+(https://developers.google.com/maps/documentation/distance-matrix/), the
+pgRouting library [@patrushev2007shortest] for postGIS and will expand with two R
+packages, googleway [@googleway] and dodgr [@dodgr].
+
+The ODS will provide us the matrix of pairs of zones origin and destinations by 
+mode of transport. Then, we can use any of the mentiones softwares to find the
+shortest path between each zone. The table \@ref(tab:ods) shows an extraction of 
+the OD matrix for the Metropolitan Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig \@ref(fig.zod) shows a map with the location of the zones OD.
+
+```{r ods,  echo = FALSE}
+m <- read.csv("figuras/Tab32_OD2007_individual_PICO.csv", h = F, sep = ";")
+m <- as.matrix(m[101:110,101:110])
+knitr::kable(m, 
+             caption = 'Matrix OD for motorized indivitual trips between 06:30 and 08:30 MASP 2007',
+             booktabs = TRUE,
+             align = "c"
+)
+```
+
+
+```{r zod, fig.cap='Zones OD for MASP 2007', out.width='100%', fig.asp=.75, fig.align='center', echo=FALSE, messages = FALSE, warning=FALSE}
+zod <- sf::st_read("figuras/od.shp", quiet = T)
+plot(zod$geometry, axes = T, main = NULL)
+```
+
+Now, as we know the the trips between each pair of OD zones, we can find the
+routes that connectes them. A used algorithm is the shortest path, which connects
+two nodes minimizing the total travel time. There are several algorithms, 
+including -@dijkstra1959note.
+
+#### Google Distance Matrix API
+
+This we servise allow to "retrieve duration and distance values based on the
+recommended route between start and end points." It returns durations and
+distance, it is possible to choose modes of transport and even to choose between
+current or historial times. The first step is to get a KEY.
+
+If you browser
+
+```{bash eval = FALSE}
+https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=YOUR_API_KEY
+```
+
+and replace YOUR_API_KEY you will see (my brower is in portuguese):
+
+```{bash eval = FALSE}
+{
+  "destination_addresses" : [ "Nova York, NY, EUA" ],
+  "origin_addresses" : [ "Washington, D.C., Distrito de Columbia, EUA" ],
+  "rows" : [
+    {
+      "elements" : [
+        {
+          "distance" : {
+            "text" : "225 mi",
+            "value" : 361972
+          },
+          "duration" : {
+            "text" : "3 horas 53 minutos",
+            "value" : 13964
+          },
+          "status" : "OK"
+        }
+        ]
+    }
+    ],
+  "status" : "OK"
+}
+```
+
+The modes of transport covered are **driving** using the road network, 
+**walking** via pedestrian paths & sidewalks, **bicycling** via bicycle paths and
+**transit** via public transit routes. For more information read the 
+documentation.
+
+#### pgRouting for postGIS
+
+pgRouting (http://pgrouting.org/) is an open source routing library for postGIS.
+It provides many routing algorithms and it can be run via QGIS 
+(https://www.qgis.org). This library is very extensive. A good resource is the
+book "pgRouting: A Practical Guide" (http://locatepress.com/pgrouting).
+
+#### The R package googleway
+
+googleway [@googleway] R package allows to access Goolge Maps API https://developers.google.com/maps/.
+The API functions are:
+
+- Directions - `google_directions()`
+- Distance Matrix - `google_distance()`
+- Elevation - `google_elevation()`
+- Geocoding - `google_geocode()`
+- Reverse Geocoding - `google_reverse_geocode()`
+- Places - `google_places()`
+- Place Details - `google_place_details()`
+- Time zone - `google_timezone()`
+- Roads - `google_snapToRoads()` and `google_nearestRoads()`
+
+This package allows to plot over Google Maps. 
+
+```{r}
+library(googleway)
+## not specifying the api will add the key as your 'default'
+key <- "my_api_key"
+set_key(key = key)
+google_keys()
+```
+
+From zone Luz 7, coordinates long -46.63461 and lat  -23.53137 to zone 8 Bom 
+Retiro coordinates -46.64482 -23.52204 there are 133 LDV trips between 6:30 and
+08:30. We first create the data-frame. This data is based on OD from São Paulo.
+
+```{r }
+mydf <- data.frame(region = 1,
+                   from_lat = -23.53137,
+                   from_long = -46.634613,
+                   to_lat = -23.52204,
+                   to_long = -46.64482)
+```
+
+
+```{r echo=FALSE}
+mykey <- "AIzaSyDQJfIQUR-XzpC8Mmg8XNbFQE5rNp9DAgE"
+```
+
+Then we use the package `googleway` to create the points between origin and
+destination and maptools to transform points to lines.
+
+```{r  warning=FALSE, message=FALSE, eval = FALSE}
+library(maptools, quietly = T)
+library(googleway)
+foo <- google_directions(origin = unlist(mydf[1, 2:3]),
+                         destination = unlist(mydf[1, 4:5]),
+                         key = mykey,
+                         mode = "driving",
+                         simplify = TRUE)
+pl <- decode_pl(foo$routes$overview_polyline$points)
+df <- sf::st_as_sf(pl, coords = c("lon", "lat"), crs = 4326)
+streets <- list(x = pl$lon, y = pl$lat)
+streets <- map2SpatialLines(streets)
+plot(streets, axes = T, main= "Route of 133 LDV trips")
+```
+
+```{r fgwecho= FALSE, fig.cap="Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo"}
+knitr::include_graphics(path = "figuras/gway.png")
+```
+
+
+#### The R package dodgr
+
+dpdgr[@dodgr] is a new R package with great capbilities. It calculates the 
+distance on dual-weight graphs  using priority-queue shorest paths. In order 
+to calculate the traffic flows it is necessary the matrix OD for the desired 
+mode of transport and the coorodinates of centroids of the OD zones.
+
+The function `dodgr_streetnet` uses the osmdata r package to download street 
+network data from Open Street Map [@osm] for the points of the centroids of 
+zones OD. Depending on the spatial extent of the data, the  resulting data can 
+be large. The function `weight_streetnet` weight the lines from OSM road network 
+according to a specific profile of traffic: "psv" for Public Service Vehicle.
+"bicycle", nd others. The weights are profile values for the OSM type of roads 
+based on this webpage: https://www.routino.org/xml/routino-profiles.xml. The
+function `dodgr_vertices` extract the vertices pf thegraph including the 
+coordinates. Finally, the function `dodgr_flowmap` reads the graph and plot the 
+flows. Belows s an example for São Paulo using the data of ODS the urban uderground 
+public transportation system [@ODS].
+
+
+```{r eval = FALSE, echo = FALSE}
+library(dodgr)
+library(magrittr)
+xy <- sf::st_read("ZonesODS2007/Zonas2007.TAB",
+                  crs = 31983) %>% sf::st_transform(4326) %>%
+  sf::st_centroid() %>% sf::st_coordinates()
+mm <- read.csv("Tab24_OD2007_coletivo.csv", h = F, sep = ";")
+m <- as.matrix(mm)
+net <- dodgr_streetnet(pts = xy)
+netmc <- weight_streetnet(net,
+                          wt_profile = "psv")
+verts <- dodgr_vertices (netmc)
+pts <- verts$id[match_pts_to_graph(verts, xy)]
+netf <- dodgr_flows_aggregate(netmc,
+                              from = pts,
+                              to = pts,
+                              flows = m)
+
+dodgr_flowmap(netm)
+```
+
+```{r rdodgr, echo = FALSE, include=TRUE, fig.cap="Daily trips of Light Duty Vehicles in São Paulo", dpi=300, fig.height=18, fig.width=18, fig.align = "center"}
+knitr::include_graphics("figuras/dodgr.png", dpi = 300)
+```
+
+
+### Top-down approach
+
+VEIN was designed with traffic flow at street leve on mind, however, it is possible
+that user might be inclined for doing for using a top-down approach. Here some
+possible causes:
+
+1. Bottom-up approach can demand more computatonal resources for a country or a continent. 
+2. Another possibility is that the emissions inventory is going to be used solely for air quality modellign purposes, where the proportion of grid spacing and street is such that spatial detail would be lose, for instance with resolution of 10 km.
+3. Also, it is possible that there is no way of obtaining traffic information at street level.
+4. Limitated resources, time, funding, human resources, etc.
+5. Lastly, due to simplism. It is also possible that the objective simply the 
+objective is to estimate an emissions inventory using a top-down approach.
+
+Under these circumstances a top-down approach would be better suited for some users.
+As VEIN counts toolkit for estimating emissions, it is reasonable to use all VEIN
+resources with a top-down approach.
+
+In this case, the user must follow some considerations:
+
+- Use `inventory` functions in the same way as shown on section \@ref(st).
+- Create a network, but instead use a road network with spatial lines, use
+spatial polygons. The Spatial polygon might represent some area where the amount
+of vehicles is known.
+- The `age` functions shown in following sections, show that it is possible to 
+apply age distributions to each street, in this case, to each area.
+
+The Fig. \@ref(fig:ftd) shows the emissions of PM for each state Brazil and 
+prepared for a congress using VEIN as a top-down tool [@ibarraigac].
+
+```{r ftd, echo = FALSE, fig.cap="Emissions of PM due trafifc, 2017"}
+UF <- readRDS("figuras/net_pollutant.rds")
+plot(UF["PM"], axes = T, main = "Emissions of PM due trafifc, 2017")
+```
+
+
+
+
+
+## Main functions
+
+The Fig.(\@ref(fig:diavein)) shows a complete diagram with the steps for
+elaborating an emissions inventory. Also, the function `inventory` shown on
+sub-section (\@ref(veinstructure)) shows the functions to structure an inventory.
+This and the following subsection of application shows respective the part of the
+diagram Fig.(\@ref(fig:diatraffic)) and how to run vein storing the results in the 
+directories shown on Fig. (\@ref(st)). 
+
+The first element that the user must have is the traffic at street level. This
+is shown as a green circle with the word 'traffic' on Fig. (\@ref(fig:diatraffic)).
+The user must use any `age` function which produces objects of class `Vehicles`.
+The function `netspeed` produces an object of class `Speed`. This objects are
+required by the `emis` function.
+
+
+```{r , eval  FALSE,  echo = F, fig.cap='Traffic in VEIN model', out.width='60%', fig.asp=.75, fig.align='center', warning=FALSE}
+library(DiagrammeR)
+p1 <- grViz("digraph EF {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = LR,
+            fontname = Helvetica]
+            
+      
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+            
+      Vehicles;
+      Speed;
+      
+      node [shape = circle,
+            style = filled,
+            fillcolor = SpringGreen,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+            
+      traffic;
+      profile;
+      anual_fleet;
+      
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+            
+      age;
+      emis;
+      my_age
+      
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+      
+      anual_fleet -> my_age
+      traffic->netspeed
+      traffic -> {age my_age}
+      {age my_age} ->Vehicles
+      netspeed -> Speed
+      {Vehicles Speed profile}->emis
+      }
+      ")
+
+```
+
+```{r diatraffic, echo = FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='100%', fig.asp=.75, fig.align='center', warning=FALSE}
+knitr::include_graphics("figuras/dia4.png")
+```
+
+
+### Expanding traffic data with the function `temp_fact`
+
+Traffic data must be temporally extrapolated because it is usually available only for the morning rush hour. 
+Traffic data can be estimated from short period traffic count datasets, then expanded to represent longer timespan, such as Annual Average Daily Traffic (AADT; [@wang2009forecasting, lam2000estimation]). The next step is to extrapolate the vehicular flow at street link $i$, vehicle type $j$, and age of use $k$, to obtain the vehicular flow for hour of the week $l$ ($F_{i,j,k,l}$; see equation 
+\@ref(eq:flowx).
+
+\begin{equation}
+F_{i,j,k,l} = F^*_{i,j,k} \cdot TF_{j,l}
+(\#eq:flowx)
+\end{equation}
+
+where $TF_{j,l}$ are the temporal factors varying according  to each hour of
+$l$ and type of vehicle $j$.  For instance, $TF$ is defined as a matrix with 24 lines 
+and numbers of columns to each day considered, from Monday to Sunday. In order to 
+expand traffic to other hours, $TF$ matrices must be normalized to the hour that 
+represents the traffic data. It means that $TF$ values at morning peak hour must be 1 
+and the respective proportion must be assigned to the other hours. For example, $TF$ values can be obtained from automatic traffic count stations. 
+
+The function `temp_fact` return $F_{i,j,k,l}$ as an object with class `Vehicles`.
+The arguments are:
+
+- `q` is a  data-frame of traffic flow to each hour (veh/h) at each street.
+- `pro` s a matrix or data-frame to extrapolate .
+
+
+
+### Calculating speed at other hours with the function `netspeed`
+
+The average speed of traffic flow is very important and it must be determined for 
+each link and hour. Once the vehicular flow is identified for each hour, the 
+average speed is then identified for each hour. This was accomplished by employing 
+curves from the Bureau of Public Roads (BPR; [@bpr]), as shown in Eq. 
+\@ref(eq:bpr). The process involves calculating speed by dividing the length of 
+road by the time. The time is calculated using the total traffic expanded to each 
+street link $i$ and hour $l$. 
+
+\begin{equation}
+T_{i,l} = To_i \cdot \left(1 +\alpha \cdot \left(\dfrac{Q_{i,l}}{C_i}\right)^\beta \right)
+(\#eq:bpr)
+\end{equation}
+
+The function `netspeed` do this calculations. The arguments of this function
+are:
+
+```{r}
+args(netspeed)
+```
+
+`netspeed` allows basically two types of speeds data-frame which depends on the
+availability od data by the user. If the user has `q`, `ps`, `ffs` and `cap` can
+use the argument `scheme = FALSE`, or when the user only has `ps` and `ffs`
+and use the argument `scheme = TRUE`.
+
+- `q` is a  data-frame of traffic flow to each hour (veh/h) at each street.
+- `ps	`is the Peak speed (km/h) at each street.
+- `ffs` Free flow speed (km/h) at each street.
+- `cap` Capacity of link (veh/h) at each street.
+- `lkm` Distance of link (km) of each street.
+- `alpha` Parameter of -@bpr curves.
+- `beta` Parameter of -@bpr curves.
+- `scheme` Logical to create a Speed data-frame with 24 hours and a default profile. It needs `ffs` and `ps` at each street:
+
+```{r, echo=FALSE}
+df <- data.frame(
+  Period = c("00:00-06:00",
+             "06:00-07:00",
+             "07:00-10:00",
+             "10:00-17:00",
+             "17:00-20:00",
+             "20:00-22:00",
+             "22:00-00:00"),
+  Speed = c("ffs (Free flow speed)",
+            "average between ffs and ps",
+            "ps (Peakspeed)",
+            "average between ffs and ps",
+            "ps (Peak speed)",
+            "average between ffs and ps",
+            "ffs (Free flow speed)"))
+knitr::kable(df, 
+             caption = 'speeds for scheme = T',
+             booktabs = TRUE,
+             align = "c"
+)
+```
+
+
+### Distribution of vehicles by age of use with the functions `age_ldv`, `age_hdv` and `age_moto`
+
+
+These functions reads traffic data at each street and returns an object of class
+`Vehicles`, which is a data-frame with the number of vehicles at each street
+and the number of columns represent the amount of vehicles at each age. The
+functions `age_moto` and `age_hdv` are identical. These functions apply survival
+equations into the fleet from -@MMA2011. The arguments are:
+
+- `x`numerical vector of vehicles at each street.
+- `name` word of vehicle assigned to columns of dataframe.
+- `a` parameter of survival equation. The default value for `age_ldv` is 1.698
+and for `age_hdv` and `age_moto` is 0.2.
+- `b` parameter of survival equation.  The default value for `age_ldv` is -0.2
+and for `age_hdv` and `age_moto` is 17.
+- `agemin` age of newest vehicles for that category. The default value is 1,
+however it can be bigger than one when it is a vehicle that is not circulating
+more than year ago.
+- `agemax` age of oldest vehicles for that category. Teh default value is 50
+assuming that the oldest vehicle in circulation has 50 years of use. However,
+new type of vehicles will be newer.
+- `k` multiplication factor. This factor helps to split the traffic `x` in the
+vehicular composition.
+- `bystreet` when TRUE it is expecting that `a` and `b` are numeric vectors with length equal to `x`. In other words, the values of `a` and `b` varies in each
+street.
+- `message` message with average age and total number of vehicles.
+
+
+### The function `my_age`
+
+These functions also reads traffic data at each street and returns an object of
+class `Vehicles`, which is a data-frame with the number of vehicles at each
+street and the number of columns represent the amount of vehicles at each age.
+However, it is based on data the user has and not by parameters. Therefore,
+using this function with own data should produce more representative results.
+The arguments are:
+
+```{r}
+args(my_age)
+```
+
+- `x` numerical vector of vehicles at each street.
+- `y` Age dustribution of vehicles. This parameter can be anual sales or anual 
+registry for the category of vehicle.
+- `name` of vehicle assigned to columns of dataframe.
+- `k` multiplication factor. This factor helps to split the traffic `x` in the
+vehicular composition.
+- `message` message with average age and total numer of vehicles.
+
+
+### The class `Vehicles`
+
+`Vehicles` is a class in vein, shown in on Fig. (\@ref(fig:diatraffic)). This
+class includes the methods `print`, `plot` and `summary`. This means that, 
+`Vehicles` objects presents customized versions of  `print`, `plot` and
+`summary` in order to make easier to the user to use vein. The figure
+\@ref(fig.plotpc) shows a simple plot of a `Vehicles` object, followed by the
+`head` of this object. The plot shows the sum of each type of vehicle by age of use, 
+with a vertical red line indicating the average age, 11.17 years of use.
+
+```{r plotpc, echo = TRUE}
+library(vein)
+data(net)
+PC_E25 <- age_ldv(x = net$ldv,name = "PC_E25", k = 75/100*37.25, message = F)
+plot(PC_E25)
+```
+
+
+```{r headpc, echo = TRUE}
+head(PC_E25[, 1:4]) # The first 4 columns
+```
+
+
+### Other traffic functions
+
+Another function is `adt` which calculates average daily traffic (ADT) from
+hourly traffic data. This function reads numeric vectors with the amount of
+vehicles at each street expand the traffic with temporal factors for each type
+of vehicle. The arguemtns are:
+
+```{r}
+args(adt)
+```
+
+- `pc` numeric vector for passenger cars
+- `lcv` numeric vector for light commercial vehicles
+- `hgv` numeric vector for heavy good vehicles or trucks
+- `bus` numeric vector for bus
+- `mc` numeric vector for motorcycles
+- `p_pc` data-frame profile for passenger cars
+- `p_lcv` data-frame profile for light commercial vehicles
+- `p_hgv` data-frame profile for heavy good vehicles or trucks
+- `p_bus` data-frame profile for bus
+- `p_mc` data-frame profile for motorcycles
+
+## Vehicular composition
+
+
+## Application
+
+As mentioned above, the application consists in using the travel demand model
+for west part of São Paulo city, present in vein. This script reads traffic data
+and expand applying an age function. It will be used the `inventory` function
+with the default vehicular composition, shown on section (\@red(st)). Please,
+use the scripts in the extra material of this book. The base year is 2015 and the
+extended example is available in appendix 1.
+
+
+```{r eval = FALSE}
+library(vein)
+inventory(file.path(tempdir(), "YourCity"))
+setwd("YourCity")
+data(net) # Loads the traffic demand simulation for west São Paulo
+data(net)
+data(pc_profile)
+pc_week <- temp_fact(net$ldv+net$hdv, pc_profile)
+speed <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm)
+saveRDS(net, file = "network/net.rds")
+saveRDS(speed, file = "network/speed.rds")
+```
+
+<!--chapter:end:04-trafficdata.Rmd-->
+
+# Emission Factors {#ef}
+
+An emission factor is the amount of mass of pollutant generated by activities
+[@pulles2010art]. In the case of vehicles, the emission factors are generally
+known as the mass of pollutant per traveled distance $g \cdot km^{-1}$ in metric
+units. The distance unit could be different, like miles for instance. 
+The type of units depends on measurement used when developing the emission factors.
+
+There are hot and cold exhaust emisions. _Hot_ exhaust emissions are produced by a 
+vehicle when its engine and exhaust after-treatment system are at their normal
+operational temperatures and _Cold_ during the vehicle warm-up phase [@trlef].
+
+The emission factors comes from measurement of pollutants emitted by the sources.
+In the case of vehicles, the dynanometer measurements the emission factors are
+the mass of pollutant collected during the distance traveled by a vehicle 
+following a specific driving cycle. The Federal Test Procedure (FTP) is a test
+to certify the vehicle emissions under the driving cycles such as FTP-75. This
+driving cycle has a duration of 1874 $s$ for a distance of 17783 $m$ and average
+speed of 34.12 $km \cdot h^{-1}$ [@tim].
+
+In the literature it is possible to find different type of emission factors. For
+instance, in europe, during the development of the project Assesment of 
+Reliability of Transport Emission Models and Inventory Systems (ARTEMIS), it was
+developed the *traffic situation model*. This concept consists in the 
+combination of parameters that affects the vehicle kinematics and engine 
+operation: type of road, sinuosity and gradient, trafffic conditions or level
+of service (free-flow, heavy, saturated and stop and go) and average speed by
+speed limit of the road [@artemis]. Measurenets of vehicular emissions under 
+each traffic situation led to emission factors by traffic situation, used in the
+Handbook of Emission Factors (HBEFA, www.hbefa.net).
+
+There is another approach based on 1 Hz measurement of emissions. Here, the
+pollutants are measured on real live traffic driving. Emission factors can be
+derived here using mainly two approaches. One approach is applying the Vehicular
+Specific Power (VSP) [@jimenez1999vehicle]. This methods is used in the MOtor 
+Vehicle Emission Simulator (MOVES) [@koupal2003design] and the International
+Vehicle Emissions model (IVE) [@Davisetal2005]. Another approach is to apply 
+the Passenger car and Heavy-duty Emission Model (PHEM), which is based on
+instantaneous engine power demand and engine speed developed during the Artemis 
+project [@tim, @artemis].
+
+Perhaps the most used approach to obtain emission factors are the speed 
+functions. As the emissions tests on driving cycles are valid for only one
+average speed, measuring emissions of different driving cycles at different
+average speeds, allow to obtain point clouds where a regressions is applied,
+obtaining an emission factor as a speed function. The literature shows
+experiments in diffferent parts of the world, such as in Chile 
+[@Corvalanetal2002] and Europe [@ntziachristos2000speed]. However, probably
+the most used source of emission factors as speed functions are the European 
+emission guidelines developed by the European Monitoring and Evaluation
+Programme (EMEP, http://www.emep.int/) and published by the European
+Environment Agency (EEA, https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep) [@NtziachristosSamaras2016]. These emission factors are included
+in the VEIN model.
+
+Another aspect important in vehicular emissions is the degradation of the
+emissions of aged vehicles. Over the time, different part of the vehicles suffer
+deterioration, increasing the emissions. Therefore, approachas have been 
+developed to account of this effect in inventories. One approach consists in
+determining functions that increment the emissions by accumulated mileage, such
+as studies of -@CorvalanVargas2003.
+
+In Brazil, the emission factors are reported by the Environmental Protection 
+Agency of São Paulo -@CETESB2015, in their vehicular emissions inventory report.
+Light vehicles emission factors comes from average measurements of the FTP75 
+driving cycle, motorcycle emission factors comes from average measurements of 
+World Motorcycle Test Cycle (WMTC) and HDV with from the European Stationary 
+Cycle (ETC).
+
+As the VEIN model was developed in Brazil, but user of other parts of the world
+may be intereted in using the model, the approach in VEIN has to allow
+flexibility to the user. Therefore, the emission factors approach in VEIN 
+consists in three options, as shown on Fig. (\@ref(fig:diaef)). The first approach
+consists in local emissions factors by age of use, such as the one from 
+-@CETESB2015, denoted as local_ef in the green circle. The second approach
+consists in selecting speed functions from -@NtziachristosSamaras2016, availabe 
+in VEIN and denoted as the grey box as speed_ef. The third approach conists in
+incorporate speed variation from the speed function into the local emission
+factors by age of use. In any case, VEIN count with function to account of the
+degradation of emissions due to accumulated mileage denotes in grey box as
+emis_det. These emissions are entered into the estimation emission function.
+
+The following sections show how to do these calculation in VEIN, step by step.
+
+```{r , include=FALSE, eval=FALSE,fig.cap='Structuring an emissions inventories with VEIN', out.width='50%', fig.asp=.75, fig.align='center', warning=FALSE}
+library(DiagrammeR)
+p1 <- grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = LR,
+            fontname = Helvetica]
+
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      EmissionFactors;
+
+
+
+      node [shape = circle,
+            style = filled,
+            fillcolor = SpringGreen,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      local_ef;
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      speed_ef;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+
+      emis_det->{local_ef speed_ef}
+      local_ef->{scaled_ef EmissionFactors}
+      speed_ef-> {scaled_ef  EmissionFactors}
+      scaled_ef -> EmissionFactors
+      EmissionFactors -> emis
+      }
+      ")
+```
+
+
+```{r diaef, echo = FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='100%', fig.asp=.75, fig.align='center', warning=FALSE}
+knitr::include_graphics("figuras/dia5.png")
+```
+
+## Speed functions `ef_ldv_speed` and `ef_hdv_speed` {#speedef} 
+
+The estimation of emissions in VEIn is shown the equation \@ref(eq:emi):
+
+\begin{equation}
+EH_{i,j,k,l,m} =F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} \cdot DF_{j,k}
+(\#eq:emi)
+\end{equation}
+
+Where  $EH_{i,j,k,l,m}$ is the emissions for each street link $i$, vehicle category
+from composition $k$, hour $l$ and pollutant $m$, where $F_{i,j,k,l}$ is the
+vehicular flow calculated in Eq. 1. $L_i$ is the length of the street link $i$.
+$EF(V_{i,l})_{j,k,m}$ is the emission factor of each pollutant $m$. $DF_{j,k}$ is
+the deterioration factor for vehicle of type $j$ and age of use $k$, explained
+in detial in section \@ref(det).
+
+
+These function return speed functions as $f(V)$. The functions comes from the 
+EMEP/EEA emissions guidelines [@NtziachristosSamaras2016] and are available
+in PDF reports. The equations and their parameter were translated to 
+spreedsheets and loaded internally in VEIN. Therefore, the user only must
+enter the required parameters obtaining the desired function. The functions
+respect the assumptions and speed limits.
+
+### Emission factors of LDV depending on  speed with the function `ef_ldv_speed`
+
+The arguments for `ef_ldv_speed` are:
+
+- `v`: Category vehicle: "PC", "LCV", "Motorcycle" or "Moped".
+- `t`: Sub-category of of vehicle: PC: "ECE_1501", "ECE_1502", "ECE_1503", 
+"ECE_1504" , "IMPROVED_CONVENTIONAL", "OPEN_LOOP", "ALL", "2S" or "4S". LCV: "4S", 
+Motorcycle: "2S" or "4S". Moped: "2S" or "4S".
+- `cc`: Size of engine in cc: PC: "<=1400", ">1400", "1400_2000", ">2000", "<=800",
+"<=2000". Motorcycle: ">=50" (for "2S"), "<=250", "250_750", ">=750". Moped: 
+"<=50". LCV : "<3.5" for gross weight.
+- `f`: Type of fuel: "G", "D", "LPG" or "FH" (Full Hybrid: starts by electric 
+motor).
+- `eu`: Euro standard: "PRE", "I", "II", "III", "III+DPF", "IV", "V", "VI" or 
+"VIc".
+- `p`: Pollutant: "CO", "FC", "NOx", "HC" or "PM".
+- `k`: Multiplication factor.
+- `show.equation`: Option to see or not the equation parameters.
+
+It is very important that the user enter the right value into the arguments
+because the final category must match. If the user enters values that do not
+match, the resulting speed function will be wrong. There are 146 matchs. The
+probably most used combinations are:
+
+```{r, echo=FALSE}
+df <- read.csv("figuras/matchs.csv")
+df <- df[df$v %in% c("PC", "LCV", "Motorcycle") &
+           df$t == "4S", ]
+df <- data.frame(
+  Argument  = c("v", "t", "cc", "f", "eu", "p"),
+  Value = c("PC LCV Motorcycles",
+            "4S",
+            "<=1400 1400_2000 >2000",
+            "G D",
+            "PRE I II III IV V VI",
+            "CO NOx HC FC PM"))
+knitr::kable(df,
+             caption = 'Most used combinations for emission factors for LDV',
+             booktabs = TRUE
+)
+```
+
+The returning speed function represents how a type of vehicle emits pollutants
+on average. Fig. (\@ref(fig:figef)) shows the emissions of CO by Passenger 
+Cars with with technologies Pre Euro and Euro I from -@NtziachristosSamaras2016.
+Higher emissions occure at low average speeds and older vehicles with
+technologies pre Euro emit more than vehicles with Euro I. Even more, the 
+average emissions of Pre Euro are 29.31 $g \cdot km^{-1}$ and Euro I 2.61
+$g \cdot km^{-1}$, meaning that, on average, a vehicle Pre euro is 14 times than
+a vehicle with euro I. 
+
+The Fig. (\@ref(fig:figef)) shows the plot using the package ggplot2 [@ggplot2]. This package requires that the data must be in long format. 
+
+```{r figef, fig.cap='Emission factor as a speed function', out.width='80%', fig.asp=.75, fig.align='center'}
+library(vein)
+library(ggplot2)
+ef1 <- ef_ldv_speed(v = "PC", cc = "<=1400", f = "G",
+                    eu = "PRE", p = "CO", show.equation = F)
+ef2 <- ef_ldv_speed(v = "PC", cc = "<=1400", f = "G",
+                    eu = "I", p = "CO", show.equation = F)
+V <- 0:110
+df <- data.frame(EF = c(ef1(V), ef2(V)))
+df$V = V
+df$Euro <- factor(c(rep("PRE", 111), rep("I", 111)),
+                  levels = c("PRE", "I"))
+ggplot(df, aes(V, EF, colour = Euro)) + geom_point(size = 3) +
+  geom_line() + theme_bw()+
+  labs(y = "CO[g/km]", x = "[km/h]")
+```
+
+### Emission factors of HDV depending on  speed with the function `ef_hdv_speed`
+
+
+The arguments for `ef_hdv_speed` are:
+
+```{r}
+args(ef_hdv_speed)
+```
+
+- `v`	:Category vehicle: "Coach", "Trucks" or "Ubus"
+- `t`	Sub-category of of vehicle: "3Axes", "Artic", "Midi", "RT, "Std" and "TT"
+- `g`	Gross weight of each category: "<=18", ">18", "<=15", ">15 & <=18", "<=7.5", - ">7.5 & <=12", ">12 & <=14", ">14 & <=20", ">20 & <=26", ">26 & <=28", ">28 & <=32", ">32", ">20 & <=28", ">28 & <=34", ">34 & <=40", ">40 & <=50" or ">50 & <=60"
+- `eu	Euro emission standard: "PRE", "I", "II", "III", "IV" and "V"
+- `gr	Gradient or slope of road: -0.06, -0.04, -0.02, 0.00, 0.02. 0.04 or 0.06
+- `l`	Load of the vehicle: 0.0, 0.5 or 1.0
+- `p`	Pollutant: "CO", "FC", "NOx" or "HC"
+- `k`	Multiplication factor
+- `show.equation`	Option to see or not the equation parameters
+
+```{r}
+V <- 0:130
+ef1 <- ef_hdv_speed(v = "Trucks",t = "RT", g = "<=7.5",
+                    e = "II", gr = 0,
+l = 0.5, p = "HC", show.equation = FALSE)
+ef2 <- ef_hdv_speed(v = "Trucks",t = "RT", g = "<=7.5",
+                    e = "II", gr = 0.06,
+l = 0.5, p = "HC", show.equation = FALSE)
+plot(1:130, ef1(1:130), pch = 16, type = "b",
+     ylab = "HC [g/km]", xlab = "Speed [km/h]")
+lines(1:130, ef2(1:130), pch = 16, type = "b", col = "blue")
+
+```
+
+## Local emission factors by age of use. The functions `EmissionFactors` and `EmissionFactorsList` {#localef}
+
+The functions `EmissionFactors` and `EmissionFactorsList` creates the classes
+with the same names. The class `EmissionFactors` is also a data-frame with
+numeric columns with units of $g \cdot km^{-1}$. This class is not used in 
+critical steps of VEIN, and it has a purpose of only creating data-frame with
+numeric columns with units. The this function is applied to a numeric vector,
+it just convert it to `units` adding units to it.
+
+In the case of `EmissionFactorsList`, this class is a list of functions $f(V)$.
+This is usefull because the `emis` function, seen in detail on chapter
+\@ref(est), requires that the emission factors are functions of Velocity $f(V)$, 
+regardless $f(V)$ is constant or not. When this function is applied to a 
+data-frame or to a matrix, it returns a list and each columns of the data-frame 
+or matrix is another list. Also, each row of the original data-frame is converted
+to a $f(V)$. 
+
+The arguements or `EmissionFactorsList` and `EmissionFactors` are:
+
+-`x`: Object with class "data.frame", "matrix" or "numeric"
+
+The following lines of ode show examples using `EmissionFactors`. Firstly, it
+is loaded the dataset of emission factors _fe2015_ for CO and the vehicles
+PC using gasoline PC_G and Light Trucks LT. The class of fe2015 is data-frame.
+The subset of the data is named DF_CO. When we see the first 6 elemens of the
+data-frame are numbers without units.
+
+```{r}
+library(vein)
+data(fe2015) #CETESB Emission factors
+DF_CO <- fe2015[fe2015$Pollutant=="CO", c("PC_G", "LT")]
+head(DF_CO)
+```
+
+The object EF_CO has class`EmissionFactors` and "data-frame" and each 
+observation has the units $g \cdot km^{-1}$.
+
+```{r}
+EF_CO <- EmissionFactors(DF_CO)
+head(EF_CO)
+class(EF_CO)
+```
+
+The plot of an object with class `EmissionFactors` shows maximum 9 emission
+factors. Fig. (\@ref(fig:efco)) shows the emission factors of both categories,
+where newer vehicles emit less and older vehicles emit more.
+
+```{r efco, fig.cap='Emission factor of PC and LT by age of use', out.width='80%', fig.asp=.75, fig.align='center'}
+plot(EF_CO, xlab = "Age of use")
+```
+
+Regarding the class `EmissionFactorsList`, the `print` and `summary` methods
+are very simply, ony showing a description of the object. The example of
+the following lines of code also uses the same set of Emission Factors from
+-@CETESB2015. The resulting object, EF_COL, has class `EmissionFactorsList` and
+`list`. The print of the object shows only a description of the first and
+last member of the list object.
+
+
+```{r}
+EFL_CO <- EmissionFactorsList(DF_CO)
+class(EFL_CO)
+EFL_CO
+```
+
+Indeed, we want to see the content of the `EmissionFactorsList` we would have to
+extract the elements of the list. EFL_CO has two list, each one for PC and LT.
+Then, each list has 36 functions, the command `class(EFL_CO[[1]][[1]])` shows
+the object is a functon $f(V)$.
+
+```{r}
+EFL_CO[[1]][[1]]
+```
+
+Also, as the speed functions are constant, there is no need to add values of V. 
+
+```{r}
+EFL_CO[[1]][[1]](100) # constant speed function
+EFL_CO[[1]][[1]](0)   # constant speed function
+```
+
+Finally, after extracting the value, Fig.
+(\@ref(fig:efco2)) shows the same figure as Fig. (\@ref(fig:efco))
+
+```{r efco2, fig.cap='Emission factor of PC and LT', out.width='80%', fig.asp=.75, fig.align='center'}
+efco1 <- sapply(1:36, function(i) EFL_CO[[1]][[i]]())
+efco2 <- sapply(1:36, function(i) EFL_CO[[2]][[i]]())
+df <- EmissionFactors(cbind(efco1, efco2))
+plot(df, xlab = "Age of use")
+
+```
+
+## Incorporating speed variation with the functions `ef_ldv_scaled` and `ef_hdv_scaled`  {#scale}
+
+The functions on section \@ref(speedef) and \@ref(localef) showed the speed
+and local emission factors respectivly. However, the user might have local
+and constant emission factors depending only on age of use, but also, outputs
+from a traffic demand model which includes speed. Under those circumnstances, it
+would be interesting to investigate the effects of the average speed of traffic
+flow. VEIN includes a function to transform a constant emission factor by age of
+use into a speed dependent function.
+
+This functions are called `ef_ldv_scaled` and `ef_hdv_scaled`. The concept is
+explained in detail in my Ph.D thesis [@ibarrathesis]. The idea is comes from 
+revisitng the nature of the local emission factors. The Brazilian emission 
+factors consist of average measurements emissions certification tests which use 
+the  driving cycles Federal Test Procedure FTP-75 for LDV, World Motorcycle Test 
+Cycle (WMTC) for motorcycles, and also the European Stationary Cycle (ESC) for 
+HDV [@CETESB2015]. The average speed of FTP-75 and WMTC are known, being 34.2
+$km \cdot h^{-1}$ and 54.7 $km \cdot h^{-1}$ based to the reference report on
+driving cycles from the Transport and Research Laboratory (TRL) [@tim]. In the
+case of ESC, the user might search on literature a way to relate this cycle
+with an average speed.
+
+Coming back to the -@CETESB2015 emission factors, these are annual average values
+of emissions for the different technologies to accomplish Brazilian emission 
+standards, which are valid only for a specific average speed.If two vehicles have
+similar technology but different emission factors, one constant and other speed
+function, it would be possble to relate them. These functions use the speed to 
+relate both emission factors. The condition to transform a contant emission
+factor into a speed dependent function is that, the new speed dependent function
+must be the same value at the speed which is representative the local factor,
+and the values at other speeds are the incorporation of the speed variation.
+The equation \@ref(eq:efscaled) shows the procedure:
+
+\begin{equation}
+EF_{scaled}(V_{i,l})_{j,k,m}=EF(V_{i,l})_{j,k,m} \cdot \frac{EFlocal_{j,k,m}}{{EF(Vdc_{i,l})_{j,k,m}}}
+(\#eq:efscaled)
+\end{equation}
+
+Where $EF_{scaled}(V_{i,l})_{j,k,m}$ is the scaled emission factor and 
+$EF(V_{i,l})_{j,k,m}$ is the Copert emission factor for each street link $i$,
+vehicle from composition $k$, hour $l$ and pollutant $m$. $EFlocal_{j,k,m}$
+represents the constant emission factor (not as speed functions). 
+$EF(Vdc_{i,l})_{j,k,m}$ are Copert emission factors with average speed value of
+the respective driving cycle for the vehicular category $j$. 
+
+The functions `ef_ldv_scaled` and `ef_hdv`_scaled` returns scaled emissions
+factors automatically. The arguments are:
+
+- `df`: Data-frame with emission factors (Deprecated in 0.3.10).
+- `dfcol`: Numeric vector with the emission factors constant by age of use. These
+emission factors are the target to incorporate peed variation.
+- `SDC`: A number with the speed of the driving cycle of the emission factors
+from the argumetn `dfcol`. The resulting speed functions will return the same
+values of dfcol at the speed `SDC`. The default is 34.12 "km/h".
+- `v`. Category vehicle: "PC", "LCV", "Motorcycle" or "Moped". 
+- `t`. Character; sub-category of of vehicle: PC: "ECE_1501", "ECE_1502",
+"ECE_1503", "ECE_1504" , "IMPROVED_CONVENTIONAL", "OPEN_LOOP", "ALL", "2S" or "4S".
+LCV: "4S", Motorcycle: "2S" or "4S". Moped: "2S" or "4S". The default is `4S`.
+- `cc`. Character; size of engine in cc: PC: "<=1400", ">1400", "1400_2000", 
+">2000", "<=800", "<=2000". Motorcycle: ">=50" (for "2S"), "<=250", "250_750", 
+">=750". Moped: "<=50". LCV : "<3.5" for gross weight.
+- `f`: Character; type of fuel: "G", "D", "LPG" or "FH" (Full Hybrid: starts by 
+electric motor).
+- `eu`: Character; euro standard: "PRE", "I", "II", "III", "III+DPF", "IV", "V", "VI" or "VIc".
+- `p`: Character; pollutant: "CO", "FC", "NOx", "HC" or "PM".
+
+And the argument of `ef_hdv_scaled` are:
+
+## Cold Starts
+
+Cold start emissions are produced during engine startup, when the engine and/or
+catalytic converter system has not reached its normal operational temperature. Sev-
+eral studies have shown the significant impact for these types of emissions 
+[@chenetal2011, @Weilenmannetal2009]. Under this condition emissions will be 
+higher, and if the atmospheric temperature decreases, cold start emissions will 
+increase regardless of whether the catalyst has reached its optimum temperature for
+functioning [@artemis]. VEIN also considers cold start emissions using the approach
+outlined in Copert [@NtziachristosSamaras2016], as shown in equation 
+\@ref(eq:cold).
+
+\begin{equation}
+EC_{i,j,k,l,m} =\beta_{j} \cdot F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} \cdot DF_{j.k} \cdot \left(EF_{\mbox{cold}}(ta_n,V_{i,l})_{j,k,m}-1\right)
+(\#eq:cold)
+\end{equation}
+
+This approach adds two terms to Eq. \ref{eq:emi}. The first term
+$EF_{cold}(ta_n,V_{i,l})_{j,k,m}-1$ is the emission factors for cold start 
+conditions at each street link $i$, vehicle category from composition $k$, hour $l$
+and pollutant $m$ and monthly average temperature $n$.
+[@NtziachristosSamaras2016] suggest using monthly average temperature. This is an 
+important aspect that will be reviewed in future versions of VEIN.
+
+The second term $\beta_j$ is defined as the fraction of mileage driven with a cold 
+engine/catalyst [@NtziachristosSamaras2016]. The VEIN model incorporates a dataset 
+of cold starts recorded during the implementation of the International Vehicle 
+Emissions (IVE) model [@Davisetal2005] in São Paulo [@ivesp], which 
+provides the hourly mileage driven with cold start conditions.
+
+The function for cold start emission factors is `ef_ldv_cold` and their arguments
+are:
+
+```{r}
+args(ef_ldv_cold)
+```
+
+where:
+
+- `v`:	 Category vehicle: "LDV".
+- `ta`: Ambient temperature. Monthly men can be used.
+- `cc`: Size of engine in cc: "<=1400", "1400_2000" or ">2000".
+- `f`: Type of fuel: "G", "D" or "LPG".
+- `eu`: Euro standard: "PRE", "I", "II", "III", "IV", "V", "VI" or "VIc".
+- `p`: Pollutant: "CO", "FC", "NOx", "HC" or "PM".
+- `k`: Multiplication factor.
+- `show.equation`: Option to see or not the equation parameters.
+
+
+```{r}
+ef1 <- ef_ldv_cold(ta = -5, cc = "<=1400", f ="G", eu = "I", p = "CO")
+ef2 <- ef_ldv_cold(ta = 0, cc = "<=1400", f ="G", eu = "I", p = "CO")
+ef3 <- ef_ldv_cold(ta = 5, cc = "<=1400", f ="G", eu = "I", p = "CO")
+ef4 <- ef_ldv_cold(ta = 10, cc = "<=1400", f ="G", eu = "I", p = "CO")
+```
+
+```{r efcold, fig.cap='Cold Emission factor of PC CO (g/km)', out.width='80%', fig.asp=.75, fig.align='center', echo = FALSE}
+library(ggplot2)
+V <- 0:100
+df <- data.frame(EF = c(ef1(V), ef2(V), ef3(V), ef4(V) ))
+df$Speed <- V
+df$Temperature <- factor(c(rep("-5", length(V)),
+                    rep( "0", length(V)),
+                    rep("5", length(V)),
+                    rep("10", length(V))),
+                    levels = c("10", "5", "0", "-5"))
+ggplot(df, aes(x = Speed, y = EF, colour = Temperature)) +
+  geom_point(size = 2) + geom_line() +
+  theme_bw() +
+  labs(x = "Speed [g/km]", y = "CO [g/km]")
+```
+
+There is another function called `ef_ldv_cold_list` which will be deprecated soon.
+
+## Deterioration {#det}
+
+By default, VEIN includes deterioration factors from Copert 
+[@NtziachristosSamaras2016]. However, it is possible to include other sources,
+such as from [@CorvalanVargas2003] or included deteriorated local emission
+factors. This aspesct is faced in vein with the function `emis_det`. This
+function returns deteriorated factors, as numeric vectors, which must be multiplied
+with the emission factors of vehicles with 0 mileage.
+
+The arguments of this functions are:
+
+```{r}
+args(emis_det)
+```
+
+where:
+
+- `p`: Pollutant.
+- `cc`: Size of engine in cc.
+- `eu`: Euro standard: "PRE", "I", "II", "III", "III", "IV", "V", "VI".
+- `km`: mileage in km. VEIN includes a dataset of mileage function named "fkm".
+
+```{r efDET, fig.cap='Deteriorated (red) and not-deteriorated (blue) EF CO', out.width='80%', fig.asp=.75, fig.align='center'}
+
+data(fe2015)
+data(fkm)
+pckma <- cumsum(fkm$KM_PC_E25(1:24)) #only vehicles with catalizer
+x1 <- fe2015[fe2015$Pollutant == "CO", ]
+x1E3 <- subset(x1, x1$Euro_LDV %in% c("III", "IV", "V"))$PC_G
+x1E1 <- subset(x1, x1$Euro_LDV %in% c("I", "II"))$PC_G
+det_E3 <- emis_det(po = "CO", cc = 1000, eu = "III",
+                   km = pckma[1:length(x1E3)])
+det_E1 <- emis_det(po = "CO", cc = 1000, eu = "III",
+                   km = pckma[(length(x1E3) + 1):23 ])
+original_EF <- x1$PC
+deteriorated_EF <- x1$PC * c(det_E3, det_E1, rep(1, 13))
+plot(x = 1:36, y = original_EF, type = "b", pch = 15, col = "blue",
+     ylab = "CO[g/km]", xlab = "Age of use")
+#     main = "Deteriorated (red) and not-deteriorated (blue) EF CO")
+lines(x = 1:36, y = deteriorated_EF,  type = "b", pch = 16, col = "red")
+
+```
+
+## Evaporative emissions `ef_evap`
+
+Evaporative emissions are important sources of hydrocarbons and these emissions are
+produced by vaporization of fuel due to variations in ambient temperatures
+[@MelliosNtziachristos2016, @Andradeetal2017]. There are three types of emissions: 
+**diurnal emissions**, due to increases in atmospheric temperature, which lead to 
+thermal expansion of vapor fuel inside the tank; **running losses**, when the fuel
+evaporates inside the tank due to normal operation of the vehicle; and **hot soak**
+emissions, which occur when the hot engine is turned off. These methods implemented
+in VEIN were sourced from the evaporative emissions methods of Copert Tier 2 
+[@MelliosNtziachristos2016]. VEIN it is also possible to use local emission
+factors. Here I'm showing both approaches:
+
+a) Tier 2 copert approach
+
+\begin{equation}
+EV_{j,k} =\sum_{s}D_{s} \cdot \sum_{j}F_{j} \cdot (HS_{j,k}+de_{j,k}+RL_{j,k}) 
+(\#eq:ev1)
+\end{equation}
+
+where $EV_{j}$ are the volatile organic compounds (VOC) evaporative emissions due 
+to each type of vehicle $j$. $D_s$ is the "seasonal days" or number of days when 
+the mean monthly temperature is within a determined range: 
+[-5$^{\circ}$,10$^{\circ}$C],  [0$^{\circ}$,  15$^{\circ}$C], [10$^{\circ}$, 
+25$^{\circ}$C] and [20$^{\circ}$, 35$^{\circ}$C]. $F_{j,k}$ is the number of 
+vehicles according to the same type $j$ and age of use $k$. $HS_{j,k}$, $de_{j,k}$ 
+and $RL_{j,k}$ are average hot/warm soak, diurnal and running losses evaporative 
+emissions ($\mathrm{g \cdot day^{-1}}$), respectively, according to the vehicle 
+type $j$ and age of use $k$. $HS_{j,k}$ and $RL_{j,k}$ are obtained using equations
+also sourced from [@MelliosNtziachristos2016]:
+
+\begin{equation}
+HS_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{shc}+(1-p) \cdot e_{swc})+(1-c) \cdot e_{shfi} )
+(\#eq:ev2)
+\end{equation}
+
+where $x$ are the number of trips per day for the vehicular type $j$ and age of use
+$k$. $c$ is the fraction of vehicles with fuel return systems. $p$ is the fraction
+of trips finished with hot engine, for example, an engine that has reached its
+normal operating temperature and the catalyst has reached its light-off temperature
+[@NtziachristosSamaras2016]. The light-off temperature is the temperature at the
+point when catalytic reactions occur inside a catalytic converter. $e_{shc}$ and
+$e_{swc}$ are average hot-soak and warm-soak emission factors for gasoline vehicles
+with carburettor or fuel return systems ($\mathrm{g \cdot parking^{-1}}$).
+$e_{shfi}$  is the average hot-soak emission factors for gasoline vehicles equipped
+with fuel injection and non-return fuel systems ($\mathrm{g \cdot parking^{-1}}$).
+The Eq. \@ref(eq:ev3) shows the procedure.
+
+\begin{equation}
+RL_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{rhc}+(1-p) \cdot e_{rwc})+(1-c) \cdot e_{rhfi} )
+(\#eq:ev3)
+\end{equation}
+
+
+$x$ and $p$ have the same meanings of Eq. \@ref(eq:ev2). $e_{rhc}$ and  $e_{rwc}$
+are average hot and warm running losses emission factors for gasoline vehicles with
+carburettor or fuel return systems ($\mathrm{g \cdot trip^{-1}}$) and $e_{rhfi}$
+are average hot running losses emission factors for gasoline vehicles equipped with
+fuel injection and non-return fuel systems ($\mathrm{g \cdot trip^{-1}}$).
+It is recommended to estimate the number of trips per day
+[@MelliosNtziachristos2016], $x$, as the division between the mileage and 365 times
+the length of trip: $x = \frac{mileage_j}{(365 \cdot ltrip)}$. However, the
+mileage of a vehicle is not constant throughout the years. Therefore, VEIN
+incorporates a dataset of equations to estimate mileage of different types of
+vehicles by age of use [@BruniBales2013].
+
+The function for evaporative emission factors is `ef_evap` and it arguments:
+
+```{r}
+args(ef_evap)
+```
+
+where:
+
+- `ef`:	Name of evaporative emission factor as *eshotc* ($g \cdot proced^-1$): mean 
+hot-soak with carburator, *eswarmc* ($g \cdot proced^-1$): mean cold and warm-soak 
+with carburator, eshotfi: mean hot-soak with fuel injection, *erhotc*  ($g \cdot 
+trip^-1$): mean hot running losses with  carburator, *erwarmc*  ($g \cdot trip^-1$) 
+mean cold and warm running losses, *erhotfi*  ($g \cdot trip^-1$) mean hot running 
+losses with fuel injection.
+
+- `v`:	Type of vehicles, "PC", "Motorcycles", "Motorcycles_2S" and "Moped"
+- `cc`: Size of engine in cc. PC "<=1400", "1400_2000" and "2000" Motorcycles_2S: "<=50". Motorcyces: ">50", "<250", "250_750" and ">750"
+- `dt`: Average daily temperature variation: "-5_10", "0_15", "10_25" and "20_35"
+- `ca`: Size of canister: "no" meaning no canister, "small", "medium" and "large"
+- `k`: multiplication factor
+- `show`: when TRUE shows row of table with respective emission factor.
+
+Example:
+
+```{r rlevap, echo = TRUE, fig.cap='Running losses evaporative emission actors (g/trip)', out.width='100%', fig.asp=.75, fig.align='center', warning=FALSE}
+library(vein)
+library(ggplot2)
+library(cptcity)
+dt <- c("-5_10", "0_15", "10_25", "20_35")
+ef <- sapply(1:4, function(i){
+  ef_evap(ef = "erhotc",v = "PC", cc = "<=1400",
+                dt = dt[i], ca = "no",
+                show = TRUE)
+})
+df <- data.frame(ef = ef, temp = c(0, 10, 20, 30))
+source("theme_black.R")
+ggplot(df, aes(x = temp, y = ef)) +
+  geom_bar(stat = "identity", fill = cpt(n = 4), col = "white") + 
+  labs(x = "Temperature[C]", y = "RL Evaporative NMHC [g/trip]") + 
+  theme_black()
+```
+
+
+b) Alternative approach
+
+The evaporative emission factors mentioned before are suitable for top-down
+estimations. That approach also requires knowledge of the 'procedure' and
+'trips'. In this section it is introduced an alternative which consists in
+transform the emission factors into $g \cdot km^-1$ and then do a bottom-up
+estimation.
+
+In order to do that, we need to follows assumptions. First, we consider that
+the number of procedures is equal to trips. Then estimates how many trips per 
+day are produced each day and then estiamtes how many kilometers are driven
+each day and convert th emission factors as shown on Eq. \@ref(eq:efev2).
+
+\begin{equation}
+EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot B(\frac{km}{day})^{-1}
+(\#eq:efev2)
+\end{equation}
+
+Clearly, we need to know A $(\frac{trips}{day})$ and B$(\frac{km}{day})^{-1}$.
+Diurnal evaporative emissions factors are expressed as  $(\frac{g}{day})$. To
+conbvert to  $(\frac{g}{km})$ we only need the kilometers driven each day
+$\frac{km}{day}^{-1}$.
+
+Now, it will be shown an example with the evaporative emission factors from 
+-@CETESB2015. These emission factors are based on the methodology Tier 2 from 
+-@@MelliosNtziachristos2016. If we consider evaporative emission factors of 
+Passenger Cars using Gasoline (blended with 25\% of Ethanol) [@CETESB2015] and
+4.6 $(\frac{trips}{day})$ [@ibarrathesis].
+
+```{r echo = FALSE}
+evap <- readRDS("rds/evappc.rds")
+head(evap)
+```
+The variable ed_20_35 are diurnal evaporative emission factors in $g \cdot day^{-1}$
+and eshot_20_35 and erhot_20_35  $g \cdot trip^{-1}$.
+
+```{r efEVAP, fig.cap='Hot Soak (blue), Diurnal (green) and Running Losses (red) EF (g/km)', out.width='100%', fig.asp=.75, fig.align='center'}
+
+library(vein)
+data(fkm)
+evap$ed_20_35_gkm <- evap$ed_20_35 / fkm$KM_PC_E25(1:41)/365
+evap$eshot_20_35_gkm <- evap$eshot_20_35 * 4.6/ fkm$KM_PC_E25(1:41)/365
+evap$erhot_20_35_gkm <- evap$erhot_20_35  * 4.6/ fkm$KM_PC_E25(1:41)/365
+plot(x = 1:41, y = evap$eshot_20_35_gkm, col = "blue", 
+     type = "b", pch = 16,
+     xlab = "Age of use", ylab = "EV NMHC [g/km]")
+lines(x = 1:41, y = evap$ed_20_35_gkm, col = "red", 
+      type = "b", pch = 15)
+lines(x = 1:41, y = evap$erhot_20_35_gkm, col = "green", 
+      type = "b", pch = 17)
+
+```
+
+
+## Emission factors of wear `ef_wear` 
+
+Wear emissions are very important because they contribute with an important
+fraction of PM from tyre and break wear. VEIN includes these functions from
+-@NtziachristosBoulter2009 which incudewear emissions factors form tyre, break
+and road abrassion.
+
+The arguments are:
+
+```{r}
+args(ef_wear)
+```
+
+- `wear`: Character; type of wear: "tyre", "break" and "road"
+type: Character; type of vehicle: "2W", "PC", "LCV", 'HDV"
+- `pol`: Character; pollutant: "TSP", "PM10", "PM2.5", "PM1" and "PM0.1"
+- `speed`: List of speeds
+- `load`: Load of the HDV
+- `axle`: Number of axle of the HDV
+
+```{r eval = FALSE}
+library(vein)
+?ef_wear
+```
+
+## Emission factors from tunnel studies
+
+With VEIN you can choose three type of emissions factors, speed functions,
+local emission factors or scaled factors. In this section i will show how to
+expand the use of local emission factors considering tunnel emission factors
+[@perez2014emission], from the International Vehicle Emissions (IVE) Model 
+[@Davisetal2005] applied in Colombia [@gonzalez2017relative].
+
+-@perez2014emission measured air pollutant concentrations in two tunnels in São
+Paulo city, one with predominant use of LDV vehicles and another with more HDV.
+The resulting emission factors for the fleet are shown on Table \@ref(tab:eftun).
+
+```{r eftun, echo=FALSE}
+df <- EmissionFactors(data.frame(CO = c(5.8, 3.6),
+                 NOx = c(0.3, 9.2)))
+row.names(df) <- c("LDV", "HDV")
+knitr::kable(df, 
+  caption = 'Emission factors from tunnels in São Paulo 2014',
+  booktabs = TRUE
+)
+```
+
+If we want to compare with the -@CETESB2015 emission factors, we would have to
+weight these factors with the fleet. The weight mean emission factor of CO and
+Passenger Cars (PC) is 1.40 $g \cdot km^{-1}$ and for Light Trucks (LT) is
+0.60 $g \cdot km^{-1}$. In the case of NOx, Passenger Cars (PC) is 0.16 $g \cdot 
+km^{-1}$ and for Light Trucks (LT) is 3.24 $g \cdot km^{-1}$. The emission factors 
+from the example are for vehicles with 0 kilometers without deterioration. Anyways, 
+tunnel emission factors are higher that the weighted emission factors from CETESB.
+
+```{r}
+library(vein)
+data(fe2015)
+fecoPC <- fe2015[fe2015$Pollutant == "CO", "PC_G"]
+fecoLT <- fe2015[fe2015$Pollutant == "CO", "LT"]
+fenoxPC <- fe2015[fe2015$Pollutant == "NOx", "PC_G"]
+fenoxLT <- fe2015[fe2015$Pollutant == "NOx", "LT"]
+PC <- age_ldv(x = 1, name = "PC", agemax = 36, message = FALSE)
+LT <- age_hdv(x = 1, name = "LT", agemax = 36, message = FALSE)
+weighted.mean(fecoPC, PC)  # PC CO
+weighted.mean(fecoLT, LT)  # LT CO
+weighted.mean(fenoxPC, PC) # PC NOx 
+weighted.mean(fenoxLT, LT) # LT NOx
+```
+
+If the user want to use tunnel emission factors from -@perez2014emission in VEIN, 
+the user would have to use the same value for all respective categories of the
+vehicular composition. For instance, after running `inventory`, include tunnel
+emission factors in each `*input.R`.
+
+## Emission factors from International Vehicle Emissions (IVE)
+
+The IVE models applies the  vehicle specific power (VSP) methodology to predict
+emissions [@jimenez1999vehicle]. The formlula is shown on Eq. \@ref(eq:vsp).
+
+\begin{equation}
+VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
+(\#eq:vsp)
+\end{equation}
+
+where $v$ is velocity $(m \cdot s^{-1})$, $a$ is the second by second acceleration
+$(m \cdot s^{-2})$ and grade the second by second change in height defined as
+$\frac{(h_{t=0} - h_{t=-1})}{v}$; being $h$ as altitude $m$. This method requires
+that the user measures the activity Global Position System (GPS) recordings 
+second by second and/or emissions measurements with Portable Emissions Measurement
+Systems (PEMS).
+
+-@gonzalez2017relative measure the vehicular activity in the city of Manizales,
+Colombia. In htis case, there were not PEMS measurements, but IVE allows to
+produce emission factors from the GPS recordings based on Mobile EPA emissions
+model[@arbor2003user, @Davisetal2005].
+
+The resulting emission factors varies for each type of vehicle and includes several 
+pollutants. If the user wants to use IVE emission factors in vein would have to 
+add them in each `*input.R`, after running `inventory`.
+
+
+<!--chapter:end:05-ef.Rmd-->
+
+# Estimation of emissions {#est}
+
+The emissions estimation process was shown on Eq. \@ref(eq:emi) on chapter
+\@ref(ef). In this equation, it was shown that how the emissions are obtained
+by  multiplying the traffifc flow with the distance that each car travels
+(length of the road if it is a road network), and emissions and deterioration
+factors.
+
+In this chapter I will show how VEIN interprets this and other
+emission equations to estimate emissions. At the end of each section
+The Fig. \@ref(fig:diaemis) showsa diagram with the estimation process. The pink boxes hows VEIN classes, the
+circle data and the grey boxes functions. The object `Vehicles` is a class
+consisting in a matrix of vehicles with untis $1 \cdot h^{-1}$, as shown on
+chapter \@ref(traffic), however, _the units in `Vehicles` is not a requirement for estimating emissions_. The object of class `Speed` is a 
+matrix of speeds with the number of columns as the calculated speeds at
+different hours at each row. This object can be present or not, depending
+on the type of emission factor considered, for instant, emission factors
+not depending on speed. The object class of `EmissionFactorsList` are
+list of functions depending on speed as $f(V)$. Each function can depend
+on speed or not as shown on chapter \@ref(ef), section \@ref(localef). 
+Lastly, the object lkm is the length of the road expressed in $lkm$.
+
+The function `emis` reads the inputs and estimates the emissions producing
+an object with class `EmissionsArray` which has 4 dimensions, number of
+streets, ages of use of vehicle, number of hours and number of days.
+<!-- Newer -->
+<!-- versions of VEIN, since version XX, includes `EmissionsArray` of only three -->
+<!-- dimensions, streets, ages of use of vehicle, number of hours, so that, if -->
+<!-- the estimations coversone week, it will have $168 = 7 \cdot 24$ hours. -->
+
+```{r , include = FALSE, eval = FALSE, fig.cap='Emissions estimation process with VEIN', out.width='80%', fig.asp=.75, fig.align='center'}
+library(DiagrammeR)
+p1 <-grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = TB,
+            fontname = Helvetica]
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      Vehicles;
+      Speed;
+      EmissionFactorsList;
+      EmissionsArray;
+
+      node [shape = circle,
+            style = filled,
+            fillcolor = SpringGreen,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      profile; 
+      lkm;
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      emis;
+      emis_post;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+
+      {Vehicles Speed profile lkm EmissionFactorsList}->emis
+      emis -> EmissionsArray
+      EmissionsArray -> emis_post
+      }
+      ")
+```
+
+```{r diaemis, echo = FALSE, fig.cap='Emissions estimation process with VEIN', out.width='80%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/dia6.png")
+```
+
+The estimation process is done with the emissions functions. The emissions 
+estimations functions are:
+
+- `emis` for hot emissions,
+- `emis_cold` for cold start emissions,
+- `emis_evap` for evaporative emissions,
+- `emis_paved` for resuspension emissions on paved roads, and
+- `emis_wear` for  wear of breakes, tyres and roads.
+
+These functions perform internal checks for ensuring that the length lkm has
+the unit of $km$. This means that, if `lkm` has units different than $km$,
+the function will not run. These function runs internally `lapply` which are
+faster `for` written in C. Despite that these functions are fast, i will try
+to make them faster with some RCPP implementation in future.
+
+## The `emis` function
+
+The arguments of `emis` are:
+
+```{r}
+args(vein::emis)
+```
+
+- `veh`: "Vehicles" data-frame or list of "Vehicles" data-frame. Each 
+data-frame has number of columns matching the age distribution of that type 
+of vehicle. The number of rows is equal to the number of streets link.
+- `lkm`: Length of each link that must in $km$. As consequence, emission 
+factors must be in $g \cdot km^{-1}$. 
+- `ef`: "EmissionFactorsList". A list of emission factors as speed 
+functions. Each element has the form $f(V)$. The implicit unit is
+$g \cdot km^{-1}$.
+- `speed`: "Speed" object. A Speed data-frame with number of columns as
+hours. 
+- `agemax`: Age of oldest vehicles of the vehicles veh. The information of 
+this argument can be obtained from the `veh` argument Therefore, this 
+argument will be deprecated.
+- `profile`: Numerical or dataframe or matrix with nrows equal to the hours and cols 
+to each day. This is traffic data normalized to the hour of the input traffic data.
+- `hour`: Number of considered hours in estimation. As this information
+can be derived form the argument `profile`, the default value is the number of
+rows of the matrix profile.
+- `day`: Number of considered days in estimation. As this information
+can be derived form the argument `profile`, the default value is the number of
+coluns of the matrix profile.
+- `array`: When FALSE produces a dataframe of the estimation. When TRUE 
+expects a profile as a dataframe producing an array with dimensions (streets
+x columns x hours x days)
+
+## The `emis_cold` function
+
+The arguments of `emis_cold` are:
+
+```{r}
+args(vein::emis_cold)
+```
+
+The arguments are similar with `emis` with the difference that it is added
+two arguments:
+
+- `efcold`: List of functions of cold start emission factors of vehicular 
+categories. Technically, each function is also of the form $f(V)$.
+- `beta`: Datraframe with the hourly cold-start distribution to each day of the 
+period. Number of rows are hours and columns are days. It represents the fraction 
+of mileage driven under cold-start conditions.
+
+The equation for estimating cold-start emissions is on Eq. \@ref(eq:cold).
+
+## The `emis_evap` function
+
+The estimation of evaporative emissions applies Tier 2 from 
+-@MelliosNtziachristos2016. The approach followed in VEIN was very simply,
+consisting in only adding elements of a data-frame.
+
+
+```{r}
+args(vein::emis_evap)
+```
+
+- `veh`: this are the number of vehicles at each age of use and for each street.
+It is a `Vehicles` object.
+- `name`: Character indicating the name of the vehicle.
+- `size`: Character indicating the size of the vehicle.
+- `fuel`: Character indicating the fuel of the vehicle.
+- `age`: Numeric vector with the age distribution, for instance, 1:40 for vehicles between 1 and 40 years of use.
+- `nd4`: Number of days of your perdiof of study with monthly average 
+temperature between 20 and 35 celcius degrees. If the period of time is a year,
+this is the annual number of days under that condition.
+- `nd3`: Number of days of your perdiof of study with monthly average 
+temperature between 10 and 25 celcius degrees.
+- `nd2`: Number of days of your perdiof of study with monthly average 
+temperature between 0 and 15 celcius degrees.
+- `nd1`: Number of days of your perdiof of study with monthly average 
+temperature between -5 and 10 celcius degrees.
+- `hs_nd4`: Number of average daily hot-soak evaporative emissions for days with
+temperature between 20 and 35 celcius degrees
+- `hs_nd3`: Number of average daily hot-soak evaporative emissions for days with
+temperature between 10 and 25 celcius degrees
+- `hs_nd2`: Number of average daily hot-soak evaporative emissions for days with
+temperature between 0 and 15 celcius degrees
+- `hs_nd1`: Number of average daily hot-soak evaporative emissions for days with
+temperature between -5 and 10 celcius degrees
+- `rl_nd4`: Number of average daily running losses evaporative emissions for days
+with temperature between 20 and 35 celcius degrees
+- `rl_nd3`: Number of average daily running losses evaporative emissions for days 
+with temperature between 10 and 25 celcius degrees
+- `rl_nd2`: Number of average daily running losses evaporative emissions for days 
+with temperature between 0 and 15 celcius degrees
+- `rl_nd1`: Number of average daily running losses evaporative emissions for days 
+with temperature between -5 and 10 celcius degrees
+- `d_nd4`: Number of average daily diurnal evaporative emissions for days with
+temperature between 20 and 35 celcius degrees
+- `d_nd3`: Number of average daily diurnal evaporative emissions for days with
+temperature between 10 and 25 celcius degrees
+- `d_nd2`: Number of average daily diurnal evaporative emissions for days with
+temperature between 0 and 15 celcius degrees
+- `d_nd1`: Number of average daily diurnal evaporative emissions for days with
+temperature between -5 and 10 celcius degrees
+
+
+## The `emis_paved` function
+
+Evaporative emissions are emissions of resuspended dust due to traffic circulating
+ober paved or non-paved roads. These emissions can be an important source of mass 
+particulate matter, and several cities programs that aims to improve air quality
+by diminishing these emissions [@AMATO20103070]. However, these emissions are not
+considered by in the European emissions guidelines, where their focus is on 
+primary particles and not those resulting from the resuspension of previously 
+deposited material [@NtziachristosBoulter2009].
+
+The method adopted in VEIN comes from the USEPA [@paved] which presents equations
+for annual, daily and hourly estimations:
+
+\begin{equation}
+EF_{paved}=k \cdot sL^{0.91} \cdot W^{1.02}
+(\#eq:res1)
+\end{equation}
+
+Where
+
+- $EF_{paved}$ is the emission factor of particulate matter.
+- $k$ particle size splitter.
+- $sL$ road surface silt loading $g \cdot m^{-2}$.
+- $W$ average weight.
+
+Equation \@ref(eq:res1) can be extrapolated to consider natural mitigation of 
+rainy periods of time with daily basis:
+
+\begin{equation}
+EF_{anual} = EF_{paved} \cdot (1 - \frac{P}{4 \cdot N})
+(\#eq:res2)
+\end{equation}
+
+Where
+
+- $EF_{anual}$ anual or long term emission factor.
+- $P$ number of days with accumulated rain above 0.254 mm.
+- $N$ total number of days.
+
+or hourly
+
+\begin{equation}
+EF_{hourly} = EF_{paved} \cdot (1 - \frac{1.2 \cdot P}{N})
+(\#eq:res2)
+\end{equation}
+
+Where
+
+- $EF_{annual}$ annual or long term emission factor.
+- $P$ number of hours with accumulated rain above 0.254 mm.
+- $N$ total number of hours. For instance, 8760 for 1 year.
+
+
+The function `emis_paved` has the arguments:
+
+```{r}
+args(vein::emis_paved)
+```
+
+Where,
+
+-`veh`: It is an array with dimenssions number of streets x hours of day x days of week.
+- `lkm`: Length of each link.
+- `k`: K_PM30 = 3.23, K_PM15 = 0.77, K_PM10 = 0.62 and K_PM2.5 = 0.15.
+- `sL1`: Silt loading (g/m2) for roads with ADT <= 500.
+- `sL2`: Silt loading (g/m2) for roads with ADT > 500 and <= 5000.
+- `sL3`: Silt loading (g/m2) for roads with ADT > 5000 and <= 1000.
+- `sL4`: Silt loading (g/m2) for roads with ADT > 10000.
+- `W`: array of dimensions of veh. It consists in the hourly averaged weight of traffic fleet in each road.
+
+For instance, Lets create an array of vehicles. The funcion `adt` calculates
+the amount pf vehicles at all hours. Lets use the `data(net)` asumming no buses.
+Let's calculate the total traffic for only 24 hours with the same profile. For
+simplicity, let's assume that all vehicle are expressed in _vehicle equivalent_
+and it is a dry period.
+
+```{r}
+library(vein)
+data(net)
+data(profiles)
+vkpc  <- vkm(net$ldv*0.75, 1, matrix(profiles$PC_JUNE_2012[, 1]))
+vklcv  <- vkm(net$ldv*0.1, 1, matrix(profiles$LCV_JUNE_2012[, 1]))
+vkmc  <- vkm(net$ldv*0.15, 1, matrix(profiles$MC_JUNE_2012[, 1]))
+vkhgv  <- vkm(net$hdv, 1, matrix(profiles$HGV_JUNE_2012[, 1]))
+vk <- vkpc + vklcv + vkmc + vkhgv
+dim(vk)
+```
+
+`W` is the average hourly fleet weight. It ahs the same dimensions of `adt2`. Let's
+assume an individual weight of PC is 1, LCV 1.5, HGV = 10 and MC 0.5. This example
+is a simplification, `adt` should be calculated with full characterization
+of the fleet.
+
+```{r}
+wpc  <- vkm(net$ldv*0.75, 1, profiles$PC_JUNE_2012[, 1])*1
+wlcv  <- vkm(net$ldv*0.1, 1, profiles$LCV_JUNE_2012[, 1])*1.5
+wmc  <- vkm(net$ldv*0.15, 1, profiles$MC_JUNE_2012[, 1])*0.5
+whgv  <- vkm(net$hdv, 1, profiles$HGV_JUNE_2012[, 1])*10
+W <- (wpc + wlcv + wmc + whgv)/vk
+W[is.na(W)] <- 0
+dim(W)
+```
+
+and now we estimate the emissions with the default values form PM10.
+
+```{r}
+emi <- emis_paved(veh = vk, lkm = net$lkm, W = W)
+emi[1:4, 1:4]
+```
+
+## The `emis_wear` function {#ew}
+
+Wear emissions can be very important, in fact, these are second most important
+source of particulate matter in Europe [@eear]. These methods in VEIN comes from
+-@NtziachristosBoulter2009 which include wear of "tyre", "break" and "road".
+
+The arguments of the function `emis_wear` are:
+
+```{r}
+args(vein::emis_wear)
+```
+
+Where,
+
+- `veh`: Object of class "Vehicles".
+- `lkm`: Length of the road.
+- `ef`: list of emission factor functions class "EmissionFactorsList", length equals to hours.
+- `agemax`: Age of oldest vehicles for that category
+- `profile`: Dataframe or matrix with nrows equal to hours and ncol as days of 
+the week
+- `hour`: Number of considered hours in estimation, with default value as number
+of rows of profile.
+- `day`: Number of considered days in estimation, with default value as number
+of columns of profile.
+
+Let's estimate wear emissions! 
+
+First, we get the emission factor with the `ef_wear` function:
+
+```{r}
+library(vein)
+data(net)
+data(profiles)
+pro <- profiles$PC_JUNE_2012[, 1] # 24 hours
+pc_week <- temp_fact(net$ldv+net$hdv, pro)
+df <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+ef <- ef_wear(wear = "tyre", type = "PC", pol = "PM10", 
+                            speed = df)
+```
+
+Then we estimate emissions
+
+```{r}
+emi <- emis_wear(veh = age_ldv(net$ldv, name = "VEH"), speed = df,
+                 lkm = net$lkm, ef = ef, profile =  pro)
+df <- emis_post(emi, pollutant = "PM", by = "streets_wide")
+df[1:4, 1:4]
+```
+
+
+
+<!--chapter:end:06-est.Rmd-->
+
+# Post estimation with `emis_post` {#post}
+
+
+Once the emissions are estimated we obtained `EmissionsArray` objects, which as
+mentioned before, they are arrays with the dimensions streets x age distribution of 
+vehicles x hours x days.
+
+
+
+
+```{r , eval = FALSE, include=FALSE, fig.cap='Post-emissions', out.width='100%', fig.asp=.75, fig.align='center'}
+library(DiagrammeR)
+
+p1 <- grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = TB,
+            fontname = Helvetica]
+
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      EmissionsArray;
+      GriddedEmissionsArray;
+
+
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      emis;
+      emis_post;
+      speciate;
+      make_grid;
+      emis_grid;
+      emis_merge;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+
+      emis -> EmissionsArray
+      EmissionsArray -> emis_post
+      emis_post->{speciate emis_merge emis_grid}
+      speciate -> emis_merge
+      {make_grid speciate emis_merge}->emis_grid
+      emis_grid -> {EmissionsGrid GriddedEmissionsArray}
+      }
+      ")
+```
+
+```{r demispost, echo = FALSE, fig.cap='Post-emissions', out.width='100%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/dia7.png")
+```
+
+Now the function `emis_post` reads the `EmissionsArray`
+and and convert it to data-frames that are easier to manage. 
+
+The arguments of `emis_post` are:
+
+```{r}
+args(vein::emis_post)
+```
+
+Where,
+
+- `arra`: `EmissionsArray` obtained with the `emis` functions. It is an array of
+emissions 4d: streets x category of vehicles x hours x days or 3d: streets x 
+category of vehicles x hours
+- `veh`: Character indicating the type of vehicle , for instance: "PC".
+- `size`: Character indicating the size or weight, for instance: "<1400", 
+"1400<cc<2000",
+"GLP", "Diesel".
+- `fuel`: Character indicating fuel, for instance: "Gasoline", "E_25",
+"GLP", "Diesel".
+- `pollutant`:  Character indicating the pollutant, for instance "CO", "NOx", etc.
+- `by`: Character indicating type of output, "veh" for total vehicular category , 
+"streets_narrow" or "streets_wide". This is the most important argument of this 
+function. "streets_wide" returns a dataframe with rows as number of streets and 
+columns the hours as days*hours considered, e.g. 168 columns as the hours of a whole 
+week and "streets_wide repeats the row number of streets by hour and day of the week
+
+Lets create some objects
+
+## Emissions by street
+
+From previous chapters we worked with `Vehicles`, `EmissionFactors` and estimate
+emissions generating `EmissionsArray`. Now let's create an  `EmissionsArray`
+object.
+
+```{r}
+library(vein)
+library(veinreport)
+library(cptcity)
+library(ggplot2)
+data(net)
+data(profiles)
+data(fe2015)
+PC_G <- age_ldv(x = net$ldv, name = "PC")
+# Estimation for 168 hour and local factors
+pcw <- temp_fact(net$ldv, profiles$PC_JUNE_2014)
+# June is not holliday in southern hemisphere
+hdvw <- temp_fact(net$hdv, profiles$HGV_JUNE_2014)
+speed <- netspeed(pcw + hdvw, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+lef <- EmissionFactorsList(fe2015[fe2015$Pollutant=="CO", "PC_G"])
+E_CO <- emis(veh = PC_G,lkm = net$lkm, ef = lef, speed = speed,
+             profile = profiles$PC_JUNE_2014)
+```
+
+Now that we have our `EmissionsArray` E_CO, we can process it with the function
+`emis_post`. The emissions by street are obtained with the argument `by` =
+"streets_wide":
+
+```{r}
+E_CO_STREETS <- emis_post(E_CO, by = "streets_wide")
+E_CO_STREETS[1:6, 1:3]
+```
+
+In the version 0.3.17 it was added the capability of returning an spatial object
+class 'sf' with 'LINESTRING':
+
+```{r pcco, fig.cap = "CO emisions of PC (g/h)"}
+E_CO_STREETS <- emis_post(E_CO, by = "streets_wide", net = net)
+class(E_CO_STREETS)
+ggplot(E_CO_STREETS) + geom_sf(aes(colour = as.numeric(V9))) +
+  scale_color_gradientn(colours = rev(cpt())) + theme_bw()+
+  ggtitle("CO emissions at 08:00 (g/h)")
+```
+
+Now, if we estimate the NOx emissions of Light Trucks we will a slight different
+pattern of emissions:
+
+```{r ltnox, fig.cap = "NOx emisions of LT (g/h)"}
+LT <- age_hdv(x = net$hdv, name = "LT")
+lef <- EmissionFactorsList(fe2015[fe2015$Pollutant=="NOx", "LT"])
+E_NOx <- emis(veh = LT, lkm = net$lkm, ef = lef, speed = speed,
+              profile = profiles$PC_JUNE_2014)
+E_NOx_STREETS <- emis_post(E_NOx, by = "streets_wide", net = net)
+ggplot(E_NOx_STREETS) + geom_sf(aes(colour = as.numeric(V9))) +
+  scale_color_gradientn(colours = rev(cpt())) + theme_bw()+
+  ggtitle("NOX emissions at 08:00 (g/h)")
+```
+
+
+## Total emissions in data-frames
+
+In order to obtain the total emissions in data-frame, the same function
+`emis_post` is used, but in this case, with the argument `by` = "veh". We also
+need to add arguments of `veh` for the type of vehicle, `size` the size or
+gross weight, `fuel` and `pollutant`. The argument `net` is not required in
+this case.
+
+```{r}
+E_NOx_DF <- emis_post(arra = E_NOx, veh = "LT", size = "Small", fuel = "B5",
+                      by = "veh", pollutant = "NOx")
+head(E_NOx_DF)
+```
+
+The resulting object is a data-frame with the name of the input array, then it has
+the g/h. Also, the name of the vehicle, the size, fuel, pollutant, age and hour.
+This is interesting because we can now what are the most pollutatn vehicle and
+at which hour this emissions ocurres.
+
+```{r}
+E_NOx_DF[E_NOx_DF$g == max(E_NOx_DF$g), ]
+```
+
+The highest emissions by hour are of Light Trucks of 17 years of use at hour 11
+on local time. However, it is possible to get more interesting insights of the
+data. The datra can be aggregated by age, hour or plot all together as shown on
+Fig. \@ref(fig:noxlt3). The highest emissions ocurre between 17 and 27 years of use.
+This figure also shows the effect of emissions standards introduced in 
+different years.
+
+```{r noxlt1, fig.cap = "NOx emissions of LT by hour"}
+df <- aggregate(E_NOx_DF$g, by = list(E_NOx_DF$hour), sum)
+plot(df, type = "b", pch = 16, xlab = "hour", ylab = "NOx (g/h)")
+```
+
+```{r noxlt2, fig.cap = "NOx emissions of LT by age"}
+library(ggplot2)
+library(veinreport) # theme_black
+df <- aggregate(E_NOx_DF$g, by = list(E_NOx_DF$age), sum)
+names(df) <- c("Age", "g")
+ggplot(df, aes(x = Age, y = as.numeric(g), fill = as.numeric(g))) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradientn(colours = cpt()) + theme_black() +
+  labs(x = "Age of use", y = "NOx (g/h)")
+```
+
+
+```{r noxlt3, fig.cap = "NOx emissions of LT"}
+library(ggplot2)
+library(veinreport) # theme_black
+ggplot(E_NOx_DF, aes(x = age, y = as.numeric(g), fill = hour)) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradientn(colours = cpt()) + theme_black() +
+  labs(x = "Age of use", y = "NOx (g/h)")
+```
+
+
+## Merging emissions
+
+The function `inventory` was designed to store the emissions of each type of vehicle in 
+each directory. Hence, it was necessary to create a function that read and merge the 
+emissions that are in each directory, returning a data-frame os a spatial feature 
+data-frame. The function is `emis_merge`. As it can be seen on
+Fig. \@ref(fig:demispost), `emis_merge` comes after `emis_post` or `speciate`. The arguments
+of `emis_merge` are:
+
+```{r}
+args(vein::emis_merge)
+```
+
+Where,
+
+- `pol`: Character. Pollutant.
+- `what`: Character. Word to search the emissions names, "STREETS", "DF" or whatever name. It is important to include the extension .'rds'
+- `streets`: Logical. If true, emis_merge will read the street emissions created with 
+emis_post by "streets_wide", returning an object with class 'sf'. If false, it will read the
+emissions data-frame and rbind them.
+- `net`: 'Spatial feature' or 'SpatialLinesDataFrame' with the streets. It is expected #' 
+that the number of rows is equal to the number of rows of street emissions. If #' not, the 
+function will stop.
+- `path`: Character. Path where emissions are located
+- `crs`: coordinate reference system in numeric format from http://spatialreference.org/ to 
+transform/project spatial data using sf::st_transform
+
+In order to see how this functions works, let's run the example in the `inventory` function.
+First, lets create a project, or in other words a directory named "YourCity", into the 
+temporary directory. In this part you can place your project wherever you want with the
+actual name of your city. Then run `inventory` with the default configuration.
+
+```{r}
+name = file.path(tempdir(), "YourCity")
+vein::inventory(name = name)
+```
+
+In my case, the files are in directory `r name`. Now, if you open the file file 
+main.R, you will see:
+
+```{r fmain, echo = FALSE, out.width='70%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/main.png")
+```
+
+This script starts with  `setwd` function, Then the first section is the network, where
+user reads and prepares the traffic information. Then the second section runs a script
+whichruns the age functions for the deault vehicular composition of the `inventory` function. The third section  estimates the emissions by running each input.R file inside the
+directory _est_ The fourth section, creates a grid and run the script post.R is shown below:
+
+
+```{r fpost, echo = FALSE, out.width='70%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/post.png")
+```
+
+The function `emis_merge` shown in line 2 is designed to read the all the files with names 
+CO and the default argument `what` is "STREETS.rds", for instance, 
+PC_GASOLINE_CO_STREETS.rds. Hence, this function reads all
+the files under that condition. The other argument is `streets` with defailt value of 
+`TRUE`, meaning that the function now knows that the resulting object must be an spatial
+network, and the `net` argument is already calling the net object part of the VEIN data, 
+the function will merge all the objects summing the emissions of all vehicle street by 
+street. The resulting object is a spatial "LINESTRING" class of `sf`. This function assumes 
+that emissons files are data.frames and non tests have been made to see if this function would read work `sf` objects.
+
+On the other hand, the line 12 also runs all the emissions files whose names includes the word CO, but also including the words "DF.rds", which are the files from `emis_post` with
+argument `by` equals to "veh". In this case, it reads and merge the data-frames and prints
+the sum emissions by pollutant.
+
+If the user source he file main.R, it will calculate the emissions and produce some plots.
+
+```{r eval = FALSE}
+source(paste0(name, "/main.R"))
+```
+
+
+## Creating grids
+
+Once we have processed our emissions array with `emis_post` and/or we have
+spatial emissions, we can then create grids and allocate our emissions
+into the grids. Lets check the function `make_grid` first:
+
+```{r}
+args(vein::make_grid)
+```
+
+This function originally used an `sp` approach. However, now uses an `sf`
+approach for creating the grid. Actually, the arguments are pretty much the
+same with the `sf::st_make_grid` with the exeption that is focused in returning
+polygons with coordinates at centroids of each cell. Therefore, the arguments
+height and polygon are deprecated. Lets create grid for our net. 
+
+```{r grid1, fig.cap="Grid with spacing of 500 mts"}
+library(vein)
+library(sf)
+data(net)
+net <- st_transform(st_as_sf(net), 31983)
+g <- make_grid(spobj = net, width = 500)
+class(g)
+plot(g$geometry, axes = TRUE)
+plot(net$geometry, add = TRUE)
+```
+
+The class of `net` is `SpatialLinesDataFrame`, which is converted to `sf`. 
+Then, as the coordinte reference system of net is WGS84 with epsg 4326, we
+are transforming to UTM to create a grid with grid spacing of 500 mts. The class
+of the grid object, `g` is "sf data.frame". 
+
+## Gridding emissions with `emis_grid`
+
+The function`emis_grid` allocates emissions proportionally to each grid cell. 
+The process is performed by intersection between geometries and the grid. It 
+means that requires "sr" according with your location for the projection. It is 
+assumed that spobj is a spatial*DataFrame or an "sf" with the pollutants in data.
+This function return an object class "sf".
+
+Before `sf` era, i tried to use`raster::intersect` which imports `rgeos` and
+took **ages**. Then I started to use -@QGIS (https://www.qgis.org), and later 
+the R package -@RQGIS which takes 10 minutes for allocating emissions of the
+mega-city of São Paulo and a grid spacing of 1 km. *10 min is not bad*. However,
+when `sf` appeared and also, included the Spatial Indexes (https://www.r-spatial.org/r/2017/06/22/spatial-index.html), it changed the game.
+A new era started. It took **5.5 seconds**. I could not believe it. But there
+also some i could accelerate this process importing some `data.table` aggregation
+functions. Now `emis_grid` can aggegate big spatial extensions. I havent
+tried yet at continental scale, but I will try. Anyways, let's go see the
+arguments:
+
+```{r}
+args(vein::emis_grid)
+```
+
+Where,
+
+- `spobj` : A spatial dataframe of class "sp" or "sf". When class is "sp" it is transformed to "sf".
+- `g`: A grid with class "SpatialPolygonsDataFrame" or "sf".
+- `sr`: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see http://spatialreference.org/.
+- `type`: type of geometry: "lines" or "points".
+
+```{r netgldv, fig.cap="Spatial grid of HDV traffic 500 mts"}
+data(net)
+net@data <- data.frame(hdv = net[["hdv"]])
+g <- make_grid(spobj = net, width = 1/102.47/2)
+netg <- emis_grid(net, g)
+head(netg)
+plot(netg["hdv"], axes = TRUE)
+```
+
+The example in this case, showed the allocation of traffic. The resulting object
+is a `sf` with the sum of the attributes inside each grid cell. This means that,
+when the input are street emissions at different hours, it will return gridded
+emissions at each hour:
+
+```{r Noxg, fig.cap="NOx emissions for 00:00 [g/h]"}
+E_NOx_STREETS <- emis_post(E_NOx, by = "streets_wide", net = net)
+NOxg <- emis_grid(E_NOx_STREETS, g)
+plot(NOxg["V1"], axes = TRUE)
+
+```
+
+
+<!--chapter:end:07-postemi.Rmd-->
+
+# Speciation {#he}
+
+The speciation for emissions is a very important part that deserves a only 
+chapter on this book. VEIN initially covered speed functions emission factors of
+CO, HC, NOx, PM and Fuel Consumption (FC). But currently, the the pollutants
+covered are:
+
+- **Criteria**: "CO", "NOx", "HC", "PM", "CH4", "NMHC", "CO2", "SO2",
+"Pb", "FC" (Fuel Consumption).
+- **Polycyclic Aromatic Hydrocarbons (PAH) and Persisten Organic Pollutants (POP)**: "indeno(1,2,3-cd)pyrene", "benzo(k)fluoranthene",
+"benzo(b)fluoranthene", "benzo(ghi)perylene", "fluoranthene",
+"benzo(a)pyrene", "pyrene", "perylene",  "anthanthrene", "benzo(b)fluorene",
+"benzo(e)pyrene", "triphenylene", "benzo(j)fluoranthene",
+"dibenzo(a,j)anthacene", "dibenzo(a,l)pyrene", "3,6-dimethyl-phenanthrene",
+"benzo(a)anthracene", "acenaphthylene", "acenapthene", "fluorene",
+"chrysene", "phenanthrene", "napthalene",  "anthracene", "coronene",
+"dibenzo(ah)anthracene"
+- **Dioxins and Furans**: "PCDD", "PCDF", "PCB".
+- **Metals**: "As", "Cd", "Cr", "Cu", "Hg", "Ni", "Pb", "Se", "Zn".
+- **NMHC**:
+- _ALKANES_: "ethane", "propane", "butane", "isobutane", "pentane",
+"isopentane", "hexane", "heptane", "octane", "TWO_methylhexane", "nonane",
+"TWO_methylheptane", "THREE_methylhexane", "decane", "THREE_methylheptane",
+"alcanes_C10_C12", "alkanes_C13".
+- _CYCLOALKANES_: "cycloalcanes".
+- _ALKENES_: "ethylene", "propylene", "propadiene", "ONE_butene",
+"isobutene", "TWO_butene", "ONE_3_butadiene", "ONE_pentene", "TWO_pentene",
+"ONE_hexene", "dimethylhexene".
+- _ALKYNES_:"ONE_butine", "propine", "acetylene".
+- _ALDEHYDES_: "formaldehyde", "acetaldehyde", "acrolein", "benzaldehyde",
+"crotonaldehyde", "methacrolein", "butyraldehyde", "isobutanaldehyde",
+"propionaldehyde", "hexanal", "i_valeraldehyde", "valeraldehyde",
+"o_tolualdehyde", "m_tolualdehyde", "p_tolualdehyde".
+- KETONES: "acetone", "methylethlketone".
+- _AROMATICS_: "toluene", "ethylbenzene", "m_p_xylene", "o_xylene",
+"ONE_2_3_trimethylbenzene", "ONE_2_4_trimethylbenzene",
+"ONE_3_5_trimethylbenzene", "styrene", "benzene", "C9", "C10", "C13".
+
+Also, some Brazilian emission factors and speciations for WRF-Chem, mechanisms:
+"e_eth", "e_hc3", "e_hc5", "e_hc8", "e_ol2", "e_olt", "e_oli", "e_iso", "e_tol",
+"e_xyl", "e_c2h5oh", "e_ald", "e_hcho", "e_ch3oh", "e_ket", 
+"E_SO4i", "E_SO4j", "E_NO3i", "E_NO3j", "E_MP2.5i", "E_MP2.5j", "E_ORGi", 
+"E_ORGj", "E_ECi", "E_ECj", "H2O".
+
+By the end of this book, more emission factors will be added.
+
+Because VEIN has the capabilities to produce species from this pollutants 
+including volatile organic compunds (VOC) and particulate matter compounds.
+
+The speciation of emissions in VEIN can be done with three ways, by selecting
+the pollutants in ef_speed* functions, other way explicit and the other implicit.
+The explicit way is by usint the function `speciate` for the  specific available 
+speciation. The implicit way is by adding a percentage value in the argument `k` 
+in any of the functions of emission factors. The implicit  way requires that the 
+user must know the percentage of the species of pollutant.
+
+## Speed functions of VOC species
+
+As mentioned before, the speed function emission factors, currently covers 
+several pollutants. We firstly focus on som PAH and POP. They way to select them
+is just:
+
+```{r}
+library(vein)
+pol <- c("indeno(1,2,3-cd)pyrene", "benzo(k)fluoranthene",
+         "benzo(b)fluoranthene", "benzo(ghi)perylene", "fluoranthene",
+         "benzo(a)pyrene")
+df <- lapply(1:length(pol), function(i){
+  EmissionFactors(ef_ldv_speed("PC", "4S", "<=1400", "G", "PRE",
+                               pol[i], x = 10)(10))
+})
+names(df) <- pol
+df
+```
+
+These pollutants comes from -@NtziachristosSamaras2016 and in this case, are 
+not dependent on speed. I used lapply to iterate in each pollutant at 10 km/h.
+Now I will show the same for dioxins and furans.
+
+
+```{r}
+library(vein)
+pol <- c("PCDD", "PCDF", "PCB")
+df <- lapply(1:length(pol), function(i){
+  EmissionFactors(ef_ldv_speed("PC", "4S", "<=1400", "G", "PRE",
+                               pol[i], x = 10)(10))
+})
+names(df) <- pol
+df
+```
+
+
+
+
+In the case of nmhc, the estimation is:
+
+
+```{r}
+library(vein)
+pol <- c("ethane", "propane", "butane", "isobutane", "pentane")
+df <- lapply(1:length(pol), function(i){
+  EmissionFactors(ef_ldv_speed("PC", "4S", "<=1400", "G", "PRE",
+                               pol[i], x = 10)(c(10,20,30)))
+})
+names(df) <- pol
+df
+```
+
+Now the same example for one pollutant and several euro standards.
+
+
+```{r}
+library(vein)
+euro <- c("V", "IV", "III", "II","I", "PRE")
+df <- lapply(1:length(euro), function(i){
+  EmissionFactors(ef_ldv_speed("PC", "4S", "<=1400", "G", euro[i],
+                               "benzene")(c(10, 30, 50)))
+})
+names(df) <- euro
+df
+```
+
+
+## Speciate function
+The arguments of the function `speciate` are:
+
+```{r}
+args(vein::speciate)
+```
+
+Where,
+
+- `x`: Emissions estimation
+- `spec`: speciation: The speciations are: "bcom", tyre", "break", "road", "iag", "nox" and "nmhc". 'iag' now includes a speciation for use of industrial and building paintings. "bcom" stands for black carbon and organic matter.
+- `veh`: Type of vehicle: When spec is "bcom" or "nox" veh can be "PC", "LCV", HDV" or "Motorcycle". When spec is "iag" veh can take two values depending: when the speciation is for vehicles veh accepts "veh", eu "Evaporative", "Liquid" or "Exhaust" and fuel "G", "E" or "D", when the speciation is for painting, veh is "paint" fuel or eu can be "industrial" or "building" when spec is "nmhc", veh can be "LDV" with fuel "G" or "D" and eu "PRE", "I", "II", "III", "IV", "V", or "VI". when spec is "nmhc", veh can be "HDV" with fuel "D" and eu "PRE", "I", "II", "III", "IV", "V", or "VI". when spec is "nmhc" and fuel is "LPG", veh and eu must be "ALL"
+- `fuel`: Fuel. When spec is "bcom" fuel can be "G" or "D". When spec is "iag" fuel can be "G", "E" or "D". When spec is "nox" fuel can be "G", "D", "LPG", "E85" or "CNG". Not required for "tyre", "break" or "road". When spec is "nmhc" fuel can be G, D or LPG.
+- `eu`: sEuro emission standard: "PRE", "ECE_1501", "ECE_1502", "ECE_1503", "I", "II", "III", "IV", "V", "III-CDFP","IV-CDFP","V-CDFP", "III-ADFP", "IV-ADFP","V-ADFP" and "OPEN_LOOP". When spec is "iag" accept the values "Exhaust" "Evaporative" and "Liquid". When spec is "nox" eu can be "PRE", "I", "II", "III", "IV", "V", "VI", "VIc", "III-DPF" or "III+CRT". Not required for "tyre", "break" or "road"
+- `show`: when TRUE shows row of table with respective speciation
+- `list`: when TRUE returns a list with number of elements of the list as the number species of pollutants
+
+As shown before, there are currently 8 type of speciations. Now, i will show examples for most of them. 
+
+## Black carbon and organic matter
+
+Let's use the data inside the vein and estimate emissions. The 
+vehicles considered are Light Trucks, assuming all HGV. We are using
+the 4 stage estimation with the first part arranging traffic data
+
+```{r}
+library(vein)
+# 1 Traffic data
+data(net)
+data(profiles)
+data(fe2015)
+lt <- age_hdv(net$ldv)
+vw <- temp_fact(net$ldv, profiles$PC_JUNE_2014) + 
+  temp_fact(net$hdv, profiles$HGV_JUNE_2014)
+speed <- netspeed(vw, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+# 2 Emission factors
+euro <- c("V", rep("IV", 3),  
+          rep("III", 7), rep("II", 7), rep("I", 5), rep("PRE", 27))
+lefd <- lapply(1:50, function(i) {
+  ef_hdv_speed(v = "Trucks", t = "RT", g = ">32", gr = 0,
+               eu = euro[i], l = 0.5, p = "PM",
+               show.equation = FALSE) })
+# 3 Estimate emissions
+pmd <- emis(veh = lt, lkm = net$lkm, ef = lefd, speed = speed,
+            profile = profiles$HGV_JUNE_2014)
+# 4 process emissions
+# Agreggating emissions by age of use
+df <- apply(X = pmd, MARGIN = c(1,2), FUN = sum, na.rm = TRUE)
+euro
+dfbcom <-   rbind(speciate(df[, 1], "bcom", "PC", "D", "V"),
+                  speciate(rowSums(df[, 2:4]), "bcom", "PC", "D", "IV"),
+                  speciate(rowSums(df[, 5:11]), "bcom", "PC", "D", "III"),
+                  speciate(rowSums(df[, 12:18]), "bcom", "PC", "D", "II"),
+                  speciate(rowSums(df[, 19:23]), "bcom", "PC", "D", "I"),
+                  speciate(rowSums(df[, 24:50]), "bcom", "PC", "D", "PRE"))
+dfbcom$id <- 1:1505 
+bc <- aggregate(dfbcom$BC, by = list(dfbcom$id), sum)
+om <- aggregate(dfbcom$OM, by = list(dfbcom$id), sum)
+net$BC <- bc[, 2]
+net$OM <- om[, 2]
+```
+
+
+Now we have spatial objects of Back Carbon
+
+```{r spplotbm, fig.cap="Black Carbon [g/168h]"}
+sp::spplot(net, "BC", scales = list(draw = T), main = "Black Carbon [g/168h]",
+           col.regions = rev(cptcity::cpt()))
+```
+
+and Organic Matter
+
+```{r spplotom, fig.cap = "Organic Matter [g/168h]"}
+sp::spplot(net, "OM", scales = list(draw = T), main = "Organic Matter [g/168h]",
+           col.regions = rev(cptcity::cpt()))
+```
+
+If you are interested in speciate total emissions by age of use not spatial
+emissions, you could use `emis_post` with `by = "veh"` and then aggregate
+the emissions by standard. Then speciate PM by standard:
+
+```{r}
+dfpm <- emis_post(arra = pmd,  veh = "LT", size = "small", fuel = "D",
+                  pollutant = "PM", by = "veh")
+dfpm$euro <- euro
+dfpmeuro <- aggregate(dfpm$g, by = list(dfpm$euro), sum)
+names(dfpmeuro) <- c("euro", "g")
+bcom <- as.data.frame(sapply(1:6, function(i){
+  speciate(dfpmeuro$g[i], "bcom", "PC", "D", dfpmeuro$euro[i])
+}))
+names(bcom) <- dfpmeuro$euro
+```
+And the resulting speciation is:
+
+```{r echo=FALSE}
+knitr::kable(bcom, caption = "Black Carbon and Organic Matter [g/168h]", digits = 2)
+```
+
+
+## Tyre wear, breaks wear and road abrassion
+
+Tyre, break and road abrassions comes from -@NtziachristosBoulter2009. Tyres 
+consist in a complex mixture of rubber, which after the use starts to degradate.
+In deed, when the driving cycle ismore aggresive, higher is tyre mass emitted
+from tyre, with tyre wear emission factors higher in HDV than LDV. Break wear emits
+mass and with more aggresive driving, more emissions. 
+
+The input are wear emissions in Total Suspended Particles (TSP) ,as explained in
+section \@ref(#ew). The speciation consists in 60% PM10, 42% PM2.5, 6% PM1 and
+4.8% PM0.1. Now, a simple example for TP adspeciation:
+
+
+```{r}
+library(vein)
+data(net)
+data(profiles)
+pro <- profiles$PC_JUNE_2012[, 1] # 24 hours
+pc_week <- temp_fact(net$ldv+net$hdv, pro)
+df <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+ef <- ef_wear(wear = "tyre", type = "PC", speed = df)
+emit <- emis_wear(veh = age_ldv(net$ldv, name = "VEH"), speed = df,
+                  lkm = net$lkm, ef = ef, profile =  pro)
+emib <- emis_wear(what = "break", veh = age_ldv(net$ldv, name = "VEH"),
+                  lkm = net$lkm, ef = ef, profile =  pro, speed = df)
+emit
+emib
+emitp <- emis_post(arra = emit, veh = "PC", size = "ALL", fuel = "G",
+                   pollutant = "TSP", by = "veh")
+emibp <- emis_post(arra = emib, veh = "PC", size = "ALL", fuel = "G",
+                   pollutant = "TSP", by = "veh")
+```
+
+The estimation covered 24 hours and for simplicity, we are assuming
+a year with 365 similar days and dividing by 1 million to have t/y. Hence,the
+speciation is:
+
+```{r styre, fig.cap="Break and Tyre emissions (t/y)"}
+library(ggplot2)
+tyrew <- speciate(x =  unclass(emitp$g), spec = "tyre")
+breakw <- speciate(x =  unclass(emibp$g), spec = "brake")
+df <- data.frame(Emis = c(sapply(tyrew, sum), sapply(breakw, sum))*365/1000000)
+df$Pollutant <- factor(x = names(tyrew), levels = names(tyrew))
+df$Emissions <- c(rep("Tyre", 4), rep("Brake", 4))
+ggplot(df, aes(x = Pollutant, y = Emis, fill = Emissions)) +
+  geom_bar(stat = "identity", position = "dodge")+
+  labs(x = NULL, y = "[t/y]")
+```
+
+It is interesting to see that break emissions are higher than tyre wear emissions,
+and the smalle the diameter, higher the difference, as shows:
+
+```{r echo=FALSE}
+knitr::kable(sapply(breakw, sum) / sapply(tyrew, sum),
+             caption = "Ratio between break and tyre wear emissions")
+```
+
+The procudure can be used with `emis_post` with `by  = streets_wide` to
+obtain the spatial speciation.
+
+## $NO$ and $NO_2$
+
+The speciation of $NO_X$ into $NO$ and $NO2$ depends on the type of vehicle,
+fuel and euro standard. The following example will consists in comparing
+a Gasoline passenger car and a Diesel truck.
+
+```{r}
+library(vein)
+data(net)
+data(profiles)
+propc <- profiles$PC_JUNE_2012[, 1] # 24 hours
+prolt <- profiles$PC_JUNE_2012[, 1] # 24 hours
+pweek <- temp_fact(net$ldv+net$hdv, pro)
+df <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+euro <- c("V", rep("IV", 3),  
+          rep("III", 7), rep("II", 7), rep("I", 5), rep("PRE", 27))
+lefpc <- lapply(1:50, function(i) {
+  ef_ldv_speed(v = "PC", t = "4S", cc = "<=1400", f = "G",
+               eu = euro[i], p = "NOx", show.equation = FALSE) })
+leflt <- lapply(1:50, function(i) {
+  ef_hdv_speed(v = "Trucks", t = "RT", g = ">32", gr = 0,
+               eu = euro[i], l = 0.5, p = "NOx", show.equation = FALSE) })
+emipc <- emis(veh = age_ldv(net$ldv),lkm = net$lkm, ef = lefpc, speed = df,
+              profile = profiles$PC_JUNE_2014[, 1])*365/1000000
+emilt <- emis(veh = age_ldv(net$hdv),lkm = net$lkm, ef = leflt, speed = df,
+              profile = profiles$HGV_JUNE_2014[, 1])*365/1000000
+```
+
+Then, once the emissions are estimated, we will speciate the emissions by euro standard. The estimation covered 24 hours and for simplicity, we are assuming
+a year with 365 similar days and dividing by 1 million to have t/y.
+
+```{r sno2}
+df <- rowSums(apply(X = emipc, MARGIN = c(2,3), FUN = sum, na.rm = TRUE))
+dfpc <-   rbind(speciate(df[1], "nox", "PC", "G", "V"),
+                speciate(df[2:4], "nox", "PC", "G", "V"),
+                speciate(df[5:11], "nox", "PC", "G", "V"),
+                speciate(df[12:18], "nox", "PC", "G", "V"),
+                speciate(df[19:23], "nox", "PC", "G", "V"),
+                speciate(df[24:50], "nox", "PC", "G", "V"))
+df <- rowSums(apply(X = emipc, MARGIN = c(2,3), FUN = sum, na.rm = TRUE))
+dfhdv <-   rbind(speciate(df[1], "nox", "HDV", "D", "V"),
+                 speciate(df[2:4], "nox", "HDV", "D", "V"),
+                 speciate(df[5:11], "nox", "HDV", "D", "V"),
+                 speciate(df[12:18], "nox", "HDV", "D", "V"),
+                 speciate(df[19:23], "nox", "HDV", "D", "V"),
+                 speciate(df[24:50], "nox", "HDV", "D", "V"))
+
+df <- data.frame(rbind(sapply(dfpc, sum), sapply(dfhdv, sum)))
+row.names(df) <- c("PC", "HGV")
+knitr::kable(df, caption = "NO2 and NO speciation (t/y)")
+```
+
+## Volatile organic compounds: `nmhc`
+
+nmhc were shown earluier in this chapter, but they can be also used to
+speciate objects, resulting in all species at once. The speciation of NMHC must
+be applied to NMHC. However, the emission guidelines of 
+-@NtziachristosSamaras2016 does not show explicit emission factor of NMHC and
+the suggeted procedure is substract the $CH_4$ from the $HC$. This was done on 
+VEIN and now, ef_speed* functions returns NMHC directly. This makes easier to
+produce speciation.
+
+
+```{r}
+library(vein)
+data(net)
+data(profiles)
+propc <- profiles$PC_JUNE_2012[, 1] # 24 hours
+pweek <- temp_fact(net$ldv+net$hdv, propc)
+df <- netspeed(pweek, net$ps, net$ffs, net$capacity, net$lkm, alpha = 1)
+euro <- c("V", rep("IV", 3),  
+          rep("III", 7), rep("II", 7), rep("I", 5), rep("PRE", 27))
+lefpc <- lapply(1:50, function(i) {
+  ef_ldv_speed(v = "PC", t = "4S", cc = "<=1400", f = "G",
+               eu = euro[i], p = "NMHC", show.equation = FALSE)})
+```
+
+
+
+
+
+```{r}
+euro <- c("V", rep("IV", 3),  
+          rep("III", 7), rep("II", 7), rep("I", 5), rep("PRE", 27))
+lefpc <- lapply(1:length(euro), function(i) {
+  ef_ldv_speed(v = "PC", t = "4S", cc = "<=1400", f = "G",
+               eu = euro[i], p = "HC", show.equation = FALSE) })
+enmhc <- emis(veh = age_ldv(net$ldv), lkm = net$lkm, ef = lefpc, speed = df,
+              profile = profiles$PC_JUNE_2014[, 1])
+
+df_enmhc <- emis_post(arra = enmhc, veh = "PC", size = "ALL", fuel = "G",
+                      pollutant = "NMHC", by = "veh")
+# assuming all euro I
+spec <- speciate(x = as.numeric(df_enmhc$g), spec = "nmhc", veh = "LDV",
+                 fuel = "G", eu = "I")
+names(spec)
+```
+
+
+## The speciation `iag`
+
+The Carbon Bond Mechanism Z [-@cbmz] is an lumped-structure mechanism.
+
+Citing:
+
+**"it is currently unfeasible to treat the organic species individually in a regional or global chemistry model for three major reasons:**
+
+**- (1) limited computational resources,**
+**- (2) lack of detailed speciated emissions inventories, and **
+**- (3) lack of kinetic and mechanistic information for all the species and their reaction products.**
+
+**Thus there exists a need for a condensed mechanism that is capable of describing the tropospheric hydrocarbon chemistry with reasonable accuracy, sensitivity, and speed at regional to global scales. **
+
+
+The research in this aspect is intense and out of the scope of this book. 
+However, it is important that the user who intends to performs atmospheric
+simulation to understand this why it is important to speciate the emissions
+and what represent each group. 
+
+A popular air quality model nowedays is the Weather Research and Forecasting
+model coupled to Chemistry (WRF-Chem) [@Grelletal2005] https://ruc.noaa.gov/wrf/wrf-chem/and the **Emissions Guide** (https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf).
+
+
+The speciation `iag` splits the NMHC into the lumped groups for the mechanism
+CMB-Z. The name `iag` comes from the Institute of Astronomy, Geophysics and
+Atmospheric Sciences (IAG, http://www.iag.usp.br/) from the University of São Paulo (USP). The Departament of Atmospheric Sciences (DAC) of IAG has measure
+and model air quality models for  several years. There are several scientific 
+production such as:
+-@Nogueiraetal2015, -@HOSHYARIPOUR2016365, -@Andradeetal2017, 
+-@Freitasetal2005, -@martins2006emission, -@perez2014emission,
+-@ulke2001modeling, -@vivanco2006validation, -@boian2012characterization,
+-@Andrade2012, -@Andradeetal2015, -@VaraVelaetal2015, -@Rafee2015,
+-@Ibarraetal2017b. The following figure, shows an air quality simulation over 
+South Easth Brazil from DAC/IAG/USP.
+
+```{r echo= FALSE, fig.cap="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php"}
+knitr::include_graphics(path = "figuras/wrf.png")
+```
+
+Some of these papers show measurements in tunnels, fuel, etc. The speciation
+`iag` it is based on these experiments, and the last versions, covers an
+update during 2015 so that the exhaust emissions speciation is more
+representative of brazilian gasoline. This means that:
+
+- ** THE SPECIATION `IAG` IS BASED ON BRAZILIAN MEASUREMENTS**.
+
+and the user who wants to applt it outside Brazil, should be ensure, that 
+the fleet and fuel are compatible. As that will be hard to accomplish,
+I can say that this speciation is for and to be used in Brazil, even more, in
+São Paulo.
+
+The currently speciation `iag` is:
+
+```{r echo= FALSE, fig.cap="Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)"}
+knitr::include_graphics(path = "figuras/iag1.png")
+```
+
+
+The arguments of the function `speciate` take the following form:
+
+- `x`: Emissions estimation, it is recommended that x are griddded emissions
+from NMHC.
+- `spec`: `iag`. Alternatively, you can put any name of the following:
+"e_eth", "e_hc3", "e_hc5", "e_hc8", "e_ol2", "e_olt", "e_oli", "e_iso", 
+"e_tol", "e_xyl", "e_c2h5oh", "e_hcho", "e_ch3oh", "e_ket"
+- `veh`: When spec is "iag" veh can take two values depending: when the
+speciation is for vehicles veh accepts "veh", eu "Evaporative", "Liquid" or
+"Exhaust"
+- `fuel`:  "G", "E" or "D".
+- `eu`: "Exhaust" "Evaporative" or "Liquid". 
+- `show`: Let this FALSE.
+- `list`: Let this TRUE so that the result is a list, and each element of the
+list a lumped specie.
+
+Example:
+
+```{r}
+# Do not run
+x <- data.frame(x = rnorm(n = 100, mean = 400, sd = 2))
+dfa <- speciate(x, spec = "e_eth", veh = "veh", fuel = "G", eu = "Exhaust")
+head(dfa)
+df <- speciate(x, spec = "iag", veh = "veh", fuel = "G",
+               eu = "Exhaust", list = TRUE)
+names(df)
+for(i in 1:length(df)){
+  print(df[[i]][1:3, ]) # Firt three lines of each element of the list
+}
+```
+
+
+## The speciation `pmiag`
+
+The speciation `pmiag`is also based on IAG studies and applied only for PM2.5
+emissions. The speciation splits the PM2.5 in percentages  as follow:
+
+```{r echo = FALSE}
+knitr::kable(x = data.frame(E_SO4i = 0.0077, E_SO4j = 0.0623, E_NO3i = 0.00247,
+                            E_NO3j = 0.01053, E_MP2.5i = 0.1, E_MP2.5j = 0.3, 
+                            E_ORGi = 0.0304, E_ORGj = 0.1296, E_ECi = 0.056, 
+                            E_ECj = 0.024, H2O = 0.277),
+             caption = "Speciation of PM2.5")
+```
+
+When running this speciation, the only two required arguments are `x` and
+`spec`. Also, There is a message that this speciation applies **only
+in gridded emissions, because the unit must be in flux $g/km^2/h$**, and
+internally are transformed to the required unit $ \mu g/m^2/s$ as:
+
+$$ \frac{g}{(km)^2*h}*\frac{10^6 \mu g}{g}*(\frac{km}{1000m})^2*\frac{h}{3600s}\frac{1}{dx^2}$$
+
+dx is the length of the grid cell.
+Example:
+```{r}
+library(vein)
+data(net)
+pm <- data.frame(pm = rnorm(n = length(net), mean = 400, sd = 2))
+net@data <- pm
+g <- make_grid(net, 1/102.47/2) # 500 m
+gx <- emis_grid(net, g)
+df <- speciate(gx, spec = "pmiag", veh = "veh", fuel = "G",
+               eu = "Exhaust", list = FALSE, dx = 0.5)
+names(df)
+head(df)
+```
+
+
+<!--chapter:end:08-speciate.Rmd-->
+
+# Inputs for atmospheric models with `eixport` Package {#ep}
+
+This last chapter of this book is about generating inputs for atmospheric
+models, specifically, **WRF-Chem** [@Grelletal2005]. As the Pacific Northwest 
+National Laboratory (PNNL, https://www.pnnl.gov/atmospheric/research/wrf-chem/)
+defines:
+
+
+**The Weather Research and Forecasting (WRF) model is a next generation **
+**meteorological model being developed collaboratively among several agencies**
+**(NOAA/NCEP, NOAA/ESRL, NCAR). WRF-Chem is a version of WRF that also**
+**simultaneously simulates the emission, turbulent mixing, transport,**
+**transformation, and fate of trace gases and aerosols.**
+
+Initially, VEIN counted with the function `emis_wrf` which created a data.frame
+object of hourly gridded emissions with each pollutant as a column, from the
+first cell to the last. The data-frame extendend in long format to each hour.
+This data.frame was designed to be used with script Another Asimilation
+System for WRF (AS4WRF) [@VaraVelaetal2015] written in NCL [@ncl]. 
+
+This approach was effective and already tested for some Latinamerican cities
+[@micro], [@icshmo]. However, this function depends on external software which
+may not be available. Therefore, me andsome collegues developed the package
+`eixport` [@eixport], [@eixport2], which is an R package to read and export
+emissions to atmospheric models. `eixport` currently covers the models
+WRF-Chem [@Grelletal2005], SPM-BRAMS [@Freitasetal2005] and R-LINE [@rline], but
+only the WRF-Chem interface has been fully implemented. Therefore, this chapter
+covers only this model.
+
+The concept of connecting VEIN and Wrf-Chem via eixport is quite simple with
+two approaches:
+
+1. Generating `GriddedEmissionsArray` for the wrfinput grid and inputting this
+emissions into the wrfchemi input file..
+2. Generating gridded emissions data-frame for AS4WRF.
+
+## WRFChem input with wrfinput and `GriddedEmissionsArray`
+
+```{r , eval = FALSE, include = FALSE}
+library(DiagrammeR)
+
+p1 <- grViz("digraph boxes_and_circles {
+      graph [overlap = false,
+            fontsize = 10,
+            rankdir = TB,
+            fontname = Helvetica]
+
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = white,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      wrfinput_d0x;
+      wrfcheminput;
+
+      node [shape = box,
+            style = filled,
+            fillcolor = pink,
+            fixedsize = false,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+
+      GriddedEmissionsArray;
+      EmissionsArray;
+
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = grey88,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      make_grid;
+      emis_grid;
+      emis_post;
+      emis_merge;
+ 
+      node [shape = box,
+            style = filled,
+            fixedsize = false,
+            fillcolor = green,
+            color = black,
+            fontcolor = black,
+            fontize = 12]
+      wrf_create;
+      wrf_put;
+
+      edge [color = black,
+            arrowhead = vee,
+            penwidth = 1.5]
+      wrfinput_d0x -> {make_grid wrf_create}
+      EmissionsArray -> emis_post
+      emis_post -> emis_merge
+      {make_grid emis_merge} -> {emis_grid}
+      emis_grid -> GriddedEmissionsArray
+      GriddedEmissionsArray -> wrf_put
+      {wrf_put wrf_create} -> wrfcheminput
+      }
+      ")
+```
+
+The process for generation WRF-Chem input files with `GriddedEmissionsArray` is
+shown on Fig. \@ref(fig:gea). Pink boxes are classes, grey boxes are `vein`
+functions, green functions are  `eixport` functions and white boxes, external
+objects. Here, the external input file is the **wrfinputd_0x**
+file, where the **x** is for the domain. This file is inputted into the function
+`make_grid` which creates a polygon grid needed by `emis_grid`. The main
+characteristic of this grid, is that it has the resolution of the wrfinput
+file.
+
+The wrfinpiut_d0x file isalso used by the `eixport` function `wrf_create` to
+create a wrfchemi input file with zeroes.
+
+The objects with class `EmissionsArray` for each type of vehicle and pollutant are 
+processed by the function `emis_post` which create street emissions. Then, the function
+`emis_merge` merges all the street emissions files from `emis_post_ into one
+street emissions by pollutant ehich is inputted into function `emis_grid` to
+create a polygon grid of emissions, class Spatial Feature `sf` [@sf], [@RJ-2018-009].
+Then, the spatial gridded emissions are inputted into the contructor function
+`GriddedEmissionsArray` to create an object of that class, and the dimensions
+of the wrfinput file, that is, the sanem number of spatial rows and columns.
+
+Finally, the `GriddedEmissionsArray` objects are inputted into the wrfchemi
+file with the `eixport` function `wrf_put`.
+
+```{r gea, echo = FALSE, fig.cap='Generation of wrfchem inputs using GriddedEmissionsArray', out.width='50%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/gea.png")
+```
+
+Example
+
+### Creating a WRF-Chem input file
+
+The emission file will be generated with traffic simulation from the 
+Traffic Engineering Company (CET) for 2012, which consists
+in traffic flow for morning rush hour of Light Duty Vehicles (LDV) and
+Heavy Good Vehicles (HGV). The emission factors will be the data `fe2015`
+and the wrfinput comes from the `eixport` package. Let's go:
+
+#### 0) Network
+
+The object net has a class `SpatialLinesDataFrame`, we transform it into a
+`sf`object. The length of the road is the field 'lkm' in the object net, which
+are in km but has no units. We must add the right units in order to use `vein`
+
+```{r}
+require(vein)
+require(sf)
+require(units)
+net <- readRDS("figuras/net.rds")
+class(net)
+net <- st_as_sf(net)
+net[1, ]
+net$lkm <- set_units(st_length(net), km) # ensure right units
+```
+
+
+#### 1) Vehicular composition
+
+In this case, the vehicular composition consits in only to vehicles, Passenger
+Cars using Gasoline with 25\% of Ethanol and Light Trucks consuming Diesel with 
+5\% od biodiesel. Also, the emission factors cover $CO$. The
+temporal distribution will cover only one hour.
+
+```{r}
+PC_E25 <- age_ldv(net$ldv)
+LT_B5 <- age_hdv(net$hdv)
+```
+
+#### 2) Emission factors
+
+The emission factors used comes from -@CETESB2015, which are constant by age of use.
+In practice, this data.frame is like an Excel spreadsheet. Then, the constructor
+function `EmissionFactorsList` convert our numeric vector, which is the column
+of our data.frame, into required type of object of the `emis` function. Parenthesis
+were added in order to print the objects in one line.
+
+```{r}
+data(fe2015)
+(EF_CO_PC_E25 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "PC_G"]))
+(EF_CO_LT_B5 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "LT"]))
+```
+#### 3) Estimation of emissions
+
+The estimation of emissions is shown in the following code chunk in a simplified
+way. The emissions array are aggregated.
+
+```{r}
+data(profiles)
+emi1 <- emis(veh = PC_E25, lkm = net$lkm, ef = EF_CO_PC_E25,
+             profile = profiles$PC_JUNE_2012)
+emi2 <- emis(veh = LT_B5, lkm = net$lkm, ef = EF_CO_PC_E25,
+             profile = profiles$HGV_JUNE_2012)
+emi = emi1 + emi2
+```
+
+#### 4) Post-estimations
+
+The resulting emissions array `emi` is now processed with `emis_post`.
+
+```{r}
+co_street <- emis_post(arra = emi, by = "streets_wide", net = net)
+```
+
+
+#####  4a WRFChem input file with `eixport`
+
+Now it is time generate the emissions grid. In order to create a wrfchem input
+file, we need a wrfinput file. In this case, the wrfinput coversa wider area
+of the emissions, located in São Paulo, Brazil. The wrfinput file is available
+from the R package `eixport`.
+
+```{r}
+wrf <- paste(system.file("extdata", package = "eixport"),
+             "/wrfinput_d02", sep="")
+g  <- make_grid(wrf)
+plot(st_geometry(g), axes = TRUE)
+plot(st_geometry(co_street), add = TRUE)
+```
+
+Notice that weh we create grid from the path to wrfinput, there is a message
+with *Number of lat points 51* and *Number of lon points 63*. This information
+is crytical for later conversions. Now that we have the street emissions and the
+grid, we can obtain our gridded emissions:
+
+```{r}
+gCO <- emis_grid(spobj = co_street, g = g)
+names(gCO)
+gCO$geometry
+```
+
+This function requires the package `lwgeom` when the data is in latitude and
+longitude degrees. There are some messages about the total emissions of 
+street and grid. This was made in order to ensure that emis_grid is conservative.
+The resulting object `gCO` is an `sf` object of POLYGON. In order to plot the
+emissions, i selected the emissions above 1, because it is easier to see the 
+plot. If we plot the gridded emissions, we will see:
+
+
+```{r GEmi, fig.cap="Gridded emissions (mol/h)"}
+gCO$V9 <- gCO$V9*(12 + 16)^-1
+plot(gCO[gCO$V9 >1, "V9"], axes = TRUE,  nbreaks = 50,
+     pal = cptcity::cpt(colorRampPalette = T),
+     main = "Emissions of CO at 08:00 (mol/h)")
+```
+
+The emissions are mostly distributed into main roads, as expected. The next step
+is create the `GriddedEmissionsArray` that will be inputted into the `eixport`
+functions. The `GriddedEmissionsArray` is a contructor function that reads
+class, `SpatialPolygonDataFrame`, `sf` of POLYGONs, a `data.frame` or a `matrix`
+to create an Array of the gridded emissions. The dimensions are lat, lon, mass
+and time. Therefore, it is important to know the number of lat and lon points!
+
+```{r GEA, fig.cap="GriddedEmissionsArray (mol/h)"}
+gCOA <- GriddedEmissionsArray(x = gCO, cols = 63, rows = 51, times = 168)
+plot(gCOA, col = cptcity::cpt())
+```
+
+The image is similar to the plot of the gridded emissions, which means that it
+is correct. Now we can input the our new created object `gCOA` into the wrfchem
+input file, but first, we need to create it. This is done using the `eixport`
+functions.
+
+We first load the library `eixport`. Then load the data `emis_opt` which has the
+emissions options for WRFchem. In this case, we are creating an wrfchem input
+file with 40 pollutants, with 0.
+
+```{r}
+library(eixport)
+data(emis_opt)
+emis_opt[["ecb05_opt1"]]
+wrf_create(wrfinput_dir = system.file("extdata", package = "eixport"),
+           wrfchemi_dir = tempdir(),
+           frames_per_auxinput5 = 1,
+           domains = 2,
+           variaveis = emis_opt[["ecb05_opt1"]],
+           verbose = F)
+
+```
+
+The wrfchemi input file was created on a temporal directory with the function
+`tempdir`. Now we can input our `GriddedEmissionsArray` into our new
+wrfchem input file.
+
+```{r}
+f <- list.files(path = tempdir(), full.names = T, pattern = "wrfchemi_d02")
+f
+wrf_put(file = f, name = "E_CO", POL = gCOA)
+```
+
+Then, we just check our resulting NetCDF file plotting the emissions we just put.
+
+```{r Fwrf, eval = FALSE}
+wrf_plot(f, "E_CO")
+```
+
+```{r wrf,  echo = FALSE, fig.cap="Wrfchem input file (NetCDF) (mol/h)", out.width='80%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics("figuras/wrf2.png")
+
+```
+
+##### 4b WRFChem input file with `emis_wrf`
+
+`emis_wrf` creates a `data.frame` with columns lat, long, id, pollutants, local time 
+and GMT time. This dataframe has the proper format to be used with WRF assimilation 
+system: "ASimilation System 4 WRF (AS4WRF, -@angel)
+
+```{r}
+args(emis_wrf)
+```
+
+
+where:
+
+- `sdf`: Gridded emissions, which can be a SpatialPolygonsDataFrame, or a list of 
+SpatialPolygonsDataFrame, or a sf object of "POLYGON". The user must enter a list with
+36 SpatialPolygonsDataFrame with emissions for the mechanism CBM-Z.
+- `nr`: Number of repetitions of the emissions period
+- `dmyhm`: String indicating Day Month Year Hour and Minute in the format "d-m-Y H:M" 
+e.g.: "01-05-2014 00:00" It represents the time of the first hour of emissions in 
+Local Time
+- `tz`: Time zone as required in for function as.POSIXct
+- `crs`: Coordinate reference system, e.g: "+init=epsg:4326". Used to transform the coordinates of the output
+- `islist`: logical value to indicate if sdf is a list or not
+- `utc`: ignored.
+
+In this case, we can use our gridded emissions directly here:
+
+```{r}
+gCO$id <- NULL
+df <- emis_wrf(sdf = gCO, dmyhm = "06-10-2014 00:00",
+               tz = "America/Sao_Paulo", islist = FALSE)
+head(df)
+```
+
+Then you must export this `data.frame` into a .txt file. You must include
+the number of columns to match your luped species and also take out the columns
+time_lt, time_utc and dutch. These three columns are just informative.
+
+```{r}
+df <- df[,1:4]
+write.table(x = df, file = tempfile(), sep = "\t",
+            col.names = TRUE, row.names = FALSE)
+```
+
+Finally, in order to generate the wrfchem input file, you must have the 
+resulting .txt file, a wrfinput file with the same grid spacing, the NCL
+script AS4WRF and a namelist. AS4WRF and the namelist can be obtained contacting
+angel.vela@iag.usp.br and alvv1986@gmail.com.
+
+
+<!--chapter:end:09-aq.Rmd-->
+
+# Quality check and errors {#check}
+
+This last chapter of this book presents to aspestcs fthat must be considered
+for any practicioner interested in developing emissions inventories. The first
+part covers a summary of the EMEP/EEA air pollutant emission inventory 
+guidebook 2016, Technical guidance to prepare national emission inventories
+[@guia], based on the Intergovernmental Panel on Climate Change (IPCC)
+2006 Good Practice Guidance [@change20062006. The second part consists in 
+advices and specific considerations for avoinding errors when runnign VEIN in 
+each part of the inventory.
+
+## Guidance from EMEP/EEA air pollutant emission inventory guidebook
+
+I believe that this part of this capter delivers knowledge that you really
+will gain with experience. But even with experience you can get lost, and 
+returning to this part would save you. This part is based on the EMEP/EEA air 
+pollutant emission inventory guidebook [@guia].
+
+
+### Key categories
+
+Key categories are the most important  **source** categories. This section is based
+on the chapter Key category analysis and methodological choice [@guiak] of the 
+EMEP/EEA air pollutant emission  inventory guidebook 2013. They are important 
+because they are responsabile for most of pollution in a determined region.
+For instance, it has been described that vehicles are the most important
+source of pollution in mega-cities [@molina2004megacities]. Evenmore, in the 
+case of São Paulo, the official emissions inventory informs that vehicles are
+responsabiel for mor than `r round(100*162.90/167.08)` \% of $CO$,
+`r round(100*34.82/44.1)` \% of $HC$, `r round(100*54.33/80.43)` \% of $NO_X$,
+and only `r round(100*1.48/5.05)` \% of $PM$ and `r round(100*1.56/7.15)` \% of
+$SO_X$ [@CETESB2015]. This shown another characteristics of key categories:
+they depend of specific pollutants.
+
+For another example, consider a city which suffers cold weather with use
+bio-mass burning for cooking and heating. The main source of $PM_{2.5}$ will
+be certainly bio-mass burning.
+
+Now consider an industrial region with industrial process that emit too much
+$SO_X$. The key-cateogries might be industrial sources.
+
+And one more example, consider a huge mega-city with electric mobility. However,
+the main source of electricity are thermoelectric based on carbon (the key).
+
+This implies that it should be a nomemclature for categorizing and naming sources.
+IPCC, has a nomenclature for instance.
+
+The ideia behind key categories, is that most efforts must be applied in this
+categories, obtainging the highest level of detail with less uncertainty. Hence,
+the emissions guidelines [@guia] proposes three levels of complexity estimation
+methods, known as Tier Methods. The complexity increases from level 1, 2 and 3.
+The VEIN tier is 3, which is that the most complex function of vehicular
+emissions estimations are incporated, with the exception of evaporative.
+I need to improve that part.
+
+- Tier 1: a simpler method which include available activity and emissions factors.
+- Tier 2: Similar to Tier 1, but includes more specific emission factors.
+- Tier 3: Most complex methodologies with higher level of detail, temporal
+and spatial.
+
+### Uncertainty
+
+This is a very important part in any emissions inventory and a dedicated chapter
+or section should be made in any report/paper. This section is based on the 
+chapter Uncertainties [@guiau] of the EMEP/EEA air pollutant emission inventory
+guidebook 2013.The 2006 IPCC Guidelines chapter states that estimating the 
+uncertainty of an inventory is needed [@change20062006].
+
+It is recommended to use 95% confidence interval. This means that:
+
+- there is a  95% of probability that the actual value of the quantity estimates
+is within the interval defined by the confidence interval.
+- The probability of the actual value will be outside the range it is 5%.
+
+The general form for estimating emissions was shown on Eq. \@ref(eq:efGERAL) [@guiau].
+This equation will be the base for calculating the uncertainty. This section
+is applied when measurements are made, for the case of activity or emission
+factors. In those case, it is possible calculate the required confiden intervals.
+
+#### Default uncertainty ranges
+
+_Activity data_
+
+The following table is taking directly form -@guia and propose indicative
+ranges that could be applies in cases where no independed data are available.
+
+- National official statistics: - .
+- Update of last year's statistics using Gross Economic Growth factors: 0 - 2%.
+- International Energy Agency (IEA) statistics: OECD: 2 - 3%, non-OECD 5-10%.
+- United Nation data bases: 5 - 10%.
+- Default values, other sources: 30 - 100%.
+
+_Emission factors_
+
+The following table is taking directly form -@guia and propose rating definitions
+for emission factors[@guia].
+
+- A: An estimate based on a large number of measurements made at a large number of facilities that fully represent the sector. Error: 10 o 30%.
+- B: An estimate based on a large number of measurements made at a large number of facilities that represent a large part of the sector. Error: 20 to 60%
+- C: An estimate based on a number of measurements made at a small number of representative facilities, or an engineering judgement based on a number of relevant facts. Error: 50 to 200%.
+- D: An estimate based on single measurements, or an engineering calculation derived from a number of relevant facts. Error: 100 to 300%.
+- E: An estimate based on an engineering calculation derived from assumptions only. Error: Order of magnitude.
+
+In -@guia appears ratings for road transport emission factors that diffier from the
+ratings that appear in -@NtziachristosSamaras2016. To preserve consistenty in this book,
+here is presented the precision indicators, Table 4-1 of -@NtziachristosSamaras2016 report.
+
+```{r precision, echo = FALSE}
+df <- data.frame(
+  Category = c("PC G w/o Catalyst",
+               "PC G w Catalyst",
+               "PC D",
+               "PC LPG",
+               "PC LPG w/o Catalyst",
+               "PC LPG w Catalyst",
+               "PC 2 strokes",
+               "LCV G",
+               "LCV D",
+               "HDV G",
+               "HDV D",
+               "MC cc <50",
+               "MC cc > 50 2 strokes",
+               "MC cc > 50 4 strokes",
+               "Cold-start PC G Pre Euro",
+               "Cold-start PC G Euros",
+               "Cold-start PC D Pre Euro",
+               "Cold-start PC D Euros",
+               "Cold-start PC LPG",
+               "Cold-start LCV G",
+               "Cold-start LCV F"),
+  NOx = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  CO = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  NMHC = c(rep("A", 5), "D", rep("B", 3), "D", rep("A", 4), "B", "B", "C", "A", "C", "D", "D"),
+  CH4 = c(rep("A", 3),"-", "A", "D", "D", "C","C", "C", "D",rep("B", 3), "-", "A", "-", "A", rep("-", 3)),
+  PM = c(rep("-", 2), "A", "-", "D", "D", "-", "-", "A", "-", "A", rep("-", 5), "C", "A", "-", "-", "D"),
+  N2O = c("C","A","B","-", "C","D", "D", "B", "B", "D", rep("B", 4), rep("-", 7)),
+  NH3 = c("C","A","B", "-", "C", rep("D", 2), rep("B", 2), "D", rep("B", 4), rep("-", 7)),
+  CO2 = c(rep("A", 6), "B", rep("A", 2), "D", rep("A", 4), "B", "A", "B", "A", "B", rep("D", 2))
+)
+knitr::kable(df, caption = "Precision indicators (Ntziachristos and Samaras 2016)")
+```
+
+Uncertainties can be aggregated with two approaches
+
+- _Rule A_: uncertainties are combined by _addition_, as shown in Eq. \@ref(eq:sumun):
+
+\begin{equation}
+U_{total}=\frac{\sqrt{\sum_{i = 1}^{n}(U_i \cdot x_i )^2}}{\sum_{i = 1}^{n}}
+(\#eq:sumun)
+\end{equation}
+
+Where, $x$ are the quantities, $U_i$ are the uncertain quantities and the percentage 
+uncertainties (half the 95% confidence interval) associated with them, respectivly.
+$U_{total}$ is the percentage uncertinti in the sum of the quantites (half the
+95% confidence interval divided by the total (i.e. mean) and expressed as
+percentage).
+
+- _Rule B_: uncertainties are combined by _multiplication_, as shown on Eq. \@ref(eq:sumul):
+
+\begin{equation}
+U_{total}=\sqrt{\sum_{i = 1}^{n}(U_i)^2} 
+(\#eq:sumul)
+\end{equation}
+
+Where, $U_i$ are the percentage quantities (hal the 95% confidence interval) 
+associated with each of the quantities. $U_{total}$ is the percentage in the
+product of the quantities (half the 95% confidence interval divided by the total
+and expressed as percentage).
+
+Alternatively, a Monte Carlo simulation can be done.
+
+### Quality Assurance and Quality Check
+
+This section is mostly based on the chapter Inventory management, improvement and 
+QA/QC [@guiaqa] of the EMEP/EEA air pollutant emission inventory  guidebook 2013.
+
+According to Wikipedia:
+
+- **Quality assurance (QA)** is a way of preventing mistakes and defects 
+in manufactured products and avoiding problems when delivering solutions or 
+services to customers [@wiki:qa].
+- **Quality control (QC)** is a process by which entities review the quality of 
+all factors involved in production [@wiki:qc].
+
+The main reference in QA/QC are the International Organization for 
+Standardization ISO 9000 [@wiki:iso].
+
+The idea is to avoid errors in the development of the inventory. Hence, it is 
+very important that the objective of the inventory, frequency and spatial
+and temporal resolution must be very clear. As mentioned before, the inventory
+can have a purpose of policy application or scientific. In any case, the QAQC 
+procedures should be explicitly stated covering five data quality objectives
+**transparency**, **consistency**, **comparability**, **completeness** and **acccuracy**. 
+
+This means that another researcher/practicioner should be able to reproduce the results.
+However, this is not always the case. Evenmore, it has been shown that there 
+are currently a crisis of reproducibility in science, where 'more than 70% of 
+researchers have tried and failed to reproduce another scientist's experiments,
+and more than half have failed to reproduce their own experiments' [@baker2016there]. 
+I believe that emissions inventories should guarantee the reproducibility of results,
+in scientific and policy application inventories.
+
+### Inventory managment cycle
+
+Another important aspect is the inventory managment cycle. The inventory manager
+is responsabile for institutional arrangments, meet deadlines and for the inventory managment cycle. The inventory complier gets the data and estimate the emissions
+with the respective Tier. 
+
+The cycle is: 
+
+1. Priorization of improvements: As the resources are limited, priorization must
+be given to key categories.
+2. Data-collection: It is important to stablish formal agreements needs with
+data providers using protocols. The protocols must cleary show the data needed,
+its format, content and dates of delivery.
+3. Inventory compilation. The inventory compiler estimate the emissions.
+4. Consolidation. The inventory manager consolidates all the emissions ensuring
+quality in data and methods for estimating emissions.
+5. Data Quality Review. 
+6. Reporting. 
+7. Lessons learned and improvement review.
+8. Inventory Managment Report.
+9. Quality Assurance and Quality Control Plan.
+
+
+## Avoiding errors with VEIN
+
+The first part of this chapter covered some fundamental aspects in emissions
+inventory managment for quality assurance and quality control. This part
+covers typical erros that I've faced using VEIN and I hope it help users
+how to avoid them.
+
+Currently, VEIN does not have grafical user interface (GUI) and runs on R [@R],
+which  can be intimidating for new users. Also, even experienced users can do
+mistakes. If you find a mistake, write it down to abooid it in future. Be organized.
+I recommend to code your inventory keeping in mind that you will have to check your
+scripts in the future, so it would be nice if in the first try your code looks
+nice. And also, don't panic.
+
+### Traffic flow
+
+One of the first inputs of it is the traffic flow data. You must have an agreement
+with data providers to get the data. Also, the compiler must understand the format of 
+the data. In my experience, data providers comes from government agencies with limitated
+resources and few time. This means that, if there is not a formal agreement, they
+won't speed too much time for processing their data to meet your needs (because it
+is not part of their jobs). And even, if there was a formal agreement, the data
+processing must be done by the data compiler.
+
+The data provided in this book covers a travel demand output for Metropolitan
+Are ofSão Paulo (MASP) made by the Traffic Company Engineering of São Paulo, for the 
+year 2012. The has the same content inside VEIN package, with the exception
+that covers the whole MASP. The data originally is in format MAPINFO. Therefore,
+the package **sf** must be used to read the data.
+
+```{r eval = FALSE}
+library(sf)
+net <- st_read("data/masp.TAB")
+```
+
+The section \@ref(#traffic) shows details about this data. 
+
+- Have a meeting with data delivers to check and solve any doubt regarding 
+the data.
+- Check if your data is projected or not. The data probably will be projected
+with a UTM zone, for instance code 31983 http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-23s/. VEIN imports
+functions from `sf` and `lwgeom` which depend on GEOS libraries. This means that
+VEIN can work with data projected or not. Nevertheless, I suggest to work
+with projected data for your location.
+- Ensure that the data is correctly read and that there are no objects of class 
+`factor` in the columns.
+- Make sure that of what are the units of the traffic flow and remember that
+most of VEIN functions are designed to work with hourly traffic flow.
+- Plot the data. Check if the data looks fine or have some mistakes.
+- Calculate the length of each road. Make proper transformations and **make sure**
+**that resulting length of road as `units` km**. I suggest to use the name lkm. 
+This can be easily done with in R with packages `sf` and `units` installed. 
+Let's say that your data is named _net_ and your data is already projected. Also,
+that your traffic flow is named _ldv_ for light duty vehicles and _hdv_ for heavy
+duty vehicles.
+
+```{r eval = FALSE}
+plot(net["ldv"], axes = T)
+plot(net["hdv"], axes = T)
+net$lkm <- sf::st_length(net) #returns distance in meters
+net$$lkm <- units::set_units(net$lkm, km) #transform meters in km
+```
+
+Despite that this transformation can be done by dividing lkm by 1000, this would
+be wrong because the `units` wouldn't change and they must be `km`. Hence, using
+the functions of the `units` package is the recommended way.
+
+### Vehicular composition
+
+The vehicular composition is a critical part in the emissions inventories for
+vehicles. It consists in the percentage of each type of vehicle and technology.
+Despite that it seems pretty straightforward, making a mistake in this part
+of the emissions inventories would cost lots of time. **Developing an**
+**emissions inventory is a complex task, you must take great care in simple**
+**calculations, because if the resutls are not consistent, it can take LOTS**
+**of time, to find the error, usually when the dealines are dead**.
+
+The function `inventory` needs the vehicular composition to create the respective
+directories to run VEIN. I have the feeling that most of model users like 
+structured models with clear input and outputs. VEIN is not like that, and this
+is in part due to the nature of the emissions inventories. I could  design a 
+model that works perfectly with one type of input, but in real life, a desired
+input is not always easy to get. For instance, the traffic simulation used inside
+the model is not easy to get, even in cities of developed countries. Hence,
+the inventory compiler must struggle to do their job. Therefore, VEIN was
+designed with flexibility and verstility on mind.
+
+Anyways, the vehicular composition are the number of each type the following 
+vehicles: PC, LCV, HGB, BUS, MC. Then, each sub category will be divided
+by type of age of use. For instance, the vehicular emissions inventory for
+São Paulo State considers 4 type of vehicles:
+
+- Particulate Cars using gasohol (Gasoline with 25% of ethanol, PC_25).
+- Particulate Cars Flex using gasohol (Gasoline with 25% of ethanol, PC_F25).
+- Particulate Cars Flex using ethanol (Gasoline with 25% of ethanol, PC_FE100).
+- Particulate Cars using ethanol (Gasoline with 25% of ethanol, PC_E100).
+
+This means that the number of PC is 4.
+
+Then each of this vehicles is divided by age of use. As consecuence, we must
+know when each of these vehicle entered and went out of the market. Again,
+for São Paulo conditions, Flex engines entered into market in 2003 and nowadays
+must of new cars are flex. Vehicles with engines designed for burning ethanol
+had a peak in early 80s, but they went of the market in 2006. Gasoline vehicles
+have been in circulation from the beginning and CETESB inventory considers a
+life span of 40 years of use.
+
+The same analyses must be done with each of the vehicle categories.
+
+The distribution by age of use indirectly shows the technology associated with
+emission standards by age of use.
+
+
+<!-- A few days ago, I was developing an inventory in which my team was evaluating -->
+<!-- the impact in air quality of a new type of fuel on the city of São Paulo. The -->
+<!-- results were consistens comparison base case with scenario, however, the magnitud  -->
+<!-- of the emissions are too high. The air quality simulatiosn showed a clear  -->
+<!-- bias, constant over time. I struggled to find any error without results. -->
+<!-- Until I remembered the words of my former boss _Plot the results, becaust it is_ -->
+<!-- _easier fo find any mistake_. I did it, and this is was the result. -->
+
+### Units
+
+Currently, VEIN checks that the variable lkm (length) must be in km. This is
+to avoid that the user wrongly enter length in meters or without units. As a 
+result, the emissions woult be huge and wrong.
+
+In the case of vehicles, currently there are not designed a unit of "vehicles" in
+VEIN. In transportation studies, it is used the unit "equivalent vehicle" which
+standarize each type of vehicle by its size. For instance, LCV are sometimes
+equivalent of 1.2 vehicles. Buses or HGV can be equuvalent to 2 or more vehicles.
+however, there are no such typeof this things in VEIN and units managment is 
+designed to control emission factors and length.
+
+The temporal dimension is also an aspect difficult to handle regarding the units.
+This is because, sometimes mileage are correctly in km, but the timespan is in 
+one year. Threfore, the units magament is degined to avoid errors with emission
+factors and calculation of emissions. This means that a future version of VEIN
+will erradicate all temporal dimensions ensure right calculation of mass only.
+This means that VEIN will not chech if the data is hourly or anunual.
+
+
+### Emission factors
+
+When I started this book, VEIN contained few emission factors. Now, the version
+`r packageVersion("vein")` has all the 2016 emission factors of CETESB,
+almost 100 emisision factors from the European Emission guidelines
+the all the BASE emission factors from the International Vehicle Model (IVE). The
+functions to access this data are:
+
+- ef_cetesb.
+- ef_ldv_speed.
+- ef_hdv_speed.
+- ef_ive.
+
+I will be working to import emission factors from HBEFA model which are based
+traffic situation (very cool).
+
+
+### Deterioration
+
+VEIN currently cover the deterioration emission factors from the Euroepan 
+emission guidelines. This values results in a simply numeric vector
+depending on standard, mileage, type of vehicle and pollutant. However,
+it would be possible to use any other deterioation factors.
+
+Ensure to use correctly the data and cite respective literature.
+
+### Fuel evaluation
+
+It is a good practice to ensure that the mass of fuel consumed of vehicle in your
+study area, matchs the fuel sale son your area. If not, calibrate your emissions
+by number of vehicles (if bottom-up) or a combination of vehicles and mileage 
+(if top-down) to match fuel sales.
+
+### Emissions estimation
+
+Most of emission functions returns an array of emissions, which means a matrix
+of matrices. The idea was that each dimension has a meaning but I've been
+thinking that it is not necessary and each dimension should have different
+nature, for instance, it is not necessary two dimensions for time, despite
+that one indicates hour and the other days. So I mght change that in future. 
+Dont panic, I'm always trying to change the functions without breaking older code.
+
+I hope you liked this book.
+
+<!--chapter:end:10-check.Rmd-->
+
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+<!--chapter:end:11-references.Rmd-->
+
+# (APPENDIX) Appendix {-} 
+
+# Appendix A: Fast Example of VEIN  {-}
+
+
+```{r eval = FALSE}
+library(vein)
+inventory(name = file.path(tempdir(), "YourCity"),
+          show.dir = TRUE,
+          show.scripts = TRUE)
+source(paste0(file.path(tempdir(), "YourCity"), "main.R"))
+```
+
+
+# Appendix B: Detailed Example of VEIN  {-}
+## Network
+
+
+```{r eval = FALSE}
+inventory(file.path(tempdir(), "YourCity"))
+setwd("YourCity")
+data(net) # Loads the traffic demand simulation for west São Paulo
+data(net)
+data(pc_profile)
+pc_week <- temp_fact(net$ldv+net$hdv, pc_profile)
+speed <- netspeed(pc_week, net$ps, net$ffs, net$capacity, net$lkm)
+saveRDS(net, file = "network/net.rds")
+saveRDS(speed, file = "network/speed.rds")
+```
+
+## Vehicular composition [@CETESB2015]
+
+The vehicular composition `vehcomp` has 5 types of vehicles: Passenger Carss (PC),
+Light Commercial Vehicles (LCV), Heavy Good Vehicles or trucks (HGV), Buses (BUS),
+and Motorcycles (MC). The default value of this argument is:
+`c(PC = 4, LCV = 5, HGV = 5, BUS = 3, MC = 9)`, which means that there are 4
+types of PC, 5 of LCV, 5 of trucks, 3 of buses and 9 types of motorcycles. This
+composition comes from the vehicular emissions inventory of the Environmental
+Agency of São Paulo, Brazil [@CETESB2015]. In Brazil, the fuel used in vehicles
+is blended with ethanol with and biodiesel. The user can use **any** vehicular
+composition that representes its fleet with up-to 99 type of vehicles per
+category. The default composition according Brazilian emissions inventory
+is:
+
+_Passenger Cars (PC)_
+
+1. Passenger Cars using Gasoline blended with 25\% of ethanol (E25).
+1. Passenger Cars with Flex engine using Gasoline blended with 25\% of ethanol (FE25).
+1. Passenger Cars with Flex engine using 100\% of ethanol (FE100).
+1. Passenger Cars with engines that uses only ethanol (E100).
+
+
+_Light Commercial Vehicles (LCV)_
+
+1. Light Commercial Vehicles with gross weight (GW) less than 3.8 t using
+Gasoline blended with 25\% of ethanol (E25).
+1. Light Commercial Vehicles with GW less than 3.8 t with Flex engine using
+Gasoline blended with 25\% of ethanol (FE25).
+1. Light Commercial Vehicles  with GW less than 3.8 t with Flex engine using
+100\% of ethanol (FE100).
+1. Light Commercial Vehicles  with GW less than 3.8 t with engines that uses
+only ethanol (E100).
+1. Light Commercial Vehicles  with GW less than 3.8 t with engines that uses
+only ethanol (E100).
+
+_Heavy Good Vehicles (HGV) or Trucks_
+
+1. Semi Light Trucks (SLT) with 3.8 t < GW < 6 t using Diesel blended with 5\%
+of biodiesel (B5).
+1. Light Trucks (LT) with 6 t < GW < 10 t using Diesel blended with 5\% of
+biodiesel (B5).
+1. Medium Trucks (MT) with 10 t < GW < 15 t using Diesel blended with 5\% of
+biodiesel (B5).
+1. Semi Heavy Trucks (SHT) with 15 t < GW on a Rigid Truck (RT)  and GW < 40 on
+an Articulated Truck (AT) using Diesel blended with 5\% of bodiesel (B5).
+1. Heavy Trucks (HT) with 15 t < GW on a RT  and GW >= 40 on an AT using Diesel
+blended with 5\% of bodiesel (B5).
+
+
+_Buses_
+
+1. Urban Bus (UB) using Diesel blended with 5\% of biodiesel (B5).
+1. Small Urban Bus (SUB) using Diesel blended with 5\% of biodiesel (B5).
+1. Motorway Bus (MB) or Coach using Diesel blended with 5\% of biodiesel (B5).
+
+_Motorcycles (MC)_
+
+1. Motorcycles with engine cc < 150 using Gasoline blended with 25\% of ethanol
+(E25).
+1. Motorcycles with engine 150 < cc < 500 using Gasoline blended with 25\% of 
+ethanol (E25).
+1. Motorcycles with engine cc > 500 using Gasoline blended with 25\% of ethanol
+(E25).
+1. Motorcycles with engine cc < 150 with Flex engine using Gasoline blended
+with 25\% of ethanol (FE25).
+1. Motorcycles with engine 150 < cc < 500 with Flex engine using Gasoline
+blended with 25\% of ethanol (FE25).
+1. Motorcycles with engine cc > 500 with Flex engine using Gasoline blended
+with 25\% of ethanol (FE25).
+1. Motorcycles with engine cc < 150 with Flex engine using 100\% of ethanol
+(FE100).
+1. Motorcycles with engine 150 < cc < 500 with Flex engine using 100\% of
+ethanol (FE100).
+1. Motorcycles with engine cc > 500 with Flex engine using 100\% of ethanol
+(FE100).
+
+## Traffic data
+
+The vehicular composition will split the traffic simulation as shown on next
+table. The simulation has traffic for Light Duty Vehicles and Heavy Good
+Vehicles, therefore, the vehicular composition must split this categories and
+considerations:
+
+- Passenger Cars (PC) = 75% of Light Duty Vehicles (LDV) of traffic simulation.
+- Light Commercial Vehicles (LCV) = 10% of LDV of traffic simulation.
+- Motorcycles (MC) = 15% of LDV on traffic simulation.
+- Heavy Good Vehicles (HGV) = 75% of Heavy Duty Vehicles (HDV).
+- Buses =  = 25% of Heavy Duty Vehicles (HDV).
+- LCV and PC have vehicles with flex engines capable to run with any mixture of
+gasoline and ethanol [@2005-01-4130].
+- Type of fuel consumed consists in gasoline blended with 25% of ethanol (E25).
+- The vehicular composition consists in type of vehicles and type of fuel.
+Optionally, the user could have a wider vehicular composition considering more
+sizes, gross weight, etc.
+- The percentages in composition apply for each type of vehicle PC, LCV, HGV,
+BUS and MC.
+
+**Passenger Cars**
+
+The vehicular composition consisted in PC using E25, PC with Flex engines using
+E25 and E100, and OC with engines for consuming only E100. The PC with Flex
+engines entered into Brazilian market in 2003, therefore, at year 2015 flex
+vehicles has 13 years of use. On the other case, PC with engines for E100 went
+out of the market in 2007, therefore, the newest PC with E100 engine has 9 years
+of use.
+
+```{r comppc, echo=FALSE}
+  Vehicles = c("PC_E25","PC_FE25", "PC_FE100", "PC_E100")
+  Composition = c("37.25%","22.26%","37.97%", "2.44%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of PC for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+```{r eval = FALSE}
+PC_E25 <- age_ldv(x = net$ldv,name = "PC_E25",
+                  k = 75/100*37.25)
+PC_FE25 <- age_ldv(x = net$ldv, name = "PC_FE25", agemax = 13,
+                   k = 75/100*22.26)
+PC_FE100 <- age_ldv(x = net$ldv, name = "PC_FE100", agemax = 13,
+                    k = 75/100*37.97)
+PC_E100 <- age_ldv(x = net$ldv, name = "PC_E100", agemin = 9,
+                   k = 75/100*2.44)
+saveRDS(PC_E25, file = "veh/PC_E25.rds")
+saveRDS(PC_FE25, file = "veh/PC_FE25.rds")
+saveRDS(PC_FE100, file = "veh/PC_FE100.rds")
+saveRDS(PC_E100, file = "veh/PC_E100.rds")
+```
+
+
+**Light Commercial Vehicles**
+
+The engine/fuel type affects in the same way to LCV with PC vehicles. However,
+this category has a fraction of vehicles being driven with diesel. In Brazil,
+all diesle is blended with approximatly 5% of biodiesel, then it is named as
+B5. The categorization of the names in LCV is similar with PC.
+
+```{r complcv, echo = FALSE}
+  Vehicles = c("LCV_E25", "LCV_FE25", "LCV_FE100", "LCV_E100", "LCV_B5")
+  Composition = c("39.13%","15.21%","25.90%", "1.18%","18.58%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of LCV for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+```{r eval = FALSE}
+LCV_E25 <- age_ldv(x = net$ldv,name = "LCV_E25",
+                   k = 10/100*39.13)
+LCV_FE25 <- age_ldv(x = net$ldv, name = "LCV_FE25", agemax = 13,
+                    k = 10/100*15.21)
+LCV_FE100 <- age_ldv(x = net$ldv, name = "LCV_FE100", agemax = 13,
+                     k = 10/100*25.90)
+LCV_E100 <- age_ldv(x = net$ldv, name = "LCV_E100", agemin = 9,
+                    k = 10/100*1.18)
+LCV_B5 <- age_ldv(x = net$ldv, name = "LCV_B5",
+                  k = 10/100*18.58)
+saveRDS(LCV_E25, file = "veh/LCV_E25.rds")
+saveRDS(LCV_FE25, file = "veh/LCV_FE25.rds")
+saveRDS(LCV_FE100, file = "veh/LCV_FE100.rds")
+saveRDS(LCV_E100, file = "veh/LCV_E100.rds")
+saveRDS(LCV_B5, file = "veh/LCV_B5.rds")
+```
+
+
+**Heavy Good Vehicles**
+
+HGV uses diesel which is blended with approximatly 5% of biodiesel from sugar-
+cane. 
+
+
+```{r comphgv, echo=FALSE}
+
+Vehicles = c("SLT", "LT", "MT", "SHT", "HT")
+Composition = c("8.38%","25.50%", "15.28%", "24.98%", "25.85%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+caption = 'Vehicular composition of HGV for applied in this book',
+booktabs = TRUE,
+align = "c"
+)
+```
+
+
+
+```{r eval = FALSE}
+HGV_SLT_B5 <- age_hdv(x = net$hdv,name = "HGV_SLT_B5",
+                      k = 75/100*8.38)
+HGV_LT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*25.50)
+HGV_MT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*15.28)
+HGV_SHT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5", 
+                      k = 75/100*24.98)
+HGV_HT_B5 <- age_hdv(x = net$hdv, name = "HGV_SLT_B5",
+                     k = 75/100*25.85)
+saveRDS(HGV_LT_B5, file = "veh/HGV_SLT_B5.rds")
+saveRDS(HGV_SLT_B5, file = "veh/HGV_LT_B5.rds")
+saveRDS(HGV_MT_B5, file = "veh/HGV_MT_B5.rds")
+saveRDS(HGV_SHT_B5, file = "veh/HGV_SHT_B5.rds")
+saveRDS(HGV_HT_B5, file = "veh/HGV_HT_B5.rds")
+```
+
+
+
+**Buses**
+
+In Brazil there are many type of buses, but in this book we are focussing in the
+most abundandt: Urban Buses, Small Urban Buses and Motoreway Buses ro Coach.
+According to the Secretary or Urban Mobility of São Paulo
+(Sptrans, http://www.sptrans.com.br/), the fleet has an average age of use of
+5 years and 5 monthts. To achieve this average age, the agemax of this vehicles
+is 10 years of use.
+
+```{r compbus, echo=FALSE}
+
+  Vehicles = c("UB", "SUB", "MB")
+  Composition = c("77.43%", "9.07%", "13.5%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of BUS for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+
+
+```{r eval = FALSE}
+UB_B5 <- age_hdv(x = net$ldv,name = "UB_B5", agemax = 10,
+                 k = 25/100*77.43)
+SUB_B5 <- age_hdv(x = net$ldv, name = "SUB_B5", 
+                  k = 25/100*9.07)
+MB_B5 <- age_hdv(x = net$ldv, name = "MB_B5",
+                 k = 25/100*13.5)
+saveRDS(HGV_LT_B5, file = "veh/HGV_SLT_B5.rds")
+saveRDS(HGV_SLT_B5, file = "veh/HGV_LT_B5.rds")
+saveRDS(HGV_MT_B5, file = "veh/HGV_MT_B5.rds")
+```
+
+
+
+**Motorcycles**
+
+The vehicular composition consisted in Motorcycles using E25, and recnetly,
+in year 2010, entered into the market flex motorcycles, which can use
+gasoline E25 or ethano E100. Therefore, the oldest flex MC is 6 years old.
+
+
+```{r compmc, echo=FALSE}
+
+  Vehicles = c("MC_150_E25","MC_150_500_E25", "MC_500_E25",
+             "MC_150_FE25","MC_150_500_FE25", "MC_500_FE25",
+             "MC_150_FE100","MC_150_500_FE100", "MC_500_FE100")
+  Composition = c("72.97%", "11.28%", "3.15%",
+            "3.93%", "0.57%", "0.16%",
+            "6.69%", "0.98%", "0.27%")
+df <- data.frame(Vehicles, Composition)
+knitr::kable(df, 
+  caption = 'Vehicular composition of MC for applied in this book',
+  booktabs = TRUE,
+  align = "c"
+)
+```
+
+
+
+```{r eval = FALSE}
+MC_150_E25 <- age_hdv(x = net$ldv,name = "MC_150_E25",
+                      k = 15/100*72.97)
+MC_150_500_E25 <- age_hdv(x = net$ldv, name = "MC_150_500_E25", 
+                          k = 15/100*11.28)
+MC_500_E25 <- age_hdv(x = net$ldv, name = "MC_500_E25",
+                      k = 15/100*3.15)
+
+MC_150_FE25 <- age_hdv(x = net$ldv,name = "MC_150_FE25", agemax = 6,
+                       k = 15/100*3.93)
+MC_150_500_FE25 <- age_hdv(x = net$ldv, name = "MC_150_500_FE25", agemax = 6, k = 15/100*0.57)
+MC_500_FE25 <- age_hdv(x = net$ldv, name = "MC_500_FE25", agemax = 6,
+                       k = 15/100*0.16)
+
+MC_150_FE100 <- age_hdv(x = net$ldv,name = "MC_150_FE100", agemax = 6,
+                        k = 15/100*6.69)
+MC_150_500_FE100 <- age_hdv(x = net$ldv, name = "MC_150_500_FE100", agemax = 6,
+                            k = 15/100*0.98)
+MC_500_FE100 <- age_hdv(x = net$ldv, name = "MC_500_FE100", agemax = 6,
+                        k = 15/100*0.27)
+
+saveRDS(MC_150_E25, file = "veh/MC_150_E25.rds")
+saveRDS(MC_150_500_E25, file = "veh/MC_150_500_E25.rds")
+saveRDS(MC_500_E25, file = "veh/MC_500_E25.rds")
+
+saveRDS(MC_150_FE25, file = "veh/MC_150_FE25.rds")
+saveRDS(MC_150_500_FE25, file = "veh/MC_150_500_FE25.rds")
+saveRDS(MC_500_FE25, file = "veh/MC_500_FE25.rds")
+
+saveRDS(MC_150_FE100, file = "veh/MC_150_FE100.rds")
+saveRDS(MC_150_500_FE100, file = "veh/MC_150_500_FE100.rds")
+saveRDS(MC_500_FE100, file = "veh/MC_500_FE100.rds")
+
+```
+
+
+
+
+# Appendix B {-}
+
+<!--chapter:end:12-appendix.Rmd-->
+

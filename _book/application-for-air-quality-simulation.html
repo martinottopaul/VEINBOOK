@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vehicular emissions inventory with VEIN</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vehicular emissions inventory with VEIN" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="ibarraespinosa/veinbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vehicular emissions inventory with VEIN" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sergio Ibarra-Espinosa">
+
+
+<meta name="date" content="2017-11-10">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="post-estimation.html">
+<link rel="next" href="health-effects.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#purpose"><i class="fa fa-check"></i>Purpose</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i>Structure</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required-r-packages"><i class="fa fa-check"></i>Required R packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#installation"><i class="fa fa-check"></i><b>1.1</b> Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="traffic-data.html"><a href="traffic-data.html"><i class="fa fa-check"></i><b>2</b> Traffic data</a></li>
+<li class="chapter" data-level="3" data-path="traffic-data-1.html"><a href="traffic-data-1.html"><i class="fa fa-check"></i><b>3</b> Traffic data</a></li>
+<li class="chapter" data-level="4" data-path="emission-factors.html"><a href="emission-factors.html"><i class="fa fa-check"></i><b>4</b> Emission Factors</a><ul>
+<li class="chapter" data-level="4.1" data-path="emission-factors.html"><a href="emission-factors.html#speed-functions"><i class="fa fa-check"></i><b>4.1</b> Speed functions</a></li>
+<li class="chapter" data-level="4.2" data-path="emission-factors.html"><a href="emission-factors.html#constant-values-by-age-of-use"><i class="fa fa-check"></i><b>4.2</b> Constant values by age of use</a></li>
+<li class="chapter" data-level="4.3" data-path="emission-factors.html"><a href="emission-factors.html#other-approaches"><i class="fa fa-check"></i><b>4.3</b> Other approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="estimation-of-emissions.html"><a href="estimation-of-emissions.html"><i class="fa fa-check"></i><b>5</b> Estimation of emissions</a><ul>
+<li class="chapter" data-level="5.1" data-path="estimation-of-emissions.html"><a href="estimation-of-emissions.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="estimation-of-emissions.html"><a href="estimation-of-emissions.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="post-estimation.html"><a href="post-estimation.html"><i class="fa fa-check"></i><b>6</b> Post estimation</a><ul>
+<li class="chapter" data-level="6.1" data-path="post-estimation.html"><a href="post-estimation.html#visualization"><i class="fa fa-check"></i><b>6.1</b> Visualization</a></li>
+<li class="chapter" data-level="6.2" data-path="post-estimation.html"><a href="post-estimation.html#data-bases"><i class="fa fa-check"></i><b>6.2</b> Data-Bases</a></li>
+<li class="chapter" data-level="6.3" data-path="post-estimation.html"><a href="post-estimation.html#speciation"><i class="fa fa-check"></i><b>6.3</b> Speciation</a></li>
+<li class="chapter" data-level="6.4" data-path="post-estimation.html"><a href="post-estimation.html#input-for-other-models"><i class="fa fa-check"></i><b>6.4</b> Input for other models</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="application-for-air-quality-simulation.html"><a href="application-for-air-quality-simulation.html"><i class="fa fa-check"></i><b>7</b> Application for air quality simulation</a><ul>
+<li class="chapter" data-level="7.1" data-path="application-for-air-quality-simulation.html"><a href="application-for-air-quality-simulation.html#visualization-1"><i class="fa fa-check"></i><b>7.1</b> Visualization</a></li>
+<li class="chapter" data-level="7.2" data-path="application-for-air-quality-simulation.html"><a href="application-for-air-quality-simulation.html#data-bases-1"><i class="fa fa-check"></i><b>7.2</b> Data-Bases</a></li>
+<li class="chapter" data-level="7.3" data-path="application-for-air-quality-simulation.html"><a href="application-for-air-quality-simulation.html#speciation-1"><i class="fa fa-check"></i><b>7.3</b> Speciation</a></li>
+<li class="chapter" data-level="7.4" data-path="application-for-air-quality-simulation.html"><a href="application-for-air-quality-simulation.html#input-for-other-models-1"><i class="fa fa-check"></i><b>7.4</b> Input for other models</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="health-effects.html"><a href="health-effects.html"><i class="fa fa-check"></i><b>8</b> Health effects</a><ul>
+<li class="chapter" data-level="8.1" data-path="health-effects.html"><a href="health-effects.html#visualization-2"><i class="fa fa-check"></i><b>8.1</b> Visualization</a></li>
+<li class="chapter" data-level="8.2" data-path="health-effects.html"><a href="health-effects.html#data-bases-2"><i class="fa fa-check"></i><b>8.2</b> Data-Bases</a></li>
+<li class="chapter" data-level="8.3" data-path="health-effects.html"><a href="health-effects.html#speciation-2"><i class="fa fa-check"></i><b>8.3</b> Speciation</a></li>
+<li class="chapter" data-level="8.4" data-path="health-effects.html"><a href="health-effects.html#input-for-other-models-2"><i class="fa fa-check"></i><b>8.4</b> Input for other models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="environmental-planning.html"><a href="environmental-planning.html"><i class="fa fa-check"></i><b>9</b> Environmental Planning</a><ul>
+<li class="chapter" data-level="9.1" data-path="environmental-planning.html"><a href="environmental-planning.html#visualization-3"><i class="fa fa-check"></i><b>9.1</b> Visualization</a></li>
+<li class="chapter" data-level="9.2" data-path="environmental-planning.html"><a href="environmental-planning.html#data-bases-3"><i class="fa fa-check"></i><b>9.2</b> Data-Bases</a></li>
+<li class="chapter" data-level="9.3" data-path="environmental-planning.html"><a href="environmental-planning.html#speciation-3"><i class="fa fa-check"></i><b>9.3</b> Speciation</a></li>
+<li class="chapter" data-level="9.4" data-path="environmental-planning.html"><a href="environmental-planning.html#input-for-other-models-3"><i class="fa fa-check"></i><b>9.4</b> Input for other models</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>10</b> Placeholder</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vehicular emissions inventory with VEIN</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="application-for-air-quality-simulation" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Application for air quality simulation</h1>
+<div id="visualization-1" class="section level2">
+<h2><span class="header-section-number">7.1</span> Visualization</h2>
+</div>
+<div id="data-bases-1" class="section level2">
+<h2><span class="header-section-number">7.2</span> Data-Bases</h2>
+</div>
+<div id="speciation-1" class="section level2">
+<h2><span class="header-section-number">7.3</span> Speciation</h2>
+</div>
+<div id="input-for-other-models-1" class="section level2">
+<h2><span class="header-section-number">7.4</span> Input for other models</h2>
+<p>We have finished a nice book.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="post-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="health-effects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-appmasp.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
