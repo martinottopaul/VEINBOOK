@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-25">
+<meta name="date" content="2018-09-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -444,15 +444,16 @@ emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]]</code></pre></div>
 ## [37] &quot;E_NO3C&quot;   &quot;E_ORGC&quot;   &quot;E_ECC&quot;    &quot;E_PM10&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_create</span>(<span class="dt">wrfinput_dir =</span> <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;eixport&quot;</span>),
            <span class="dt">wrfchemi_dir =</span> <span class="kw">tempdir</span>(),
-           <span class="dt">frames_per_auxinput5 =</span> <span class="dv">168</span>,
+           <span class="dt">frames_per_auxinput5 =</span> <span class="dv">1</span>,
            <span class="dt">domains =</span> <span class="dv">2</span>,
            <span class="dt">variaveis =</span> emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]],
            <span class="dt">verbose =</span> F)</code></pre></div>
 <p>The wrfchemi input file was created on a temporal directory with the function <code>tempdir</code>. Now we can input our <code>GriddedEmissionsArray</code> into our new wrfchem input file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="kw">tempdir</span>(), <span class="dt">full.names =</span> T, <span class="dt">pattern =</span> <span class="st">&quot;wrfchemi_d02&quot;</span>)
 f</code></pre></div>
-<pre><code>## [1] &quot;/tmp/RtmpsneX5I/wrfchemi_d02_2011-08-01_00:00:00&quot;</code></pre>
+<pre><code>## [1] &quot;/tmp/Rtmp3yqgZh/wrfchemi_d02_2011-08-01_00:00:00&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_put</span>(<span class="dt">file =</span> f, <span class="dt">name =</span> <span class="st">&quot;E_CO&quot;</span>, <span class="dt">POL =</span> gCOA)</code></pre></div>
+<pre><code>## [1] &quot;ncvar_put: warning: you asked to write 3213 values, but the passed data array has 539784 entries!&quot;</code></pre>
 <p>Then, we just check our resulting NetCDF file plotting the emissions we just put.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_plot</span>(f, <span class="st">&quot;E_CO&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:wrf"></span>

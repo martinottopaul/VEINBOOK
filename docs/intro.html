@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-25">
+<meta name="date" content="2018-09-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -407,7 +407,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 ## [13] &quot;KM_LDV_GNV&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">50</span>
 mileage &lt;-<span class="st"> </span>fkm[[<span class="st">&quot;KM_PC_E25&quot;</span>]](<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>) 
-<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))
+<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))
 <span class="kw">plot</span>(<span class="dt">y =</span> mileage, <span class="dt">x =</span> age, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:mil"></span>
 <img src="veinbook_files/figure-html/mil-1.svg" alt="Mileage of PC using E25" width="80%" />
@@ -427,7 +427,7 @@ Figure 1.1: Mileage of PC using E25
 <span class="kw">data</span>(pc_profile)
 tf &lt;-<span class="st"> </span><span class="kw">unlist</span>(pc_profile)
 hours &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">168</span>
-<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))
+<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))
 <span class="kw">plot</span>(<span class="dt">y =</span> tf, <span class="dt">x =</span> hours, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tf"></span>
 <img src="veinbook_files/figure-html/tf-1.svg" alt="Temporal Factors for PC" width="80%" />
@@ -444,7 +444,7 @@ Figure 1.2: Temporal Factors for PC
 <span class="kw">data</span>(pc_cold)
 cold &lt;-<span class="st"> </span><span class="kw">unlist</span>(pc_cold)
 hours &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">24</span>
-<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))
+<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))
 <span class="kw">plot</span>(<span class="dt">y =</span> cold, <span class="dt">x =</span> hours, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:cold"></span>
 <img src="veinbook_files/figure-html/cold-1.svg" alt="Cold-starts profile for PC" width="80%" />
@@ -498,7 +498,7 @@ Figure 1.3: Cold-starts profile for PC
 <p>Bruni, Antonio De Castro, and Marcelo Pereira Bales. 2013. “Curvas de Intensidade de Uso Por Tipo de Veículo Automotor Da Frota Da Cidade de São Paulo.” CETESB.</p>
 </div>
 <div id="ref-2005-01-4130">
-<p>Giroldo, Mauro Berti, Edward Werninghaus, Eugenio Coelho, and William Makant. 2005. “Development of 1.6L Flex Fuel Engine for Brazilian Market.” In <em>SAE Technical Paper</em>. SAE International. doi:<a href="https://doi.org/10.4271/2005-01-4130">10.4271/2005-01-4130</a>.</p>
+<p>Giroldo, Mauro Berti, Edward Werninghaus, Eugenio Coelho, and William Makant. 2005. “Development of 1.6l Flex Fuel Engine for Brazilian Market.” In <em>SAE Technical Paper</em>. SAE International. doi:<a href="https://doi.org/10.4271/2005-01-4130">10.4271/2005-01-4130</a>.</p>
 </div>
 <div id="ref-gmd-2017-193">
 <p>Ibarra-Espinosa, S., R. Ynoue, S. O’Sullivan, E. Pebesma, M. D. F. Andrade, and M. Osses. 2017. “VEIN V0.2.2: An R Package for Bottom-up Vehicular Emissions Inventories.” <em>Geoscientific Model Development Discussions</em> 2017: 1–29. doi:<a href="https://doi.org/10.5194/gmd-2017-193">10.5194/gmd-2017-193</a>.</p> 2018. “VEIN V0.2.2: An R Package for Bottom–up Vehicular Emissions Inventories” 11 (6): 2209–29. doi:<a href="https://doi.org/10.5194/gmd-11-2209-2018">10.5194/gmd-11-2209-2018</a>.</p>

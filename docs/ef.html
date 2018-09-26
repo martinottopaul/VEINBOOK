@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-25">
+<meta name="date" content="2018-09-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -426,8 +426,9 @@ Figure 5.3: Emission factor of PC and LT by age of use
 ## Last has  36  functions</code></pre>
 <p>Indeed, we want to see the content of the <code>EmissionFactorsList</code> we would have to extract the elements of the list. EFL_CO has two list, each one for PC and LT. Then, each list has 36 functions, the command <code>class(EFL_CO[[1]][[1]])</code> shows the object is a functon <span class="math inline">\(f(V)\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## function(V) x[j,i]
-## &lt;environment: 0x562e76b0db80&gt;</code></pre>
+<pre><code>## function (V) 
+## x[j, i]
+## &lt;environment: 0x561544c06190&gt;</code></pre>
 <p>Also, as the speed functions are constant, there is no need to add values of V.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]](<span class="dv">100</span>) <span class="co"># constant speed function</span></code></pre></div>
 <pre><code>## [1] 0.171</code></pre>
@@ -493,7 +494,7 @@ EC_{i,j,k,l,m} =\beta_{j} \cdot F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} 
 <li><code>k</code>: Multiplication factor.</li>
 <li><code>show.equation</code>: Option to see or not the equation parameters.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ef1 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ef1 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">-5</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
 ef2 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">0</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
 ef3 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">5</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)
 ef4 &lt;-<span class="st"> </span><span class="kw">ef_ldv_cold</span>(<span class="dt">ta =</span> <span class="dv">10</span>, <span class="dt">cc =</span> <span class="st">&quot;&lt;=1400&quot;</span>, <span class="dt">f =</span><span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;I&quot;</span>, <span class="dt">p =</span> <span class="st">&quot;CO&quot;</span>)</code></pre></div>
@@ -628,15 +629,15 @@ EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot
 <p>The variable ed_20_35 are diurnal evaporative emission factors in <span class="math inline">\(g \cdot day^{-1}\)</span> and eshot_20_35 and erhot_20_35 <span class="math inline">\(g \cdot trip^{-1}\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(fkm)
-evap<span class="op">$</span>ed_20_35_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>ed_20_<span class="dv">35</span> <span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
-evap<span class="op">$</span>eshot_20_35_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>eshot_20_<span class="dv">35</span> <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
-evap<span class="op">$</span>erhot_20_35_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>erhot_20_<span class="dv">35</span>  <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
-<span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>eshot_20_35_gkm, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, 
+evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span> <span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span> <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>_gkm &lt;-<span class="st"> </span>evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>  <span class="op">*</span><span class="st"> </span><span class="fl">4.6</span><span class="op">/</span><span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">41</span>)<span class="op">/</span><span class="dv">365</span>
+<span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>eshot_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, 
      <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>,
      <span class="dt">xlab =</span> <span class="st">&quot;Age of use&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;EV NMHC [g/km]&quot;</span>)
-<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>ed_20_35_gkm, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, 
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>ed_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, 
       <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">15</span>)
-<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>erhot_20_35_gkm, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>, 
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">41</span>, <span class="dt">y =</span> evap<span class="op">$</span>erhot_<span class="dv">20</span>_<span class="dv">35</span>_gkm, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>, 
       <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">17</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:efEVAP"></span>
 <img src="veinbook_files/figure-html/efEVAP-1.svg" alt="Hot Soak (blue), Diurnal (green) and Running Losses (red) EF (g/km)" width="100%" />
@@ -765,7 +766,7 @@ VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
 <p>Ibarra-Espinosa, Sergio. 2017. “Air Pollution Modeling in São Paulo Using Bottom-up Vehicular Emissions Inventories.” PhD thesis, University of São Paulo.</p>
 </div>
 <div id="ref-chenetal2011">
-<p>Chen, Rong-Horng, Li-Bin Chiang, Chung-Nan Chen, and Ta-Hui Lin. 2011. “Cold-Start Emissions of an Si Engine Using Ethanol–gasoline Blended Fuel.” <em>Applied Thermal Engineering</em> 31 (8). Elsevier: 1463–7.</p>
+<p>Chen, Rong-Horng, Li-Bin Chiang, Chung-Nan Chen, and Ta-Hui Lin. 2011. “Cold-Start Emissions of an Si Engine Using Ethanol–Gasoline Blended Fuel.” <em>Applied Thermal Engineering</em> 31 (8). Elsevier: 1463–7.</p>
 </div>
 <div id="ref-Weilenmannetal2009">
 <p>Weilenmann, Martin, Jean-Yves Favez, and Robert Alvarez. 2009. “Cold-Start Emissions of Modern Passenger Cars at Different Low Ambient Temperatures and Their Evolution over Vehicle Legislation Categories.” <em>Atmospheric Environment</em> 43 (15). Elsevier: 2419–29.</p>

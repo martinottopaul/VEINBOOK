@@ -3876,7 +3876,7 @@ data(emis_opt)
 emis_opt[["ecb05_opt1"]]
 wrf_create(wrfinput_dir = system.file("extdata", package = "eixport"),
            wrfchemi_dir = tempdir(),
-           frames_per_auxinput5 = 168,
+           frames_per_auxinput5 = 1,
            domains = 2,
            variaveis = emis_opt[["ecb05_opt1"]],
            verbose = F)
