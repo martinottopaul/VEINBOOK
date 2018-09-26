@@ -189,7 +189,7 @@ match, the resulting speed function will be wrong. There are 146 matchs. The
 probably most used combinations are:
 
 ```{r, echo=FALSE}
-df <- read.csv("~/MEGA/PhDgrive/Literatura/COPERT/matchs.csv")
+df <- read.csv("figuras/matchs.csv")
 df <- df[df$v %in% c("PC", "LCV", "Motorcycle") &
            df$t == "4S", ]
 df <- data.frame(

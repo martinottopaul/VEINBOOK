@@ -1,5 +1,0 @@
-"0","name = file.path(tempdir(), ""YourCity"")"
-"0","inventory(name = name, show.dir = TRUE, show.scripts = TRUE)"
-"2","Error in inventory(name = name, show.dir = TRUE, show.scripts = TRUE) : 
-  could not find function ""inventory""
-"

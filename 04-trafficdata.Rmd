@@ -156,7 +156,7 @@ shortest path between each zone. The table \@ref(tab:ods) shows an extraction of
 the OD matrix for the Metropolitan Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig \@ref(fig.zod) shows a map with the location of the zones OD.
 
 ```{r ods,  echo = FALSE}
-m <- read.csv("~/MEGA/PhDgrive/Dados/OD2007-METRO/Tabelas com dados gerais da Pesquisa Origem e Destino 2007/Tab32_OD2007_individual_PICO.csv", h = F, sep = ";")
+m <- read.csv("figuras/Tab32_OD2007_individual_PICO.csv", h = F, sep = ";")
 m <- as.matrix(m[101:110,101:110])
 knitr::kable(m, 
              caption = 'Matrix OD for motorized indivitual trips between 06:30 and 08:30 MASP 2007',
@@ -167,7 +167,7 @@ knitr::kable(m,
 
 
 ```{r zod, fig.cap='Zones OD for MASP 2007', out.width='100%', fig.asp=.75, fig.align='center', echo=FALSE, messages = FALSE, warning=FALSE}
-zod <- sf::st_read("~/MEGA/PhDgrive/Dados/OD2007-METRO/od.shp", quiet = T)
+zod <- sf::st_read("figuras/od.shp", quiet = T)
 plot(zod$geometry, axes = T, main = NULL)
 ```
 
@@ -369,7 +369,7 @@ The Fig. \@ref(fig:ftd) shows the emissions of PM for each state Brazil and
 prepared for a congress using VEIN as a top-down tool [@ibarraigac].
 
 ```{r ftd, echo = FALSE, fig.cap="Emissions of PM due trafifc, 2017"}
-UF <- readRDS("~/Documentos/suda/brazil/network/net_pollutant.rds")
+UF <- readRDS("figuras/net_pollutant.rds")
 plot(UF["PM"], axes = T, main = "Emissions of PM due trafifc, 2017")
 ```
 
