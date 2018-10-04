@@ -20,14 +20,14 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 (\#eq:efGERAL)
 \end{equation}
 
-There are two main tpes of inventories based on the application, one type is for policy
+There are two main types of inventories based on the application, one type is for policy
 application and the other for scientific application [@pulles2010art]. 
 
 - Inventories for policy application include the National Greenhouse Gas Inventory for the parties under the United Nations Framework on Climate Change [@unfccc].
 - Emissions inventories with scientific applications include the Emission 
 Database for Global Atmospheric Research EDGAR [@edgar].
 
-Emissions inventories can be also multi medi ainventories, such as the Pollutant Release
+Emissions inventories can be also multimedia inventories, such as the Pollutant Release
 and Transfer Registers (PRTR) which include pollutants released to air, water and soil 
 and transferred off-site for treatment or disposal (http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/). However,
 the type of inventory covered in this book cover only the emissions released into the 
@@ -38,16 +38,16 @@ atmosphere.
 It is necessary show some definitions of vehicular emissions inventories approaches, 
 which in this case comes from the European Emissions Guidelines [@NtziachristosSamaras2016]:
 
-- **Top-down** inventories are uses input activity traffic data as fleet statistics,
+- **Top-down** inventories are using input activity traffic data as fleet statistics,
 fuel consumption, representative speeds and country balances. The emissions factors
-uses representative speeds. This inventory are also know as _static_.
-- **Bottom-up** Input activity traffic data comes from traffic counts, traffic
-simulations, vehicle composition, speed recordings and length of the raods. The
+are based on representative speeds. These inventories are also know as _static_.
+- **Bottom-up** invetories are using input activity traffic data from traffic counts, traffic
+simulations, vehicle composition, speed recordings and length of roads. The
 emission factors are speed or/and acceleration functions. These inventories are also 
 know as _dynamic_.
 - **Reconciliation** Both approaches can be reconciliated in urban emissions inventories
-with comparison of total mileage, cold start mileage or emission factors in order
-that the comparison with the total fuel consumption on the study area is satisfactory.
+with comparison of total mileage, cold start mileage or emission factors to ensure
+that the comparison with the total fuel consumption in the study area is satisfactory.
 This means that bottom-up and top-down vehicular emissions must match the fuel sales
 over a region of study. 
 
@@ -68,23 +68,23 @@ library(devtools)
 install_github("ibarraespinosa/vein")
 ```
 
-The github installation requires that the _devtools_ package [@devtools] must be installes, including
+The github installation requires that the _devtools_ package [@devtools] must be installed, including
 its dependencies.
 
 ## Required R packages and dependencies
 
-In order to use the VE0IN package it is necesary to download other r-packages and its dependencies.
+In order to use the VEIN package it is necesary to download other r-packages and its dependencies.
 The current dependencies of VEIN are:
 
-- **sp**. This is a package that provides clases and methods for spatial data [@sp] considering
+- **sp**. This is a package that provides classes and methods for spatial data [@sp] considering
 points, lines, polygons and grids.
 - **rgeos**. It is an interface to the "geometry Engine - Open Source ('GEOS') using the C 'API' for 
-topology operations on geometries" [@rgeos]. Depends on the library GEOS (http://trac.osgeo.org/geos). 
+topology operations on geometries" [@rgeos]. It depends on the library GEOS (http://trac.osgeo.org/geos). 
 - **rgdal**. Provides bindings to the 'Geospatial' Data Abstraction Library ('GDAL') (>= 1.6.3) and 
 access to projection/transformation operations from the 'PROJ.4' library [@rgdal]. Depends on the library GDAL
 (http://www.gdal.org/) and PROJ (http://proj4.org/).
 - **raster**. It is a package that provides tools for analyses and modeling of geographic data [@raster].
-- **units**. It i a package dor measurement units in R [@units]. This package depends on the library 
+- **units**. It is a package for measurement units in R [@units]. This package depends on the library 
 udunits2 (http://www.unidata.ucar.edu/software/udunits/). I
 
 
@@ -103,7 +103,6 @@ sudo apt-get update
 sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev l
 ibproj-dev 
 ```
-
 
 **Fedora**
 ```{bash, eval=FALSE}
@@ -130,10 +129,10 @@ brew install gdal2 --with-armadillo --with-complete
 brew link --force gdal2
 ```
 
-The new version of VEIN wil replace the spatial r-packages dependencies of 
-raster, rgeos and rgdal by the new **sf** [@sf] package and the units [@units] package.
+The new version of VEIN will replace the spatial r-packages dependencies of 
+raster, rgeos and rgdal by the new **sf** [@sf] package and the **units** [@units] package.
 
-sf is a package that provides simple features access for R [@sf], which can be installed
+**sf** is a package that provides simple features access for R [@sf]. It can be installed
 in this way:
 
 ```{r, eval=FALSE}
@@ -154,9 +153,9 @@ There are several datasets available inside the model:
 
 ### Emission factors from CETESB
 
-- **fe2015**: Emission factors from Environmental Agency of Sao Paulo (CETESB).
+- **fe2015**: Emission factors from the Environmental Agency of Sao Paulo (CETESB).
 Pollutants included: "CH4", "CO", "CO2", "HC", "N2O", "NMHC", "NOx" and "PM". The
-type of vehicles included are Passenger Cars (PC) and 
+type of vehicles included are Passenger Cars (PC).
 
 usage:
 ```{r}
@@ -173,15 +172,13 @@ knitr::kable(
 ```
 
 
-
-
 ### Mileage functions of Brazilian Fleet
 
-- **fkm**: List of functions of mileage in km fro Brazilian fleet. Includes mileage functions
-based on more than 2 million recordings of vehicles [@BruniBales2013]. It consists
-in a list of age functions. The type of vehicles are Passneger Cars (PC), Light 
-Commercial Vehicles (LCV), Small Bus (SBUS), Trucks, Articulated Trucks (ATRUCKS),
-Motorcycles (MOTO) and Light vehicles' (LDV). The fuels are Gasoline using 25\% of
+- **fkm**: A list of functions of mileage in km for the Brazilian fleet. It includes mileage
+functions based on more than 2 million recordings of vehicles [@BruniBales2013]. It consists
+a list of age functions. The type of vehicles are Passneger Cars (PC), Light 
+Commercial Vehicles (LCV), Small Busses (SBUS), Trucks, Articulated Trucks (ATRUCKS),
+Motorcycles (MOTO) and Light vehicles (LDV). The fuels are Gasoline using 25\% of
 ethanol (E25), Ethanol 100\% (E100) and Diesel with 5\% of biodiesel (B5). There are
 also vehicles with flex engines which can run either with E25, E100 or any mixture
 in between [@2005-01-4130]. The Fig. (\@ref(fig:mil) shows the mileage of PC using fuel E25.
@@ -196,8 +193,8 @@ age <- 1:50
 mileage <- fkm[["KM_PC_E25"]](1:50) 
 par(mar = c(4, 4, .1, .1))
 plot(y = mileage, x = age, pch = 19, type = "b")
-
 ```
+
 
 - **net**: Road network of the west part of Sao Paulo city. It consistes in a 
 SpatialLinesDataFrame (class of sp) with the attributes ldv (light duty vehicles, 
@@ -205,7 +202,6 @@ $1 \cdot h^{-1}$), hdv (heavy duty vehicles, $1 \cdot h^{-1}$), ps (peak speed,
 $km \cdot h^{-1}$), ffs (free flow speed, $km \cdot h^{-1}$), tstreet (type of street), 
 lanes (number of lanes), capacity (capacity fo vehicles at each link, 1/h) and tmin (time
 for travelling each link, min). The Fig. (\@ref(traffic) shows more details.
-
 
 
 ### Temporal factors for Passenger Cars
@@ -227,11 +223,11 @@ plot(y = tf, x = hours, pch = 16, type = "b")
 ```
 
 
-
 ### Profile for cold starts of Passenger Cars
 
 This is a profile with the hourly percentage of cold starts of Passenger Cars. This
-data covers 24 hours of a working day and it is based cold start recordings during the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005]
+data covers 24 hours of a working day and it is based cold start recordings during 
+the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005]
 in São Paulo [@ivesp]. The Fig. (\@ref(fig:cold) shows the cold-start profile.
 
 usage:
