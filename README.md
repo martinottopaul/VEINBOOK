@@ -1,1 +1,1 @@
-This is the source code fori VEINBOOK
+This is the source code for VEINBOOK
