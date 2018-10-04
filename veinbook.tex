@@ -212,7 +212,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-09-26}
+\date{2018-10-03}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1397,28 +1397,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp3yqgZh/YourCity
+## files at /tmp/RtmpvYSUMe/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmp3yqgZh/YourCity"             
-##  [2] "/tmp/Rtmp3yqgZh/YourCity/ef"          
-##  [3] "/tmp/Rtmp3yqgZh/YourCity/emi"         
-##  [4] "/tmp/Rtmp3yqgZh/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmp3yqgZh/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmp3yqgZh/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmp3yqgZh/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmp3yqgZh/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmp3yqgZh/YourCity/est"         
-## [10] "/tmp/Rtmp3yqgZh/YourCity/images"      
-## [11] "/tmp/Rtmp3yqgZh/YourCity/network"     
-## [12] "/tmp/Rtmp3yqgZh/YourCity/post"        
-## [13] "/tmp/Rtmp3yqgZh/YourCity/post/df"     
-## [14] "/tmp/Rtmp3yqgZh/YourCity/post/grids"  
-## [15] "/tmp/Rtmp3yqgZh/YourCity/post/streets"
-## [16] "/tmp/Rtmp3yqgZh/YourCity/profiles"    
-## [17] "/tmp/Rtmp3yqgZh/YourCity/veh"
+##  [1] "/tmp/RtmpvYSUMe/YourCity"             
+##  [2] "/tmp/RtmpvYSUMe/YourCity/ef"          
+##  [3] "/tmp/RtmpvYSUMe/YourCity/emi"         
+##  [4] "/tmp/RtmpvYSUMe/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpvYSUMe/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpvYSUMe/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpvYSUMe/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpvYSUMe/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpvYSUMe/YourCity/est"         
+## [10] "/tmp/RtmpvYSUMe/YourCity/images"      
+## [11] "/tmp/RtmpvYSUMe/YourCity/network"     
+## [12] "/tmp/RtmpvYSUMe/YourCity/post"        
+## [13] "/tmp/RtmpvYSUMe/YourCity/post/df"     
+## [14] "/tmp/RtmpvYSUMe/YourCity/post/grids"  
+## [15] "/tmp/RtmpvYSUMe/YourCity/post/streets"
+## [16] "/tmp/RtmpvYSUMe/YourCity/profiles"    
+## [17] "/tmp/RtmpvYSUMe/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1494,7 +1494,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp3yqgZh/YourCity
+## files at /tmp/RtmpvYSUMe/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -1924,10 +1924,7 @@ origin and destination and maptools to transform points to lines.
 \end{Shaded}
 
 \begin{figure}
-\centering
-\includegraphics{figuras/gway.png}
-\caption{\label{fig:unnamed-chunk-43}Driving route between zones `Luz' and
-`Bom Retiro' in São Paulo}
+\includegraphics[width=4.86in]{figuras/gway} \caption{Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo}\label{fig:unnamed-chunk-43}
 \end{figure}
 
 \subsubsection{The R package dodgr}\label{the-r-package-dodgr}
@@ -2814,9 +2811,8 @@ functon \(f(V)\).
 \end{Shaded}
 
 \begin{verbatim}
-## function (V) 
-## x[j, i]
-## <environment: 0x56155064ed98>
+## function(V) x[j,i]
+## <environment: 0x55e0ac4c6fa8>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4159,11 +4155,6 @@ object.
 \end{Shaded}
 
 \begin{verbatim}
-## Warning in if (!class(ef) %in% c("list", "units", "EmissionFactorsList", :
-## a condição tem comprimento > 1 e somente o primeiro elemento será usado
-\end{verbatim}
-
-\begin{verbatim}
 ## Number of columns of 'veh' is different than length of 'ef'
 \end{verbatim}
 
@@ -4249,11 +4240,6 @@ different pattern of emissions:
               \DataTypeTok{profile =}\NormalTok{ profiles}\OperatorTok{$}\NormalTok{PC_JUNE_}\DecValTok{2014}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning in if (!class(ef) %in% c("list", "units", "EmissionFactorsList", :
-## a condição tem comprimento > 1 e somente o primeiro elemento será usado
-\end{verbatim}
 
 \begin{verbatim}
 ## Number of columns of 'veh' is different than length of 'ef'
@@ -4448,31 +4434,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp3yqgZh/YourCity
+## files at /tmp/RtmpvYSUMe/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmp3yqgZh/YourCity"             
-##  [2] "/tmp/Rtmp3yqgZh/YourCity/ef"          
-##  [3] "/tmp/Rtmp3yqgZh/YourCity/emi"         
-##  [4] "/tmp/Rtmp3yqgZh/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmp3yqgZh/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmp3yqgZh/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmp3yqgZh/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmp3yqgZh/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmp3yqgZh/YourCity/est"         
-## [10] "/tmp/Rtmp3yqgZh/YourCity/images"      
-## [11] "/tmp/Rtmp3yqgZh/YourCity/network"     
-## [12] "/tmp/Rtmp3yqgZh/YourCity/post"        
-## [13] "/tmp/Rtmp3yqgZh/YourCity/post/df"     
-## [14] "/tmp/Rtmp3yqgZh/YourCity/post/grids"  
-## [15] "/tmp/Rtmp3yqgZh/YourCity/post/streets"
-## [16] "/tmp/Rtmp3yqgZh/YourCity/profiles"    
-## [17] "/tmp/Rtmp3yqgZh/YourCity/veh"
+##  [1] "/tmp/RtmpvYSUMe/YourCity"             
+##  [2] "/tmp/RtmpvYSUMe/YourCity/ef"          
+##  [3] "/tmp/RtmpvYSUMe/YourCity/emi"         
+##  [4] "/tmp/RtmpvYSUMe/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpvYSUMe/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpvYSUMe/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpvYSUMe/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpvYSUMe/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpvYSUMe/YourCity/est"         
+## [10] "/tmp/RtmpvYSUMe/YourCity/images"      
+## [11] "/tmp/RtmpvYSUMe/YourCity/network"     
+## [12] "/tmp/RtmpvYSUMe/YourCity/post"        
+## [13] "/tmp/RtmpvYSUMe/YourCity/post/df"     
+## [14] "/tmp/RtmpvYSUMe/YourCity/post/grids"  
+## [15] "/tmp/RtmpvYSUMe/YourCity/post/streets"
+## [16] "/tmp/RtmpvYSUMe/YourCity/profiles"    
+## [17] "/tmp/RtmpvYSUMe/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/Rtmp3yqgZh/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpvYSUMe/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5631,12 +5617,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9195642
-## 2 0.9247390
-## 3 0.9257775
-## 4 0.9348706
-## 5 0.9316113
-## 6 0.9236763
+## 1 0.9271971
+## 2 0.9241414
+## 3 0.9210122
+## 4 0.9258096
+## 5 0.9257585
+## 6 0.9285025
 \end{verbatim}
 
 \begin{Shaded}
@@ -5663,31 +5649,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9195642 0.9247390 0.9257775
+## [1] 0.9271971 0.9241414 0.9210122
 ## Units: [mol/h]
-## [1] 1.416008 1.423977 1.425576
+## [1] 1.427762 1.423057 1.418238
 ## Units: [mol/h]
-## [1] 0.5160928 0.5189971 0.5195799
+## [1] 0.5203767 0.5186617 0.5169055
 ## Units: [mol/h]
-## [1] 0.2490278 0.2504292 0.2507104
+## [1] 0.2510949 0.2502674 0.2494199
 ## Units: [mol/h]
-## [1] 1.889461 1.900094 1.902228
+## [1] 1.905145 1.898866 1.892436
 ## Units: [mol/h]
-## [1] 0.7921363 0.7965940 0.7974886
+## [1] 0.7987115 0.7960793 0.7933837
 ## Units: [mol/h]
-## [1] 0.5251590 0.5281143 0.5287074
+## [1] 0.5295182 0.5277731 0.5259860
 ## Units: [mol/h]
-## [1] 0.02519056 0.02533232 0.02536077
+## [1] 0.02539966 0.02531595 0.02523023
 ## Units: [mol/h]
-## [1] 0.4571583 0.4597309 0.4602472
+## [1] 0.4609530 0.4594338 0.4578782
 ## Units: [mol/h]
-## [1] 0.8709605 0.8758619 0.8768455
+## [1] 0.8781901 0.8752959 0.8723320
 ## Units: [mol/h]
-## [1] 1.223402 1.230287 1.231669
+## [1] 1.233557 1.229492 1.225329
 ## Units: [mol/h]
-## [1] 0.3429372 0.3448670 0.3452543
+## [1] 0.3457838 0.3446442 0.3434772
 ## Units: [mol/h]
-## [1] 0.4472624 0.4497794 0.4502845
+## [1] 0.4509750 0.4494887 0.4479667
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5746,7 +5732,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602035.34
+## Sum of street emissions 602042.3
 \end{verbatim}
 
 \begin{verbatim}
@@ -5754,7 +5740,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602035.34
+## Sum of gridded emissions 602042.3
 \end{verbatim}
 
 \begin{Shaded}
@@ -5791,24 +5777,22 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001443967 [g/m^2/s] 0.01168300 0.0004631945 0.001974671 0.01875282
-## 2 0.001435254 [g/m^2/s] 0.01161251 0.0004603998 0.001962757 0.01863967
-## 3 0.001471186 [g/m^2/s] 0.01190323 0.0004719258 0.002011894 0.01910631
-## 4 0.002544743 [g/m^2/s] 0.02058929 0.0008163008 0.003480019 0.03304861
-## 5 0.005777896 [g/m^2/s] 0.04674843 0.0018534289 0.007901460 0.07503761
+## 1 0.001443466 [g/m^2/s] 0.01167895 0.0004630338 0.001973986 0.01874631
+## 2 0.001434756 [g/m^2/s] 0.01160848 0.0004602400 0.001962076 0.01863320
+## 3 0.001470675 [g/m^2/s] 0.01189910 0.0004717621 0.002011196 0.01909968
+## 4 0.002543930 [g/m^2/s] 0.02058270 0.0008160398 0.003478906 0.03303805
+## 5 0.005817591 [g/m^2/s] 0.04706960 0.0018661622 0.007955744 0.07555313
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05625845 0.005700856 0.02430365 0.01050158 0.004500676 0.05194530
-## 2 0.05591900 0.005666459 0.02415701 0.01043821 0.004473520 0.05163188
-## 3 0.05731892 0.005808318 0.02476178 0.01069953 0.004585514 0.05292447
-## 4 0.09914584 0.010046779 0.04283100 0.01850722 0.007931667 0.09154466
-## 5 0.22511282 0.022811432 0.09724874 0.04202106 0.018009026 0.20785417
+## 1 0.05623892 0.005698878 0.02429522 0.01049793 0.004499114 0.05192727
+## 2 0.05589960 0.005664493 0.02414863 0.01043459 0.004471968 0.05161396
+## 3 0.05729904 0.005806302 0.02475318 0.01069582 0.004583923 0.05290611
+## 4 0.09911414 0.010043566 0.04281731 0.01850131 0.007929131 0.09151539
+## 5 0.22665938 0.022968150 0.09791685 0.04230975 0.018132750 0.20928216
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
-\chapter{\texorpdfstring{Inputs for atmospheric models with
-\texttt{eixport}
-Package}{Inputs for atmospheric models with eixport Package}}\label{ep}
+\chapter{Inputs for atmospheric models}\label{ep}
 
 This last chapter of this book is about generating inputs for
 atmospheric models, specifically, \textbf{WRF-Chem}
@@ -5896,9 +5880,9 @@ file}\label{creating-a-wrf-chem-input-file}
 
 The emission file will be generated with traffic simulation from the
 Traffic Engineering Company (CET) for 2012, which consists in traffic
-flow for morning rush hour of Light Duty Vehicles (LDV) and Heavy Good
-Vehicles (HGV). The emission factors will be the data \texttt{fe2015}
-and the wrfinput comes from the \texttt{eixport} package. Let's go:
+flow for morning rush hour of Light Duty Vehicles (LDV). The emission
+factors will be the data \texttt{fe2015} and the wrfinput comes from the
+\texttt{eixport} package. Let's go:
 
 \subsubsection{0) Network}\label{network}
 
@@ -5914,38 +5898,9 @@ right units in order to use \texttt{vein}
 \KeywordTok{require}\NormalTok{(units)}
 \NormalTok{net <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"figuras/net.rds"}\NormalTok{)}
 \KeywordTok{class}\NormalTok{(net)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "SpatialLinesDataFrame"
-## attr(,"package")
-## [1] "sp"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{net <-}\StringTok{ }\KeywordTok{st_as_sf}\NormalTok{(net)}
+\NormalTok{net <-}\StringTok{ }\NormalTok{sf}\OperatorTok{::}\KeywordTok{st_as_sf}\NormalTok{(net)}
 \NormalTok{net[}\DecValTok{1}\NormalTok{, ]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Simple feature collection with 1 feature and 11 fields
-## geometry type:  LINESTRING
-## dimension:      XY
-## bbox:           xmin: -46.66878 ymin: -23.63199 xmax: -46.66663 ymax: -23.63095
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##          Id Inode Jnode ldv hdv     ps ffs lanes capacity    lkm via
-## 1 8827-9642  8827  9642  60  14 23.661  30     1      400 0.2474   7
-##                         geometry
-## 1 LINESTRING (-46.66878 -23.6...
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{net}\OperatorTok{$}\NormalTok{lkm <-}\StringTok{ }\KeywordTok{set_units}\NormalTok{(}\KeywordTok{st_length}\NormalTok{(net), km) }\CommentTok{# ensure right units}
+\NormalTok{net}\OperatorTok{$}\NormalTok{lkm <-}\StringTok{ }\NormalTok{units}\OperatorTok{::}\KeywordTok{set_units}\NormalTok{(}\KeywordTok{st_length}\NormalTok{(net), km) }\CommentTok{# ensure right units}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5961,28 +5916,6 @@ consuming Diesel with 5\% od biodiesel. Also, the emission factors cover
 \NormalTok{PC_E25 <-}\StringTok{ }\KeywordTok{age_ldv}\NormalTok{(net}\OperatorTok{$}\NormalTok{ldv)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Average age of age is 11.17
-\end{verbatim}
-
-\begin{verbatim}
-## Number of age is 24708.77 * 10^3 veh
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{LT_B5 <-}\StringTok{ }\KeywordTok{age_hdv}\NormalTok{(net}\OperatorTok{$}\NormalTok{hdv)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Average age of age is 17.12
-\end{verbatim}
-
-\begin{verbatim}
-## Number of age is 2809.3 * 10^3 veh
-\end{verbatim}
 
 \subsubsection{2) Emission factors}\label{emission-factors}
 
@@ -6000,20 +5933,6 @@ added in order to print the objects in one line.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## This EmissionFactorsList has  36  functions
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(EF_CO_LT_B5 <-}\StringTok{ }\KeywordTok{EmissionFactorsList}\NormalTok{(fe2015[fe2015}\OperatorTok{$}\NormalTok{Pollutant }\OperatorTok{==}\StringTok{ "CO"}\NormalTok{, }\StringTok{"LT"}\NormalTok{]))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## This EmissionFactorsList has  36  functions
-\end{verbatim}
-
 \subsubsection{3) Estimation of
 emissions}\label{estimation-of-emissions}
 
@@ -6023,55 +5942,8 @@ simplified way. The emissions array are aggregated.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{data}\NormalTok{(profiles)}
-\NormalTok{emi1 <-}\StringTok{ }\KeywordTok{emis}\NormalTok{(}\DataTypeTok{veh =}\NormalTok{ PC_E25, }\DataTypeTok{lkm =}\NormalTok{ net}\OperatorTok{$}\NormalTok{lkm, }\DataTypeTok{ef =}\NormalTok{ EF_CO_PC_E25,}
+\NormalTok{emi <-}\StringTok{ }\KeywordTok{emis}\NormalTok{(}\DataTypeTok{veh =}\NormalTok{ PC_E25, }\DataTypeTok{lkm =}\NormalTok{ net}\OperatorTok{$}\NormalTok{lkm, }\DataTypeTok{ef =}\NormalTok{ EF_CO_PC_E25,}
              \DataTypeTok{profile =}\NormalTok{ profiles}\OperatorTok{$}\NormalTok{PC_JUNE_}\DecValTok{2012}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in if (!class(ef) %in% c("list", "units", "EmissionFactorsList", :
-## a condição tem comprimento > 1 e somente o primeiro elemento será usado
-\end{verbatim}
-
-\begin{verbatim}
-## Number of columns of 'veh' is different than length of 'ef'
-\end{verbatim}
-
-\begin{verbatim}
-## adjusting length of ef to the number of colums of 'veh'
-\end{verbatim}
-
-\begin{verbatim}
-## 1845699.9 kg emissions in 24 hours and 7 days
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{emi2 <-}\StringTok{ }\KeywordTok{emis}\NormalTok{(}\DataTypeTok{veh =}\NormalTok{ LT_B5, }\DataTypeTok{lkm =}\NormalTok{ net}\OperatorTok{$}\NormalTok{lkm, }\DataTypeTok{ef =}\NormalTok{ EF_CO_PC_E25,}
-             \DataTypeTok{profile =}\NormalTok{ profiles}\OperatorTok{$}\NormalTok{HGV_JUNE_}\DecValTok{2012}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in if (!class(ef) %in% c("list", "units", "EmissionFactorsList", :
-## a condição tem comprimento > 1 e somente o primeiro elemento será usado
-\end{verbatim}
-
-\begin{verbatim}
-## Number of columns of 'veh' is different than length of 'ef'
-\end{verbatim}
-
-\begin{verbatim}
-## adjusting length of ef to the number of colums of 'veh'
-\end{verbatim}
-
-\begin{verbatim}
-## 2222757.56 kg emissions in 24 hours and 7 days
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{emi =}\StringTok{ }\NormalTok{emi1 }\OperatorTok{+}\StringTok{ }\NormalTok{emi2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6119,7 +5991,7 @@ file is available from the R package \texttt{eixport}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{veinbook_files/figure-latex/unnamed-chunk-113-1.pdf}
+\includegraphics{veinbook_files/figure-latex/9.8-1.pdf}
 
 Notice that weh we create grid from the path to wrfinput, there is a
 message with \emph{Number of lat points 51} and \emph{Number of lon
@@ -6134,7 +6006,7 @@ emissions:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 4068457459.79
+## Sum of street emissions 1845699895.43
 \end{verbatim}
 
 \begin{verbatim}
@@ -6142,7 +6014,7 @@ emissions:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 4068457459.79
+## Sum of gridded emissions 1845699895.43
 \end{verbatim}
 
 \begin{Shaded}
@@ -6290,24 +6162,9 @@ case, we are creating an wrfchem input file with 40 pollutants, with 0.
 \KeywordTok{library}\NormalTok{(eixport)}
 \KeywordTok{data}\NormalTok{(emis_opt)}
 \NormalTok{emis_opt[[}\StringTok{"ecb05_opt1"}\NormalTok{]]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "E_NO2"    "E_XYL"    "E_TOL"    "E_TERP"   "E_SO2"    "E_ORA2"  
-##  [7] "E_OLT"    "E_OLI"    "E_OL2"    "E_NO"     "E_NH3"    "E_ISO"   
-## [13] "E_HCL"    "E_HCHO"   "E_ETH"    "E_CSL"    "E_CO"     "E_CH3OH" 
-## [19] "E_C2H5OH" "E_ALD"    "E_ALDX"   "E_HC3"    "E_HC5"    "E_HC8"   
-## [25] "E_KET"    "E_PM25I"  "E_PM25J"  "E_ECI"    "E_ECJ"    "E_ORGI"  
-## [31] "E_ORGJ"   "E_SO4I"   "E_SO4J"   "E_NO3I"   "E_NO3J"   "E_SO4C"  
-## [37] "E_NO3C"   "E_ORGC"   "E_ECC"    "E_PM10"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{wrf_create}\NormalTok{(}\DataTypeTok{wrfinput_dir =} \KeywordTok{system.file}\NormalTok{(}\StringTok{"extdata"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"eixport"}\NormalTok{),}
            \DataTypeTok{wrfchemi_dir =} \KeywordTok{tempdir}\NormalTok{(),}
-           \DataTypeTok{frames_per_auxinput5 =} \DecValTok{1}\NormalTok{,}
+           \DataTypeTok{frames_per_auxinput5 =} \DecValTok{168}\NormalTok{,}
            \DataTypeTok{domains =} \DecValTok{2}\NormalTok{,}
            \DataTypeTok{variaveis =}\NormalTok{ emis_opt[[}\StringTok{"ecb05_opt1"}\NormalTok{]],}
            \DataTypeTok{verbose =}\NormalTok{ F)}
@@ -6322,22 +6179,9 @@ function \texttt{tempdir}. Now we can input our
 \begin{Highlighting}[]
 \NormalTok{f <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{(}\DataTypeTok{path =} \KeywordTok{tempdir}\NormalTok{(), }\DataTypeTok{full.names =}\NormalTok{ T, }\DataTypeTok{pattern =} \StringTok{"wrfchemi_d02"}\NormalTok{)}
 \NormalTok{f}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "/tmp/Rtmp3yqgZh/wrfchemi_d02_2011-08-01_00:00:00"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{wrf_put}\NormalTok{(}\DataTypeTok{file =}\NormalTok{ f, }\DataTypeTok{name =} \StringTok{"E_CO"}\NormalTok{, }\DataTypeTok{POL =}\NormalTok{ gCOA)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] "ncvar_put: warning: you asked to write 3213 values, but the passed data array has 539784 entries!"
-\end{verbatim}
 
 Then, we just check our resulting NetCDF file plotting the emissions we
 just put.
@@ -6950,7 +6794,7 @@ will not chech if the data is hourly or anunual.
 \subsection{Emission factors}\label{emission-factors-1}
 
 When I started this book, VEIN contained few emission factors. Now, the
-version 0.4.6 has all the 2016 emission factors of CETESB, almost 100
+version 0.5.2 has all the 2016 emission factors of CETESB, almost 100
 emisision factors from the European Emission guidelines the all the BASE
 emission factors from the International Vehicle Model (IVE). The
 functions to access this data are:

@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-26">
+<meta name="date" content="2018-10-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -197,7 +197,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
 <li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models</a><ul>
 <li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
 <li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
 </ul></li>
@@ -249,7 +249,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="ep" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Inputs for atmospheric models with <code>eixport</code> Package</h1>
+<h1><span class="header-section-number">Chapter 9</span> Inputs for atmospheric models</h1>
 <p>This last chapter of this book is about generating inputs for atmospheric models, specifically, <strong>WRF-Chem</strong> <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span>. As the Pacific Northwest National Laboratory (PNNL, <a href="https://www.pnnl.gov/atmospheric/research/wrf-chem/" class="uri">https://www.pnnl.gov/atmospheric/research/wrf-chem/</a>) defines:</p>
 <p><strong>The Weather Research and Forecasting (WRF) model is a next generation </strong> <strong>meteorological model being developed collaboratively among several agencies</strong> <strong>(NOAA/NCEP, NOAA/ESRL, NCAR). WRF-Chem is a version of WRF that also</strong> <strong>simultaneously simulates the emission, turbulent mixing, transport,</strong> <strong>transformation, and fate of trace gases and aerosols.</strong></p>
 <p>Initially, VEIN counted with the function <code>emis_wrf</code> which created a data.frame object of hourly gridded emissions with each pollutant as a column, from the first cell to the last. The data-frame extendend in long format to each hour. This data.frame was designed to be used with script Another Asimilation System for WRF (AS4WRF) <span class="citation">(Vara-Vela et al. <a href="#ref-VaraVelaetal2015">2016</a>)</span> written in NCL <span class="citation">(Boulder <a href="#ref-ncl">2017</a>)</span>.</p>
@@ -274,72 +274,36 @@ Figure 9.1: Generation of wrfchem inputs using GriddedEmissionsArray
 <p>Example</p>
 <div id="creating-a-wrf-chem-input-file" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Creating a WRF-Chem input file</h3>
-<p>The emission file will be generated with traffic simulation from the Traffic Engineering Company (CET) for 2012, which consists in traffic flow for morning rush hour of Light Duty Vehicles (LDV) and Heavy Good Vehicles (HGV). The emission factors will be the data <code>fe2015</code> and the wrfinput comes from the <code>eixport</code> package. Let’s go:</p>
+<p>The emission file will be generated with traffic simulation from the Traffic Engineering Company (CET) for 2012, which consists in traffic flow for morning rush hour of Light Duty Vehicles (LDV). The emission factors will be the data <code>fe2015</code> and the wrfinput comes from the <code>eixport</code> package. Let’s go:</p>
 <div id="network" class="section level4">
 <h4><span class="header-section-number">9.1.1.1</span> 0) Network</h4>
 <p>The object net has a class <code>SpatialLinesDataFrame</code>, we transform it into a <code>sf</code>object. The length of the road is the field ‘lkm’ in the object net, which are in km but has no units. We must add the right units in order to use <code>vein</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(vein)
 <span class="kw">require</span>(sf)
-<span class="kw">require</span>(units)</code></pre></div>
-<pre><code>## Loading required package: units</code></pre>
-<pre><code>## udunits system database from /usr/share/xml/udunits</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;figuras/net.rds&quot;</span>)
-<span class="kw">class</span>(net)</code></pre></div>
-<pre><code>## [1] &quot;SpatialLinesDataFrame&quot;
-## attr(,&quot;package&quot;)
-## [1] &quot;sp&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(net)
-net[<span class="dv">1</span>, ]</code></pre></div>
-<pre><code>## Simple feature collection with 1 feature and 11 fields
-## geometry type:  LINESTRING
-## dimension:      XY
-## bbox:           xmin: -46.66878 ymin: -23.63199 xmax: -46.66663 ymax: -23.63095
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##          Id Inode Jnode ldv hdv     ps ffs lanes capacity    lkm via
-## 1 8827-9642  8827  9642  60  14 23.661  30     1      400 0.2474   7
-##                         geometry
-## 1 LINESTRING (-46.66878 -23.6...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">net<span class="op">$</span>lkm &lt;-<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_length</span>(net), km) <span class="co"># ensure right units</span></code></pre></div>
+<span class="kw">require</span>(units)
+net &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;figuras/net.rds&quot;</span>)
+<span class="kw">class</span>(net)
+net &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_as_sf</span>(net)
+net[<span class="dv">1</span>, ]
+net<span class="op">$</span>lkm &lt;-<span class="st"> </span>units<span class="op">::</span><span class="kw">set_units</span>(<span class="kw">st_length</span>(net), km) <span class="co"># ensure right units</span></code></pre></div>
 </div>
 <div id="vehicular-composition-1" class="section level4">
 <h4><span class="header-section-number">9.1.1.2</span> 1) Vehicular composition</h4>
 <p>In this case, the vehicular composition consits in only to vehicles, Passenger Cars using Gasoline with 25% of Ethanol and Light Trucks consuming Diesel with 5% od biodiesel. Also, the emission factors cover <span class="math inline">\(CO\)</span>. The temporal distribution will cover only one hour.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PC_E25 &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(net<span class="op">$</span>ldv)</code></pre></div>
-<pre><code>## Average age of age is 11.17</code></pre>
-<pre><code>## Number of age is 24708.77 * 10^3 veh</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LT_B5 &lt;-<span class="st"> </span><span class="kw">age_hdv</span>(net<span class="op">$</span>hdv)</code></pre></div>
-<pre><code>## Average age of age is 17.12</code></pre>
-<pre><code>## Number of age is 2809.3 * 10^3 veh</code></pre>
 </div>
 <div id="emission-factors" class="section level4">
 <h4><span class="header-section-number">9.1.1.3</span> 2) Emission factors</h4>
 <p>The emission factors used comes from <span class="citation">CETESB (<a href="#ref-CETESB2015">2015</a>)</span>, which are constant by age of use. In practice, this data.frame is like an Excel spreadsheet. Then, the constructor function <code>EmissionFactorsList</code> convert our numeric vector, which is the column of our data.frame, into required type of object of the <code>emis</code> function. Parenthesis were added in order to print the objects in one line.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(fe2015)
 (EF_CO_PC_E25 &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;PC_G&quot;</span>]))</code></pre></div>
-<pre><code>## This EmissionFactorsList has  36  functions</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(EF_CO_LT_B5 &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant <span class="op">==</span><span class="st"> &quot;CO&quot;</span>, <span class="st">&quot;LT&quot;</span>]))</code></pre></div>
-<pre><code>## This EmissionFactorsList has  36  functions</code></pre>
 </div>
 <div id="estimation-of-emissions" class="section level4">
 <h4><span class="header-section-number">9.1.1.4</span> 3) Estimation of emissions</h4>
 <p>The estimation of emissions is shown in the following code chunk in a simplified way. The emissions array are aggregated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(profiles)
-emi1 &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> PC_E25, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> EF_CO_PC_E25,
+emi &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> PC_E25, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> EF_CO_PC_E25,
              <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2012</span>)</code></pre></div>
-<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
-## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
-<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
-<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
-<pre><code>## 1845699.9 kg emissions in 24 hours and 7 days</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi2 &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> LT_B5, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> EF_CO_PC_E25,
-             <span class="dt">profile =</span> profiles<span class="op">$</span>HGV_JUNE_<span class="dv">2012</span>)</code></pre></div>
-<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
-## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
-<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
-<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
-<pre><code>## 2222757.56 kg emissions in 24 hours and 7 days</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi =<span class="st"> </span>emi1 <span class="op">+</span><span class="st"> </span>emi2</code></pre></div>
 </div>
 <div id="post-estimations" class="section level4">
 <h4><span class="header-section-number">9.1.1.5</span> 4) Post-estimations</h4>
@@ -357,12 +321,12 @@ g  &lt;-<span class="st"> </span><span class="kw">make_grid</span>(wrf)</code></
 ## Number of lon points 63</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(g), <span class="dt">axes =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(co_street), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="veinbook_files/figure-html/unnamed-chunk-113-1.svg" width="672" /></p>
+<p><img src="veinbook_files/figure-html/9.8-1.svg" width="672" /></p>
 <p>Notice that weh we create grid from the path to wrfinput, there is a message with <em>Number of lat points 51</em> and <em>Number of lon points 63</em>. This information is crytical for later conversions. Now that we have the street emissions and the grid, we can obtain our gridded emissions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gCO &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(<span class="dt">spobj =</span> co_street, <span class="dt">g =</span> g)</code></pre></div>
-<pre><code>## Sum of street emissions 4068457459.79</code></pre>
+<pre><code>## Sum of street emissions 1845699895.43</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 4068457459.79</code></pre>
+<pre><code>## Sum of gridded emissions 1845699895.43</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(gCO)</code></pre></div>
 <pre><code>##   [1] &quot;id&quot;       &quot;V1&quot;       &quot;V2&quot;       &quot;V3&quot;       &quot;V4&quot;       &quot;V5&quot;      
 ##   [7] &quot;V6&quot;       &quot;V7&quot;       &quot;V8&quot;       &quot;V9&quot;       &quot;V10&quot;      &quot;V11&quot;     
@@ -434,26 +398,17 @@ Figure 9.3: GriddedEmissionsArray (mol/h)
 <p>We first load the library <code>eixport</code>. Then load the data <code>emis_opt</code> which has the emissions options for WRFchem. In this case, we are creating an wrfchem input file with 40 pollutants, with 0.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(eixport)
 <span class="kw">data</span>(emis_opt)
-emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]]</code></pre></div>
-<pre><code>##  [1] &quot;E_NO2&quot;    &quot;E_XYL&quot;    &quot;E_TOL&quot;    &quot;E_TERP&quot;   &quot;E_SO2&quot;    &quot;E_ORA2&quot;  
-##  [7] &quot;E_OLT&quot;    &quot;E_OLI&quot;    &quot;E_OL2&quot;    &quot;E_NO&quot;     &quot;E_NH3&quot;    &quot;E_ISO&quot;   
-## [13] &quot;E_HCL&quot;    &quot;E_HCHO&quot;   &quot;E_ETH&quot;    &quot;E_CSL&quot;    &quot;E_CO&quot;     &quot;E_CH3OH&quot; 
-## [19] &quot;E_C2H5OH&quot; &quot;E_ALD&quot;    &quot;E_ALDX&quot;   &quot;E_HC3&quot;    &quot;E_HC5&quot;    &quot;E_HC8&quot;   
-## [25] &quot;E_KET&quot;    &quot;E_PM25I&quot;  &quot;E_PM25J&quot;  &quot;E_ECI&quot;    &quot;E_ECJ&quot;    &quot;E_ORGI&quot;  
-## [31] &quot;E_ORGJ&quot;   &quot;E_SO4I&quot;   &quot;E_SO4J&quot;   &quot;E_NO3I&quot;   &quot;E_NO3J&quot;   &quot;E_SO4C&quot;  
-## [37] &quot;E_NO3C&quot;   &quot;E_ORGC&quot;   &quot;E_ECC&quot;    &quot;E_PM10&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_create</span>(<span class="dt">wrfinput_dir =</span> <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;eixport&quot;</span>),
+emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]]
+<span class="kw">wrf_create</span>(<span class="dt">wrfinput_dir =</span> <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;eixport&quot;</span>),
            <span class="dt">wrfchemi_dir =</span> <span class="kw">tempdir</span>(),
-           <span class="dt">frames_per_auxinput5 =</span> <span class="dv">1</span>,
+           <span class="dt">frames_per_auxinput5 =</span> <span class="dv">168</span>,
            <span class="dt">domains =</span> <span class="dv">2</span>,
            <span class="dt">variaveis =</span> emis_opt[[<span class="st">&quot;ecb05_opt1&quot;</span>]],
            <span class="dt">verbose =</span> F)</code></pre></div>
 <p>The wrfchemi input file was created on a temporal directory with the function <code>tempdir</code>. Now we can input our <code>GriddedEmissionsArray</code> into our new wrfchem input file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="kw">tempdir</span>(), <span class="dt">full.names =</span> T, <span class="dt">pattern =</span> <span class="st">&quot;wrfchemi_d02&quot;</span>)
-f</code></pre></div>
-<pre><code>## [1] &quot;/tmp/Rtmp3yqgZh/wrfchemi_d02_2011-08-01_00:00:00&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_put</span>(<span class="dt">file =</span> f, <span class="dt">name =</span> <span class="st">&quot;E_CO&quot;</span>, <span class="dt">POL =</span> gCOA)</code></pre></div>
-<pre><code>## [1] &quot;ncvar_put: warning: you asked to write 3213 values, but the passed data array has 539784 entries!&quot;</code></pre>
+f
+<span class="kw">wrf_put</span>(<span class="dt">file =</span> f, <span class="dt">name =</span> <span class="st">&quot;E_CO&quot;</span>, <span class="dt">POL =</span> gCOA)</code></pre></div>
 <p>Then, we just check our resulting NetCDF file plotting the emissions we just put.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wrf_plot</span>(f, <span class="st">&quot;E_CO&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:wrf"></span>

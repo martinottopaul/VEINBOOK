@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-26">
+<meta name="date" content="2018-10-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -197,7 +197,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
 <li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models</a><ul>
 <li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
 <li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
 </ul></li>
@@ -298,8 +298,6 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pcw <span c
 lef &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant<span class="op">==</span><span class="st">&quot;CO&quot;</span>, <span class="st">&quot;PC_G&quot;</span>])
 E_CO &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> PC_G,<span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> lef, <span class="dt">speed =</span> speed,
              <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2014</span>)</code></pre></div>
-<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
-## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
 <pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
 <pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
 <pre><code>## 187546.38 kg emissions in 24 hours and 7 days</code></pre>
@@ -334,8 +332,6 @@ Figure 7.2: CO emisions of PC (g/h)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lef &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant<span class="op">==</span><span class="st">&quot;NOx&quot;</span>, <span class="st">&quot;LT&quot;</span>])
 E_NOx &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> LT, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> lef, <span class="dt">speed =</span> speed,
               <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2014</span>)</code></pre></div>
-<pre><code>## Warning in if (!class(ef) %in% c(&quot;list&quot;, &quot;units&quot;, &quot;EmissionFactorsList&quot;, :
-## a condição tem comprimento &gt; 1 e somente o primeiro elemento será usado</code></pre>
 <pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
 <pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
 <pre><code>## 34029.87 kg emissions in 24 hours and 7 days</code></pre>
@@ -422,26 +418,26 @@ Figure 7.6: NOx emissions of LT
 <p>In order to see how this functions works, let’s run the example in the <code>inventory</code> function. First, lets create a project, or in other words a directory named “YourCity”, into the temporary directory. In this part you can place your project wherever you want with the actual name of your city. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name)</code></pre></div>
-<pre><code>## files at /tmp/Rtmp3yqgZh/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpvYSUMe/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/Rtmp3yqgZh/YourCity&quot;             
-##  [2] &quot;/tmp/Rtmp3yqgZh/YourCity/ef&quot;          
-##  [3] &quot;/tmp/Rtmp3yqgZh/YourCity/emi&quot;         
-##  [4] &quot;/tmp/Rtmp3yqgZh/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/Rtmp3yqgZh/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/Rtmp3yqgZh/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/Rtmp3yqgZh/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/Rtmp3yqgZh/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/Rtmp3yqgZh/YourCity/est&quot;         
-## [10] &quot;/tmp/Rtmp3yqgZh/YourCity/images&quot;      
-## [11] &quot;/tmp/Rtmp3yqgZh/YourCity/network&quot;     
-## [12] &quot;/tmp/Rtmp3yqgZh/YourCity/post&quot;        
-## [13] &quot;/tmp/Rtmp3yqgZh/YourCity/post/df&quot;     
-## [14] &quot;/tmp/Rtmp3yqgZh/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/Rtmp3yqgZh/YourCity/post/streets&quot;
-## [16] &quot;/tmp/Rtmp3yqgZh/YourCity/profiles&quot;    
-## [17] &quot;/tmp/Rtmp3yqgZh/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/Rtmp3yqgZh/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/RtmpvYSUMe/YourCity&quot;             
+##  [2] &quot;/tmp/RtmpvYSUMe/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmpvYSUMe/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmpvYSUMe/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmpvYSUMe/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmpvYSUMe/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmpvYSUMe/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmpvYSUMe/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmpvYSUMe/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmpvYSUMe/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmpvYSUMe/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmpvYSUMe/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmpvYSUMe/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmpvYSUMe/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmpvYSUMe/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmpvYSUMe/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmpvYSUMe/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/RtmpvYSUMe/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This script starts with <code>setwd</code> function, Then the first section is the network, where user reads and prepares the traffic information. Then the second section runs a script whichruns the age functions for the deault vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -460,7 +456,7 @@ vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt"
 <p>This function originally used an <code>sp</code> approach. However, now uses an <code>sf</code> approach for creating the grid. Actually, the arguments are pretty much the same with the <code>sf::st_make_grid</code> with the exeption that is focused in returning polygons with coordinates at centroids of each cell. Therefore, the arguments height and polygon are deprecated. Lets create grid for our net.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">library</span>(sf)</code></pre></div>
-<pre><code>## Linking to GEOS 3.6.2, GDAL 2.2.3, proj.4 4.9.3</code></pre>
+<pre><code>## Linking to GEOS 3.6.2, GDAL 2.2.3, PROJ 4.9.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(net)
 net &lt;-<span class="st"> </span><span class="kw">st_transform</span>(<span class="kw">st_as_sf</span>(net), <span class="dv">31983</span>)
 g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(<span class="dt">spobj =</span> net, <span class="dt">width =</span> <span class="dv">500</span>)</code></pre></div>

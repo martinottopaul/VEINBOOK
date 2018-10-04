@@ -3599,7 +3599,7 @@ head(df)
 
 <!--chapter:end:08-speciate.Rmd-->
 
-# Inputs for atmospheric models with `eixport` Package {#ep}
+# Inputs for atmospheric models {#ep}
 
 This last chapter of this book is about generating inputs for atmospheric
 models, specifically, **WRF-Chem** [@Grelletal2005]. As the Pacific Northwest 
@@ -3637,7 +3637,7 @@ emissions into the wrfchemi input file..
 
 ## WRFChem input with wrfinput and `GriddedEmissionsArray`
 
-```{r , eval = FALSE, include = FALSE}
+```{r 9.1, eval = FALSE, include = FALSE}
 library(DiagrammeR)
 
 p1 <- grViz("digraph boxes_and_circles {
@@ -3738,8 +3738,8 @@ Example
 
 The emission file will be generated with traffic simulation from the 
 Traffic Engineering Company (CET) for 2012, which consists
-in traffic flow for morning rush hour of Light Duty Vehicles (LDV) and
-Heavy Good Vehicles (HGV). The emission factors will be the data `fe2015`
+in traffic flow for morning rush hour of Light Duty Vehicles (LDV).
+The emission factors will be the data `fe2015`
 and the wrfinput comes from the `eixport` package. Let's go:
 
 #### 0) Network
@@ -3748,15 +3748,23 @@ The object net has a class `SpatialLinesDataFrame`, we transform it into a
 `sf`object. The length of the road is the field 'lkm' in the object net, which
 are in km but has no units. We must add the right units in order to use `vein`
 
-```{r}
+
+```{r include = FALSE}
+require(vein)
+require(sf)
+require(units)
+```
+
+
+```{r 9.3, eval = FALSE}
 require(vein)
 require(sf)
 require(units)
 net <- readRDS("figuras/net.rds")
 class(net)
-net <- st_as_sf(net)
+net <- sf::st_as_sf(net)
 net[1, ]
-net$lkm <- set_units(st_length(net), km) # ensure right units
+net$lkm <- units::set_units(st_length(net), km) # ensure right units
 ```
 
 
@@ -3767,9 +3775,8 @@ Cars using Gasoline with 25\% of Ethanol and Light Trucks consuming Diesel with
 5\% od biodiesel. Also, the emission factors cover $CO$. The
 temporal distribution will cover only one hour.
 
-```{r}
+```{r 9.4, eval = FALSE}
 PC_E25 <- age_ldv(net$ldv)
-LT_B5 <- age_hdv(net$hdv)
 ```
 
 #### 2) Emission factors
@@ -3780,30 +3787,26 @@ function `EmissionFactorsList` convert our numeric vector, which is the column
 of our data.frame, into required type of object of the `emis` function. Parenthesis
 were added in order to print the objects in one line.
 
-```{r}
+```{r 9.5, eval = FALSE}
 data(fe2015)
 (EF_CO_PC_E25 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "PC_G"]))
-(EF_CO_LT_B5 <- EmissionFactorsList(fe2015[fe2015$Pollutant == "CO", "LT"]))
 ```
 #### 3) Estimation of emissions
 
 The estimation of emissions is shown in the following code chunk in a simplified
 way. The emissions array are aggregated.
 
-```{r}
+```{r 9.6, eval = FALSE}
 data(profiles)
-emi1 <- emis(veh = PC_E25, lkm = net$lkm, ef = EF_CO_PC_E25,
+emi <- emis(veh = PC_E25, lkm = net$lkm, ef = EF_CO_PC_E25,
              profile = profiles$PC_JUNE_2012)
-emi2 <- emis(veh = LT_B5, lkm = net$lkm, ef = EF_CO_PC_E25,
-             profile = profiles$HGV_JUNE_2012)
-emi = emi1 + emi2
 ```
 
 #### 4) Post-estimations
 
 The resulting emissions array `emi` is now processed with `emis_post`.
 
-```{r}
+```{r 9.7, eval = FALSE}
 co_street <- emis_post(arra = emi, by = "streets_wide", net = net)
 ```
 
@@ -3815,7 +3818,12 @@ file, we need a wrfinput file. In this case, the wrfinput coversa wider area
 of the emissions, located in São Paulo, Brazil. The wrfinput file is available
 from the R package `eixport`.
 
-```{r}
+```{r include=FALSE}
+co_street <- readRDS("figuras/co_street.rds")
+```
+
+
+```{r 9.8}
 wrf <- paste(system.file("extdata", package = "eixport"),
              "/wrfinput_d02", sep="")
 g  <- make_grid(wrf)
@@ -3828,7 +3836,7 @@ with *Number of lat points 51* and *Number of lon points 63*. This information
 is crytical for later conversions. Now that we have the street emissions and the
 grid, we can obtain our gridded emissions:
 
-```{r}
+```{r 9.9}
 gCO <- emis_grid(spobj = co_street, g = g)
 names(gCO)
 gCO$geometry
@@ -3870,13 +3878,13 @@ We first load the library `eixport`. Then load the data `emis_opt` which has the
 emissions options for WRFchem. In this case, we are creating an wrfchem input
 file with 40 pollutants, with 0.
 
-```{r}
+```{r 9.12, eval = FALSE}
 library(eixport)
 data(emis_opt)
 emis_opt[["ecb05_opt1"]]
 wrf_create(wrfinput_dir = system.file("extdata", package = "eixport"),
            wrfchemi_dir = tempdir(),
-           frames_per_auxinput5 = 1,
+           frames_per_auxinput5 = 168,
            domains = 2,
            variaveis = emis_opt[["ecb05_opt1"]],
            verbose = F)
@@ -3887,7 +3895,7 @@ The wrfchemi input file was created on a temporal directory with the function
 `tempdir`. Now we can input our `GriddedEmissionsArray` into our new
 wrfchem input file.
 
-```{r}
+```{r 9.13, eval = FALSE}
 f <- list.files(path = tempdir(), full.names = T, pattern = "wrfchemi_d02")
 f
 wrf_put(file = f, name = "E_CO", POL = gCOA)
@@ -3910,7 +3918,7 @@ knitr::include_graphics("figuras/wrf2.png")
 and GMT time. This dataframe has the proper format to be used with WRF assimilation 
 system: "ASimilation System 4 WRF (AS4WRF, -@angel)
 
-```{r}
+```{r 9.16}
 args(emis_wrf)
 ```
 
@@ -3931,7 +3939,7 @@ Local Time
 
 In this case, we can use our gridded emissions directly here:
 
-```{r}
+```{r 9.17}
 gCO$id <- NULL
 df <- emis_wrf(sdf = gCO, dmyhm = "06-10-2014 00:00",
                tz = "America/Sao_Paulo", islist = FALSE)
@@ -3942,7 +3950,7 @@ Then you must export this `data.frame` into a .txt file. You must include
 the number of columns to match your luped species and also take out the columns
 time_lt, time_utc and dutch. These three columns are just informative.
 
-```{r}
+```{r 9.18}
 df <- df[,1:4]
 write.table(x = df, file = tempfile(), sep = "\t",
             col.names = TRUE, row.names = FALSE)
@@ -3952,6 +3960,11 @@ Finally, in order to generate the wrfchem input file, you must have the
 resulting .txt file, a wrfinput file with the same grid spacing, the NCL
 script AS4WRF and a namelist. AS4WRF and the namelist can be obtained contacting
 angel.vela@iag.usp.br and alvv1986@gmail.com.
+
+
+```{r include=FALSE}
+rm(list = ls())
+```
 
 
 <!--chapter:end:09-aq.Rmd-->

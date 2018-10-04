@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-09-26">
+<meta name="date" content="2018-10-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -197,7 +197,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
 <li class="chapter" data-level="8.8" data-path="he.html"><a href="he.html#the-speciation-pmiag"><i class="fa fa-check"></i><b>8.8</b> The speciation <code>pmiag</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models with <code>eixport</code> Package</a><ul>
+<li class="chapter" data-level="9" data-path="ep.html"><a href="ep.html"><i class="fa fa-check"></i><b>9</b> Inputs for atmospheric models</a><ul>
 <li class="chapter" data-level="9.1" data-path="ep.html"><a href="ep.html#wrfchem-input-with-wrfinput-and-griddedemissionsarray"><i class="fa fa-check"></i><b>9.1</b> WRFChem input with wrfinput and <code>GriddedEmissionsArray</code></a><ul>
 <li class="chapter" data-level="9.1.1" data-path="ep.html"><a href="ep.html#creating-a-wrf-chem-input-file"><i class="fa fa-check"></i><b>9.1.1</b> Creating a WRF-Chem input file</a></li>
 </ul></li>
@@ -555,7 +555,7 @@ streets &lt;-<span class="st"> </span><span class="kw">map2SpatialLines</span>(s
 <span class="kw">plot</span>(streets, <span class="dt">axes =</span> T, <span class="dt">main=</span> <span class="st">&quot;Route of 133 LDV trips&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="dt">path =</span> <span class="st">&quot;figuras/gway.png&quot;</span>)</code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-43"></span>
-<img src="figuras/gway.png" alt="Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo"  />
+<img src="figuras/gway.png" alt="Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo" width="175" />
 <p class="caption">
 Figure 4.3: Driving route between zones ‘Luz’ and ‘Bom Retiro’ in São Paulo
 </p>
@@ -590,7 +590,7 @@ Figure 4.4: Daily trips of Light Duty Vehicles in São Paulo
 <li>Create a network, but instead use a road network with spatial lines, use spatial polygons. The Spatial polygon might represent some area where the amount of vehicles is known.</li>
 <li>The <code>age</code> functions shown in following sections, show that it is possible to apply age distributions to each street, in this case, to each area.</li>
 </ul>
-<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> shows the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(<span class="citeproc-not-found" data-reference-id="ibarraigac"><strong>???</strong></span>)</span>.</p>
+<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> shows the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(Ibarra-Espinosa and Schuch <a href="#ref-ibarraigac">2018</a>)</span>.</p>
 <div class="figure"><span id="fig:ftd"></span>
 <img src="veinbook_files/figure-html/ftd-1.svg" alt="Emissions of PM due trafifc, 2017" width="672" />
 <p class="caption">
@@ -836,6 +836,9 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 </div>
 <div id="ref-osm">
 <p>contributors, OpenStreetMap. 2017. “Planet Dump Retrieved from Https://Planet.osm.org.” <a href="https://www.openstreetmap.org" class="uri">https://www.openstreetmap.org</a>.</p>
+</div>
+<div id="ref-ibarraigac">
+<p>Ibarra-Espinosa, Edmilson Freitas, Sergio, and Daniel Schuch. 2018. “Towards a Vectorial Global Vehicular Emissions Inventory.” In <em>2018 Joint 14th iCACGP Quadrennial Symposium/15th Igac Science Conference</em>.</p>
 </div>
 <div id="ref-wang2009forecasting">
 <p>Wang, Xiaokun, and Kara Kockelman. 2009. “Forecasting Network Data: Spatial Interpolation of Traffic Counts from Texas Data.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1 (2105). Transportation Research Board of the National Academies: 100–108.</p>
