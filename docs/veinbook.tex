@@ -338,7 +338,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 \label{eq:efGERAL}
 \end{equation}
 
-There are two main tpes of inventories based on the application, one
+There are two main types of inventories based on the application, one
 type is for policy application and the other for scientific application
 \citep{pulles2010art}.
 
@@ -353,7 +353,7 @@ type is for policy application and the other for scientific application
   Emission Database for Global Atmospheric Research EDGAR \citep{edgar}.
 \end{itemize}
 
-Emissions inventories can be also multi medi ainventories, such as the
+Emissions inventories can be also multimedia inventories, such as the
 Pollutant Release and Transfer Registers (PRTR) which include pollutants
 released to air, water and soil and transferred off-site for treatment
 or disposal
@@ -370,21 +370,21 @@ Guidelines \citep{NtziachristosSamaras2016}:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Top-down} inventories are uses input activity traffic data as
+  \textbf{Top-down} inventories are using input activity traffic data as
   fleet statistics, fuel consumption, representative speeds and country
-  balances. The emissions factors uses representative speeds. This
-  inventory are also know as \emph{static}.
+  balances. The emissions factors are based on representative speeds.
+  These inventories are also know as \emph{static}.
 \item
-  \textbf{Bottom-up} Input activity traffic data comes from traffic
-  counts, traffic simulations, vehicle composition, speed recordings and
-  length of the raods. The emission factors are speed or/and
+  \textbf{Bottom-up} invetories are using input activity traffic data
+  from traffic counts, traffic simulations, vehicle composition, speed
+  recordings and length of roads. The emission factors are speed or/and
   acceleration functions. These inventories are also know as
   \emph{dynamic}.
 \item
   \textbf{Reconciliation} Both approaches can be reconciliated in urban
   emissions inventories with comparison of total mileage, cold start
-  mileage or emission factors in order that the comparison with the
-  total fuel consumption on the study area is satisfactory. This means
+  mileage or emission factors to ensure that the comparison with the
+  total fuel consumption in the study area is satisfactory. This means
   that bottom-up and top-down vehicular emissions must match the fuel
   sales over a region of study.
 \end{itemize}
@@ -411,23 +411,23 @@ VEIN can be also installed from github:
 \end{Shaded}
 
 The github installation requires that the \emph{devtools} package
-\citep{devtools} must be installes, including its dependencies.
+\citep{devtools} must be installed, including its dependencies.
 
 \section{Required R packages and
 dependencies}\label{required-r-packages-and-dependencies}
 
-In order to use the VE0IN package it is necesary to download other
+In order to use the VEIN package it is necesary to download other
 r-packages and its dependencies. The current dependencies of VEIN are:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{sp}. This is a package that provides clases and methods for
+  \textbf{sp}. This is a package that provides classes and methods for
   spatial data \citep{sp} considering points, lines, polygons and grids.
 \item
   \textbf{rgeos}. It is an interface to the ``geometry Engine - Open
   Source (`GEOS') using the C `API' for topology operations on
-  geometries'' \citep{rgeos}. Depends on the library GEOS
+  geometries'' \citep{rgeos}. It depends on the library GEOS
   (\url{http://trac.osgeo.org/geos}).
 \item
   \textbf{rgdal}. Provides bindings to the `Geospatial' Data Abstraction
@@ -439,7 +439,7 @@ r-packages and its dependencies. The current dependencies of VEIN are:
   \textbf{raster}. It is a package that provides tools for analyses and
   modeling of geographic data \citep{raster}.
 \item
-  \textbf{units}. It i a package dor measurement units in R
+  \textbf{units}. It is a package for measurement units in R
   \citep{units}. This package depends on the library udunits2
   (\url{http://www.unidata.ucar.edu/software/udunits/}). I
 \end{itemize}
@@ -496,12 +496,12 @@ geospatial}.
 \end{Highlighting}
 \end{Shaded}
 
-The new version of VEIN wil replace the spatial r-packages dependencies
+The new version of VEIN will replace the spatial r-packages dependencies
 of raster, rgeos and rgdal by the new \textbf{sf} \citep{sf} package and
-the units \citep{units} package.
+the \textbf{units} \citep{units} package.
 
-sf is a package that provides simple features access for R \citep{sf},
-which can be installed in this way:
+\textbf{sf} is a package that provides simple features access for R
+\citep{sf}. It can be installed in this way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -528,10 +528,10 @@ CETESB}\label{emission-factors-from-cetesb}
 \begin{itemize}
 \tightlist
 \item
-  \textbf{fe2015}: Emission factors from Environmental Agency of Sao
+  \textbf{fe2015}: Emission factors from the Environmental Agency of Sao
   Paulo (CETESB). Pollutants included: ``CH4'', ``CO'', ``CO2'', ``HC'',
   ``N2O'', ``NMHC'', ``NOx'' and ``PM''. The type of vehicles included
-  are Passenger Cars (PC) and
+  are Passenger Cars (PC).
 \end{itemize}
 
 usage:
@@ -567,12 +567,12 @@ Fleet}\label{mileage-functions-of-brazilian-fleet}
 \begin{itemize}
 \tightlist
 \item
-  \textbf{fkm}: List of functions of mileage in km fro Brazilian fleet.
-  Includes mileage functions based on more than 2 million recordings of
-  vehicles \citep{BruniBales2013}. It consists in a list of age
-  functions. The type of vehicles are Passneger Cars (PC), Light
-  Commercial Vehicles (LCV), Small Bus (SBUS), Trucks, Articulated
-  Trucks (ATRUCKS), Motorcycles (MOTO) and Light vehicles' (LDV). The
+  \textbf{fkm}: A list of functions of mileage in km for the Brazilian
+  fleet. It includes mileage functions based on more than 2 million
+  recordings of vehicles \citep{BruniBales2013}. It consists a list of
+  age functions. The type of vehicles are Passneger Cars (PC), Light
+  Commercial Vehicles (LCV), Small Busses (SBUS), Trucks, Articulated
+  Trucks (ATRUCKS), Motorcycles (MOTO) and Light vehicles (LDV). The
   fuels are Gasoline using 25\% of ethanol (E25), Ethanol 100\% (E100)
   and Diesel with 5\% of biodiesel (B5). There are also vehicles with
   flex engines which can run either with E25, E100 or any mixture in
@@ -690,6 +690,13 @@ usage:
 
 \caption{Cold-starts profile for PC}\label{fig:cold}
 \end{figure}
+
+\section{Acknowledgement}\label{acknowledgement}
+
+Martin Ramacher, Lecturer Hochschule für Angewandte Wissenschaften
+Hamburg, Faculty of Life Sciences, Proofreading. Leila Droprinchinski
+Martins, Professor (Associate) Federal Technological University of
+Parana, Brazil. Comments.
 
 \chapter{Basics of R}\label{basic}
 
@@ -1397,28 +1404,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp64pYrv/YourCity
+## files at /tmp/Rtmp3R5BGj/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmp64pYrv/YourCity"             
-##  [2] "/tmp/Rtmp64pYrv/YourCity/ef"          
-##  [3] "/tmp/Rtmp64pYrv/YourCity/emi"         
-##  [4] "/tmp/Rtmp64pYrv/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmp64pYrv/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmp64pYrv/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmp64pYrv/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmp64pYrv/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmp64pYrv/YourCity/est"         
-## [10] "/tmp/Rtmp64pYrv/YourCity/images"      
-## [11] "/tmp/Rtmp64pYrv/YourCity/network"     
-## [12] "/tmp/Rtmp64pYrv/YourCity/post"        
-## [13] "/tmp/Rtmp64pYrv/YourCity/post/df"     
-## [14] "/tmp/Rtmp64pYrv/YourCity/post/grids"  
-## [15] "/tmp/Rtmp64pYrv/YourCity/post/streets"
-## [16] "/tmp/Rtmp64pYrv/YourCity/profiles"    
-## [17] "/tmp/Rtmp64pYrv/YourCity/veh"
+##  [1] "/tmp/Rtmp3R5BGj/YourCity"             
+##  [2] "/tmp/Rtmp3R5BGj/YourCity/ef"          
+##  [3] "/tmp/Rtmp3R5BGj/YourCity/emi"         
+##  [4] "/tmp/Rtmp3R5BGj/YourCity/emi/BUS_01"  
+##  [5] "/tmp/Rtmp3R5BGj/YourCity/emi/HGV_01"  
+##  [6] "/tmp/Rtmp3R5BGj/YourCity/emi/LCV_01"  
+##  [7] "/tmp/Rtmp3R5BGj/YourCity/emi/MC_01"   
+##  [8] "/tmp/Rtmp3R5BGj/YourCity/emi/PC_01"   
+##  [9] "/tmp/Rtmp3R5BGj/YourCity/est"         
+## [10] "/tmp/Rtmp3R5BGj/YourCity/images"      
+## [11] "/tmp/Rtmp3R5BGj/YourCity/network"     
+## [12] "/tmp/Rtmp3R5BGj/YourCity/post"        
+## [13] "/tmp/Rtmp3R5BGj/YourCity/post/df"     
+## [14] "/tmp/Rtmp3R5BGj/YourCity/post/grids"  
+## [15] "/tmp/Rtmp3R5BGj/YourCity/post/streets"
+## [16] "/tmp/Rtmp3R5BGj/YourCity/profiles"    
+## [17] "/tmp/Rtmp3R5BGj/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1494,7 +1501,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp64pYrv/YourCity
+## files at /tmp/Rtmp3R5BGj/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -2812,7 +2819,7 @@ functon \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <environment: 0x563833b985d0>
+## <environment: 0x55b9350e4878>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4434,31 +4441,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmp64pYrv/YourCity
+## files at /tmp/Rtmp3R5BGj/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmp64pYrv/YourCity"             
-##  [2] "/tmp/Rtmp64pYrv/YourCity/ef"          
-##  [3] "/tmp/Rtmp64pYrv/YourCity/emi"         
-##  [4] "/tmp/Rtmp64pYrv/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmp64pYrv/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmp64pYrv/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmp64pYrv/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmp64pYrv/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmp64pYrv/YourCity/est"         
-## [10] "/tmp/Rtmp64pYrv/YourCity/images"      
-## [11] "/tmp/Rtmp64pYrv/YourCity/network"     
-## [12] "/tmp/Rtmp64pYrv/YourCity/post"        
-## [13] "/tmp/Rtmp64pYrv/YourCity/post/df"     
-## [14] "/tmp/Rtmp64pYrv/YourCity/post/grids"  
-## [15] "/tmp/Rtmp64pYrv/YourCity/post/streets"
-## [16] "/tmp/Rtmp64pYrv/YourCity/profiles"    
-## [17] "/tmp/Rtmp64pYrv/YourCity/veh"
+##  [1] "/tmp/Rtmp3R5BGj/YourCity"             
+##  [2] "/tmp/Rtmp3R5BGj/YourCity/ef"          
+##  [3] "/tmp/Rtmp3R5BGj/YourCity/emi"         
+##  [4] "/tmp/Rtmp3R5BGj/YourCity/emi/BUS_01"  
+##  [5] "/tmp/Rtmp3R5BGj/YourCity/emi/HGV_01"  
+##  [6] "/tmp/Rtmp3R5BGj/YourCity/emi/LCV_01"  
+##  [7] "/tmp/Rtmp3R5BGj/YourCity/emi/MC_01"   
+##  [8] "/tmp/Rtmp3R5BGj/YourCity/emi/PC_01"   
+##  [9] "/tmp/Rtmp3R5BGj/YourCity/est"         
+## [10] "/tmp/Rtmp3R5BGj/YourCity/images"      
+## [11] "/tmp/Rtmp3R5BGj/YourCity/network"     
+## [12] "/tmp/Rtmp3R5BGj/YourCity/post"        
+## [13] "/tmp/Rtmp3R5BGj/YourCity/post/df"     
+## [14] "/tmp/Rtmp3R5BGj/YourCity/post/grids"  
+## [15] "/tmp/Rtmp3R5BGj/YourCity/post/streets"
+## [16] "/tmp/Rtmp3R5BGj/YourCity/profiles"    
+## [17] "/tmp/Rtmp3R5BGj/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/Rtmp64pYrv/YourCity. Now, if
+In my case, the files are in directory /tmp/Rtmp3R5BGj/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5617,12 +5624,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9308948
-## 2 0.9227564
-## 3 0.9197524
-## 4 0.9323017
-## 5 0.9254277
-## 6 0.9281418
+## 1 0.9276979
+## 2 0.9255842
+## 3 0.9213295
+## 4 0.9226346
+## 5 0.9256159
+## 6 0.9345657
 \end{verbatim}
 
 \begin{Shaded}
@@ -5649,31 +5656,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9308948 0.9227564 0.9197524
+## [1] 0.9276979 0.9255842 0.9213295
 ## Units: [mol/h]
-## [1] 1.433456 1.420924 1.416298
+## [1] 1.428533 1.425278 1.418726
 ## Units: [mol/h]
-## [1] 0.5224520 0.5178844 0.5161984
+## [1] 0.5206577 0.5194715 0.5170835
 ## Units: [mol/h]
-## [1] 0.2520963 0.2498923 0.2490788
+## [1] 0.2512305 0.2506581 0.2495059
 ## Units: [mol/h]
-## [1] 1.912743 1.896020 1.889848
+## [1] 1.906174 1.901831 1.893088
 ## Units: [mol/h]
-## [1] 0.8018968 0.7948862 0.7922984
+## [1] 0.7991429 0.7973221 0.7936570
 ## Units: [mol/h]
-## [1] 0.5316299 0.5269821 0.5252665
+## [1] 0.5298041 0.5285970 0.5261672
 ## Units: [mol/h]
-## [1] 0.02550096 0.02527801 0.02519572
+## [1] 0.02541338 0.02535548 0.02523892
 ## Units: [mol/h]
-## [1] 0.4627913 0.4587453 0.4572518
+## [1] 0.4612019 0.4601511 0.4580359
 ## Units: [mol/h]
-## [1] 0.8816923 0.8739841 0.8711388
+## [1] 0.8786643 0.8766624 0.8726326
 ## Units: [mol/h]
-## [1] 1.238477 1.227649 1.223653
+## [1] 1.234223 1.231411 1.225751
 ## Units: [mol/h]
-## [1] 0.3471628 0.3441277 0.3430074
+## [1] 0.3459705 0.3451823 0.3435955
 ## Units: [mol/h]
-## [1] 0.4527735 0.4488151 0.4473540
+## [1] 0.4512185 0.4501905 0.4481210
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5732,7 +5739,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602027.09
+## Sum of street emissions 602026.1
 \end{verbatim}
 
 \begin{verbatim}
@@ -5740,7 +5747,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602027.09
+## Sum of gridded emissions 602026.1
 \end{verbatim}
 
 \begin{Shaded}
@@ -5777,18 +5784,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001442271 [g/m^2/s] 0.01166928 0.0004626506 0.001972352 0.01873079
-## 2 0.001433569 [g/m^2/s] 0.01159888 0.0004598591 0.001960452 0.01861778
-## 3 0.001469458 [g/m^2/s] 0.01188925 0.0004713716 0.002009531 0.01908387
-## 4 0.002547783 [g/m^2/s] 0.02061388 0.0008172758 0.003484176 0.03308809
-## 5 0.005774448 [g/m^2/s] 0.04672053 0.0018523228 0.007896745 0.07499283
+## 1 0.001443748 [g/m^2/s] 0.01168123 0.0004631242 0.001974372 0.01874997
+## 2 0.001435037 [g/m^2/s] 0.01161075 0.0004603299 0.001962459 0.01863684
+## 3 0.001470962 [g/m^2/s] 0.01190142 0.0004718542 0.002011589 0.01910341
+## 4 0.002542089 [g/m^2/s] 0.02056781 0.0008154493 0.003476389 0.03301414
+## 5 0.005763420 [g/m^2/s] 0.04663131 0.0018487855 0.007881665 0.07484962
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05619238 0.005694161 0.02427511 0.01048924 0.004495390 0.05188429
-## 2 0.05585333 0.005659804 0.02412864 0.01042596 0.004468267 0.05157124
-## 3 0.05725161 0.005801496 0.02473270 0.01068697 0.004580129 0.05286232
-## 4 0.09926427 0.010058780 0.04288217 0.01852933 0.007941142 0.09165401
-## 5 0.22497848 0.022797819 0.09719070 0.04199598 0.017998278 0.20773013
+## 1 0.05624991 0.005699991 0.02429996 0.01049998 0.004499993 0.05193741
+## 2 0.05591052 0.005665599 0.02415334 0.01043663 0.004472841 0.05162404
+## 3 0.05731022 0.005807436 0.02475802 0.01069791 0.004584818 0.05291644
+## 4 0.09904242 0.010036299 0.04278633 0.01848792 0.007923394 0.09144917
+## 5 0.22454885 0.022754283 0.09700510 0.04191579 0.017963908 0.20733344
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 

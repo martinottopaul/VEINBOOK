@@ -240,3 +240,7 @@ par(mar = c(4, 4, .1, .1))
 plot(y = cold, x = hours, pch = 16, type = "b")
 ```
 
+## Acknowledgement
+
+Martin Ramacher, Lecturer Hochschule für Angewandte Wissenschaften Hamburg, Faculty of Life Sciences, Proofreading. 
+Leila Droprinchinski Martins, Professor (Associate) Federal Technological University of Parana, Brazil. Comments.
