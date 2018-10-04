@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-03">
+<meta name="date" content="2018-10-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -300,7 +300,7 @@ Figure 4.1: LDV at 08:00-09:00 (LT) in west São Paulo
 <p>Travel model simulation are not always available and the user interested in estimating vehicular emisisons with a bottom-up approach would have to look for alternatives to obtain traffic data at street level. These alternatives covers interpolating traffic data for different temporal resolutions. For instance, <span class="citation">Réquia Jr, Koutrakis, and Roig (<a href="#ref-requia">2015</a>)</span> developed a vehicular bottom-up inventory using traffic counts and a geostatistic method called Global Moran’s I test <span class="citation">(Anselin <a href="#ref-anselin">1995</a>)</span>. It measures the spatial autocorrelation. However, this technique requires that the observed values are normal, which is not the case for count data.</p>
 <p>Other authors were instested in predicting Anual Average Daily Traffic (AADT) or only ADT. <span class="citation">Lowry (<a href="#ref-lowry2014spatial">2014</a>)</span> presented a new method for predicting AADT based on the concept of origin-destination centrality. The idea is to obtain predictor variables directly from the road network. He identified origin and destination zones and added multiplication factors based on the land-use characteristics.</p>
 <p><span class="citation">Zhao and Chung (<a href="#ref-zhao2001contributing">2001</a>)</span> tested several multiple stepwise regressions incorporating land-use characteristics. They considered several variables: number of lanes, classificatiion of road type, employment numbers and access to expressway with correlations between 0.66 and 0.82. <span class="citation">Lam and Xu (<a href="#ref-lam2000estimation">2000</a>)</span> compared neural networks and regressions for a dataset of 13 locations. Kriging methods were used in AADT interpolation by <span class="citation">Eom et al. (<a href="#ref-eom2006improving">2006</a>)</span>, who predicted AADT for non-motorway streets. Also, <span class="citation">Selby and Kockelman (<a href="#ref-selby2013spatial">2013</a>)</span> compared Kriging and geographically weighted regressions in the prediction of AADT.</p>
-<p>Another approach is to perform a spatial regression based on the distributio on the oberved data. As the data is counts of traffic, a poisson, quasi-poisson or negative binomial regressions can be used <span class="citation">(Zeileis, Kleiber, and Jackman <a href="#ref-zeileis2008regression">2008</a>)</span>. Recently, <span class="citation">Sergio Ibarra-Espinosa et al. (<a href="#ref-Ibarraetal2017a">2017</a>)</span> compared quasi-posson and negative binomial regresions predicting hourly traffic data, with better results with quasi-poisson approach and correlation of 0.72.</p>
+<p>Another approach is to perform a spatial regression based on the distributio on the oberved data. As the data is counts of traffic, a poisson, quasi-poisson or negative binomial regressions can be used <span class="citation">(Zeileis, Kleiber, and Jackman <a href="#ref-zeileis2008regression">2008</a>)</span>. Recently, <span class="citation">Sergio Ibarra-Espinosa, O’Sullivan, et al. (<a href="#ref-Ibarraetal2017a">2017</a>)</span> compared quasi-posson and negative binomial regresions predicting hourly traffic data, with better results with quasi-poisson approach and correlation of 0.72.</p>
 <p>Newer approaches involves using GPS data from smart phones and cars.</p>
 </div>
 <div id="generating-traffic-flows-from-origin-destination-surveys-ods" class="section level3">
@@ -590,7 +590,7 @@ Figure 4.4: Daily trips of Light Duty Vehicles in São Paulo
 <li>Create a network, but instead use a road network with spatial lines, use spatial polygons. The Spatial polygon might represent some area where the amount of vehicles is known.</li>
 <li>The <code>age</code> functions shown in following sections, show that it is possible to apply age distributions to each street, in this case, to each area.</li>
 </ul>
-<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> shows the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(Ibarra-Espinosa and Schuch <a href="#ref-ibarraigac">2018</a>)</span>.</p>
+<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> shows the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(Sergio Ibarra-Espinosa, Freitas, et al. <a href="#ref-ibarraigac">2018</a>)</span>.</p>
 <div class="figure"><span id="fig:ftd"></span>
 <img src="veinbook_files/figure-html/ftd-1.svg" alt="Emissions of PM due trafifc, 2017" width="672" />
 <p class="caption">
@@ -802,13 +802,13 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 <p>Lowry, Michael. 2014. “Spatial Interpolation of Traffic Counts Based on Origin–Destination Centrality.” <em>Journal of Transport Geography</em> 36. Elsevier: 98–105.</p>
 </div>
 <div id="ref-zhao2001contributing">
-<p>Zhao, Fang, and Soon Chung. 2001. “Contributing Factors of Annual Average Daily Traffic in a Florida County: Exploration with Geographic Information System and Regression Models.” <em>Transportation Research Record: Journal of the Transportation Research Board</em>, no. 1769. Transportation Research Board of the National Academies: 113–22.</p>
+<p>Zhao, Fang, and Soon Chung. 2001. “Contributing Factors of Annual Average Daily Traffic in a Florida County: Exploration with Geographic Information System and Regression Models.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1 (1769). Transportation Research Board of the National Academies: 113–22.</p>
 </div>
 <div id="ref-lam2000estimation">
 <p>Lam, William HK, and Jianmin Xu. 2000. “Estimation of Aadt from Short Period Counts in Hong Kong—a Comparison Between Neural Network Method and Regression Analysis.” <em>Journal of Advanced Transportation</em> 34 (2). Wiley Online Library: 249–68.</p>
 </div>
 <div id="ref-eom2006improving">
-<p>Eom, Jin, Man Park, Tae-Young Heo, and Leta Huntsinger. 2006. “Improving the Prediction of Annual Average Daily Traffic for Nonfreeway Facilities by Applying a Spatial Statistical Method.” <em>Transportation Research Record: Journal of the Transportation Research Board</em>, no. 1968. Transportation Research Board of the National Academies: 20–29.</p>
+<p>Eom, Jin, Man Park, Tae-Young Heo, and Leta Huntsinger. 2006. “Improving the Prediction of Annual Average Daily Traffic for Nonfreeway Facilities by Applying a Spatial Statistical Method.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1 (1968). Transportation Research Board of the National Academies: 20–29.</p>
 </div>
 <div id="ref-selby2013spatial">
 <p>Selby, Brent, and Kara M Kockelman. 2013. “Spatial Prediction of Traffic Levels in Unmeasured Locations: Applications of Universal Kriging and Geographically Weighted Regression.” <em>Journal of Transport Geography</em> 29. Elsevier: 24–32.</p>
@@ -838,7 +838,7 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 <p>contributors, OpenStreetMap. 2017. “Planet Dump Retrieved from Https://Planet.osm.org.” <a href="https://www.openstreetmap.org" class="uri">https://www.openstreetmap.org</a>.</p>
 </div>
 <div id="ref-ibarraigac">
-<p>Ibarra-Espinosa, Edmilson Freitas, Sergio, and Daniel Schuch. 2018. “Towards a Vectorial Global Vehicular Emissions Inventory.” In <em>2018 Joint 14th iCACGP Quadrennial Symposium/15th Igac Science Conference</em>.</p>
+<p>Ibarra-Espinosa, Sergio, Edmilson Freitas, Rita Ynoue, Maria de Fátima Andrade, and Daniel Schuch. 2018. “Towards a Vectorial Global Vehicular Emissions Inventory.” In <em>2018 Joint 14th iCACGP Quadrennial Symposium/15th Igac Science Conference</em>.</p>
 </div>
 <div id="ref-wang2009forecasting">
 <p>Wang, Xiaokun, and Kara Kockelman. 2009. “Forecasting Network Data: Spatial Interpolation of Traffic Counts from Texas Data.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1 (2105). Transportation Research Board of the National Academies: 100–108.</p>
@@ -886,7 +886,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ibarraespinosa/VEINBOOK/edit/master/inst/examples/04-trafficdata.Rmd",
+"link": "https://github.com/ibarraespinosa/VEINBOOK/edit/master/04-trafficdata.Rmd",
 "text": "Edit"
 },
 "download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],

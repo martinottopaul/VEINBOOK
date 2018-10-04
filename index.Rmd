@@ -27,8 +27,7 @@ github-repo: ibarraespinosa/veinbook
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
 
-<!-- bookdown::render_book("index.Rmd", rmarkdown::pdf_document(toc = TRUE, number_sections = TRUE, fig_caption = TRUE,
-citation_package = "biblatex")) 
+<!-- bookdown::render_book("index.Rmd", rmarkdown::pdf_document(toc = TRUE, number_sections = TRUE, fig_caption = TRUE, citation_package = "biblatex")) 
 https://gist.githubusercontent.com/marcora/cb37b2432c072e8e9d77/raw/a2d676766559c52981774193d88b0e9ff22bbb3d/gistfile1.txt
 -->
 

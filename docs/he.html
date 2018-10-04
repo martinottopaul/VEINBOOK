@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-03">
+<meta name="date" content="2018-10-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -766,12 +766,12 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;e_eth&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>)
 <span class="kw">head</span>(dfa)</code></pre></div>
 <pre><code>##       e_eth
-## 1 0.9282402
-## 2 0.9281318
-## 3 0.9249852
-## 4 0.9285493
-## 5 0.9238135
-## 6 0.9322990</code></pre>
+## 1 0.9237237
+## 2 0.9288616
+## 3 0.9210585
+## 4 0.9224992
+## 5 0.9299665
+## 6 0.9307749</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;iag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(df)</code></pre></div>
@@ -782,31 +782,31 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
   <span class="kw">print</span>(df[[i]][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]) <span class="co"># Firt three lines of each element of the list</span>
 }</code></pre></div>
 <pre><code>## Units: [mol/h]
-## [1] 0.9282402 0.9281318 0.9249852
+## [1] 0.9237237 0.9288616 0.9210585
 ## Units: [mol/h]
-## [1] 1.429368 1.429201 1.424356
+## [1] 1.422413 1.430325 1.418309
 ## Units: [mol/h]
-## [1] 0.5209621 0.5209012 0.5191353
+## [1] 0.5184272 0.5213108 0.5169314
 ## Units: [mol/h]
-## [1] 0.2513773 0.2513480 0.2504959
+## [1] 0.2501542 0.2515456 0.2494325
 ## Units: [mol/h]
-## [1] 1.907288 1.907065 1.900600
+## [1] 1.898008 1.908565 1.892531
 ## Units: [mol/h]
-## [1] 0.7996100 0.7995167 0.7968061
+## [1] 0.7957194 0.8001453 0.7934235
 ## Units: [mol/h]
-## [1] 0.5301139 0.5300520 0.5282549
+## [1] 0.5275345 0.5304687 0.5260124
 ## Units: [mol/h]
-## [1] 0.02542824 0.02542527 0.02533907
+## [1] 0.02530451 0.02544526 0.02523150
 ## Units: [mol/h]
-## [1] 0.4614715 0.4614176 0.4598533
+## [1] 0.4592261 0.4617804 0.4579012
 ## Units: [mol/h]
-## [1] 0.8791780 0.8790753 0.8760951
+## [1] 0.8749002 0.8797666 0.8723759
 ## Units: [mol/h]
-## [1] 1.234945 1.234801 1.230614
+## [1] 1.228936 1.235772 1.225390
 ## Units: [mol/h]
-## [1] 0.3461728 0.3461323 0.3449589
+## [1] 0.3444884 0.3464045 0.3434945
 ## Units: [mol/h]
-## [1] 0.4514823 0.4514296 0.4498991
+## [1] 0.4492855 0.4517845 0.4479892
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -859,9 +859,9 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <pre><code>## Number of lon points: 23
 ## Number of lat points: 19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gx &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(net, g)</code></pre></div>
-<pre><code>## Sum of street emissions 601947.2</code></pre>
+<pre><code>## Sum of street emissions 601886.26</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 601947.2</code></pre>
+<pre><code>## Sum of gridded emissions 601886.26</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(gx, <span class="dt">spec =</span> <span class="st">&quot;pmiag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>, <span class="dt">dx =</span> <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## To be used in emissions grid only, emissions must be in g/(Xkm^2)/h</code></pre>
@@ -871,18 +871,18 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 ##  [7] &quot;e_orgi&quot;   &quot;e_orgj&quot;   &quot;e_eci&quot;    &quot;e_ecj&quot;    &quot;h2o&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
 <pre><code>##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001452773 [g/m^2/s] 0.01175425 0.0004660193 0.001986714 0.01886718
-## 2 0.001444007 [g/m^2/s] 0.01168333 0.0004632075 0.001974727 0.01875334
-## 3 0.001480158 [g/m^2/s] 0.01197582 0.0004748038 0.002024164 0.01922283
-## 4 0.002554719 [g/m^2/s] 0.02067000 0.0008195006 0.003493661 0.03317816
-## 5 0.005766269 [g/m^2/s] 0.04665435 0.0018496991 0.007885559 0.07488660
+## 1 0.001447280 [g/m^2/s] 0.01170981 0.0004642573 0.001979202 0.01879584
+## 2 0.001438547 [g/m^2/s] 0.01163916 0.0004614561 0.001967260 0.01868243
+## 3 0.001474561 [g/m^2/s] 0.01193054 0.0004730086 0.002016510 0.01915014
+## 4 0.002554209 [g/m^2/s] 0.02066587 0.0008193372 0.003492964 0.03317155
+## 5 0.005765937 [g/m^2/s] 0.04665168 0.0018495929 0.007885107 0.07488230
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05660154 0.005735622 0.02445186 0.01056562 0.004528123 0.05226208
-## 2 0.05626002 0.005701016 0.02430433 0.01050187 0.004500802 0.05194676
-## 3 0.05766848 0.005843740 0.02491278 0.01076478 0.004613479 0.05324723
-## 4 0.09953449 0.010086162 0.04299890 0.01857977 0.007962759 0.09190351
-## 5 0.22465981 0.022765528 0.09705304 0.04193650 0.017972785 0.20743589
+## 1 0.05638752 0.005713935 0.02435941 0.01052567 0.004511002 0.05206448
+## 2 0.05604730 0.005679460 0.02421243 0.01046216 0.004483784 0.05175034
+## 3 0.05745043 0.005821644 0.02481859 0.01072408 0.004596035 0.05304590
+## 4 0.09951464 0.010084150 0.04299032 0.01857607 0.007961171 0.09188518
+## 5 0.22464691 0.022764220 0.09704747 0.04193409 0.017971753 0.20742398
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000</code></pre>
 
 </div>
@@ -911,7 +911,7 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <p>Andrade, Maria de Fatima, Prashant Kumar, Edmilson Dias de Freitas, Rita Yuri Ynoue, Jorge Martins, Leila D Martins, Thiago Nogueira, et al. 2017. “Air Quality in the Megacity of São Paulo: Evolution over the Last 30 Years and Future Perspectives.” <em>Atmospheric Environment</em> 159. Elsevier: 66–82. doi:<a href="https://doi.org/https://doi.org/10.1016/j.atmosenv.2017.03.051">https://doi.org/10.1016/j.atmosenv.2017.03.051</a>.</p>
 </div>
 <div id="ref-Freitasetal2005">
-<p>Freitas, Edmilson, Leila Martins, Pedro Silva Dias, and María de Fátima Andrade. 2005. “A Simple Photochemical Module Implemented in Rams for Tropospheric Ozone Concentration Forecast in the Metropolitan Area of São Paulo, Brazil: Coupling and Validation.” <em>Atmospheric Environment</em>, no. 39. Elsevier: 6352–61.</p>
+<p>Freitas, Edmilson, Leila Martins, Pedro Silva Dias, and María de Fátima Andrade. 2005. “A Simple Photochemical Module Implemented in Rams for Tropospheric Ozone Concentration Forecast in the Metropolitan Area of São Paulo, Brazil: Coupling and Validation.” <em>Atmospheric Environment</em> 1 (39). Elsevier: 6352–61.</p>
 </div>
 <div id="ref-martins2006emission">
 <p>Martins, Leila D, Maria F Andrade, Edmilson D Freitas, Angelica Pretto, Luciana V Gatti, Édler L Albuquerque, Edson Tomaz, Maria L Guardani, Maria HRB Martins, and Olimpio MA Junior. 2006. “Emission Factors for Gas-Powered Vehicles Traveling Through Road Tunnels in São Paulo, Brazil.” <em>Environ. Sci. Technol.</em> 40 (21). ACS Publications: 6722–9. doi:<a href="https://doi.org/10.1021/es052441u">10.1021/es052441u</a>.</p>
@@ -980,7 +980,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ibarraespinosa/VEINBOOK/edit/master/inst/examples/08-speciate.Rmd",
+"link": "https://github.com/ibarraespinosa/VEINBOOK/edit/master/08-speciate.Rmd",
 "text": "Edit"
 },
 "download": ["veinbook.pdf", "veinbook.epub", "veinbook.mobi"],
