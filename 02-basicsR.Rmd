@@ -3,16 +3,15 @@
 ## Brief history
 
 R is a programming language developed by Ross Ihaka and Robert Genleman in 1993 
-[@ihaka1996r]. A good resource about R is the book  programming for data science 
+[@ihaka1996r]. A good resource about R is the book  "Programming for data science" 
 [@peng2015r]. R can be explained as a free version of S-PLUS programming 
 language (http://www.solutionmetrics.com.au/products/splus/default.html). It is 
-free and recognized a GNU spftware (https://www.gnu.org/software/software.html)
+free and recognized as GNU software (https://www.gnu.org/software/software.html)
 with GNU General Public License (GPLV2-GPLV3) license. This feature allowed that many 
 developers started improving and adding code over the years. 
 
-R includes several statistical functions, therefore, user who just want to use 
-the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous
-publications such as the book "R packages: organize, test, document, and share
+R includes several statistical functions, therefore, users who just want to use 
+the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous publications such as the book "R packages: organize, test, document, and share
 your code" [@wickham2015r], or "The art of R programming: A tour of statistical software  design" [@matloff2011art]. 
 
 ### Installation
@@ -20,7 +19,7 @@ your code" [@wickham2015r], or "The art of R programming: A tour of statistical 
 R can be installed in different OS including Linux, Windows, Mac and Solaris. 
 The webpage https://cran.r-project.org/ shows how to install R in any platform.
 A popular Integrated development environment (IDE) is **RStudio** https://www.rstudio.com/, which contains many useful integrated options. 
-However, R can be run on the terminal and use any text editor to write scripts.
+However, R can be run on the terminal and any any text editor can be used to write scripts in R.
 
 ## Using R
 
@@ -31,9 +30,9 @@ x        # Print results
 print(x) # Explicit print x
 ```
 
-Rhe integer 1 was _assigned_ (<-) to x, then writing x or print(x) will show
-the value of x. Instead of numbers, can be assigned other expressions
-such as strings, dates or other objects. R includes several statistical 
+The integer 1 was _assigned_ (<-) to x, then writing x or print(x) will show
+the value of x. Instead of numbers, other expressions such as strings, dates 
+or other objects can be assigned. R includes several statistical 
 functions. For instance, if we type 'pi' at the terminal, it will print
 the pi number.
 
@@ -52,9 +51,9 @@ There are five basic classes (or atomic classes).
 - logical (TRUE/FALSE or just T or F).
 
 Objects of the same class can be grouped in **vectors**. Vectors are created with 
-writting **c()** with the elements of the vector inside the parenthesis, separated
-by colon. In fact, **c** is a builtin function to create vectors. In this case,
-the vector v1 contain a sequence of three integers, from 1 to 3. The resulting 
+writing **c()** with the elements of the vector inside the parenthesis, separated
+by colon. In fact, **c** is a built-in function to create vectors. In this case,
+the vector v1 contains a sequence of three integers, from 1 to 3. The resulting 
 class is numeric.
 
 ```{r}
@@ -66,7 +65,7 @@ class(v1)
 ```
 
 With the operator `[` we can get specific elements of your vectors. In the 
-following code it is also used the function `length`, which simply returns
+following code the function `length` is used additionally, which simply returns
 the length of an object.
 
 ```{r}
@@ -74,9 +73,8 @@ v1[1]          # first element of v1
 v1[length(v1)] # last element element of v1
 ```
 
-
 If we create a vector with numbers and letter, the resulting vector will
-be "character" converting the numbers in characters.
+be "character", automatically converting the numbers into characters.
 
 ```{r}
 v2 <- c(1:3,"a")
@@ -84,8 +82,8 @@ v2
 class(v2)
 ```
 
-Objects can be converted to other classes with the "as.*" functions. For instance,
-If we convert the vector v2 to numeric, it will recognize the numbers adding an 
+Objects can be converted to other classes with the as.* functions. For instance,
+if we convert the vector v2 to numeric, it will recognize the numbers adding an 
 `r NA` into the position of the character.
 
 ```{r}
@@ -96,8 +94,8 @@ as.numeric(v2)
 ### Factors
 
 Factors represents categorical data. A typical example is a character vector of
-days of the week. The function `factor` creates factors, to see help type 
-`?factor`. The following example will use this function with the arguments `x`
+days of the week. The function `factor` creates factors. To see the help section,
+type  `?factor`. The following example will use this function with the arguments `x`
 and `levels`. 
 
 ```{r}
@@ -109,7 +107,7 @@ dow
 
 ### Missing Values
 
-Missing values in data-sets are a typical source of headache in r users. 
+Missing values in data-sets are a typical source of headache for R users. 
 Fortunatly, R counts with several tools to avoid these headaches. These tools
 are fhe functions `is.na` to check for NA (not available) and `is.nan` (not
 a number). This functions returns logical values.
@@ -127,9 +125,10 @@ is.nan(n)
 
 Matrices are structure with rows and columns. They can be created using the 
 `matrix` function and also, using vectors. Remember, if you want to know more
-about any function you just have to type ? and function, for instance:`?matrix`
-will open the help documentation for the function `matrix`. Let's create a
-matrix using vectors:
+about any function you just have to type **?** and the function (e.g. `?matrix`)
+and the help documentation for the function `matrix` will be opened. 
+
+Let's create a matrix using vectors:
 
 ```{r}
 a <- 1:12  #numeric vector
@@ -142,7 +141,7 @@ We can check the dimensions of our matrix `m` with `dim`, which are 3 and 4.
 dim(m)
 ```
 
-In order to get the elements of matrix `m` we can use `[` operator:
+In order to get the elements of matrix `m` we can use the `[` operator:
 ```{r}
 m[1, 1] # first element
 m[, 1]  # firs column
@@ -155,14 +154,13 @@ m[3,4]  # last element
 
 Arrays are like matrices inside other matrices. In fact, a matrix is a 
 2-dimensional array. Let's create an array create an array using the same vector
-a and same dimensiones of m, 3 and 4. `array` has three arguments, `data`, `dim`
- and `dimnames`. In th argument `dim` let's add the number 2, resulting
- in an array of two matrices identical to `m`.
+`a` and same dimensiones of `m`, 3 and 4. `array` has three arguments, `data`, `dim`
+and `dimnames`. In the argument `dim` let's add the number 2, resulting
+in an array of two matrices identical to `m`.
 
 ```{r}
 (a <- array(data = a, dim = c(3,4,2)))
 ```
-
 
 We can subset elements from array also with the `[` operator.
 
@@ -198,10 +196,11 @@ l1 <- list(list(a),                    # three numeric elements
 length(l1)                             # length 2
 ```
 
+
 ### Data-Frames
 
 "Data-frames are used to store tabular data in R" [@peng2015r]. You can think
-in data-frames as spreadsheet-like objects. They are similar with matrix and
+of data-frames as spreadsheet-like objects. They are similar to matrices and
 you can have a matrix and a data-frame with the same dimensions. Basically,
 you have rows and columns, columns can have different classes, and the columns
 usually have a one-word name.
