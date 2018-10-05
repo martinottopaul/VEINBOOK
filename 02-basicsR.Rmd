@@ -209,18 +209,18 @@ usually have a one-word name.
 As this type of object is very used by scientists, there are R packages created
 to work with this type of ojects. Below some of them:
 
-- `data.frame`: This is not a package, for a class and function from the `base`.
-With this functionyou can create data-frames.
+- `data.frame`: This is not a package. It is a class and function from the `base`
+library in R. With this function you can create data-frames.
 - `data-table` [@datatable]: `data.tables` objects has the class `data.table` 
 which inherits from the class `data-frame`, which means that they share common 
 characteristics. However, the big difference with `data-table` is the efficiency
-with memory. It includes function such as `fread` for reading millions of 
+with memory. It includes functions such as `fread` for reading millions of 
 observations in seconds.
 - `tidyr`[@tidyr]: Sometimes your data is in long format and you need it in wide
 format, and viceversa. This package does the job.
 - `readxl` [@readxl]: Good package for importing Excel and LibreOffice files. I
 recommend  this packages for newbies.
-- `sf` [@sf]: This package presents the class `sf` and introduce the list-column
+- `sf` [@sf]: This package presents the class `sf` and introduces the list-column
 of spatial geometry.
 
 Let's create a data-frame.
@@ -246,22 +246,22 @@ names(ab)                # new names
 
 ## Inputting data into R
 
-Your data can be in different formats. In this sections i will show you how you
-can input text and comma separated values files, which is a very common task. 
-Let's say that you uses an spreadsheet program such as Microsoft Excel or
-LibreOffice. Then you might want to export your data into R.
+Your data can be in different formats. In this section I will show you how you
+can input text and comma separated value files, which is a very common task. 
+Let's say that you are using a spreadsheet program such as Microsoft Excel or
+LibreOffice. Then you might want to import your data into R.
 
-- Your first check if the first row of your data has name or not. If they do
-have names, this means that they have a header.
-- Then click on 'Save as' and search text file with extension .txt or CSV.
-- Then you your file with a note bloc, gedit  or other tool to check if the
-decimal character is point '.' and the separator character is comma ',' or 
-semicolon ';' or other character. This depends on the regional confugarion of 
-your spreadsheet software.
-- If your file has extension '.txt', use `read.table` and if is '.csv', use
-`read.csv`.
+- Your first check is, if the first row of your data has a name or not.
+If they do have names, this means that they have a header.
+- Then click on 'Save as' and search text file with extension .txt or .csv.
+- Then you edit your file with a notepad (e.g. bloc, gedit, vi or other tool)
+to check if the decimal character is point '.' and the separator character is 
+comma ',' or semicolon ';' or another character. This depends on the regional 
+configuration of your spreadsheet software.
+- If your file has the extension '.txt', use `read.table` and if it  is '.csv', 
+use `read.csv`.
 
-Once you check, you can import your '.txt' or '.csv' files in R:
+Once you checked the format, you can import your '.txt' or '.csv' files in R:
 
 ```{r eval = FALSE}
 a <- read.csv("path/to/file.csv", sep = ",", header = T)
