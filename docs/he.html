@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-04">
+<meta name="date" content="2018-10-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -120,7 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#temporal-factors-for-passenger-cars"><i class="fa fa-check"></i><b>1.4.3</b> Temporal factors for Passenger Cars</a></li>
 <li class="chapter" data-level="1.4.4" data-path="intro.html"><a href="intro.html#profile-for-cold-starts-of-passenger-cars"><i class="fa fa-check"></i><b>1.4.4</b> Profile for cold starts of Passenger Cars</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#acknowledgement"><i class="fa fa-check"></i><b>1.5</b> Acknowledgement</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#acknowledgements"><i class="fa fa-check"></i><b>1.5</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basic.html"><a href="basic.html"><i class="fa fa-check"></i><b>2</b> Basics of R</a><ul>
 <li class="chapter" data-level="2.1" data-path="basic.html"><a href="basic.html#brief-history"><i class="fa fa-check"></i><b>2.1</b> Brief history</a><ul>
@@ -767,12 +767,12 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;e_eth&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>)
 <span class="kw">head</span>(dfa)</code></pre></div>
 <pre><code>##       e_eth
-## 1 0.9275747
-## 2 0.9260282
-## 3 0.9299407
-## 4 0.9281976
-## 5 0.9293763
-## 6 0.9292864</code></pre>
+## 1 0.9254647
+## 2 0.9278627
+## 3 0.9223772
+## 4 0.9252463
+## 5 0.9280611
+## 6 0.9284052</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;iag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(df)</code></pre></div>
@@ -783,31 +783,31 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
   <span class="kw">print</span>(df[[i]][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]) <span class="co"># Firt three lines of each element of the list</span>
 }</code></pre></div>
 <pre><code>## Units: [mol/h]
-## [1] 0.9275747 0.9260282 0.9299407
+## [1] 0.9254647 0.9278627 0.9223772
 ## Units: [mol/h]
-## [1] 1.428343 1.425962 1.431987
+## [1] 1.425094 1.428787 1.420340
 ## Units: [mol/h]
-## [1] 0.5205886 0.5197207 0.5219165
+## [1] 0.5194044 0.5207502 0.5176716
 ## Units: [mol/h]
-## [1] 0.2511971 0.2507783 0.2518379
+## [1] 0.2506257 0.2512751 0.2497896
 ## Units: [mol/h]
-## [1] 1.905921 1.902743 1.910782
+## [1] 1.901585 1.906512 1.895241
 ## Units: [mol/h]
-## [1] 0.7990368 0.7977046 0.8010749
+## [1] 0.7972192 0.7992848 0.7945595
 ## Units: [mol/h]
-## [1] 0.5297338 0.5288506 0.5310850
+## [1] 0.5285288 0.5298983 0.5267655
 ## Units: [mol/h]
-## [1] 0.02541001 0.02536764 0.02547482
+## [1] 0.02535220 0.02541789 0.02526762
 ## Units: [mol/h]
-## [1] 0.4611407 0.4603719 0.4623169
+## [1] 0.4600917 0.4612839 0.4585568
 ## Units: [mol/h]
-## [1] 0.8785477 0.8770830 0.8807886
+## [1] 0.8765493 0.8788205 0.8736249
 ## Units: [mol/h]
-## [1] 1.234060 1.232002 1.237207
+## [1] 1.231252 1.234443 1.227145
 ## Units: [mol/h]
-## [1] 0.3459246 0.3453479 0.3468069
+## [1] 0.3451377 0.3460320 0.3439863
 ## Units: [mol/h]
-## [1] 0.4511586 0.4504065 0.4523094
+## [1] 0.4501324 0.4512987 0.4486306
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -860,9 +860,9 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <pre><code>## Number of lon points: 23
 ## Number of lat points: 19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gx &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(net, g)</code></pre></div>
-<pre><code>## Sum of street emissions 602044.17</code></pre>
+<pre><code>## Sum of street emissions 601981.32</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 602044.17</code></pre>
+<pre><code>## Sum of gridded emissions 601981.32</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(gx, <span class="dt">spec =</span> <span class="st">&quot;pmiag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>, <span class="dt">dx =</span> <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## To be used in emissions grid only, emissions must be in g/(Xkm^2)/h</code></pre>
@@ -872,18 +872,18 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 ##  [7] &quot;e_orgi&quot;   &quot;e_orgj&quot;   &quot;e_eci&quot;    &quot;e_ecj&quot;    &quot;h2o&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
 <pre><code>##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001451741 [g/m^2/s] 0.01174591 0.0004656885 0.001985303 0.01885378
-## 2 0.001442982 [g/m^2/s] 0.01167504 0.0004628787 0.001973325 0.01874003
-## 3 0.001479107 [g/m^2/s] 0.01196732 0.0004744667 0.002022727 0.01920918
-## 4 0.002548520 [g/m^2/s] 0.02061984 0.0008175123 0.003485184 0.03309766
-## 5 0.005779868 [g/m^2/s] 0.04676438 0.0018540615 0.007904157 0.07506322
+## 1 0.001443543 [g/m^2/s] 0.01167958 0.0004630587 0.001974093 0.01874732
+## 2 0.001434834 [g/m^2/s] 0.01160911 0.0004602648 0.001962182 0.01863420
+## 3 0.001470754 [g/m^2/s] 0.01189974 0.0004717875 0.002011304 0.01910071
+## 4 0.002550920 [g/m^2/s] 0.02063926 0.0008182822 0.003488466 0.03312883
+## 5 0.005793697 [g/m^2/s] 0.04687628 0.0018584977 0.007923069 0.07524282
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05656135 0.005731550 0.02443450 0.01055812 0.004524908 0.05222498
-## 2 0.05622008 0.005696968 0.02428707 0.01049442 0.004497606 0.05190987
-## 3 0.05762754 0.005839591 0.02489510 0.01075714 0.004610203 0.05320943
-## 4 0.09929299 0.010061689 0.04289457 0.01853469 0.007943439 0.09168052
-## 5 0.22518965 0.022819218 0.09728193 0.04203540 0.018015172 0.20792511
+## 1 0.05624195 0.005699185 0.02429652 0.01049850 0.004499356 0.05193007
+## 2 0.05590261 0.005664798 0.02414993 0.01043515 0.004472209 0.05161674
+## 3 0.05730212 0.005806615 0.02475452 0.01069640 0.004584170 0.05290896
+## 4 0.09938650 0.010071166 0.04293497 0.01855215 0.007950920 0.09176687
+## 5 0.22572847 0.022873818 0.09751470 0.04213598 0.018058277 0.20842262
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000</code></pre>
 
 </div>
