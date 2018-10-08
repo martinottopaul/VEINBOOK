@@ -212,7 +212,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-10-06}
+\date{2018-10-08}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1271,10 +1271,8 @@ in R:
 
 \chapter{Structuring an Emissions Inventory}\label{st}
 
-The description file of vein says:
-
-Elaboration of vehicular emissions inventories, consisting in four
-stages,
+The elaboration of vehicular emissions inventories in vein, consists of
+four stages:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1289,10 +1287,11 @@ stages,
   post-processing of emissions in maps and databases.
 \end{enumerate}
 
-This means that vein provide functions to be used in each of the stages.
-However, in order follow these stages it is needed a structure of
-directories with scripts with vein functions. Therefore, it was created
-the function \texttt{inventory}, to create this structure.
+This means that vein provides functions to be used in each of the
+stages. However, in order to follow these stages, a structure of
+directories with scripts including vein functions is necessary.
+Therefore, the vein function \texttt{inventory} was created to create
+this structure of directories.
 
 \section{Overview of emissions inventorying using
 VEIN}\label{veinstructure}
@@ -1336,10 +1335,10 @@ The arguments are \texttt{name}, \texttt{vehcomp}, \texttt{scripts},
   The argument \texttt{name}
 \end{itemize}
 
-name is a word to be used as main directory where directories and
-scripts are stored in. It consists in \emph{one} word with ascii
-characters. It is also recommended to be used without any special
-character or accents, for instance:
+The argument name is a word to be used as main directory where
+directories and scripts are stored in. It consists in \emph{one} word
+with ascii characters. It is also recommended to be used without any
+special character or accents, for instance:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1351,16 +1350,15 @@ character or accents, for instance:
 \begin{itemize}
 \tightlist
 \item
-  The argument \texttt{vehcomp}
+  The argument \texttt{vehcomp} This argument is very important and
+  comes from \emph{Vehicular Composition}, which is the classification
+  of the fleet by type of use, type of fuel, size of engine and gross
+  weight, based on definitions of \citet{Corvalanetal2002}. There is
+  also the \emph{technological composition} of the fleet which relates
+  the technological modifications of the car in order to accomplish the
+  emissions standards. However, vein uses a distribution by age of use
+  as \ref{traffic} shows.
 \end{itemize}
-
-This argument is very important and comes from \emph{Vehicular
-Composition}, which is the classification of the fleet by type of use,
-type of fuel, size of engine and gross weight, based on definitions of
-\citet{Corvalanetal2002}. There is also the \emph{technological
-composition} of the fleet which relates the technological modifications
-of the car in order to accomplish the emissions standards. However, in
-vein uses a distribution by age of use as \ref{traffic} shows.
 
 The vehicular composition \texttt{vehcomp} has 5 types of vehicles:
 
@@ -1383,14 +1381,14 @@ The default value of this argument is:
 \texttt{c(PC\ =\ 1,\ LCV\ =\ 1,\ HGV\ =\ 1,\ BUS\ =\ 1,\ MC\ =\ 1)},
 which means that there are 1 types of PC, 1 of LCV, 1 of trucks, 1 of
 buses and 1 types of motorcycles. This vehicular composition is only for
-ilutrasting that the user can chnge these values according its own data.
-Appendix B shows the vehicular composition from the vehicular emissions
-inventory of the Environmental Agency of São Paulo, Brazil
+ilutrasting that the user can change these values according to its own
+data. Appendix B shows the vehicular composition from the vehicular
+emissions inventory of the Environmental Agency of São Paulo, Brazil
 \citep{CETESB2015}. In Brazil, the fuel used in vehicles is blended with
 ethanol with and biodiesel. The user can use \textbf{any} vehicular
-composition that representes its fleet with up-to 99 type of vehicles
+composition that representes its fleet with up-to 99 types of vehicles
 per category. For instance, if there are 4 types of PC in a fleet,
-\texttt{PC\ =\ 4}, and each one has a age of use distribution.
+\texttt{PC\ =\ 4}, and each one has aa age of use distribution.
 
 \begin{itemize}
 \tightlist
@@ -1409,41 +1407,40 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpTxThwe/YourCity
+## files at /tmp/RtmplM5Ctp/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpTxThwe/YourCity"             
-##  [2] "/tmp/RtmpTxThwe/YourCity/ef"          
-##  [3] "/tmp/RtmpTxThwe/YourCity/emi"         
-##  [4] "/tmp/RtmpTxThwe/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpTxThwe/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpTxThwe/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpTxThwe/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpTxThwe/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpTxThwe/YourCity/est"         
-## [10] "/tmp/RtmpTxThwe/YourCity/images"      
-## [11] "/tmp/RtmpTxThwe/YourCity/network"     
-## [12] "/tmp/RtmpTxThwe/YourCity/post"        
-## [13] "/tmp/RtmpTxThwe/YourCity/post/df"     
-## [14] "/tmp/RtmpTxThwe/YourCity/post/grids"  
-## [15] "/tmp/RtmpTxThwe/YourCity/post/streets"
-## [16] "/tmp/RtmpTxThwe/YourCity/profiles"    
-## [17] "/tmp/RtmpTxThwe/YourCity/veh"
+##  [1] "/tmp/RtmplM5Ctp/YourCity"             
+##  [2] "/tmp/RtmplM5Ctp/YourCity/ef"          
+##  [3] "/tmp/RtmplM5Ctp/YourCity/emi"         
+##  [4] "/tmp/RtmplM5Ctp/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmplM5Ctp/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmplM5Ctp/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmplM5Ctp/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmplM5Ctp/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmplM5Ctp/YourCity/est"         
+## [10] "/tmp/RtmplM5Ctp/YourCity/images"      
+## [11] "/tmp/RtmplM5Ctp/YourCity/network"     
+## [12] "/tmp/RtmplM5Ctp/YourCity/post"        
+## [13] "/tmp/RtmplM5Ctp/YourCity/post/df"     
+## [14] "/tmp/RtmplM5Ctp/YourCity/post/grids"  
+## [15] "/tmp/RtmplM5Ctp/YourCity/post/streets"
+## [16] "/tmp/RtmplM5Ctp/YourCity/profiles"    
+## [17] "/tmp/RtmplM5Ctp/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
 directories: daily, ef, emi, est, images, network and veh.
 
 \begin{itemize}
-\tightlist
 \item
-  \textbf{daily}: it is for storing the profiles saved as .csv files.
-  For instance, \texttt{data(pc\_profile)} is a matrix than could be
-  saved as .csv.
+  \textbf{daily}: Directory for storing the profiles saved as .csv
+  files. For instance, \texttt{data(pc\_profile)} is a matrix that could
+  be saved as .csv.
 \item
-  \textbf{ef}: it is for storing the emission factors data-frame,
+  \textbf{ef}: Directory for storing the emission factors data-frame,
   similar to \texttt{data(fe2015)} but including one column for each of
   the categories of the vehicular composition. For instance, if PC = 5,
   there should be 5 columns with emission factors in this file. If LCV =
@@ -1454,7 +1451,7 @@ directories: daily, ef, emi, est, images, network and veh.
   extension instead of .rda.
 \item
   \textbf{est}: Directory with subdirectories matching the vehicular
-  composition for for storing the scripts named \texttt{input.R}.
+  composition for storing the scripts named \texttt{input.R}.
 \item
   \textbf{images}: Directory for saving images.
 \item
@@ -1464,7 +1461,7 @@ directories: daily, ef, emi, est, images, network and veh.
   \texttt{age\_moto} or \texttt{my\_ldv}.
 \item
   \textbf{post}: Directory for storing the processed emissions. It
-  includes the directories \textbf{df} for emissions by age of use, hou
+  includes the directories \textbf{df} for emissions by age of use, hour
   and other parameters, \textbf{streets} for storing the total emissions
   by streets and \textbf{grids} for storing total gridded emissions by
   pollutant.
@@ -1473,9 +1470,9 @@ directories: daily, ef, emi, est, images, network and veh.
   each category of the vehicular composition. Those are data-frames with
   number of columns with the age distribution and the number of rows as
   the number of streets. The class of these objects is ``Vehicles''.
+\item
+  The argument \texttt{scripts}
 \end{itemize}
-
-devt - The argument \texttt{scripts}
 
 This argument adds scripts into the directories. The default is TRUE.
 The type of scrits create are:
@@ -1483,7 +1480,7 @@ The type of scrits create are:
 \begin{itemize}
 \item
   main.R: Adds the \texttt{setwd("YourCity")}, \texttt{library(vein)},
-  \texttt{source(traffic.R)}, some comments and a loop for source all
+  \texttt{source(traffic.R)}, some comments and a loop to source all
   inputs. It is recommended not using the loop till it is certain that
   all scripts are correct.
 \item
@@ -1506,7 +1503,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpTxThwe/YourCity
+## files at /tmp/RtmplM5Ctp/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -1523,7 +1520,7 @@ This argument prints the scripts created:
 \end{itemize}
 
 This is a logical argument that deletes recursively when TRUE, or not
-when FALSE, the directory and created another one. Default is TRUE.
+when FALSE, the directory and creates another one. Default is TRUE.
 
 The following chapters show the use of other vein functions inside an
 structure of directories and scripts with the name
@@ -2824,7 +2821,7 @@ functon \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <environment: 0x559745a56f00>
+## <environment: 0x55b21ece5a40>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4446,31 +4443,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpTxThwe/YourCity
+## files at /tmp/RtmplM5Ctp/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpTxThwe/YourCity"             
-##  [2] "/tmp/RtmpTxThwe/YourCity/ef"          
-##  [3] "/tmp/RtmpTxThwe/YourCity/emi"         
-##  [4] "/tmp/RtmpTxThwe/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpTxThwe/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpTxThwe/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpTxThwe/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpTxThwe/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpTxThwe/YourCity/est"         
-## [10] "/tmp/RtmpTxThwe/YourCity/images"      
-## [11] "/tmp/RtmpTxThwe/YourCity/network"     
-## [12] "/tmp/RtmpTxThwe/YourCity/post"        
-## [13] "/tmp/RtmpTxThwe/YourCity/post/df"     
-## [14] "/tmp/RtmpTxThwe/YourCity/post/grids"  
-## [15] "/tmp/RtmpTxThwe/YourCity/post/streets"
-## [16] "/tmp/RtmpTxThwe/YourCity/profiles"    
-## [17] "/tmp/RtmpTxThwe/YourCity/veh"
+##  [1] "/tmp/RtmplM5Ctp/YourCity"             
+##  [2] "/tmp/RtmplM5Ctp/YourCity/ef"          
+##  [3] "/tmp/RtmplM5Ctp/YourCity/emi"         
+##  [4] "/tmp/RtmplM5Ctp/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmplM5Ctp/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmplM5Ctp/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmplM5Ctp/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmplM5Ctp/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmplM5Ctp/YourCity/est"         
+## [10] "/tmp/RtmplM5Ctp/YourCity/images"      
+## [11] "/tmp/RtmplM5Ctp/YourCity/network"     
+## [12] "/tmp/RtmplM5Ctp/YourCity/post"        
+## [13] "/tmp/RtmplM5Ctp/YourCity/post/df"     
+## [14] "/tmp/RtmplM5Ctp/YourCity/post/grids"  
+## [15] "/tmp/RtmplM5Ctp/YourCity/post/streets"
+## [16] "/tmp/RtmplM5Ctp/YourCity/profiles"    
+## [17] "/tmp/RtmplM5Ctp/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmpTxThwe/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmplM5Ctp/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5629,12 +5626,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9277225
-## 2 0.9255243
-## 3 0.9219281
-## 4 0.9227828
-## 5 0.9292770
-## 6 0.9180297
+## 1 0.9210248
+## 2 0.9267287
+## 3 0.9271289
+## 4 0.9162801
+## 5 0.9274767
+## 6 0.9262088
 \end{verbatim}
 
 \begin{Shaded}
@@ -5661,31 +5658,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9277225 0.9255243 0.9219281
+## [1] 0.9210248 0.9267287 0.9271289
 ## Units: [mol/h]
-## [1] 1.428571 1.425186 1.419648
+## [1] 1.418257 1.427041 1.427657
 ## Units: [mol/h]
-## [1] 0.5206716 0.5194378 0.5174195
+## [1] 0.5169125 0.5201138 0.5203384
 ## Units: [mol/h]
-## [1] 0.2512372 0.2506418 0.2496680
+## [1] 0.2494233 0.2509680 0.2510764
 ## Units: [mol/h]
-## [1] 1.906224 1.901707 1.894318
+## [1] 1.892462 1.904182 1.905005
 ## Units: [mol/h]
-## [1] 0.7991641 0.7972705 0.7941727
+## [1] 0.7933945 0.7983080 0.7986527
 ## Units: [mol/h]
-## [1] 0.5298182 0.5285628 0.5265091
+## [1] 0.5259932 0.5292506 0.5294792
 ## Units: [mol/h]
-## [1] 0.02541405 0.02535384 0.02525532
+## [1] 0.02523058 0.02538683 0.02539779
 ## Units: [mol/h]
-## [1] 0.4612142 0.4601213 0.4583335
+## [1] 0.4578844 0.4607201 0.4609190
 ## Units: [mol/h]
-## [1] 0.8786877 0.8766056 0.8731996
+## [1] 0.8723440 0.8777464 0.8781254
 ## Units: [mol/h]
-## [1] 1.234256 1.231332 1.226547
+## [1] 1.225345 1.232934 1.233466
 ## Units: [mol/h]
-## [1] 0.3459797 0.3451599 0.3438188
+## [1] 0.3434819 0.3456091 0.3457583
 ## Units: [mol/h]
-## [1] 0.4512305 0.4501613 0.4484122
+## [1] 0.4479728 0.4507471 0.4509418
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5744,7 +5741,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602010.86
+## Sum of street emissions 601960.27
 \end{verbatim}
 
 \begin{verbatim}
@@ -5752,7 +5749,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602010.86
+## Sum of gridded emissions 601960.27
 \end{verbatim}
 
 \begin{Shaded}
@@ -5789,18 +5786,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001443253 [g/m^2/s] 0.01167723 0.0004629657 0.001973696 0.01874355
-## 2 0.001434545 [g/m^2/s] 0.01160678 0.0004601723 0.001961787 0.01863046
-## 3 0.001470459 [g/m^2/s] 0.01189735 0.0004716927 0.002010900 0.01909687
-## 4 0.002543926 [g/m^2/s] 0.02058267 0.0008160385 0.003478901 0.03303800
-## 5 0.005806237 [g/m^2/s] 0.04697774 0.0018625202 0.007940218 0.07540567
+## 1 0.001446916 [g/m^2/s] 0.01170687 0.0004641406 0.001978705 0.01879112
+## 2 0.001438186 [g/m^2/s] 0.01163623 0.0004613402 0.001966766 0.01867774
+## 3 0.001474191 [g/m^2/s] 0.01192754 0.0004728897 0.002016004 0.01914533
+## 4 0.002557305 [g/m^2/s] 0.02069092 0.0008203302 0.003497197 0.03321175
+## 5 0.005767455 [g/m^2/s] 0.04666396 0.0018500798 0.007887182 0.07490202
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05623065 0.005698039 0.02429164 0.01049639 0.004498452 0.05191964
-## 2 0.05589138 0.005663660 0.02414508 0.01043306 0.004471310 0.05160637
-## 3 0.05729061 0.005805448 0.02474954 0.01069425 0.004583249 0.05289833
-## 4 0.09911399 0.010043551 0.04281724 0.01850128 0.007929119 0.09151525
-## 5 0.22621702 0.022923325 0.09772575 0.04222718 0.018097362 0.20887372
+## 1 0.05637336 0.005712500 0.02435329 0.01052303 0.004509868 0.05205140
+## 2 0.05603322 0.005678033 0.02420635 0.01045953 0.004482658 0.05173734
+## 3 0.05743600 0.005820181 0.02481235 0.01072139 0.004594880 0.05303257
+## 4 0.09963524 0.010096371 0.04304242 0.01859858 0.007970819 0.09199654
+## 5 0.22470605 0.022770213 0.09707301 0.04194513 0.017976484 0.20747858
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
