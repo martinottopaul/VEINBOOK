@@ -1,28 +1,32 @@
 # Traffic data {#traffic}
 
 Traffic data is read in VEIN as spatial information. In other words, traffic data
-must in any vectorial line spatial format with the drivers provided by the 
-library **GDAL** (http://www.gdal.org/ogr_formats.html) called by the packages
-**rgdal** or **sf**. This means that traffic data must in in any GDAL spatial
-format. The Eq. \@ref(eq:flow) show how traffic data is treated into vein. 
+must be in any vectorial line spatial format with the drivers provided by the 
+library **GDAL** (http://www.gdal.org/ogr_formats.html), which is called by the packages
+**rgdal** or **sf**. This means that traffic data must be in in any GDAL spatial
+format. The Eq. \@ref(eq:flow) shows how traffic data is treated in VEIN.
 
 \begin{equation}
 F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
 (\#eq:flow)
 \end{equation}
 
-where $F^*_{i,j,k}$ is the vehicular flow at street link $i$ for vehicle type $j$ by
-age of use $k$. $j$ defines the vehicular composition according to their type of 
+where 
+$F^*_{i,j,k}$ is the vehicular flow at street link $i$ for vehicle type $j$ by
+age of use $k$. 
+$j$ defines the vehicular composition according to its type of 
 use, type of fuel, size of engine and gross weight, based on definitions of
-[@Corvalanetal2002]. $Q_i$ is the traffic flow at street link $i$. $VC_{i,j}$ is
-the fraction of vehicles varying according to the type of vehicles $j$ in the
-composition for street link $i$.  $Age_{j,k}$ is the age distribution by vehicular
-composition $j$ and age of use $k$. This Equation shows that $VC$ splits the total
-vehicular flow $Q$ to identify the vehicular fraction, which varies according to the
-type of fuel, size of motor and gross weight. For example, if $Q$ is light duty
-vehicles (LDV) and it is known that 5\% of the $Q$ are passenger cars (PC), with
-engine lesser than 1400 cc, $VC$ is 0.05. This characterization of the fleet depends
-on the amount and quality of the available information. VEIN then multiplies the
+[@Corvalanetal2002]. 
+$Q_i$ is the traffic flow at street link $i$. 
+$VC_{i,j}$ is the fraction of vehicles varying according to the type of vehicles $j$ in the
+vehicle fleet at street link $i$. 
+$Age_{j,k}$ is the age distribution by vehicular composition $j$ and age of use $k$. 
+
+This Equation shows that $VC$ splits the total vehicular flow $Q$ to identify the 
+vehicular fraction, which varies according to the type of fuel, size of motor and gross weight. 
+For example, if $Q$ is light duty vehicles (LDV) and it is known that 5\% of the $Q$ are 
+passenger cars (PC), with engines lesser than 1400 cc, $VC$ is 0.05. This characterization of 
+the fleet depends on the amount and quality of the available information. VEIN then multiplies the
 traffic with $Age$ to obtain the amount of each type of vehicle by age of use. 
 
 
@@ -32,16 +36,16 @@ traffic with $Age$ to obtain the amount of each type of vehicle by age of use.
 
 VEIN was developepd according to the available traffic data in São Pauo, Brazil.
 In this case, the available data was a 4-stage macroscopic travel
-model for morning rush hour and hourly traffic counts for morning and evening
+model for morning rush hours and hourly traffic counts for morning and evening
 rush hours. The travel model is based on data from an Origin-Destination-Survey 
 (ODS) [@ODS] which started in the decade of 1950 in São Paulo. A classic reference 
 of a 4-stage modeling transport is [@OrtuzarWillumsen2002]. The 4 stages of the 
-traffic modeling includes characterization of trip attractions and productions by
-zone in some regions, distribution of these trips, preferred mode of transport for
-traveling and finally the allocation of the trips at each mode, in this case into
+traffic modeling include characterization of trip attractions and productions by
+zone in some regions, distribution of these trips, the preferred mode of transport for
+traveling and finally the allocation of the trips at each mode; in this case into
 the road network. The ODS is made every 10 years by Metro (http://www.metro.sp.gov.br/),
 which is the underground company, and they perform a smaller update of ODS after
-5 years. The information gathered in the ODS is massive with the participation of
+5 years. The information gathered in the ODS is massive due to participation of
 thousands of commuters. It helps to identify characteristics of the trips inside
 MASP. CET uses the information from ODS and performs the traffic simulation. In
 this case, it is a macro or strategic traffic simulation which represents the
@@ -65,13 +69,13 @@ Paulo. The information obtained from CET consists in:
 
 The following scripts show how to load this data in R. This data has the class
 "SpatialLinesDataFrame" from the package [@sp]. This data was converted into
-an spatial feature "sf" object [@sf] because it consists in a data-frame with a
+an spatial feature "sf" object [@sf] because it consists of a data-frame with a
 list-column of geometry with the spatial attributes and it is easier to handle
-than an object class of sp. As entioned, future versions of VEIN will migrate
+than an sp object class. As mentioned, future versions of VEIN will migrate
 to sf.
 
-The user must call the library vein first, then load the data net. The object
-net has the class "SpatialLinesDataFrame". This data can be seen loaded in R as:
+The user must call the library VEIN first, then load the data net. The object
+net has the class "SpatialLinesDataFrame". This data can be loaded and shown in R like this:
 
 ```{r}
 library(vein)
@@ -80,8 +84,8 @@ data(net)
 class(net)
 ```
 
-The Fig. (\@ref(fig:ldv)) shows that traffic is concentrated in mains streets
-such as motorway Marginal Pinheiros, located at the north east part of the area. 
+The Fig. (\@ref(fig:ldv)) shows that traffic is concentrated in main streets
+such as the motorway Marginal Pinheiros, located in the north east part of the area. 
 
 ```{r ldv, fig.cap='LDV at 08:00-09:00 (LT) in west São Paulo', out.width='80%', fig.asp=.75, fig.align='center'}
 library(vein)
@@ -93,10 +97,10 @@ spplot(net, "ldv", scales = list(draw = T),
 
 ### Inteprolation of traffic counts
 
-Travel model simulation are not always available and the user interested in
+Travel model simulations are not always available and the user interested in
 estimating vehicular emisisons with a bottom-up approach would have to look
 for alternatives to obtain traffic data at street level. These alternatives
-covers interpolating traffic data for different temporal resolutions. For
+cover interpolating traffic data for different temporal resolutions. For
 instance, -@requia developed a vehicular bottom-up inventory using traffic
 counts and a geostatistic method called Global Moran's I test [@anselin]. It 
 measures the spatial autocorrelation. However, this technique requires that the
@@ -118,32 +122,32 @@ Also, -@selby2013spatial compared Kriging and geographically weighted regression
 in the prediction of AADT.
 
 Another approach is to perform a spatial regression based on the distributio
-on the oberved data. As the data is counts of traffic, a poisson, quasi-poisson
+on the observed data. As the data is counts of traffic, a poisson, quasi-poisson
 or negative binomial regressions can be used [@zeileis2008regression]. Recently,
--@Ibarraetal2017a compared quasi-posson and negative binomial regresions
-predicting hourly traffic data, with better results with quasi-poisson approach
-and correlation of 0.72.
+-@Ibarraetal2017a compared quasi-poisson and negative binomial regresions
+predicting hourly traffic data, with better results for a quasi-poisson approach
+(correlation of 0.72).
 
-Newer approaches involves using GPS data from smart phones and cars. 
+Newer approaches involve GPS data from smartphones and cars. 
 
 ### Generating traffic flows from Origin-Destination-Surveys (ODS)
 
 The origin destination survey (ODS) is an important tool which quantifies the 
 amount of trips generated in the study area. ODS studies started decades ago. The
 oldest ODS paper on Google Scholar is entitles "FUNCTIONS OF A HIGHWAY-PLANNING SURVEY DEPARTMENT" by W. J. Sapp in 1938 at the TWENTY-FOURTH ANNUAL ROAD SCHOOL
-[@sapp1938runctions]. In this paper it is discussed the importance information
-for the trffic engineer, and Sapp even mentios: "The engineer must have the supporting data available to substantiate his decisions."
+[@sapp1938runctions]. In this paper the importance of information
+for the traffic engineer is discussed: "The engineer must have the supporting data available to substantiate his decisions."
 
-Other study of 1942 shows talks about the importance of traffic counts, disucssing
+Another study of 1942 shows the importance of traffic counts, disucssing
 the elaboration of an origin destination survey where 8000 Boy Scouts of America
-participated counting traffic. The method for analyzing the data consisted in
-countign the vehicles identifying the licence plate in order to determine the
+participated in counting traffic. The method for analyzing the data consisted in
+counting the vehicles identifying the licence plate in order to determine the
 origin (the first time the vehicle was recorded), the route of vehicles, the
 destination and the approximate time for the trip.
 
 After those pioneer studies many many other studies went deeper into the subject. 
 And after that, with the irruption of new technologies, new software, use of 
-smarthphones with GPS, satellites and big technological centers own by companies 
+smarthphones with GPS, satellites and big technological centers owned by companies 
 such as Google (http://www.google.com), new ways for characterizing trips were
 developed. In this section i will briefly mention the Google Distance Matrix 
 (https://developers.google.com/maps/documentation/distance-matrix/), the
@@ -151,7 +155,7 @@ pgRouting library [@patrushev2007shortest] for postGIS and will expand with two 
 packages, googleway [@googleway] and dodgr [@dodgr].
 
 The ODS will provide us the matrix of pairs of zones origin and destinations by 
-mode of transport. Then, we can use any of the mentiones softwares to find the
+mode of transport. Then, we can use any of the mentioned softwares to find the
 shortest path between each zone. The table \@ref(tab:ods) shows an extraction of 
 the OD matrix for the Metropolitan Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig \@ref(fig.zod) shows a map with the location of the zones OD.
 
@@ -172,18 +176,18 @@ plot(zod$geometry, axes = T, main = NULL)
 ```
 
 Now, as we know the the trips between each pair of OD zones, we can find the
-routes that connectes them. A used algorithm is the shortest path, which connects
+routes that connects them. Algorithms are used to find the shortest path. It connects
 two nodes minimizing the total travel time. There are several algorithms, 
 including -@dijkstra1959note.
 
 #### Google Distance Matrix API
 
-This we servise allow to "retrieve duration and distance values based on the
+This service allows to "retrieve duration and distance values based on the
 recommended route between start and end points." It returns durations and
-distance, it is possible to choose modes of transport and even to choose between
-current or historial times. The first step is to get a KEY.
+distance and it is possible to choose modes of transport as well as to choose between
+current or historical times. The first step is to get a KEY.
 
-If you browser
+If you browse
 
 ```{bash eval = FALSE}
 https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=YOUR_API_KEY
@@ -296,8 +300,8 @@ knitr::include_graphics(path = "figuras/gway.png")
 #### The R package dodgr
 
 dpdgr[@dodgr] is a new R package with great capbilities. It calculates the 
-distance on dual-weight graphs  using priority-queue shorest paths. In order 
-to calculate the traffic flows it is necessary the matrix OD for the desired 
+distance on dual-weight graphs  using priority-queue shortest paths. In order 
+to calculate the traffic flows it is necessary to have the matrix OD for the desired 
 mode of transport and the coorodinates of centroids of the OD zones.
 
 The function `dodgr_streetnet` uses the osmdata r package to download street 
@@ -308,9 +312,8 @@ according to a specific profile of traffic: "psv" for Public Service Vehicle.
 "bicycle", nd others. The weights are profile values for the OSM type of roads 
 based on this webpage: https://www.routino.org/xml/routino-profiles.xml. The
 function `dodgr_vertices` extract the vertices pf thegraph including the 
-coordinates. Finally, the function `dodgr_flowmap` reads the graph and plot the 
-flows. Belows s an example for São Paulo using the data of ODS the urban uderground 
-public transportation system [@ODS].
+coordinates. Finally, the function `dodgr_flowmap` reads the graph and plots the 
+flows. Below is an example for São Paulo using the data of ODS [@ODS].
 
 
 ```{r eval = FALSE, echo = FALSE}
@@ -342,24 +345,23 @@ knitr::include_graphics("figuras/dodgr.png", dpi = 300)
 ### Top-down approach
 
 VEIN was designed with traffic flow at street leve on mind, however, it is possible
-that user might be inclined for doing for using a top-down approach. Here some
+that user might want or need to use a top-down approach. Here  are some
 possible causes:
 
 1. Bottom-up approach can demand more computatonal resources for a country or a continent. 
-2. Another possibility is that the emissions inventory is going to be used solely for air quality modellign purposes, where the proportion of grid spacing and street is such that spatial detail would be lose, for instance with resolution of 10 km.
+2. Another possibility is that the emissions inventory is going to be used solely for air quality modelling purposes, where the proportion of grid spacing and street is such that spatial detail would be lose, for instance with resolution of 10 km.
 3. Also, it is possible that there is no way of obtaining traffic information at street level.
-4. Limitated resources, time, funding, human resources, etc.
-5. Lastly, due to simplism. It is also possible that the objective simply the 
-objective is to estimate an emissions inventory using a top-down approach.
+4. Limited resources, time, funding, human resources, etc.
+5. Lastly, due to simplism. It is also possible that the objective simply is to estimate an emissions inventory using a top-down approach.
 
 Under these circumstances a top-down approach would be better suited for some users.
-As VEIN counts toolkit for estimating emissions, it is reasonable to use all VEIN
+As VEIN is a toolkit for estimating emissions, it is reasonable to use all VEIN
 resources with a top-down approach.
 
 In this case, the user must follow some considerations:
 
 - Use `inventory` functions in the same way as shown on section \@ref(st).
-- Create a network, but instead use a road network with spatial lines, use
+- Create a network, but instead of using a road network with spatial lines, use
 spatial polygons. The Spatial polygon might represent some area where the amount
 of vehicles is known.
 - The `age` functions shown in following sections, show that it is possible to 
@@ -383,8 +385,8 @@ The Fig.(\@ref(fig:diavein)) shows a complete diagram with the steps for
 elaborating an emissions inventory. Also, the function `inventory` shown on
 sub-section (\@ref(veinstructure)) shows the functions to structure an inventory.
 This and the following subsection of application shows respective the part of the
-diagram Fig.(\@ref(fig:diatraffic)) and how to run vein storing the results in the 
-directories shown on Fig. (\@ref(st)). 
+diagram Fig.(\@ref(fig:diatraffic)) and how to run VEIN as well as storing the results in the 
+directories shown in Fig. (\@ref(st)). 
 
 The first element that the user must have is the traffic at street level. This
 is shown as a green circle with the word 'traffic' on Fig. (\@ref(fig:diatraffic)).
@@ -469,7 +471,7 @@ F_{i,j,k,l} = F^*_{i,j,k} \cdot TF_{j,l}
 \end{equation}
 
 where $TF_{j,l}$ are the temporal factors varying according  to each hour of
-$l$ and type of vehicle $j$.  For instance, $TF$ is defined as a matrix with 24 lines 
+$l$ and type of vehicle $j$. For instance, $TF$ is defined as a matrix with 24 lines 
 and numbers of columns to each day considered, from Monday to Sunday. In order to 
 expand traffic to other hours, $TF$ matrices must be normalized to the hour that 
 represents the traffic data. It means that $TF$ values at morning peak hour must be 1 
@@ -505,10 +507,10 @@ are:
 args(netspeed)
 ```
 
-`netspeed` allows basically two types of speeds data-frame which depends on the
-availability od data by the user. If the user has `q`, `ps`, `ffs` and `cap` can
+`netspeed` allows basically creates two types of speeds data-frames which depends on the
+availability of data by the user. If the user has `q`, `ps`, `ffs` and `cap` the user can
 use the argument `scheme = FALSE`, or when the user only has `ps` and `ffs`
-and use the argument `scheme = TRUE`.
+the user can use the argument `scheme = TRUE`.
 
 - `q` is a  data-frame of traffic flow to each hour (veh/h) at each street.
 - `ps	`is the Peak speed (km/h) at each street.
@@ -546,7 +548,7 @@ knitr::kable(df,
 ### Distribution of vehicles by age of use with the functions `age_ldv`, `age_hdv` and `age_moto`
 
 
-These functions reads traffic data at each street and returns an object of class
+These functions reads traffic data at each street and return an object of class
 `Vehicles`, which is a data-frame with the number of vehicles at each street
 and the number of columns represent the amount of vehicles at each age. The
 functions `age_moto` and `age_hdv` are identical. These functions apply survival
@@ -560,14 +562,13 @@ and for `age_hdv` and `age_moto` is 0.2.
 and for `age_hdv` and `age_moto` is 17.
 - `agemin` age of newest vehicles for that category. The default value is 1,
 however it can be bigger than one when it is a vehicle that is not circulating
-more than year ago.
-- `agemax` age of oldest vehicles for that category. Teh default value is 50
+more then a year ago.
+- `agemax` age of oldest vehicles for that category. The default value is 50
 assuming that the oldest vehicle in circulation has 50 years of use. However,
 new type of vehicles will be newer.
 - `k` multiplication factor. This factor helps to split the traffic `x` in the
 vehicular composition.
-- `bystreet` when TRUE it is expecting that `a` and `b` are numeric vectors with length equal to `x`. In other words, the values of `a` and `b` varies in each
-street.
+- `bystreet` when TRUE it is expecting that `a` and `b` are numeric vectors with length equal to `x`. In other words, the values of `a` and `b` varies in each street.
 - `message` message with average age and total number of vehicles.
 
 
@@ -575,7 +576,7 @@ street.
 
 These functions also reads traffic data at each street and returns an object of
 class `Vehicles`, which is a data-frame with the number of vehicles at each
-street and the number of columns represent the amount of vehicles at each age.
+street and the columns represent the amount of vehicles at each age.
 However, it is based on data the user has and not by parameters. Therefore,
 using this function with own data should produce more representative results.
 The arguments are:
@@ -585,20 +586,20 @@ args(my_age)
 ```
 
 - `x` numerical vector of vehicles at each street.
-- `y` Age dustribution of vehicles. This parameter can be anual sales or anual 
+- `y` Age distribution of vehicles. This parameter can be annual sales or annual 
 registry for the category of vehicle.
 - `name` of vehicle assigned to columns of dataframe.
 - `k` multiplication factor. This factor helps to split the traffic `x` in the
 vehicular composition.
-- `message` message with average age and total numer of vehicles.
+- `message` message with average age and total number of vehicles.
 
 
 ### The class `Vehicles`
 
-`Vehicles` is a class in vein, shown in on Fig. (\@ref(fig:diatraffic)). This
+`Vehicles` is a class in VEIN, shown in on Fig. (\@ref(fig:diatraffic)). This
 class includes the methods `print`, `plot` and `summary`. This means that, 
 `Vehicles` objects presents customized versions of  `print`, `plot` and
-`summary` in order to make easier to the user to use vein. The figure
+`summary` in order to make easier to the user to use VEIN. The figure
 \@ref(fig.plotpc) shows a simple plot of a `Vehicles` object, followed by the
 `head` of this object. The plot shows the sum of each type of vehicle by age of use, 
 with a vertical red line indicating the average age, 11.17 years of use.
@@ -620,8 +621,8 @@ head(PC_E25[, 1:4]) # The first 4 columns
 
 Another function is `adt` which calculates average daily traffic (ADT) from
 hourly traffic data. This function reads numeric vectors with the amount of
-vehicles at each street expand the traffic with temporal factors for each type
-of vehicle. The arguemtns are:
+vehicles at each street and expands the traffic with temporal factors for each type
+of vehicle. The arguments are:
 
 ```{r}
 args(adt)
@@ -644,8 +645,8 @@ args(adt)
 ## Application
 
 As mentioned above, the application consists in using the travel demand model
-for west part of São Paulo city, present in vein. This script reads traffic data
-and expand applying an age function. It will be used the `inventory` function
+for west part of São Paulo city, present in VEIN. This script reads traffic data
+and expands it applying an age function. It uses the `inventory` function
 with the default vehicular composition, shown on section (\@red(st)). Please,
 use the scripts in the extra material of this book. The base year is 2015 and the
 extended example is available in appendix 1.
