@@ -212,7 +212,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-10-08}
+\date{2018-10-14}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1407,28 +1407,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmplM5Ctp/YourCity
+## files at /tmp/RtmpA7qaw3/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmplM5Ctp/YourCity"             
-##  [2] "/tmp/RtmplM5Ctp/YourCity/ef"          
-##  [3] "/tmp/RtmplM5Ctp/YourCity/emi"         
-##  [4] "/tmp/RtmplM5Ctp/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmplM5Ctp/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmplM5Ctp/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmplM5Ctp/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmplM5Ctp/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmplM5Ctp/YourCity/est"         
-## [10] "/tmp/RtmplM5Ctp/YourCity/images"      
-## [11] "/tmp/RtmplM5Ctp/YourCity/network"     
-## [12] "/tmp/RtmplM5Ctp/YourCity/post"        
-## [13] "/tmp/RtmplM5Ctp/YourCity/post/df"     
-## [14] "/tmp/RtmplM5Ctp/YourCity/post/grids"  
-## [15] "/tmp/RtmplM5Ctp/YourCity/post/streets"
-## [16] "/tmp/RtmplM5Ctp/YourCity/profiles"    
-## [17] "/tmp/RtmplM5Ctp/YourCity/veh"
+##  [1] "/tmp/RtmpA7qaw3/YourCity"             
+##  [2] "/tmp/RtmpA7qaw3/YourCity/ef"          
+##  [3] "/tmp/RtmpA7qaw3/YourCity/emi"         
+##  [4] "/tmp/RtmpA7qaw3/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpA7qaw3/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpA7qaw3/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpA7qaw3/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpA7qaw3/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpA7qaw3/YourCity/est"         
+## [10] "/tmp/RtmpA7qaw3/YourCity/images"      
+## [11] "/tmp/RtmpA7qaw3/YourCity/network"     
+## [12] "/tmp/RtmpA7qaw3/YourCity/post"        
+## [13] "/tmp/RtmpA7qaw3/YourCity/post/df"     
+## [14] "/tmp/RtmpA7qaw3/YourCity/post/grids"  
+## [15] "/tmp/RtmpA7qaw3/YourCity/post/streets"
+## [16] "/tmp/RtmpA7qaw3/YourCity/profiles"    
+## [17] "/tmp/RtmpA7qaw3/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1503,7 +1503,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmplM5Ctp/YourCity
+## files at /tmp/RtmpA7qaw3/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -1529,12 +1529,12 @@ structure of directories and scripts with the name
 \chapter{Traffic data}\label{traffic}
 
 Traffic data is read in VEIN as spatial information. In other words,
-traffic data must in any vectorial line spatial format with the drivers
-provided by the library \textbf{GDAL}
-(\url{http://www.gdal.org/ogr_formats.html}) called by the packages
-\textbf{rgdal} or \textbf{sf}. This means that traffic data must in in
-any GDAL spatial format. The Eq. \eqref{eq:flow} show how traffic data is
-treated into vein.
+traffic data must be in any vectorial line spatial format with the
+drivers provided by the library \textbf{GDAL}
+(\url{http://www.gdal.org/ogr_formats.html}), which is called by the
+packages \textbf{rgdal} or \textbf{sf}. This means that traffic data
+must be in in any GDAL spatial format. The Eq. \eqref{eq:flow} shows how
+traffic data is treated in VEIN.
 
 \begin{equation}
 F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
@@ -1543,17 +1543,18 @@ F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
 
 where \(F^*_{i,j,k}\) is the vehicular flow at street link \(i\) for
 vehicle type \(j\) by age of use \(k\). \(j\) defines the vehicular
-composition according to their type of use, type of fuel, size of engine
+composition according to its type of use, type of fuel, size of engine
 and gross weight, based on definitions of \citep{Corvalanetal2002}.
 \(Q_i\) is the traffic flow at street link \(i\). \(VC_{i,j}\) is the
 fraction of vehicles varying according to the type of vehicles \(j\) in
-the composition for street link \(i\). \(Age_{j,k}\) is the age
-distribution by vehicular composition \(j\) and age of use \(k\). This
-Equation shows that \(VC\) splits the total vehicular flow \(Q\) to
+the vehicle fleet at street link \(i\). \(Age_{j,k}\) is the age
+distribution by vehicular composition \(j\) and age of use \(k\).
+
+This Equation shows that \(VC\) splits the total vehicular flow \(Q\) to
 identify the vehicular fraction, which varies according to the type of
 fuel, size of motor and gross weight. For example, if \(Q\) is light
 duty vehicles (LDV) and it is known that 5\% of the \(Q\) are passenger
-cars (PC), with engine lesser than 1400 cc, \(VC\) is 0.05. This
+cars (PC), with engines lesser than 1400 cc, \(VC\) is 0.05. This
 characterization of the fleet depends on the amount and quality of the
 available information. VEIN then multiplies the traffic with \(Age\) to
 obtain the amount of each type of vehicle by age of use.
@@ -1564,18 +1565,18 @@ obtain the amount of each type of vehicle by age of use.
 
 VEIN was developepd according to the available traffic data in São Pauo,
 Brazil. In this case, the available data was a 4-stage macroscopic
-travel model for morning rush hour and hourly traffic counts for morning
-and evening rush hours. The travel model is based on data from an
-Origin-Destination-Survey (ODS) \citep{ODS} which started in the decade
-of 1950 in São Paulo. A classic reference of a 4-stage modeling
+travel model for morning rush hours and hourly traffic counts for
+morning and evening rush hours. The travel model is based on data from
+an Origin-Destination-Survey (ODS) \citep{ODS} which started in the
+decade of 1950 in São Paulo. A classic reference of a 4-stage modeling
 transport is \citep{OrtuzarWillumsen2002}. The 4 stages of the traffic
-modeling includes characterization of trip attractions and productions
-by zone in some regions, distribution of these trips, preferred mode of
+modeling include characterization of trip attractions and productions by
+zone in some regions, distribution of these trips, the preferred mode of
 transport for traveling and finally the allocation of the trips at each
-mode, in this case into the road network. The ODS is made every 10 years
+mode; in this case into the road network. The ODS is made every 10 years
 by Metro (\url{http://www.metro.sp.gov.br/}), which is the underground
 company, and they perform a smaller update of ODS after 5 years. The
-information gathered in the ODS is massive with the participation of
+information gathered in the ODS is massive due to participation of
 thousands of commuters. It helps to identify characteristics of the
 trips inside MASP. CET uses the information from ODS and performs the
 traffic simulation. In this case, it is a macro or strategic traffic
@@ -1614,13 +1615,13 @@ consists in:
 The following scripts show how to load this data in R. This data has the
 class ``SpatialLinesDataFrame'' from the package \citep{sp}. This data
 was converted into an spatial feature ``sf'' object \citep{sf} because
-it consists in a data-frame with a list-column of geometry with the
-spatial attributes and it is easier to handle than an object class of
-sp. As entioned, future versions of VEIN will migrate to sf.
+it consists of a data-frame with a list-column of geometry with the
+spatial attributes and it is easier to handle than an sp object class.
+As mentioned, future versions of VEIN will migrate to sf.
 
-The user must call the library vein first, then load the data net. The
+The user must call the library VEIN first, then load the data net. The
 object net has the class ``SpatialLinesDataFrame''. This data can be
-seen loaded in R as:
+loaded and shown in R like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1637,9 +1638,9 @@ seen loaded in R as:
 ## [1] "sp"
 \end{verbatim}
 
-The Fig. (\ref{fig:ldv}) shows that traffic is concentrated in mains
-streets such as motorway Marginal Pinheiros, located at the north east
-part of the area.
+The Fig. (\ref{fig:ldv}) shows that traffic is concentrated in main
+streets such as the motorway Marginal Pinheiros, located in the north
+east part of the area.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1663,11 +1664,11 @@ part of the area.
 \subsection{Inteprolation of traffic
 counts}\label{inteprolation-of-traffic-counts}
 
-Travel model simulation are not always available and the user interested
-in estimating vehicular emisisons with a bottom-up approach would have
-to look for alternatives to obtain traffic data at street level. These
-alternatives covers interpolating traffic data for different temporal
-resolutions. For instance, \citet{requia} developed a vehicular
+Travel model simulations are not always available and the user
+interested in estimating vehicular emisisons with a bottom-up approach
+would have to look for alternatives to obtain traffic data at street
+level. These alternatives cover interpolating traffic data for different
+temporal resolutions. For instance, \citet{requia} developed a vehicular
 bottom-up inventory using traffic counts and a geostatistic method
 called Global Moran's I test \citep{anselin}. It measures the spatial
 autocorrelation. However, this technique requires that the observed
@@ -1691,14 +1692,14 @@ non-motorway streets. Also, \citet{selby2013spatial} compared Kriging
 and geographically weighted regressions in the prediction of AADT.
 
 Another approach is to perform a spatial regression based on the
-distributio on the oberved data. As the data is counts of traffic, a
+distributio on the observed data. As the data is counts of traffic, a
 poisson, quasi-poisson or negative binomial regressions can be used
 \citep{zeileis2008regression}. Recently, \citet{Ibarraetal2017a}
-compared quasi-posson and negative binomial regresions predicting hourly
-traffic data, with better results with quasi-poisson approach and
-correlation of 0.72.
+compared quasi-poisson and negative binomial regresions predicting
+hourly traffic data, with better results for a quasi-poisson approach
+(correlation of 0.72).
 
-Newer approaches involves using GPS data from smart phones and cars.
+Newer approaches involve GPS data from smartphones and cars.
 
 \subsection{Generating traffic flows from Origin-Destination-Surveys
 (ODS)}\label{generating-traffic-flows-from-origin-destination-surveys-ods}
@@ -1708,22 +1709,22 @@ quantifies the amount of trips generated in the study area. ODS studies
 started decades ago. The oldest ODS paper on Google Scholar is entitles
 ``FUNCTIONS OF A HIGHWAY-PLANNING SURVEY DEPARTMENT'' by W. J. Sapp in
 1938 at the TWENTY-FOURTH ANNUAL ROAD SCHOOL \citep{sapp1938runctions}.
-In this paper it is discussed the importance information for the trffic
-engineer, and Sapp even mentios: ``The engineer must have the supporting
-data available to substantiate his decisions.''
+In this paper the importance of information for the traffic engineer is
+discussed: ``The engineer must have the supporting data available to
+substantiate his decisions.''
 
-Other study of 1942 shows talks about the importance of traffic counts,
-disucssing the elaboration of an origin destination survey where 8000
-Boy Scouts of America participated counting traffic. The method for
-analyzing the data consisted in countign the vehicles identifying the
-licence plate in order to determine the origin (the first time the
-vehicle was recorded), the route of vehicles, the destination and the
-approximate time for the trip.
+Another study of 1942 shows the importance of traffic counts, disucssing
+the elaboration of an origin destination survey where 8000 Boy Scouts of
+America participated in counting traffic. The method for analyzing the
+data consisted in counting the vehicles identifying the licence plate in
+order to determine the origin (the first time the vehicle was recorded),
+the route of vehicles, the destination and the approximate time for the
+trip.
 
 After those pioneer studies many many other studies went deeper into the
 subject. And after that, with the irruption of new technologies, new
 software, use of smarthphones with GPS, satellites and big technological
-centers own by companies such as Google (\url{http://www.google.com}),
+centers owned by companies such as Google (\url{http://www.google.com}),
 new ways for characterizing trips were developed. In this section i will
 briefly mention the Google Distance Matrix
 (\url{https://developers.google.com/maps/documentation/distance-matrix/}),
@@ -1732,7 +1733,7 @@ expand with two R packages, googleway \citep{googleway} and dodgr
 \citep{dodgr}.
 
 The ODS will provide us the matrix of pairs of zones origin and
-destinations by mode of transport. Then, we can use any of the mentiones
+destinations by mode of transport. Then, we can use any of the mentioned
 softwares to find the shortest path between each zone. The table
 \ref{tab:ods} shows an extraction of the OD matrix for the Metropolitan
 Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig
@@ -1771,20 +1772,20 @@ Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig
 \end{figure}
 
 Now, as we know the the trips between each pair of OD zones, we can find
-the routes that connectes them. A used algorithm is the shortest path,
-which connects two nodes minimizing the total travel time. There are
+the routes that connects them. Algorithms are used to find the shortest
+path. It connects two nodes minimizing the total travel time. There are
 several algorithms, including \citet{dijkstra1959note}.
 
 \subsubsection{Google Distance Matrix
 API}\label{google-distance-matrix-api}
 
-This we servise allow to ``retrieve duration and distance values based
-on the recommended route between start and end points.'' It returns
-durations and distance, it is possible to choose modes of transport and
-even to choose between current or historial times. The first step is to
-get a KEY.
+This service allows to ``retrieve duration and distance values based on
+the recommended route between start and end points.'' It returns
+durations and distance and it is possible to choose modes of transport
+as well as to choose between current or historical times. The first step
+is to get a KEY.
 
-If you browser
+If you browse
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1940,9 +1941,9 @@ origin and destination and maptools to transform points to lines.
 
 dpdgr\citep{dodgr} is a new R package with great capbilities. It
 calculates the distance on dual-weight graphs using priority-queue
-shorest paths. In order to calculate the traffic flows it is necessary
-the matrix OD for the desired mode of transport and the coorodinates of
-centroids of the OD zones.
+shortest paths. In order to calculate the traffic flows it is necessary
+to have the matrix OD for the desired mode of transport and the
+coorodinates of centroids of the OD zones.
 
 The function \texttt{dodgr\_streetnet} uses the osmdata r package to
 download street network data from Open Street Map \citep{osm} for the
@@ -1955,9 +1956,8 @@ OSM type of roads based on this webpage:
 \url{https://www.routino.org/xml/routino-profiles.xml}. The function
 \texttt{dodgr\_vertices} extract the vertices pf thegraph including the
 coordinates. Finally, the function \texttt{dodgr\_flowmap} reads the
-graph and plot the flows. Belows s an example for São Paulo using the
-data of ODS the urban uderground public transportation system
-\citep{ODS}.
+graph and plots the flows. Below is an example for São Paulo using the
+data of ODS \citep{ODS}.
 
 \begin{figure}
 
@@ -1971,8 +1971,8 @@ data of ODS the urban uderground public transportation system
 \subsection{Top-down approach}\label{top-down-approach}
 
 VEIN was designed with traffic flow at street leve on mind, however, it
-is possible that user might be inclined for doing for using a top-down
-approach. Here some possible causes:
+is possible that user might want or need to use a top-down approach.
+Here are some possible causes:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1982,22 +1982,21 @@ approach. Here some possible causes:
   country or a continent.
 \item
   Another possibility is that the emissions inventory is going to be
-  used solely for air quality modellign purposes, where the proportion
+  used solely for air quality modelling purposes, where the proportion
   of grid spacing and street is such that spatial detail would be lose,
   for instance with resolution of 10 km.
 \item
   Also, it is possible that there is no way of obtaining traffic
   information at street level.
 \item
-  Limitated resources, time, funding, human resources, etc.
+  Limited resources, time, funding, human resources, etc.
 \item
   Lastly, due to simplism. It is also possible that the objective simply
-  the objective is to estimate an emissions inventory using a top-down
-  approach.
+  is to estimate an emissions inventory using a top-down approach.
 \end{enumerate}
 
 Under these circumstances a top-down approach would be better suited for
-some users. As VEIN counts toolkit for estimating emissions, it is
+some users. As VEIN is a toolkit for estimating emissions, it is
 reasonable to use all VEIN resources with a top-down approach.
 
 In this case, the user must follow some considerations:
@@ -2008,9 +2007,9 @@ In this case, the user must follow some considerations:
   Use \texttt{inventory} functions in the same way as shown on section
   \ref{st}.
 \item
-  Create a network, but instead use a road network with spatial lines,
-  use spatial polygons. The Spatial polygon might represent some area
-  where the amount of vehicles is known.
+  Create a network, but instead of using a road network with spatial
+  lines, use spatial polygons. The Spatial polygon might represent some
+  area where the amount of vehicles is known.
 \item
   The \texttt{age} functions shown in following sections, show that it
   is possible to apply age distributions to each street, in this case,
@@ -2034,8 +2033,8 @@ elaborating an emissions inventory. Also, the function
 \texttt{inventory} shown on sub-section (\ref{veinstructure}) shows the
 functions to structure an inventory. This and the following subsection
 of application shows respective the part of the diagram
-Fig.(\ref{fig:diatraffic}) and how to run vein storing the results in
-the directories shown on Fig. (\ref{st}).
+Fig.(\ref{fig:diatraffic}) and how to run VEIN as well as storing the
+results in the directories shown in Fig. (\ref{st}).
 
 The first element that the user must have is the traffic at street
 level. This is shown as a green circle with the word `traffic' on Fig.
@@ -2124,11 +2123,11 @@ this function are:
 ## NULL
 \end{verbatim}
 
-\texttt{netspeed} allows basically two types of speeds data-frame which
-depends on the availability od data by the user. If the user has
-\texttt{q}, \texttt{ps}, \texttt{ffs} and \texttt{cap} can use the
-argument \texttt{scheme\ =\ FALSE}, or when the user only has
-\texttt{ps} and \texttt{ffs} and use the argument
+\texttt{netspeed} allows basically creates two types of speeds
+data-frames which depends on the availability of data by the user. If
+the user has \texttt{q}, \texttt{ps}, \texttt{ffs} and \texttt{cap} the
+user can use the argument \texttt{scheme\ =\ FALSE}, or when the user
+only has \texttt{ps} and \texttt{ffs} the user can use the argument
 \texttt{scheme\ =\ TRUE}.
 
 \begin{itemize}
@@ -2178,7 +2177,7 @@ Period & Speed\\
 the functions \texttt{age\_ldv}, \texttt{age\_hdv} and
 \texttt{age\_moto}}{Distribution of vehicles by age of use with the functions age\_ldv, age\_hdv and age\_moto}}\label{distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto}
 
-These functions reads traffic data at each street and returns an object
+These functions reads traffic data at each street and return an object
 of class \texttt{Vehicles}, which is a data-frame with the number of
 vehicles at each street and the number of columns represent the amount
 of vehicles at each age. The functions \texttt{age\_moto} and
@@ -2202,9 +2201,9 @@ equations into the fleet from \citet{MMA2011}. The arguments are:
 \item
   \texttt{agemin} age of newest vehicles for that category. The default
   value is 1, however it can be bigger than one when it is a vehicle
-  that is not circulating more than year ago.
+  that is not circulating more then a year ago.
 \item
-  \texttt{agemax} age of oldest vehicles for that category. Teh default
+  \texttt{agemax} age of oldest vehicles for that category. The default
   value is 50 assuming that the oldest vehicle in circulation has 50
   years of use. However, new type of vehicles will be newer.
 \item
@@ -2225,10 +2224,10 @@ equations into the fleet from \citet{MMA2011}. The arguments are:
 
 These functions also reads traffic data at each street and returns an
 object of class \texttt{Vehicles}, which is a data-frame with the number
-of vehicles at each street and the number of columns represent the
-amount of vehicles at each age. However, it is based on data the user
-has and not by parameters. Therefore, using this function with own data
-should produce more representative results. The arguments are:
+of vehicles at each street and the columns represent the amount of
+vehicles at each age. However, it is based on data the user has and not
+by parameters. Therefore, using this function with own data should
+produce more representative results. The arguments are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2246,25 +2245,26 @@ should produce more representative results. The arguments are:
 \item
   \texttt{x} numerical vector of vehicles at each street.
 \item
-  \texttt{y} Age dustribution of vehicles. This parameter can be anual
-  sales or anual registry for the category of vehicle.
+  \texttt{y} Age distribution of vehicles. This parameter can be annual
+  sales or annual registry for the category of vehicle.
 \item
   \texttt{name} of vehicle assigned to columns of dataframe.
 \item
   \texttt{k} multiplication factor. This factor helps to split the
   traffic \texttt{x} in the vehicular composition.
 \item
-  \texttt{message} message with average age and total numer of vehicles.
+  \texttt{message} message with average age and total number of
+  vehicles.
 \end{itemize}
 
 \subsection{\texorpdfstring{The class
 \texttt{Vehicles}}{The class Vehicles}}\label{the-class-vehicles}
 
-\texttt{Vehicles} is a class in vein, shown in on Fig.
+\texttt{Vehicles} is a class in VEIN, shown in on Fig.
 (\ref{fig:diatraffic}). This class includes the methods \texttt{print},
 \texttt{plot} and \texttt{summary}. This means that, \texttt{Vehicles}
 objects presents customized versions of \texttt{print}, \texttt{plot}
-and \texttt{summary} in order to make easier to the user to use vein.
+and \texttt{summary} in order to make easier to the user to use VEIN.
 The figure @ref(fig.plotpc) shows a simple plot of a \texttt{Vehicles}
 object, followed by the \texttt{head} of this object. The plot shows the
 sum of each type of vehicle by age of use, with a vertical red line
@@ -2307,8 +2307,8 @@ indicating the average age, 11.17 years of use.
 
 Another function is \texttt{adt} which calculates average daily traffic
 (ADT) from hourly traffic data. This function reads numeric vectors with
-the amount of vehicles at each street expand the traffic with temporal
-factors for each type of vehicle. The arguemtns are:
+the amount of vehicles at each street and expands the traffic with
+temporal factors for each type of vehicle. The arguments are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2351,9 +2351,9 @@ factors for each type of vehicle. The arguemtns are:
 \section{Application}\label{application}
 
 As mentioned above, the application consists in using the travel demand
-model for west part of São Paulo city, present in vein. This script
-reads traffic data and expand applying an age function. It will be used
-the \texttt{inventory} function with the default vehicular composition,
+model for west part of São Paulo city, present in VEIN. This script
+reads traffic data and expands it applying an age function. It uses the
+\texttt{inventory} function with the default vehicular composition,
 shown on section (@red(st)). Please, use the scripts in the extra
 material of this book. The base year is 2015 and the extended example is
 available in appendix 1.
@@ -2821,7 +2821,7 @@ functon \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <environment: 0x55b21ece5a40>
+## <environment: 0x5563d41527d8>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4443,31 +4443,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmplM5Ctp/YourCity
+## files at /tmp/RtmpA7qaw3/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmplM5Ctp/YourCity"             
-##  [2] "/tmp/RtmplM5Ctp/YourCity/ef"          
-##  [3] "/tmp/RtmplM5Ctp/YourCity/emi"         
-##  [4] "/tmp/RtmplM5Ctp/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmplM5Ctp/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmplM5Ctp/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmplM5Ctp/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmplM5Ctp/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmplM5Ctp/YourCity/est"         
-## [10] "/tmp/RtmplM5Ctp/YourCity/images"      
-## [11] "/tmp/RtmplM5Ctp/YourCity/network"     
-## [12] "/tmp/RtmplM5Ctp/YourCity/post"        
-## [13] "/tmp/RtmplM5Ctp/YourCity/post/df"     
-## [14] "/tmp/RtmplM5Ctp/YourCity/post/grids"  
-## [15] "/tmp/RtmplM5Ctp/YourCity/post/streets"
-## [16] "/tmp/RtmplM5Ctp/YourCity/profiles"    
-## [17] "/tmp/RtmplM5Ctp/YourCity/veh"
+##  [1] "/tmp/RtmpA7qaw3/YourCity"             
+##  [2] "/tmp/RtmpA7qaw3/YourCity/ef"          
+##  [3] "/tmp/RtmpA7qaw3/YourCity/emi"         
+##  [4] "/tmp/RtmpA7qaw3/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpA7qaw3/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpA7qaw3/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpA7qaw3/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpA7qaw3/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpA7qaw3/YourCity/est"         
+## [10] "/tmp/RtmpA7qaw3/YourCity/images"      
+## [11] "/tmp/RtmpA7qaw3/YourCity/network"     
+## [12] "/tmp/RtmpA7qaw3/YourCity/post"        
+## [13] "/tmp/RtmpA7qaw3/YourCity/post/df"     
+## [14] "/tmp/RtmpA7qaw3/YourCity/post/grids"  
+## [15] "/tmp/RtmpA7qaw3/YourCity/post/streets"
+## [16] "/tmp/RtmpA7qaw3/YourCity/profiles"    
+## [17] "/tmp/RtmpA7qaw3/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmplM5Ctp/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpA7qaw3/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5626,12 +5626,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9210248
-## 2 0.9267287
-## 3 0.9271289
-## 4 0.9162801
-## 5 0.9274767
-## 6 0.9262088
+## 1 0.9255311
+## 2 0.9254679
+## 3 0.9351006
+## 4 0.9291984
+## 5 0.9256523
+## 6 0.9222685
 \end{verbatim}
 
 \begin{Shaded}
@@ -5658,31 +5658,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9210248 0.9267287 0.9271289
+## [1] 0.9255311 0.9254679 0.9351006
 ## Units: [mol/h]
-## [1] 1.418257 1.427041 1.427657
+## [1] 1.425196 1.425099 1.439932
 ## Units: [mol/h]
-## [1] 0.5169125 0.5201138 0.5203384
+## [1] 0.5194417 0.5194062 0.5248124
 ## Units: [mol/h]
-## [1] 0.2494233 0.2509680 0.2510764
+## [1] 0.2506437 0.2506266 0.2532352
 ## Units: [mol/h]
-## [1] 1.892462 1.904182 1.905005
+## [1] 1.901722 1.901592 1.921384
 ## Units: [mol/h]
-## [1] 0.7933945 0.7983080 0.7986527
+## [1] 0.7972764 0.7972219 0.8055197
 ## Units: [mol/h]
-## [1] 0.5259932 0.5292506 0.5294792
+## [1] 0.5285667 0.5285306 0.5340318
 ## Units: [mol/h]
-## [1] 0.02523058 0.02538683 0.02539779
+## [1] 0.02535402 0.02535229 0.02561617
 ## Units: [mol/h]
-## [1] 0.4578844 0.4607201 0.4609190
+## [1] 0.4601247 0.4600933 0.4648821
 ## Units: [mol/h]
-## [1] 0.8723440 0.8777464 0.8781254
+## [1] 0.8766121 0.8765522 0.8856758
 ## Units: [mol/h]
-## [1] 1.225345 1.232934 1.233466
+## [1] 1.231341 1.231257 1.244072
 ## Units: [mol/h]
-## [1] 0.3434819 0.3456091 0.3457583
+## [1] 0.3451625 0.3451389 0.3487312
 ## Units: [mol/h]
-## [1] 0.4479728 0.4507471 0.4509418
+## [1] 0.4501647 0.4501339 0.4548191
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5741,7 +5741,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 601960.27
+## Sum of street emissions 601970.86
 \end{verbatim}
 
 \begin{verbatim}
@@ -5749,7 +5749,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 601960.27
+## Sum of gridded emissions 601970.86
 \end{verbatim}
 
 \begin{Shaded}
@@ -5786,18 +5786,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001446916 [g/m^2/s] 0.01170687 0.0004641406 0.001978705 0.01879112
-## 2 0.001438186 [g/m^2/s] 0.01163623 0.0004613402 0.001966766 0.01867774
-## 3 0.001474191 [g/m^2/s] 0.01192754 0.0004728897 0.002016004 0.01914533
-## 4 0.002557305 [g/m^2/s] 0.02069092 0.0008203302 0.003497197 0.03321175
-## 5 0.005767455 [g/m^2/s] 0.04666396 0.0018500798 0.007887182 0.07490202
+## 1 0.001444517 [g/m^2/s] 0.01168746 0.0004633710 0.001975424 0.01875996
+## 2 0.001435801 [g/m^2/s] 0.01161694 0.0004605752 0.001963505 0.01864677
+## 3 0.001471746 [g/m^2/s] 0.01190777 0.0004721056 0.002012661 0.01911359
+## 4 0.002547584 [g/m^2/s] 0.02061227 0.0008172122 0.003483904 0.03308551
+## 5 0.005800099 [g/m^2/s] 0.04692808 0.0018605513 0.007931824 0.07532596
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05637336 0.005712500 0.02435329 0.01052303 0.004509868 0.05205140
-## 2 0.05603322 0.005678033 0.02420635 0.01045953 0.004482658 0.05173734
-## 3 0.05743600 0.005820181 0.02481235 0.01072139 0.004594880 0.05303257
-## 4 0.09963524 0.010096371 0.04304242 0.01859858 0.007970819 0.09199654
-## 5 0.22470605 0.022770213 0.09707301 0.04194513 0.017976484 0.20747858
+## 1 0.05627988 0.005703028 0.02431291 0.01050558 0.004502391 0.05196509
+## 2 0.05594031 0.005668618 0.02416621 0.01044219 0.004475225 0.05165155
+## 3 0.05734077 0.005810531 0.02477121 0.01070361 0.004587261 0.05294464
+## 4 0.09925654 0.010057996 0.04287882 0.01852789 0.007940523 0.09164687
+## 5 0.22597789 0.022899093 0.09762245 0.04218254 0.018078231 0.20865292
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
