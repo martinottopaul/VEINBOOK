@@ -212,7 +212,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-10-14}
+\date{2018-10-22}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1407,28 +1407,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpA7qaw3/YourCity
+## files at /tmp/RtmpgBkOdW/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpA7qaw3/YourCity"             
-##  [2] "/tmp/RtmpA7qaw3/YourCity/ef"          
-##  [3] "/tmp/RtmpA7qaw3/YourCity/emi"         
-##  [4] "/tmp/RtmpA7qaw3/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpA7qaw3/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpA7qaw3/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpA7qaw3/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpA7qaw3/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpA7qaw3/YourCity/est"         
-## [10] "/tmp/RtmpA7qaw3/YourCity/images"      
-## [11] "/tmp/RtmpA7qaw3/YourCity/network"     
-## [12] "/tmp/RtmpA7qaw3/YourCity/post"        
-## [13] "/tmp/RtmpA7qaw3/YourCity/post/df"     
-## [14] "/tmp/RtmpA7qaw3/YourCity/post/grids"  
-## [15] "/tmp/RtmpA7qaw3/YourCity/post/streets"
-## [16] "/tmp/RtmpA7qaw3/YourCity/profiles"    
-## [17] "/tmp/RtmpA7qaw3/YourCity/veh"
+##  [1] "/tmp/RtmpgBkOdW/YourCity"             
+##  [2] "/tmp/RtmpgBkOdW/YourCity/ef"          
+##  [3] "/tmp/RtmpgBkOdW/YourCity/emi"         
+##  [4] "/tmp/RtmpgBkOdW/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpgBkOdW/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpgBkOdW/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpgBkOdW/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpgBkOdW/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpgBkOdW/YourCity/est"         
+## [10] "/tmp/RtmpgBkOdW/YourCity/images"      
+## [11] "/tmp/RtmpgBkOdW/YourCity/network"     
+## [12] "/tmp/RtmpgBkOdW/YourCity/post"        
+## [13] "/tmp/RtmpgBkOdW/YourCity/post/df"     
+## [14] "/tmp/RtmpgBkOdW/YourCity/post/grids"  
+## [15] "/tmp/RtmpgBkOdW/YourCity/post/streets"
+## [16] "/tmp/RtmpgBkOdW/YourCity/profiles"    
+## [17] "/tmp/RtmpgBkOdW/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1503,7 +1503,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpA7qaw3/YourCity
+## files at /tmp/RtmpgBkOdW/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -1884,6 +1884,7 @@ This package allows to plot over Google Maps.
 ##  -  elevation :  
 ##  -  geocode :  
 ##  -  places :  
+##  -  find_place :  
 ##  -  place_autocomplete :  
 ##  -  place_details :  
 ##  -  reverse_geocode :  
@@ -2387,45 +2388,45 @@ are produced by a vehicle when its engine and exhaust after-treatment
 system are at their normal operational temperatures and \emph{Cold}
 during the vehicle warm-up phase \citep{trlef}.
 
-The emission factors comes from measurement of pollutants emitted by the
-sources. In the case of vehicles, the dynanometer measurements the
+The emission factors come from measurements of pollutants emitted by the
+sources. In the case of vehicles, the dynanometer measurements of the
 emission factors are the mass of pollutant collected during the distance
 traveled by a vehicle following a specific driving cycle. The Federal
 Test Procedure (FTP) is a test to certify the vehicle emissions under
 the driving cycles such as FTP-75. This driving cycle has a duration of
-1874 \(s\) for a distance of 17783 \(m\) and average speed of 34.12
+1874 \(s\) for a distance of 17783 \(m\) and an average speed of 34.12
 \(km \cdot h^{-1}\) \citep{tim}.
 
 In the literature it is possible to find different type of emission
-factors. For instance, in europe, during the development of the project
+factors. For instance, in Europe, during the development of the project
 Assesment of Reliability of Transport Emission Models and Inventory
-Systems (ARTEMIS), it was developed the \emph{traffic situation model}.
-This concept consists in the combination of parameters that affects the
+Systems (ARTEMIS), the \emph{traffic situation model} was developed. The
+model concept consists in the combination of parameters that affects
 vehicle kinematics and engine operation: type of road, sinuosity and
 gradient, trafffic conditions or level of service (free-flow, heavy,
 saturated and stop and go) and average speed by speed limit of the road
-\citep{artemis}. Measurenets of vehicular emissions under each traffic
-situation led to emission factors by traffic situation, used in the
+\citep{artemis}. Measurements of vehicular emissions under each traffic
+situation lead to emission factors by traffic situation, used in the
 Handbook of Emission Factors (HBEFA, www.hbefa.net).
 
 There is another approach based on 1 Hz measurement of emissions. Here,
 the pollutants are measured on real live traffic driving. Emission
 factors can be derived here using mainly two approaches. One approach is
 applying the Vehicular Specific Power (VSP) \citep{jimenez1999vehicle}.
-This methods is used in the MOtor Vehicle Emission Simulator (MOVES)
+This method is used in the Motor Vehicle Emission Simulator (MOVES)
 \citep{koupal2003design} and the International Vehicle Emissions model
 (IVE) \citep{Davisetal2005}. Another approach is to apply the Passenger
 car and Heavy-duty Emission Model (PHEM), which is based on
 instantaneous engine power demand and engine speed developed during the
-Artemis project \citep[\citet{artemis}]{tim}.
+ARTEMIS project \citep[\citet{artemis}]{tim}.
 
-Perhaps the most used approach to obtain emission factors are the speed
-functions. As the emissions tests on driving cycles are valid for only
-one average speed, measuring emissions of different driving cycles at
-different average speeds, allow to obtain point clouds where a
-regressions is applied, obtaining an emission factor as a speed
-function. The literature shows experiments in diffferent parts of the
-world, such as in Chile \citep{Corvalanetal2002} and Europe
+Perhaps the most used approach to obtain emission factors are speed
+functions. As emissions tests on driving cycles are valid for only one
+average speed, measuring emissions of different driving cycles at
+different average speeds, allows to obtain point clouds where a
+regression is applied, obtaining an emission factor as a speed function.
+The literature shows experiments in diffferent parts of the world, such
+as in Chile \citep{Corvalanetal2002} and Europe
 \citep{ntziachristos2000speed}. However, probably the most used source
 of emission factors as speed functions are the European emission
 guidelines developed by the European Monitoring and Evaluation Programme
@@ -2438,19 +2439,19 @@ the VEIN model.
 Another aspect important in vehicular emissions is the degradation of
 the emissions of aged vehicles. Over the time, different part of the
 vehicles suffer deterioration, increasing the emissions. Therefore,
-approachas have been developed to account of this effect in inventories.
-One approach consists in determining functions that increment the
-emissions by accumulated mileage, such as studies of
+approaches have been developed to account for this effect in
+inventories. One approach consists in determining functions that
+increment the emissions by accumulated mileage, such as studies of
 \citet{CorvalanVargas2003}.
 
 In Brazil, the emission factors are reported by the Environmental
 Protection Agency of São Paulo \citet{CETESB2015}, in their vehicular
-emissions inventory report. Light vehicles emission factors comes from
+emissions inventory report. Light vehicles emission factors come from
 average measurements of the FTP75 driving cycle, motorcycle emission
-factors comes from average measurements of World Motorcycle Test Cycle
-(WMTC) and HDV with from the European Stationary Cycle (ETC).
+factors come from average measurements of World Motorcycle Test Cycle
+(WMTC) and HDV from the European Stationary Cycle (ETC).
 
-As the VEIN model was developed in Brazil, but user of other parts of
+As the VEIN model was developed in Brazil, but users of other parts of
 the world may be intereted in using the model, the approach in VEIN has
 to allow flexibility to the user. Therefore, the emission factors
 approach in VEIN consists in three options, as shown on Fig.
@@ -2459,11 +2460,11 @@ factors by age of use, such as the one from \citet{CETESB2015}, denoted
 as local\_ef in the green circle. The second approach consists in
 selecting speed functions from \citet{NtziachristosSamaras2016},
 availabe in VEIN and denoted as the grey box as speed\_ef. The third
-approach conists in incorporate speed variation from the speed function
-into the local emission factors by age of use. In any case, VEIN count
-with function to account of the degradation of emissions due to
-accumulated mileage denotes in grey box as emis\_det. These emissions
-are entered into the estimation emission function.
+approach conists in incorporating speed variation from the speed
+function into the local emission factors by age of use. In any case,
+VEIN uses a function to account for the degradation of emissions due to
+accumulated mileage (denoted in grey box as emis\_det). These emissions
+are entered into the emission estimation function.
 
 The following sections show how to do these calculation in VEIN, step by
 step.
@@ -2487,20 +2488,21 @@ EH_{i,j,k,l,m} =F_{i,j,k,l} \cdot L_i \cdot EF(V_{i,l})_{j,k,m} \cdot DF_{j,k}
 \label{eq:emi}
 \end{equation}
 
-Where \(EH_{i,j,k,l,m}\) is the emissions for each street link \(i\),
+where \(EH_{i,j,k,l,m}\) is the emission for each street link \(i\),
 vehicle category from composition \(k\), hour \(l\) and pollutant \(m\),
-where \(F_{i,j,k,l}\) is the vehicular flow calculated in Eq. 1. \(L_i\)
-is the length of the street link \(i\). \(EF(V_{i,l})_{j,k,m}\) is the
+\(F_{i,j,k,l}\) is the vehicular flow calculated in Eq. 1. \(L_i\) is
+the length of the street link \(i\). \(EF(V_{i,l})_{j,k,m}\) is the
 emission factor of each pollutant \(m\). \(DF_{j,k}\) is the
 deterioration factor for vehicle of type \(j\) and age of use \(k\),
-explained in detial in section \ref{det}.
+explained in detail in section \ref{det}.
 
-These function return speed functions as \(f(V)\). The functions comes
+These functions return speed functions as \(f(V)\). The functions come
 from the EMEP/EEA emissions guidelines \citep{NtziachristosSamaras2016}
-and are available in PDF reports. The equations and their parameter were
-translated to spreedsheets and loaded internally in VEIN. Therefore, the
-user only must enter the required parameters obtaining the desired
-function. The functions respect the assumptions and speed limits.
+and are available in PDF reports. The equations and their parameters
+were translated to spreedsheets and loaded internally in VEIN.
+Therefore, the user only must enter the required parameters obtaining
+the desired function. The functions respect the assumptions and speed
+limits.
 
 \subsection{\texorpdfstring{Emission factors of LDV depending on speed
 with the function
@@ -2511,13 +2513,13 @@ The arguments for \texttt{ef\_ldv\_speed} are:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{v}: Category vehicle: ``PC'', ``LCV'', ``Motorcycle'' or
+  \texttt{v}: Category of vehicle: ``PC'', ``LCV'', ``Motorcycle'' or
   ``Moped''.
 \item
-  \texttt{t}: Sub-category of of vehicle: PC: ``ECE\_1501'',
-  ``ECE\_1502'', ``ECE\_1503'', ``ECE\_1504'' ,
-  ``IMPROVED\_CONVENTIONAL'', ``OPEN\_LOOP'', ``ALL'', ``2S'' or ``4S''.
-  LCV: ``4S'', Motorcycle: ``2S'' or ``4S''. Moped: ``2S'' or ``4S''.
+  \texttt{t}: Sub-category of vehicle: PC: ``ECE\_1501'', ``ECE\_1502'',
+  ``ECE\_1503'', ``ECE\_1504'' , ``IMPROVED\_CONVENTIONAL'',
+  ``OPEN\_LOOP'', ``ALL'', ``2S'' or ``4S''. LCV: ``4S'', Motorcycle:
+  ``2S'' or ``4S''. Moped: ``2S'' or ``4S''.
 \item
   \texttt{cc}: Size of engine in cc: PC: ``\textless{}=1400'',
   ``\textgreater{}1400'', ``1400\_2000'', ``\textgreater{}2000'',
@@ -2536,10 +2538,11 @@ The arguments for \texttt{ef\_ldv\_speed} are:
 \item
   \texttt{k}: Multiplication factor.
 \item
-  \texttt{show.equation}: Option to see or not the equation parameters.
+  \texttt{show.equation}: Option to see (or not) the equation
+  parameters.
 \end{itemize}
 
-It is very important that the user enter the right value into the
+It is very important that the user enters the right values into the
 arguments because the final category must match. If the user enters
 values that do not match, the resulting speed function will be wrong.
 There are 146 matchs. The probably most used combinations are:
@@ -2569,8 +2572,8 @@ by Passenger Cars with with technologies Pre Euro and Euro I from
 speeds and older vehicles with technologies pre Euro emit more than
 vehicles with Euro I. Even more, the average emissions of Pre Euro are
 29.31 \(g \cdot km^{-1}\) and Euro I 2.61 \(g \cdot km^{-1}\), meaning
-that, on average, a vehicle Pre euro is 14 times than a vehicle with
-euro I.
+that, on average, a vehicle Pre euro is 14 times higher than a vehicle
+with euro I.
 
 The Fig. (\ref{fig:figef}) shows the plot using the package ggplot2
 \citep{ggplot2}. This package requires that the data must be in long
@@ -2624,9 +2627,9 @@ The arguments for \texttt{ef\_hdv\_speed} are:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{v} :Category vehicle: ``Coach'', ``Trucks'' or ``Ubus''
+  \texttt{v} Category of vehicle: ``Coach'', ``Trucks'' or ``Ubus''
 \item
-  \texttt{t} Sub-category of of vehicle: ``3Axes'', ``Artic'', ``Midi'',
+  \texttt{t} Sub-category of vehicle: ``3Axes'', ``Artic'', ``Midi'',
   ``RT,''Std" and ``TT''
 \item
   \texttt{g} Gross weight of each category: ``\textless{}=18'',
@@ -2678,33 +2681,33 @@ functions \texttt{EmissionFactors} and
 \texttt{EmissionFactorsList}}{Local emission factors by age of use. The functions EmissionFactors and EmissionFactorsList}}\label{localef}
 
 The functions \texttt{EmissionFactors} and \texttt{EmissionFactorsList}
-creates the classes with the same names. The class
-\texttt{EmissionFactors} is also a data-frame with numeric columns with
-units of \(g \cdot km^{-1}\). This class is not used in critical steps
-of VEIN, and it has a purpose of only creating data-frame with numeric
-columns with units. The this function is applied to a numeric vector, it
-just convert it to \texttt{units} adding units to it.
+create the classes with same names. The class \texttt{EmissionFactors}
+is also a data-frame with numeric columns with units of
+\(g \cdot km^{-1}\). This class is not used in critical steps of VEIN,
+and it has a purpose of creating a data-frame with numeric columns and
+units. The function is applied to a numeric vector and it just converts
+it to \texttt{units} adding units to it.
 
 In the case of \texttt{EmissionFactorsList}, this class is a list of
 functions \(f(V)\). This is usefull because the \texttt{emis} function,
 seen in detail on chapter \ref{est}, requires that the emission factors
-are functions of Velocity \(f(V)\), regardless \(f(V)\) is constant or
-not. When this function is applied to a data-frame or to a matrix, it
-returns a list and each columns of the data-frame or matrix is another
-list. Also, each row of the original data-frame is converted to a
-\(f(V)\).
+are functions of velocity \(f(V)\), regardless \(f(V)\) if it is
+constant or not. When this function is applied to a data-frame or to a
+matrix, it returns a list and each column of the data-frame or matrix is
+another list. Also, each row of the original data-frame is converted to
+a \(f(V)\).
 
-The arguements or \texttt{EmissionFactorsList} and
+The arguments or \texttt{EmissionFactorsList} and
 \texttt{EmissionFactors} are:
 
 -\texttt{x}: Object with class ``data.frame'', ``matrix'' or ``numeric''
 
-The following lines of ode show examples using \texttt{EmissionFactors}.
-Firstly, it is loaded the dataset of emission factors \emph{fe2015} for
-CO and the vehicles PC using gasoline PC\_G and Light Trucks LT. The
-class of fe2015 is data-frame. The subset of the data is named DF\_CO.
-When we see the first 6 elemens of the data-frame are numbers without
-units.
+The following lines of code show examples using
+\texttt{EmissionFactors}. Firstly, it is loaded the dataset of emission
+factors \emph{fe2015} for CO and the vehicles PC using gasoline PC\_G
+and Light Trucks LT. The class of fe2015 is data-frame. The subset of
+the data is named DF\_CO. The first 6 elemens of the data-frame are
+numbers without units.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2725,8 +2728,8 @@ units.
 ## 6 0.204 0.416
 \end{verbatim}
 
-The object EF\_CO has class\texttt{EmissionFactors} and ``data-frame''
-and each observation has the units \(g \cdot km^{-1}\).
+The object EF\_CO is of class \texttt{EmissionFactors} and
+``data-frame'' and each observation has the units \(g \cdot km^{-1}\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2756,8 +2759,8 @@ and each observation has the units \(g \cdot km^{-1}\).
 ## [1] "EmissionFactors" "data.frame"
 \end{verbatim}
 
-The plot of an object with class \texttt{EmissionFactors} shows maximum
-9 emission factors. Fig. (\ref{fig:efco}) shows the emission factors of
+The plot of an object of class \texttt{EmissionFactors} shows maximum 9
+emission factors. Fig. (\ref{fig:efco}) shows the emission factors of
 both categories, where newer vehicles emit less and older vehicles emit
 more.
 
@@ -2777,10 +2780,10 @@ more.
 \end{figure}
 
 Regarding the class \texttt{EmissionFactorsList}, the \texttt{print} and
-\texttt{summary} methods are very simply, ony showing a description of
+\texttt{summary} methods are very simple, only showing a description of
 the object. The example of the following lines of code also uses the
 same set of Emission Factors from \citet{CETESB2015}. The resulting
-object, EF\_COL, has class \texttt{EmissionFactorsList} and
+object, EF\_COL, is of class \texttt{EmissionFactorsList} and
 \texttt{list}. The print of the object shows only a description of the
 first and last member of the list object.
 
@@ -2807,11 +2810,12 @@ first and last member of the list object.
 ## Last has  36  functions
 \end{verbatim}
 
-Indeed, we want to see the content of the \texttt{EmissionFactorsList}
-we would have to extract the elements of the list. EFL\_CO has two list,
-each one for PC and LT. Then, each list has 36 functions, the command
+Indeed, if we want to see the content of the
+\texttt{EmissionFactorsList} we have to extract the elements of the
+list. EFL\_CO has two lists; one for PC and one for LT. Then, each list
+has 36 functions, the command
 \texttt{class(EFL\_CO{[}{[}1{]}{]}{[}{[}1{]}{]})} shows the object is a
-functon \(f(V)\).
+function \(f(V)\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2820,8 +2824,10 @@ functon \(f(V)\).
 \end{Shaded}
 
 \begin{verbatim}
-## function(V) x[j,i]
-## <environment: 0x5563d41527d8>
+## function (V) 
+## x[j, i]
+## <bytecode: 0x5632cd4d0ec8>
+## <environment: 0x5632ddeb4160>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -2872,28 +2878,28 @@ same figure as Fig. (\ref{fig:efco})
 functions \texttt{ef\_ldv\_scaled} and
 \texttt{ef\_hdv\_scaled}}{Incorporating speed variation with the functions ef\_ldv\_scaled and ef\_hdv\_scaled}}\label{scale}
 
-The functions on section \ref{speedef} and \ref{localef} showed the
-speed and local emission factors respectivly. However, the user might
-have local and constant emission factors depending only on age of use,
-but also, outputs from a traffic demand model which includes speed.
-Under those circumnstances, it would be interesting to investigate the
-effects of the average speed of traffic flow. VEIN includes a function
-to transform a constant emission factor by age of use into a speed
+The functions in section \ref{speedef} and \ref{localef} showed the
+speed and local emission factors respectively. However, the user might
+have local and constant emission factors depending only on the age of
+use, but also, outputs from a traffic demand model which includes speed.
+Under those circumstances, it would be interesting to investigate the
+effects of the average speed of traffic flow. VEIN includes functions to
+transform a constant emission factor by age of use into a speed
 dependent function.
 
-This functions are called \texttt{ef\_ldv\_scaled} and
+These functions are called \texttt{ef\_ldv\_scaled} and
 \texttt{ef\_hdv\_scaled}. The concept is explained in detail in my Ph.D
-thesis \citep{ibarrathesis}. The idea is comes from revisitng the nature
+thesis \citep{ibarrathesis}. The idea comes from revisiting the nature
 of the local emission factors. The Brazilian emission factors consist of
-average measurements emissions certification tests which use the driving
-cycles Federal Test Procedure FTP-75 for LDV, World Motorcycle Test
-Cycle (WMTC) for motorcycles, and also the European Stationary Cycle
-(ESC) for HDV \citep{CETESB2015}. The average speed of FTP-75 and WMTC
-are known, being 34.2 \(km \cdot h^{-1}\) and 54.7 \(km \cdot h^{-1}\)
-based to the reference report on driving cycles from the Transport and
-Research Laboratory (TRL) \citep{tim}. In the case of ESC, the user
-might search on literature a way to relate this cycle with an average
-speed.
+average measurements for emissions certification tests which use the
+driving cycles Federal Test Procedure FTP-75 for LDV, World Motorcycle
+Test Cycle (WMTC) for motorcycles, and also the European Stationary
+Cycle (ESC) for HDV \citep{CETESB2015}. The average speed of FTP-75 and
+WMTC are known, being 34.2 \(km \cdot h^{-1}\) and 54.7
+\(km \cdot h^{-1}\) based on the reference report on driving cycles from
+the Transport and Research Laboratory (TRL) \citep{tim}. In the case of
+ESC, the user might search on literature a way to relate this cycle with
+an average speed.
 
 Coming back to the \citet{CETESB2015} emission factors, these are annual
 average values of emissions for the different technologies to accomplish
@@ -2903,9 +2909,10 @@ emission factors, one constant and other speed function, it would be
 possble to relate them. These functions use the speed to relate both
 emission factors. The condition to transform a contant emission factor
 into a speed dependent function is that, the new speed dependent
-function must be the same value at the speed which is representative the
-local factor, and the values at other speeds are the incorporation of
-the speed variation. The equation \eqref{eq:efscaled} shows the procedure:
+function must be of the same value at the speed which is representative
+for the local factor, and the values at other speeds are the
+incorporation of the speed variation. The equation \eqref{eq:efscaled}
+shows the procedure:
 
 \begin{equation}
 EF_{scaled}(V_{i,l})_{j,k,m}=EF(V_{i,l})_{j,k,m} \cdot \frac{EFlocal_{j,k,m}}{{EF(Vdc_{i,l})_{j,k,m}}}
@@ -2920,8 +2927,8 @@ as speed functions). \(EF(Vdc_{i,l})_{j,k,m}\) are Copert emission
 factors with average speed value of the respective driving cycle for the
 vehicular category \(j\).
 
-The functions \texttt{ef\_ldv\_scaled} and \texttt{ef\_hdv}\_scaled`
-returns scaled emissions factors automatically. The arguments are:
+The functions \texttt{ef\_ldv\_scaled} and \texttt{ef\_hdv\_scaled}
+return scaled emissions factors automatically. The arguments are:
 
 \begin{itemize}
 \tightlist
@@ -2929,18 +2936,18 @@ returns scaled emissions factors automatically. The arguments are:
   \texttt{df}: Data-frame with emission factors (Deprecated in 0.3.10).
 \item
   \texttt{dfcol}: Numeric vector with the emission factors constant by
-  age of use. These emission factors are the target to incorporate peed
+  age of use. These emission factors are the target to incorporate speed
   variation.
 \item
   \texttt{SDC}: A number with the speed of the driving cycle of the
-  emission factors from the argumetn \texttt{dfcol}. The resulting speed
+  emission factors from the argument \texttt{dfcol}. The resulting speed
   functions will return the same values of dfcol at the speed
   \texttt{SDC}. The default is 34.12 ``km/h''.
 \item
-  \texttt{v}. Category vehicle: ``PC'', ``LCV'', ``Motorcycle'' or
+  \texttt{v}. Category of vehicle: ``PC'', ``LCV'', ``Motorcycle'' or
   ``Moped''.
 \item
-  \texttt{t}. Character; sub-category of of vehicle: PC: ``ECE\_1501'',
+  \texttt{t}. Character; sub-category of vehicle: PC: ``ECE\_1501'',
   ``ECE\_1502'', ``ECE\_1503'', ``ECE\_1504'' ,
   ``IMPROVED\_CONVENTIONAL'', ``OPEN\_LOOP'', ``ALL'', ``2S'' or ``4S''.
   LCV: ``4S'', Motorcycle: ``2S'' or ``4S''. Moped: ``2S'' or ``4S''.
@@ -2963,7 +2970,8 @@ returns scaled emissions factors automatically. The arguments are:
   ``PM''.
 \end{itemize}
 
-And the argument of \texttt{ef\_hdv\_scaled} are:
+And the argument of \texttt{ef\_hdv\_scaled} are: !! something is
+missing here!!
 
 \section{Cold Starts}\label{cold-starts}
 
@@ -3000,7 +3008,7 @@ implementation of the International Vehicle Emissions (IVE) model
 hourly mileage driven with cold start conditions.
 
 The function for cold start emission factors is \texttt{ef\_ldv\_cold}
-and their arguments are:
+and its arguments are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3018,9 +3026,9 @@ where:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{v}: Category vehicle: ``LDV''.
+  \texttt{v}: Category of vehicle: ``LDV''.
 \item
-  \texttt{ta}: Ambient temperature. Monthly men can be used.
+  \texttt{ta}: Ambient temperature. Monthly mean can be used.
 \item
   \texttt{cc}: Size of engine in cc: ``\textless{}=1400'',
   ``1400\_2000'' or ``\textgreater{}2000''.
@@ -3062,8 +3070,8 @@ be deprecated soon.
 
 By default, VEIN includes deterioration factors from Copert
 \citep{NtziachristosSamaras2016}. However, it is possible to include
-other sources, such as from \citep{CorvalanVargas2003} or included
-deteriorated local emission factors. This aspesct is faced in vein with
+other sources, such as from \citep{CorvalanVargas2003} or include
+deteriorated local emission factors. This aspesct is faced in VEIN with
 the function \texttt{emis\_det}. This function returns deteriorated
 factors, as numeric vectors, which must be multiplied with the emission
 factors of vehicles with 0 mileage.
@@ -3140,7 +3148,7 @@ fuel inside the tank; \textbf{running losses}, when the fuel evaporates
 inside the tank due to normal operation of the vehicle; and \textbf{hot
 soak} emissions, which occur when the hot engine is turned off. These
 methods implemented in VEIN were sourced from the evaporative emissions
-methods of Copert Tier 2 \citep{MelliosNtziachristos2016}. VEIN it is
+methods of Copert Tier 2 \citep{MelliosNtziachristos2016}. In VEIN it is
 also possible to use local emission factors. Here I'm showing both
 approaches:
 
@@ -3175,7 +3183,7 @@ HS_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{shc}+(1-p) \cdot e_{swc})+(1-c) \c
 \label{eq:ev2}
 \end{equation}
 
-where \(x\) are the number of trips per day for the vehicular type \(j\)
+where: \(x\) is the number of trips per day for the vehicular type \(j\)
 and age of use \(k\). \(c\) is the fraction of vehicles with fuel return
 systems. \(p\) is the fraction of trips finished with hot engine, for
 example, an engine that has reached its normal operating temperature and
@@ -3187,30 +3195,33 @@ and warm-soak emission factors for gasoline vehicles with carburettor or
 fuel return systems (\(\mathrm{g \cdot parking^{-1}}\)). \(e_{shfi}\) is
 the average hot-soak emission factors for gasoline vehicles equipped
 with fuel injection and non-return fuel systems
-(\(\mathrm{g \cdot parking^{-1}}\)). The Eq. \eqref{eq:ev3} shows the
-procedure.
+(\(\mathrm{g \cdot parking^{-1}}\)).
+
+The Eq. \eqref{eq:ev3} shows the procedure.
 
 \begin{equation}
 RL_{j,k} = x_{j,k} \cdot (c \cdot (p \cdot e_{rhc}+(1-p) \cdot e_{rwc})+(1-c) \cdot e_{rhfi} )
 \label{eq:ev3}
 \end{equation}
 
-\(x\) and \(p\) have the same meanings of Eq. \eqref{eq:ev2}. \(e_{rhc}\)
-and \(e_{rwc}\) are average hot and warm running losses emission factors
-for gasoline vehicles with carburettor or fuel return systems
-(\(\mathrm{g \cdot trip^{-1}}\)) and \(e_{rhfi}\) are average hot
-running losses emission factors for gasoline vehicles equipped with fuel
+where: \(x\) and \(p\) have the same meanings of Eq. \eqref{eq:ev2}.
+\(e_{rhc}\) and \(e_{rwc}\) are average hot and warm running losses
+emission factors for gasoline vehicles with carburettor or fuel return
+systems (\(\mathrm{g \cdot trip^{-1}}\)) \(e_{rhfi}\) are average hot
+running losses emission factors for gasoline vehicles equipped withfuel
 injection and non-return fuel systems (\(\mathrm{g \cdot trip^{-1}}\)).
+
 It is recommended to estimate the number of trips per day
 \citep{MelliosNtziachristos2016}, \(x\), as the division between the
 mileage and 365 times the length of trip:
-\(x = \frac{mileage_j}{(365 \cdot ltrip)}\). However, the mileage of a
-vehicle is not constant throughout the years. Therefore, VEIN
-incorporates a dataset of equations to estimate mileage of different
-types of vehicles by age of use \citep{BruniBales2013}.
+\(x = \frac{mileage_j}{(365 \cdot ltrip)}\).
+
+However, the mileage of a vehicle is not constant throughout the years.
+Therefore, VEIN incorporates a dataset of equations to estimate mileage
+of different types of vehicles by age of use \citep{BruniBales2013}.
 
 The function for evaporative emission factors is \texttt{ef\_evap} and
-it arguments:
+it arguments are :
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3223,38 +3234,23 @@ it arguments:
 ## NULL
 \end{verbatim}
 
-where:
-
-\begin{itemize}
-\item
-  \texttt{ef}: Name of evaporative emission factor as \emph{eshotc}
-  (\(g \cdot proced^-1\)): mean hot-soak with carburator, \emph{eswarmc}
-  (\(g \cdot proced^-1\)): mean cold and warm-soak with carburator,
-  eshotfi: mean hot-soak with fuel injection, \emph{erhotc}
-  (\(g \cdot trip^-1\)): mean hot running losses with carburator,
-  \emph{erwarmc} (\(g \cdot trip^-1\)) mean cold and warm running
-  losses, \emph{erhotfi} (\(g \cdot trip^-1\)) mean hot running losses
-  with fuel injection.
-\item
-  \texttt{v}: Type of vehicles, ``PC'', ``Motorcycles'',
-  ``Motorcycles\_2S'' and ``Moped''
-\item
-  \texttt{cc}: Size of engine in cc. PC ``\textless{}=1400'',
-  ``1400\_2000'' and ``2000'' Motorcycles\_2S: ``\textless{}=50''.
-  Motorcyces: ``\textgreater{}50'', ``\textless{}250'', ``250\_750'' and
-  ``\textgreater{}750''
-\item
-  \texttt{dt}: Average daily temperature variation: ``-5\_10'',
-  ``0\_15'', ``10\_25'' and ``20\_35''
-\item
-  \texttt{ca}: Size of canister: ``no'' meaning no canister, ``small'',
-  ``medium'' and ``large''
-\item
-  \texttt{k}: multiplication factor
-\item
-  \texttt{show}: when TRUE shows row of table with respective emission
-  factor.
-\end{itemize}
+where: - \texttt{ef}: Name of evaporative emission factor as
+\emph{eshotc} (\(g \cdot proced^-1\)): mean hot-soak with carburator,
+\emph{eswarmc} (\(g \cdot proced^-1\)): mean cold and warm-soak with
+carburator, \emph{eshotfi}: mean hot-soak with fuel injection,
+\emph{erhotc} (\(g \cdot trip^-1\)): mean hot running losses with
+carburator, \emph{erwarmc} (\(g \cdot trip^-1\)) mean cold and warm
+running losses, \emph{erhotfi} (\(g \cdot trip^-1\)) mean hot running
+losses with fuel injection. - \texttt{v}: Type of vehicles, ``PC'',
+``Motorcycles'', ``Motorcycles\_2S'' and ``Moped'' - \texttt{cc}: Size
+of engine in cc. PC ``\textless{}=1400'', ``1400\_2000'' and ``2000''
+Motorcycles\_2S: ``\textless{}=50''. Motorcyces: ``\textgreater{}50'',
+``\textless{}250'', ``250\_750'' and ``\textgreater{}750'' -
+\texttt{dt}: Average daily temperature variation: ``-5\_10'', ``0\_15'',
+``10\_25'' and ``20\_35'' - \texttt{ca}: Size of canister: ``no''
+meaning no canister, ``small'', ``medium'' and ``large'' - \texttt{k}:
+multiplication factor - \texttt{show}: when TRUE shows row of table with
+respective emission factor.
 
 Example:
 
@@ -3317,11 +3313,11 @@ top-down estimations. That approach also requires knowledge of the
 which consists in transform the emission factors into \(g \cdot km^-1\)
 and then do a bottom-up estimation.
 
-In order to do that, we need to follows assumptions. First, we consider
-that the number of procedures is equal to trips. Then estimates how many
-trips per day are produced each day and then estiamtes how many
-kilometers are driven each day and convert th emission factors as shown
-on Eq. \eqref{eq:efev2}.
+In order to do that, we need to follow some assumptions. First, we
+consider that the number of procedures is equal to trips. Then we
+estimate how many trips per day are produced each day and then we
+estimate how many kilometers are driven each day and convert these to
+emission factors as shown on Eq. \eqref{eq:efev2}.
 
 \begin{equation}
 EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot B(\frac{km}{day})^{-1}
@@ -3330,7 +3326,7 @@ EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot
 
 Clearly, we need to know A \((\frac{trips}{day})\) and
 B\((\frac{km}{day})^{-1}\). Diurnal evaporative emissions factors are
-expressed as \((\frac{g}{day})\). To conbvert to \((\frac{g}{km})\) we
+expressed as \((\frac{g}{day})\). To convert to \((\frac{g}{km})\) we
 only need the kilometers driven each day \(\frac{km}{day}^{-1}\).
 
 Now, it will be shown an example with the evaporative emission factors
@@ -3385,8 +3381,8 @@ The variable ed\_20\_35 are diurnal evaporative emission factors in
 
 Wear emissions are very important because they contribute with an
 important fraction of PM from tyre and break wear. VEIN includes these
-functions from \citet{NtziachristosBoulter2009} which incudewear
-emissions factors form tyre, break and road abrassion.
+functions from \citet{NtziachristosBoulter2009} which include wear
+emission factors form tyre, break and road abrasion.
 
 The arguments are:
 
@@ -3405,7 +3401,9 @@ The arguments are:
 \tightlist
 \item
   \texttt{wear}: Character; type of wear: ``tyre'', ``break'' and
-  ``road'' type: Character; type of vehicle: ``2W'', ``PC'', ``LCV'',
+  ``road''
+\item
+  \texttt{type}: Character; type of vehicle: ``2W'', ``PC'', ``LCV'',
   'HDV"
 \item
   \texttt{pol}: Character; pollutant: ``TSP'', ``PM10'', ``PM2.5'',
@@ -3429,7 +3427,7 @@ The arguments are:
 studies}\label{emission-factors-from-tunnel-studies}
 
 With VEIN you can choose three type of emissions factors, speed
-functions, local emission factors or scaled factors. In this section i
+functions, local emission factors or scaled factors. In this section I
 will show how to expand the use of local emission factors considering
 tunnel emission factors \citep{perez2014emission}, from the
 International Vehicle Emissions (IVE) Model \citep{Davisetal2005}
@@ -3454,9 +3452,9 @@ HDV & 3.6 [g/km] & 9.2 [g/km]\\
 \end{tabular}
 \end{table}
 
-If we want to compare with the \citet{CETESB2015} emission factors, we
-would have to weight these factors with the fleet. The weight mean
-emission factor of CO and Passenger Cars (PC) is 1.40
+If we want to compare these with the \citet{CETESB2015} emission
+factors, we would have to weight these factors with the fleet. The
+weight mean emission factor of CO and Passenger Cars (PC) is 1.40
 \(g \cdot km^{-1}\) and for Light Trucks (LT) is 0.60
 \(g \cdot km^{-1}\). In the case of NOx, Passenger Cars (PC) is 0.16
 \(g \cdot km^{-1}\) and for Light Trucks (LT) is 3.24
@@ -3513,7 +3511,7 @@ CETESB.
 ## [1] 3.241522
 \end{verbatim}
 
-If the user want to use tunnel emission factors from
+If the user wants to use tunnel emission factors from
 \citet{perez2014emission} in VEIN, the user would have to use the same
 value for all respective categories of the vehicular composition. For
 instance, after running \texttt{inventory}, include tunnel emission
@@ -3531,7 +3529,7 @@ VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
 \label{eq:vsp}
 \end{equation}
 
-where \(v\) is velocity \((m \cdot s^{-1})\), \(a\) is the second by
+where: \(v\) is velocity \((m \cdot s^{-1})\), \(a\) is the second by
 second acceleration \((m \cdot s^{-2})\) and grade the second by second
 change in height defined as \(\frac{(h_{t=0} - h_{t=-1})}{v}\); being
 \(h\) as altitude \(m\). This method requires that the user measures the
@@ -3540,15 +3538,15 @@ emissions measurements with Portable Emissions Measurement Systems
 (PEMS).
 
 \citet{gonzalez2017relative} measure the vehicular activity in the city
-of Manizales, Colombia. In htis case, there were not PEMS measurements,
+of Manizales, Colombia. In this case, there were no PEMS measurements,
 but IVE allows to produce emission factors from the GPS recordings based
 on Mobile EPA emissions
 model\citep[\citet{Davisetal2005}]{arbor2003user}.
 
-The resulting emission factors varies for each type of vehicle and
+The resulting emission factors vary for each type of vehicle and
 includes several pollutants. If the user wants to use IVE emission
-factors in vein would have to add them in each \texttt{*input.R}, after
-running \texttt{inventory}.
+factors in VEIN, he/she would have to add them in each
+\texttt{*input.R}, after running \texttt{inventory}.
 
 \chapter{Estimation of emissions}\label{est}
 
@@ -4443,31 +4441,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpA7qaw3/YourCity
+## files at /tmp/RtmpgBkOdW/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpA7qaw3/YourCity"             
-##  [2] "/tmp/RtmpA7qaw3/YourCity/ef"          
-##  [3] "/tmp/RtmpA7qaw3/YourCity/emi"         
-##  [4] "/tmp/RtmpA7qaw3/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpA7qaw3/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpA7qaw3/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpA7qaw3/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpA7qaw3/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpA7qaw3/YourCity/est"         
-## [10] "/tmp/RtmpA7qaw3/YourCity/images"      
-## [11] "/tmp/RtmpA7qaw3/YourCity/network"     
-## [12] "/tmp/RtmpA7qaw3/YourCity/post"        
-## [13] "/tmp/RtmpA7qaw3/YourCity/post/df"     
-## [14] "/tmp/RtmpA7qaw3/YourCity/post/grids"  
-## [15] "/tmp/RtmpA7qaw3/YourCity/post/streets"
-## [16] "/tmp/RtmpA7qaw3/YourCity/profiles"    
-## [17] "/tmp/RtmpA7qaw3/YourCity/veh"
+##  [1] "/tmp/RtmpgBkOdW/YourCity"             
+##  [2] "/tmp/RtmpgBkOdW/YourCity/ef"          
+##  [3] "/tmp/RtmpgBkOdW/YourCity/emi"         
+##  [4] "/tmp/RtmpgBkOdW/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpgBkOdW/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpgBkOdW/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpgBkOdW/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpgBkOdW/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpgBkOdW/YourCity/est"         
+## [10] "/tmp/RtmpgBkOdW/YourCity/images"      
+## [11] "/tmp/RtmpgBkOdW/YourCity/network"     
+## [12] "/tmp/RtmpgBkOdW/YourCity/post"        
+## [13] "/tmp/RtmpgBkOdW/YourCity/post/df"     
+## [14] "/tmp/RtmpgBkOdW/YourCity/post/grids"  
+## [15] "/tmp/RtmpgBkOdW/YourCity/post/streets"
+## [16] "/tmp/RtmpgBkOdW/YourCity/profiles"    
+## [17] "/tmp/RtmpgBkOdW/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmpA7qaw3/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpgBkOdW/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5626,12 +5624,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9255311
-## 2 0.9254679
-## 3 0.9351006
-## 4 0.9291984
-## 5 0.9256523
-## 6 0.9222685
+## 1 0.9310259
+## 2 0.9191215
+## 3 0.9200245
+## 4 0.9363867
+## 5 0.9276549
+## 6 0.9245060
 \end{verbatim}
 
 \begin{Shaded}
@@ -5658,31 +5656,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9255311 0.9254679 0.9351006
+## [1] 0.9310259 0.9191215 0.9200245
 ## Units: [mol/h]
-## [1] 1.425196 1.425099 1.439932
+## [1] 1.433658 1.415327 1.416717
 ## Units: [mol/h]
-## [1] 0.5194417 0.5194062 0.5248124
+## [1] 0.5225256 0.5158444 0.5163512
 ## Units: [mol/h]
-## [1] 0.2506437 0.2506266 0.2532352
+## [1] 0.2521318 0.2489079 0.2491525
 ## Units: [mol/h]
-## [1] 1.901722 1.901592 1.921384
+## [1] 1.913012 1.888552 1.890407
 ## Units: [mol/h]
-## [1] 0.7972764 0.7972219 0.8055197
+## [1] 0.8020098 0.7917550 0.7925329
 ## Units: [mol/h]
-## [1] 0.5285667 0.5285306 0.5340318
+## [1] 0.5317048 0.5249062 0.5254219
 ## Units: [mol/h]
-## [1] 0.02535402 0.02535229 0.02561617
+## [1] 0.02550455 0.02517844 0.02520318
 ## Units: [mol/h]
-## [1] 0.4601247 0.4600933 0.4648821
+## [1] 0.4628565 0.4569382 0.4573871
 ## Units: [mol/h]
-## [1] 0.8766121 0.8765522 0.8856758
+## [1] 0.8818165 0.8705413 0.8713966
 ## Units: [mol/h]
-## [1] 1.231341 1.231257 1.244072
+## [1] 1.238651 1.222813 1.224015
 ## Units: [mol/h]
-## [1] 0.3451625 0.3451389 0.3487312
+## [1] 0.3472117 0.3427721 0.3431089
 ## Units: [mol/h]
-## [1] 0.4501647 0.4501339 0.4548191
+## [1] 0.4528373 0.4470471 0.4474863
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5741,7 +5739,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 601970.86
+## Sum of street emissions 602063.28
 \end{verbatim}
 
 \begin{verbatim}
@@ -5749,7 +5747,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 601970.86
+## Sum of gridded emissions 602063.28
 \end{verbatim}
 
 \begin{Shaded}
@@ -5786,18 +5784,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001444517 [g/m^2/s] 0.01168746 0.0004633710 0.001975424 0.01875996
-## 2 0.001435801 [g/m^2/s] 0.01161694 0.0004605752 0.001963505 0.01864677
-## 3 0.001471746 [g/m^2/s] 0.01190777 0.0004721056 0.002012661 0.01911359
-## 4 0.002547584 [g/m^2/s] 0.02061227 0.0008172122 0.003483904 0.03308551
-## 5 0.005800099 [g/m^2/s] 0.04692808 0.0018605513 0.007931824 0.07532596
+## 1 0.001443376 [g/m^2/s] 0.01167823 0.0004630051 0.001973864 0.01874515
+## 2 0.001434667 [g/m^2/s] 0.01160776 0.0004602115 0.001961954 0.01863205
+## 3 0.001470584 [g/m^2/s] 0.01189836 0.0004717328 0.002011071 0.01909849
+## 4 0.002538301 [g/m^2/s] 0.02053716 0.0008142342 0.003471209 0.03296495
+## 5 0.005771232 [g/m^2/s] 0.04669451 0.0018512914 0.007892347 0.07495107
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05627988 0.005703028 0.02431291 0.01050558 0.004502391 0.05196509
-## 2 0.05594031 0.005668618 0.02416621 0.01044219 0.004475225 0.05165155
-## 3 0.05734077 0.005810531 0.02477121 0.01070361 0.004587261 0.05294464
-## 4 0.09925654 0.010057996 0.04287882 0.01852789 0.007940523 0.09164687
-## 5 0.22597789 0.022899093 0.09762245 0.04218254 0.018078231 0.20865292
+## 1 0.05623544 0.005698524 0.02429371 0.01049728 0.004498835 0.05192405
+## 2 0.05589614 0.005664142 0.02414713 0.01043395 0.004471691 0.05161076
+## 3 0.05729548 0.005805942 0.02475165 0.01069516 0.004583639 0.05290283
+## 4 0.09889484 0.010021344 0.04272257 0.01846037 0.007911587 0.09131290
+## 5 0.22485320 0.022785124 0.09713658 0.04197260 0.017988256 0.20761446
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
@@ -5988,7 +5986,7 @@ file is available from the R package \texttt{eixport}.
 \end{verbatim}
 
 \begin{verbatim}
-## using grid info from: /home/sergio/R/x86_64-pc-linux-gnu-library/3.4/eixport/extdata/wrfinput_d02 
+## using grid info from: /usr/local/lib/R/site-library/eixport/extdata/wrfinput_d02 
 ## Number of lat points 51
 ## Number of lon points 63
 \end{verbatim}
