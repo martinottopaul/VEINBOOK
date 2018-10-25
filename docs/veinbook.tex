@@ -212,7 +212,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-10-22}
+\date{2018-10-25}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -416,42 +416,32 @@ The github installation requires that the \emph{devtools} package
 \section{Required R packages and
 dependencies}\label{required-r-packages-and-dependencies}
 
-In order to use the VEIN package it is necesary to download other
-r-packages and its dependencies. The current dependencies of VEIN are:
+VEIN improts functions from other R packages. HEnce, these packages are
+necessary::
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{sp}. This is a package that provides classes and methods for
-  spatial data \citep{sp} considering points, lines, polygons and grids.
-\item
-  \textbf{rgeos}. It is an interface to the ``geometry Engine - Open
-  Source (`GEOS') using the C `API' for topology operations on
-  geometries'' \citep{rgeos}. It depends on the library GEOS
-  (\url{http://trac.osgeo.org/geos}).
-\item
-  \textbf{rgdal}. Provides bindings to the `Geospatial' Data Abstraction
-  Library (`GDAL') (\textgreater{}= 1.6.3) and access to
-  projection/transformation operations from the `PROJ.4' library
-  \citep{rgdal}. Depends on the library GDAL
-  (\url{http://www.gdal.org/}) and PROJ (\url{http://proj4.org/}).
-\item
-  \textbf{raster}. It is a package that provides tools for analyses and
-  modeling of geographic data \citep{raster}.
-\item
-  \textbf{units}. It is a package for measurement units in R
-  \citep{units}. This package depends on the library udunits2
-  (\url{http://www.unidata.ucar.edu/software/udunits/}). I
-\end{itemize}
+\textbf{sf} is a package that provides simple features access for R
+\citep{sf}. It depends on the library GEOS
+(\url{http://trac.osgeo.org/geos}), `Geospatial' Data Abstraction
+Library (`GDAL') (\url{http://www.gdal.org/}) and PROJ
+(\url{http://proj4.org/}). \textbf{data.table} is a package that
+provides simple features access for R \citep{sf}. It can be installed. -
+\textbf{sp}. This is a package that provides classes and methods for
+spatial data \citep{sp} considering points, lines, polygons and grids.
+few function of sp are imported, most of them comes from sf.
+\textbf{eixport} is a package \citep{eixport2} that creates inputs for
+atmospheric models \citep{eixport}. - \textbf{units}. It is a package
+for measurement units in R \citep{units}. This package depends on the
+library udunits2 (\url{http://www.unidata.ucar.edu/software/udunits/}).
+I
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"sp"}\NormalTok{, }\StringTok{"rgeos"}\NormalTok{, }\StringTok{"rgdal"}\NormalTok{, }\StringTok{"raster"}\NormalTok{, }\StringTok{"units"}\NormalTok{))}
+\KeywordTok{install.packages}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"sf"}\NormalTok{, }\StringTok{"data.table"}\NormalTok{, }\StringTok{"sp"}\NormalTok{, }\StringTok{"eixport"}\NormalTok{, }\StringTok{"units"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-In order to install these package it is necessary to install the
-dependencies into each operational system. The instructions are:
+In order to install \textbf{sf} package it is necessary to install the
+dependencies into each operational system.
 
 \textbf{Ubuntu}
 
@@ -459,8 +449,7 @@ dependencies into each operational system. The instructions are:
 \begin{Highlighting}[]
 \FunctionTok{sudo}\NormalTok{ add-apt-repository ppa:ubuntugis/ubuntugis-unstable}
 \FunctionTok{sudo}\NormalTok{ apt-get update}
-\FunctionTok{sudo}\NormalTok{ apt-get install libudunits2-dev libgdal-dev libgeos-dev l}
-\ExtensionTok{ibproj-dev} 
+\FunctionTok{sudo}\NormalTok{ apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev }
 \end{Highlighting}
 \end{Shaded}
 
@@ -496,25 +485,13 @@ geospatial}.
 \end{Highlighting}
 \end{Shaded}
 
-The new version of VEIN will replace the spatial r-packages dependencies
-of raster, rgeos and rgdal by the new \textbf{sf} \citep{sf} package and
-the \textbf{units} \citep{units} package.
-
-\textbf{sf} is a package that provides simple features access for R
-\citep{sf}. It can be installed in this way:
+The R package eixport imports function from \textbf{ncdf4}
+\citep{ncdf4}, therefore the library NetCDF must be installed. For
+Ubuntu, do:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"sf"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-or via devtools
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(devtools)}
-\KeywordTok{install_github}\NormalTok{(}\StringTok{"r-spatial/sf"}\NormalTok{)}
+\FunctionTok{sudo}\NormalTok{ apt install libnetcdf-dev  netcdf-bin }
 \end{Highlighting}
 \end{Shaded}
 
@@ -545,7 +522,7 @@ usage:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-11}Emission factors from CETESB in VEIN model}
+\caption{\label{tab:unnamed-chunk-10}Emission factors from CETESB in VEIN model}
 \centering
 \begin{tabular}[t]{rrlrr}
 \toprule
@@ -1407,28 +1384,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpgBkOdW/YourCity
+## files at /tmp/RtmpUEeCGB/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpgBkOdW/YourCity"             
-##  [2] "/tmp/RtmpgBkOdW/YourCity/ef"          
-##  [3] "/tmp/RtmpgBkOdW/YourCity/emi"         
-##  [4] "/tmp/RtmpgBkOdW/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpgBkOdW/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpgBkOdW/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpgBkOdW/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpgBkOdW/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpgBkOdW/YourCity/est"         
-## [10] "/tmp/RtmpgBkOdW/YourCity/images"      
-## [11] "/tmp/RtmpgBkOdW/YourCity/network"     
-## [12] "/tmp/RtmpgBkOdW/YourCity/post"        
-## [13] "/tmp/RtmpgBkOdW/YourCity/post/df"     
-## [14] "/tmp/RtmpgBkOdW/YourCity/post/grids"  
-## [15] "/tmp/RtmpgBkOdW/YourCity/post/streets"
-## [16] "/tmp/RtmpgBkOdW/YourCity/profiles"    
-## [17] "/tmp/RtmpgBkOdW/YourCity/veh"
+##  [1] "/tmp/RtmpUEeCGB/YourCity"             
+##  [2] "/tmp/RtmpUEeCGB/YourCity/ef"          
+##  [3] "/tmp/RtmpUEeCGB/YourCity/emi"         
+##  [4] "/tmp/RtmpUEeCGB/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpUEeCGB/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpUEeCGB/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpUEeCGB/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpUEeCGB/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpUEeCGB/YourCity/est"         
+## [10] "/tmp/RtmpUEeCGB/YourCity/images"      
+## [11] "/tmp/RtmpUEeCGB/YourCity/network"     
+## [12] "/tmp/RtmpUEeCGB/YourCity/post"        
+## [13] "/tmp/RtmpUEeCGB/YourCity/post/df"     
+## [14] "/tmp/RtmpUEeCGB/YourCity/post/grids"  
+## [15] "/tmp/RtmpUEeCGB/YourCity/post/streets"
+## [16] "/tmp/RtmpUEeCGB/YourCity/profiles"    
+## [17] "/tmp/RtmpUEeCGB/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1503,7 +1480,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpgBkOdW/YourCity
+## files at /tmp/RtmpUEeCGB/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -1935,7 +1912,7 @@ origin and destination and maptools to transform points to lines.
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=4.86in]{figuras/gway} \caption{Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo}\label{fig:unnamed-chunk-43}
+\includegraphics[width=4.86in]{figuras/gway} \caption{Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo}\label{fig:unnamed-chunk-42}
 \end{figure}
 
 \subsubsection{The R package dodgr}\label{the-r-package-dodgr}
@@ -2156,7 +2133,7 @@ only has \texttt{ps} and \texttt{ffs} the user can use the argument
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-46}speeds for scheme = T}
+\caption{\label{tab:unnamed-chunk-45}speeds for scheme = T}
 \centering
 \begin{tabular}[t]{cc}
 \toprule
@@ -2534,7 +2511,39 @@ The arguments for \texttt{ef\_ldv\_speed} are:
   \texttt{eu}: Euro standard: ``PRE'', ``I'', ``II'', ``III'',
   ``III+DPF'', ``IV'', ``V'', ``VI'' or ``VIc''.
 \item
-  \texttt{p}: Pollutant: ``CO'', ``FC'', ``NOx'', ``HC'' or ``PM''.
+  \texttt{p}: Pollutants: \textbf{Criteria}: ``CO'', ``NOx'', ``HC'',
+  ``PM'', ``CH4'', ``NMHC'', ``CO2'', ``SO2'', ``Pb'', ``FC'' (Fuel
+  Consumption).- \textbf{PAH and POP}: ``indeno(1,2,3-cd)pyrene'',
+  ``benzo(k)fluoranthene'', ``benzo(b)fluoranthene'',
+  ``benzo(ghi)perylene'', ``fluoranthene'', ``benzo(a)pyrene'',
+  ``pyrene'', ``perylene'', ``anthanthrene'', ``benzo(b)fluorene'',
+  ``benzo(e)pyrene'', ``triphenylene'', ``benzo(j)fluoranthene'',
+  ``dibenzo(a,j)anthacene'', ``dibenzo(a,l)pyrene'',
+  ``3,6-dimethyl-phenanthrene'', ``benzo(a)anthracene'',
+  ``acenaphthylene'', ``acenapthene'', ``fluorene'', ``chrysene'',
+  ``phenanthrene'', ``napthalene'', ``anthracene'', ``coronene'',
+  ``dibenzo(ah)anthracene'' \textbf{Dioxins and Furans}: ``PCDD'',
+  ``PCDF'', ``PCB''. \textbf{Metals}: ``As'', ``Cd'', ``Cr'', ``Cu'',
+  ``Hg'', ``Ni'', ``Pb'', ``Se'', ``Zn''. \textbf{NMHC}: -
+  \emph{ALKANES}: ``ethane'', ``propane'', ``butane'', ``isobutane'',
+  ``pentane'', ``isopentane'', ``hexane'', ``heptane'', ``octane'',
+  ``TWO\_methylhexane'', ``nonane'', ``TWO\_methylheptane'',
+  ``THREE\_methylhexane'', ``decane'', ``THREE\_methylheptane'',
+  ``alcanes\_C10\_C12'', ``alkanes\_C13''. \emph{CYCLOALKANES}:
+  ``cycloalcanes''. \emph{ALKENES}: ``ethylene'', ``propylene'',
+  ``propadiene'', ``ONE\_butene'', ``isobutene'', ``TWO\_butene'',
+  ``ONE\_3\_butadiene'', ``ONE\_pentene'', ``TWO\_pentene'',
+  ``ONE\_hexene'', ``dimethylhexene''. \emph{ALKYNES}:``ONE\_butine'',
+  ``propine'', ``acetylene''. \emph{ALDEHYDES}: ``formaldehyde'',
+  ``acetaldehyde'', ``acrolein'', ``benzaldehyde'', ``crotonaldehyde'',
+  ``methacrolein'', ``butyraldehyde'', ``isobutanaldehyde'',
+  ``propionaldehyde'', ``hexanal'', ``i\_valeraldehyde'',
+  ``valeraldehyde'', ``o\_tolualdehyde'', ``m\_tolualdehyde'',
+  ``p\_tolualdehyde''. KETONES: ``acetone'', ``methylethlketone''.
+  \emph{AROMATICS}: ``toluene'', ``ethylbenzene'', ``m\_p\_xylene'',
+  ``o\_xylene'', ``ONE\_2\_3\_trimethylbenzene'',
+  ``ONE\_2\_4\_trimethylbenzene'', ``ONE\_3\_5\_trimethylbenzene'',
+  ``styrene'', ``benzene'', ``C9'', ``C10'', ``C13''.
 \item
   \texttt{k}: Multiplication factor.
 \item
@@ -2549,7 +2558,7 @@ There are 146 matchs. The probably most used combinations are:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-51}Most used combinations for emission factors for LDV}
+\caption{\label{tab:unnamed-chunk-50}Most used combinations for emission factors for LDV}
 \centering
 \begin{tabular}[t]{ll}
 \toprule
@@ -2652,7 +2661,41 @@ The arguments for \texttt{ef\_hdv\_speed} are:
 \item
   \texttt{l} Load of the vehicle: 0.0, 0.5 or 1.0
 \item
-  \texttt{p} Pollutant: ``CO'', ``FC'', ``NOx'' or ``HC''
+  \texttt{p} Pollutant: \textbf{Criteria}: ``CO'', ``NOx'', ``HC'',
+  ``PM'', ``CH4'', ``NMHC'', ``CO2'', ``SO2'', ``Pb'', ``FC'' (Fuel
+  Consumption).- \textbf{PAH and POP}: ``indeno(1,2,3-cd)pyrene'',
+  ``benzo(k)fluoranthene'', ``benzo(b)fluoranthene'',
+  ``benzo(ghi)perylene'', ``fluoranthene'', ``benzo(a)pyrene'',
+  ``pyrene'', ``perylene'', ``anthanthrene'', ``benzo(b)fluorene'',
+  ``benzo(e)pyrene'', ``triphenylene'', ``benzo(j)fluoranthene'',
+  ``dibenzo(a,j)anthacene'', ``dibenzo(a,l)pyrene'',
+  ``3,6-dimethyl-phenanthrene'', ``benzo(a)anthracene'',
+  ``acenaphthylene'', ``acenapthene'', ``fluorene'', ``chrysene'',
+  ``phenanthrene'', ``napthalene'', ``anthracene'', ``coronene'',
+  ``dibenzo(ah)anthracene'' \textbf{Dioxins and Furans}: ``PCDD'',
+  ``PCDF'', ``PCB''. \textbf{Metals}: ``As'', ``Cd'', ``Cr'', ``Cu'',
+  ``Hg'', ``Ni'', ``Pb'', ``Se'', ``Zn''. \textbf{NMHC}: -
+  \emph{ALKANES}: ``ethane'', ``propane'', ``butane'', ``isobutane'',
+  ``pentane'', ``isopentane'', ``hexane'', ``heptane'', ``octane'',
+  ``TWO\_methylhexane'', ``nonane'', ``TWO\_methylheptane'',
+  ``THREE\_methylhexane'', ``decane'', ``THREE\_methylheptane'',
+  ``alcanes\_C10\_C12'', ``alkanes\_C13''. \emph{CYCLOALKANES}:
+  ``cycloalcanes''. \emph{ALKENES}: ``ethylene'', ``propylene'',
+  ``propadiene'', ``ONE\_butene'', ``isobutene'', ``TWO\_butene'',
+  ``ONE\_3\_butadiene'', ``ONE\_pentene'', ``TWO\_pentene'',
+  ``ONE\_hexene'', ``dimethylhexene''. \emph{ALKYNES}:``ONE\_butine'',
+  ``propine'', ``acetylene''. \emph{ALDEHYDES}: ``formaldehyde'',
+  ``acetaldehyde'', ``acrolein'', ``benzaldehyde'', ``crotonaldehyde'',
+  ``methacrolein'', ``butyraldehyde'', ``isobutanaldehyde'',
+  ``propionaldehyde'', ``hexanal'', ``i\_valeraldehyde'',
+  ``valeraldehyde'', ``o\_tolualdehyde'', ``m\_tolualdehyde'',
+  ``p\_tolualdehyde''. KETONES: ``acetone'', ``methylethlketone''.
+  \emph{AROMATICS}: ``toluene'', ``ethylbenzene'', ``m\_p\_xylene'',
+  ``o\_xylene'', ``ONE\_2\_3\_trimethylbenzene'',
+  ``ONE\_2\_4\_trimethylbenzene'', ``ONE\_3\_5\_trimethylbenzene'',
+  ``styrene'', ``benzene'', ``C9'', ``C10'', ``C13''.
+\item
+  \texttt{k}: Multiplication factor.
 \item
   \texttt{k} Multiplication factor
 \item
@@ -2674,7 +2717,7 @@ The arguments for \texttt{ef\_hdv\_speed} are:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{veinbook_files/figure-latex/unnamed-chunk-53-1.pdf}
+\includegraphics{veinbook_files/figure-latex/unnamed-chunk-52-1.pdf}
 
 \section{\texorpdfstring{Local emission factors by age of use. The
 functions \texttt{EmissionFactors} and
@@ -2824,10 +2867,9 @@ function \(f(V)\).
 \end{Shaded}
 
 \begin{verbatim}
-## function (V) 
-## x[j, i]
-## <bytecode: 0x5632cd4d0ec8>
-## <environment: 0x5632ddeb4160>
+## function(V) x[j,i]
+## <bytecode: 0x558360d80c60>
+## <environment: 0x558395748690>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4394,7 +4436,7 @@ function is \texttt{emis\_merge}. As it can be seen on Fig.
 
 \begin{verbatim}
 ## function (pol = "CO", what = "STREETS.rds", streets = T, net, 
-##     path = "emi", crs, under = "after", as_list = FALSE) 
+##     path = "emi", crs, under = "after", ignore = FALSE, as_list = FALSE) 
 ## NULL
 \end{verbatim}
 
@@ -4441,31 +4483,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpgBkOdW/YourCity
+## files at /tmp/RtmpUEeCGB/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpgBkOdW/YourCity"             
-##  [2] "/tmp/RtmpgBkOdW/YourCity/ef"          
-##  [3] "/tmp/RtmpgBkOdW/YourCity/emi"         
-##  [4] "/tmp/RtmpgBkOdW/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpgBkOdW/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpgBkOdW/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpgBkOdW/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpgBkOdW/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpgBkOdW/YourCity/est"         
-## [10] "/tmp/RtmpgBkOdW/YourCity/images"      
-## [11] "/tmp/RtmpgBkOdW/YourCity/network"     
-## [12] "/tmp/RtmpgBkOdW/YourCity/post"        
-## [13] "/tmp/RtmpgBkOdW/YourCity/post/df"     
-## [14] "/tmp/RtmpgBkOdW/YourCity/post/grids"  
-## [15] "/tmp/RtmpgBkOdW/YourCity/post/streets"
-## [16] "/tmp/RtmpgBkOdW/YourCity/profiles"    
-## [17] "/tmp/RtmpgBkOdW/YourCity/veh"
+##  [1] "/tmp/RtmpUEeCGB/YourCity"             
+##  [2] "/tmp/RtmpUEeCGB/YourCity/ef"          
+##  [3] "/tmp/RtmpUEeCGB/YourCity/emi"         
+##  [4] "/tmp/RtmpUEeCGB/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpUEeCGB/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpUEeCGB/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpUEeCGB/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpUEeCGB/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpUEeCGB/YourCity/est"         
+## [10] "/tmp/RtmpUEeCGB/YourCity/images"      
+## [11] "/tmp/RtmpUEeCGB/YourCity/network"     
+## [12] "/tmp/RtmpUEeCGB/YourCity/post"        
+## [13] "/tmp/RtmpUEeCGB/YourCity/post/df"     
+## [14] "/tmp/RtmpUEeCGB/YourCity/post/grids"  
+## [15] "/tmp/RtmpUEeCGB/YourCity/post/streets"
+## [16] "/tmp/RtmpUEeCGB/YourCity/profiles"    
+## [17] "/tmp/RtmpUEeCGB/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmpgBkOdW/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpUEeCGB/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5160,7 +5202,7 @@ And the resulting speciation is:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-96}Black Carbon and Organic Matter [g/168h]}
+\caption{\label{tab:unnamed-chunk-95}Black Carbon and Organic Matter [g/168h]}
 \centering
 \begin{tabular}[t]{l|l|l|l|l|l|l}
 \hline
@@ -5292,7 +5334,7 @@ emissions, and the smalle the diameter, higher the difference, as shows:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-98}Ratio between break and tyre wear emissions}
+\caption{\label{tab:unnamed-chunk-97}Ratio between break and tyre wear emissions}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -5558,7 +5600,7 @@ production such as: \citet{Nogueiraetal2015},
 an air quality simulation over South Easth Brazil from DAC/IAG/USP.
 
 \begin{figure}
-\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-102}
+\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-101}
 \end{figure}
 
 Some of these papers show measurements in tunnels, fuel, etc. The
@@ -5581,7 +5623,7 @@ Brazil, even more, in São Paulo.
 The currently speciation \texttt{iag} is:
 
 \begin{figure}
-\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-103}
+\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-102}
 \end{figure}
 
 The arguments of the function \texttt{speciate} take the following form:
@@ -5624,12 +5666,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9310259
-## 2 0.9191215
-## 3 0.9200245
-## 4 0.9363867
-## 5 0.9276549
-## 6 0.9245060
+## 1 0.9296673
+## 2 0.9204110
+## 3 0.9285217
+## 4 0.9275410
+## 5 0.9304239
+## 6 0.9189282
 \end{verbatim}
 
 \begin{Shaded}
@@ -5656,31 +5698,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9310259 0.9191215 0.9200245
+## [1] 0.9296673 0.9204110 0.9285217
 ## Units: [mol/h]
-## [1] 1.433658 1.415327 1.416717
+## [1] 1.431566 1.417312 1.429802
 ## Units: [mol/h]
-## [1] 0.5225256 0.5158444 0.5163512
+## [1] 0.5217630 0.5165680 0.5211201
 ## Units: [mol/h]
-## [1] 0.2521318 0.2489079 0.2491525
+## [1] 0.2517638 0.2492571 0.2514536
 ## Units: [mol/h]
-## [1] 1.913012 1.888552 1.890407
+## [1] 1.910220 1.891201 1.907866
 ## Units: [mol/h]
-## [1] 0.8020098 0.7917550 0.7925329
+## [1] 0.8008394 0.7928658 0.7998525
 ## Units: [mol/h]
-## [1] 0.5317048 0.5249062 0.5254219
+## [1] 0.5309289 0.5256426 0.5302746
 ## Units: [mol/h]
-## [1] 0.02550455 0.02517844 0.02520318
+## [1] 0.02546733 0.02521376 0.02543595
 ## Units: [mol/h]
-## [1] 0.4628565 0.4569382 0.4573871
+## [1] 0.4621810 0.4575793 0.4616115
 ## Units: [mol/h]
-## [1] 0.8818165 0.8705413 0.8713966
+## [1] 0.8805297 0.8717626 0.8794446
 ## Units: [mol/h]
-## [1] 1.238651 1.222813 1.224015
+## [1] 1.236844 1.224529 1.235319
 ## Units: [mol/h]
-## [1] 0.3472117 0.3427721 0.3431089
+## [1] 0.3467050 0.3432530 0.3462777
 ## Units: [mol/h]
-## [1] 0.4528373 0.4470471 0.4474863
+## [1] 0.4521764 0.4476743 0.4516192
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5696,7 +5738,7 @@ as follow:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-105}Speciation of PM2.5}
+\caption{\label{tab:unnamed-chunk-104}Speciation of PM2.5}
 \centering
 \begin{tabular}[t]{r|r|r|r|r|r|r|r|r|r|r}
 \hline
@@ -5739,7 +5781,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602063.28
+## Sum of street emissions 602045.17
 \end{verbatim}
 
 \begin{verbatim}
@@ -5747,7 +5789,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602063.28
+## Sum of gridded emissions 602045.17
 \end{verbatim}
 
 \begin{Shaded}
@@ -5784,18 +5826,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001443376 [g/m^2/s] 0.01167823 0.0004630051 0.001973864 0.01874515
-## 2 0.001434667 [g/m^2/s] 0.01160776 0.0004602115 0.001961954 0.01863205
-## 3 0.001470584 [g/m^2/s] 0.01189836 0.0004717328 0.002011071 0.01909849
-## 4 0.002538301 [g/m^2/s] 0.02053716 0.0008142342 0.003471209 0.03296495
-## 5 0.005771232 [g/m^2/s] 0.04669451 0.0018512914 0.007892347 0.07495107
+## 1 0.001450248 [g/m^2/s] 0.01173382 0.0004652094 0.001983261 0.01883439
+## 2 0.001441498 [g/m^2/s] 0.01166303 0.0004624025 0.001971295 0.01872075
+## 3 0.001477585 [g/m^2/s] 0.01195501 0.0004739786 0.002020646 0.01918942
+## 4 0.002544887 [g/m^2/s] 0.02059045 0.0008163468 0.003480215 0.03305048
+## 5 0.005774243 [g/m^2/s] 0.04671888 0.0018522573 0.007896465 0.07499017
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05623544 0.005698524 0.02429371 0.01049728 0.004498835 0.05192405
-## 2 0.05589614 0.005664142 0.02414713 0.01043395 0.004471691 0.05161076
-## 3 0.05729548 0.005805942 0.02475165 0.01069516 0.004583639 0.05290283
-## 4 0.09889484 0.010021344 0.04272257 0.01846037 0.007911587 0.09131290
-## 5 0.22485320 0.022785124 0.09713658 0.04197260 0.017988256 0.20761446
+## 1 0.05650316 0.005725654 0.02440937 0.01054726 0.004520253 0.05217126
+## 2 0.05616225 0.005691108 0.02426209 0.01048362 0.004492980 0.05185647
+## 3 0.05756826 0.005833583 0.02486949 0.01074607 0.004605461 0.05315469
+## 4 0.09915143 0.010047345 0.04283342 0.01850827 0.007932115 0.09154982
+## 5 0.22497052 0.022797013 0.09718726 0.04199450 0.017997642 0.20772278
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
@@ -6801,7 +6843,7 @@ will not chech if the data is hourly or anunual.
 \subsection{Emission factors}\label{emission-factors-1}
 
 When I started this book, VEIN contained few emission factors. Now, the
-version 0.5.2 has all the 2016 emission factors of CETESB, almost 100
+version 0.5.4 has all the 2016 emission factors of CETESB, almost 100
 emisision factors from the European Emission guidelines the all the BASE
 emission factors from the International Vehicle Model (IVE). The
 functions to access this data are:

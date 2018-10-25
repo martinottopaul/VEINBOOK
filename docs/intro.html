@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-22">
+<meta name="date" content="2018-10-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -288,21 +288,14 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 </div>
 <div id="required-r-packages-and-dependencies" class="section level2">
 <h2><span class="header-section-number">1.3</span> Required R packages and dependencies</h2>
-<p>In order to use the VEIN package it is necesary to download other r-packages and its dependencies. The current dependencies of VEIN are:</p>
-<ul>
-<li><strong>sp</strong>. This is a package that provides classes and methods for spatial data <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span> considering points, lines, polygons and grids.</li>
-<li><strong>rgeos</strong>. It is an interface to the “geometry Engine - Open Source (‘GEOS’) using the C ‘API’ for topology operations on geometries” <span class="citation">(Bivand and Rundel <a href="#ref-rgeos">2017</a>)</span>. It depends on the library GEOS (<a href="http://trac.osgeo.org/geos" class="uri">http://trac.osgeo.org/geos</a>).</li>
-<li><strong>rgdal</strong>. Provides bindings to the ‘Geospatial’ Data Abstraction Library (‘GDAL’) (&gt;= 1.6.3) and access to projection/transformation operations from the ‘PROJ.4’ library <span class="citation">(Bivand, Keitt, and Rowlingson <a href="#ref-rgdal">2017</a>)</span>. Depends on the library GDAL (<a href="http://www.gdal.org/" class="uri">http://www.gdal.org/</a>) and PROJ (<a href="http://proj4.org/" class="uri">http://proj4.org/</a>).</li>
-<li><strong>raster</strong>. It is a package that provides tools for analyses and modeling of geographic data <span class="citation">(Hijmans <a href="#ref-raster">2016</a>)</span>.</li>
-<li><strong>units</strong>. It is a package for measurement units in R <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-units">2016</a>)</span>. This package depends on the library udunits2 (<a href="http://www.unidata.ucar.edu/software/udunits/" class="uri">http://www.unidata.ucar.edu/software/udunits/</a>). I</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;sp&quot;</span>, <span class="st">&quot;rgeos&quot;</span>, <span class="st">&quot;rgdal&quot;</span>, <span class="st">&quot;raster&quot;</span>, <span class="st">&quot;units&quot;</span>))</code></pre></div>
-<p>In order to install these package it is necessary to install the dependencies into each operational system. The instructions are:</p>
+<p>VEIN improts functions from other R packages. HEnce, these packages are necessary::</p>
+<p><strong>sf</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It depends on the library GEOS (<a href="http://trac.osgeo.org/geos" class="uri">http://trac.osgeo.org/geos</a>), ‘Geospatial’ Data Abstraction Library (‘GDAL’) (<a href="http://www.gdal.org/" class="uri">http://www.gdal.org/</a>) and PROJ (<a href="http://proj4.org/" class="uri">http://proj4.org/</a>). <strong>data.table</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It can be installed. - <strong>sp</strong>. This is a package that provides classes and methods for spatial data <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span> considering points, lines, polygons and grids. few function of sp are imported, most of them comes from sf. <strong>eixport</strong> is a package <span class="citation">(Ibarra-Espinosa, Schuch, and de Freitas <a href="#ref-eixport2">2017</a>)</span> that creates inputs for atmospheric models <span class="citation">(Ibarra-Espinosa, Schuch, and Dias de Freitas <a href="#ref-eixport">2018</a>)</span>. - <strong>units</strong>. It is a package for measurement units in R <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-units">2016</a>)</span>. This package depends on the library udunits2 (<a href="http://www.unidata.ucar.edu/software/udunits/" class="uri">http://www.unidata.ucar.edu/software/udunits/</a>). I</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;data.table&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;eixport&quot;</span>, <span class="st">&quot;units&quot;</span>))</code></pre></div>
+<p>In order to install <strong>sf</strong> package it is necessary to install the dependencies into each operational system.</p>
 <p><strong>Ubuntu</strong></p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 <span class="fu">sudo</span> apt-get update
-<span class="fu">sudo</span> apt-get install libudunits2-dev libgdal-dev libgeos-dev l
-<span class="ex">ibproj-dev</span> </code></pre></div>
+<span class="fu">sudo</span> apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev </code></pre></div>
 <p><strong>Fedora</strong></p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> dnf install gdal-devel proj-devel proj-epsg proj-nad 
 <span class="ex">geos-devel</span> udunits2-devel</code></pre></div>
@@ -318,12 +311,20 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 <span class="ex">brew</span> install gdal2 --with-armadillo --with-complete 
 <span class="ex">--with-libkml</span> --with-unsupported
 <span class="ex">brew</span> link --force gdal2</code></pre></div>
-<p>The new version of VEIN will replace the spatial r-packages dependencies of raster, rgeos and rgdal by the new <strong>sf</strong> <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span> package and the <strong>units</strong> <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-units">2016</a>)</span> package.</p>
-<p><strong>sf</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It can be installed in this way:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
-<p>or via devtools</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
-<span class="kw">install_github</span>(<span class="st">&quot;r-spatial/sf&quot;</span>)</code></pre></div>
+<p>The R package eixport imports function from <strong>ncdf4</strong> <span class="citation">(Pierce <a href="#ref-ncdf4">2017</a>)</span>, therefore the library NetCDF must be installed. For Ubuntu, do:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> apt install libnetcdf-dev  netcdf-bin </code></pre></div>
+<!-- The new version of VEIN will replace the spatial r-packages dependencies of  -->
+<!-- raster, rgeos and rgdal by the new **sf** [@sf] package and the **units** [@units] package. -->
+<!-- **sf** is a package that provides simple features access for R [@sf]. It can be installed -->
+<!-- in this way: -->
+<!-- ```{r, eval=FALSE} -->
+<!-- install.packages("sf") -->
+<!-- ``` -->
+<!-- or via devtools -->
+<!-- ```{r eval=FALSE} -->
+<!-- library(devtools) -->
+<!-- install_github("r-spatial/sf") -->
+<!-- ``` -->
 </div>
 <div id="data-inside-the-vein-model" class="section level2">
 <h2><span class="header-section-number">1.4</span> Data inside the VEIN model</h2>
@@ -337,7 +338,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein, <span class="dt">quietly =</span> T)
 <span class="kw">data</span>(fe2015)</code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-11">Table 1.1: </span>Emission factors from CETESB in VEIN model</caption>
+<caption><span id="tab:unnamed-chunk-10">Table 1.1: </span>Emission factors from CETESB in VEIN model</caption>
 <thead>
 <tr class="header">
 <th align="right">Age</th>
@@ -481,23 +482,23 @@ Figure 1.3: Cold-starts profile for PC
 <div id="ref-devtools">
 <p>Wickham, Hadley, and Winston Chang. 2017. <em>Devtools: Tools to Make Developing R Packages Easier</em>. <a href="https://CRAN.R-project.org/package=devtools" class="uri">https://CRAN.R-project.org/package=devtools</a>.</p>
 </div>
+<div id="ref-sf">
+<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+</div>
 <div id="ref-sp">
 <p>Pebesma, Edzer J., and Roger S. Bivand. 2005. “Classes and Methods for Spatial Data in R.” <em>R News</em> 5 (2): 9–13. <a href="https://CRAN.R-project.org/doc/Rnews/" class="uri">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
 </div>
-<div id="ref-rgeos">
-<p>Bivand, Roger, and Colin Rundel. 2017. <em>Rgeos: Interface to Geometry Engine - Open Source (’Geos’)</em>. <a href="https://CRAN.R-project.org/package=rgeos" class="uri">https://CRAN.R-project.org/package=rgeos</a>.</p>
+<div id="ref-eixport2">
+<p>Ibarra-Espinosa, Sergio, Daniel Schuch, and Edmilson Dias de Freitas. 2017. <em>Eixport: An R Package to Export Emissions to Atmospheric Models</em>. <a href="https://CRAN.R-project.org/package=eixport" class="uri">https://CRAN.R-project.org/package=eixport</a>.</p>
 </div>
-<div id="ref-rgdal">
-<p>Bivand, Roger, Tim Keitt, and Barry Rowlingson. 2017. <em>Rgdal: Bindings for the ’Geospatial’ Data Abstraction Library</em>. <a href="https://CRAN.R-project.org/package=rgdal" class="uri">https://CRAN.R-project.org/package=rgdal</a>.</p>
-</div>
-<div id="ref-raster">
-<p>Hijmans, Robert J. 2016. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://CRAN.R-project.org/package=raster" class="uri">https://CRAN.R-project.org/package=raster</a>.</p>
+<div id="ref-eixport">
+<p>Ibarra-Espinosa, Sergio, Daniel Schuch, and Edmilson Dias de Freitas. 2018. “Eixport: An R Package to Export Emissions to Atmospheric Models.” <em>The Journal of Open Source Software</em>. doi:<a href="https://doi.org/10.21105/joss.00607">10.21105/joss.00607</a>.</p>
 </div>
 <div id="ref-units">
 <p>Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. “Measurement Units in R.” <em>The R Journal</em> 8 (2): 486–94. <a href="https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf" class="uri">https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf</a>.</p>
 </div>
-<div id="ref-sf">
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+<div id="ref-ncdf4">
+<p>Pierce, David. 2017. <em>Ncdf4: Interface to Unidata netCDF (Version 4 or Earlier) Format Data Files</em>. <a href="https://CRAN.R-project.org/package=ncdf4" class="uri">https://CRAN.R-project.org/package=ncdf4</a>.</p>
 </div>
 <div id="ref-BruniBales2013">
 <p>Bruni, Antonio De Castro, and Marcelo Pereira Bales. 2013. “Curvas de Intensidade de Uso Por Tipo de Veículo Automotor Da Frota Da Cidade de São Paulo.” CETESB.</p>

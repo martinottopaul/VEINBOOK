@@ -73,35 +73,33 @@ its dependencies.
 
 ## Required R packages and dependencies
 
-In order to use the VEIN package it is necesary to download other r-packages and its dependencies.
-The current dependencies of VEIN are:
+VEIN improts functions from other R packages. HEnce, these packages are necessary::
 
-- **sp**. This is a package that provides classes and methods for spatial data [@sp] considering
-points, lines, polygons and grids.
-- **rgeos**. It is an interface to the "geometry Engine - Open Source ('GEOS') using the C 'API' for 
-topology operations on geometries" [@rgeos]. It depends on the library GEOS (http://trac.osgeo.org/geos). 
-- **rgdal**. Provides bindings to the 'Geospatial' Data Abstraction Library ('GDAL') (>= 1.6.3) and 
-access to projection/transformation operations from the 'PROJ.4' library [@rgdal]. Depends on the library GDAL
+**sf** is a package that provides simple features access for R [@sf]. It depends on the library
+GEOS (http://trac.osgeo.org/geos), 'Geospatial' Data Abstraction Library ('GDAL')
 (http://www.gdal.org/) and PROJ (http://proj4.org/).
-- **raster**. It is a package that provides tools for analyses and modeling of geographic data [@raster].
-- **units**. It is a package for measurement units in R [@units]. This package depends on the library 
-udunits2 (http://www.unidata.ucar.edu/software/udunits/). I
+**data.table** is a package that provides simple features access for R [@sf]. It can be
+installed.
+- **sp**. This is a package that provides classes and methods for spatial data [@sp] 
+considering points, lines, polygons and grids. few function of sp are imported, most of them 
+comes from sf.
+**eixport** is a package [@eixport2] that creates inputs for atmospheric models [@eixport].
+- **units**. It is a package for measurement units in R [@units]. This package depends on the library udunits2 (http://www.unidata.ucar.edu/software/udunits/). I
 
 
 ```{r, eval=FALSE}
-install.packages(c("sp", "rgeos", "rgdal", "raster", "units"))
+install.packages(c("sf", "data.table", "sp", "eixport", "units"))
 ```
 
 
-In order to install these package it is necessary to install the dependencies into each operational system.
-The instructions are:
+In order to install **sf** package it is necessary to install the 
+dependencies into each operational system.
 
 **Ubuntu**
 ```{bash eval=FALSE}
 sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 sudo apt-get update
-sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev l
-ibproj-dev 
+sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev 
 ```
 
 **Fedora**
@@ -129,22 +127,28 @@ brew install gdal2 --with-armadillo --with-complete
 brew link --force gdal2
 ```
 
-The new version of VEIN will replace the spatial r-packages dependencies of 
-raster, rgeos and rgdal by the new **sf** [@sf] package and the **units** [@units] package.
-
-**sf** is a package that provides simple features access for R [@sf]. It can be installed
-in this way:
-
-```{r, eval=FALSE}
-install.packages("sf")
+The R package eixport imports function from **ncdf4** [@ncdf4], therefore the library NetCDF
+must be installed. For Ubuntu, do:
+```{bash, eval = FALSE}
+sudo apt install libnetcdf-dev  netcdf-bin 
 ```
 
-or via devtools
+<!-- The new version of VEIN will replace the spatial r-packages dependencies of  -->
+<!-- raster, rgeos and rgdal by the new **sf** [@sf] package and the **units** [@units] package. -->
 
-```{r eval=FALSE}
-library(devtools)
-install_github("r-spatial/sf")
-```
+<!-- **sf** is a package that provides simple features access for R [@sf]. It can be installed -->
+<!-- in this way: -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- install.packages("sf") -->
+<!-- ``` -->
+
+<!-- or via devtools -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- library(devtools) -->
+<!-- install_github("r-spatial/sf") -->
+<!-- ``` -->
 
 
 ## Data inside the VEIN model
