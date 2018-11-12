@@ -870,35 +870,44 @@ Colombia. In this case, there were no PEMS measurements, but IVE allows to
 produce emission factors from the GPS recordings based on Mobile EPA emissions
 model[@arbor2003user, @Davisetal2005].
 
-VEIN includes all the BASE IVE emission factors covering:
+The arguments are:
 
-- "VOC_gkm", "CO_gkm", "NOx_gkm", "PM_gkm", "Pb_gkm", "SO2_gkm", "NH3_gkm", 
-"ONE_3_butadiene_gkm", "formaldehyde_gkm", "acetaldehyde_gkm", "benzene_gkm", "EVAP_gkm", "CO2_gkm", "N20_gkm", "CH4_gkm"
-- "VOC_gstart", "CO_gstart", "NOx_gstart", "PM_gstart", "Pb_gstart", "SO2_gstart",
+```{r}
+args(ef_ive)
+```
+
+- `description`: Character; "Auto/Sml Truck" "Truck/Bus" or"Sml Engine".
+- `fuel`: Character; "Petrol", "NG Retrofit", "Natural Gas", "Prop Retro.", "Propane", "EthOH Retrofit", "OEM Ethanol", "Diesel", "Ethanol" or "CNG/LPG".
+- `weight`: Character; "Light", "Medium", "Heavy", "Lt", "Med" or "Hvy"
+- `air_fuel_control`: Character; One of the following characters: "Carburetor", "Single-Pt FI", "Multi-Pt FI", "Carb/Mixer", "FI", "Pre-Chamber Inject.", "Direct Injection", "2-Cycle", "2-Cycle, FI", "4-Cycle, Carb", "4-Cycle, FI" "4-Cycle"
+- `exhaust`: Character: "None", "2-Way", "2-Way/EGR", "3-Way", "3-Way/EGR", "None/EGR", "LEV", "ULEV", "SULEV", "EuroI", "EuroII", "EuroIII", "EuroIV", "Hybrid", "Improved", "EGR+Improv", "Particulate", "Particulate/NOx", "EuroV", "High Tech" or "Catalyst"
+- `evaporative`: Character: "PCV", "PCV/Tank" or"None".
+- `mileage`:Numeric; mileage of vehicle by age of use km.
+- `pol`: Character: "VOC_gkm", "CO_gkm", "NOx_gkm", "PM_gkm", "Pb_gkm", "SO2_gkm", "NH3_gkm",  "ONE_3_butadiene_gkm", "formaldehyde_gkm", "acetaldehyde_gkm", "benzene_gkm", "EVAP_gkm", "CO2_gkm", "N20_gkm", "CH4_gkm", "VOC_gstart", "CO_gstart", "NOx_gstart", "PM_gstart", "Pb_gstart", "SO2_gstart",
 "NH3_gstart", "ONE_3butadiene_gstart", "formaldehyde_gstart","acetaldehyde_gstart",
 "benzene_gstart", "EVAP_gstart", "CO2_gstart", "N20_gstart", "CH4_gstart"
+- `details`: Logical; option to see or not more information about vehicle.
 
 ## Emission factors from the Environmental Agency of São Paulo
 
 It has been mentioned that the model includes already some emission factors from the
 Environmental Agency of São Paulo CETESB for year 2015. However, a new feature
-alredy present in VEIN is incorporation of all CETESB emission factors for 2016 [@CETESB2016],
-covering the following list of pollutants:
+alredy present in VEIN is incorporation of all CETESB emission factors for 2016 [@CETESB2016].
 
-- "COd", "HCd", "NMHCd", "CH4", "NOxd", "CO2" "PM", "N2O", "KML", "FC", "NO2d", 
-"NOd", "gCO2/KWH", "RCHOd", "CO", "HC", "NMHC", "NOx", "NO2" ,"NO", "RCHO"
+
+
+```{r}
+args(ef_cetesb)
+```
+
+- `p`:	Character; Pollutants: "COd", "HCd", "NMHCd", "CH4", "NOxd", "CO2" "PM", "N2O", "KML", "FC", "NO2d", "NOd", "gD/KWH", "gCO2/KWH", "RCHOd", "CO", "HC", "NMHC", "NOx", "NO2" ,"NO", "RCHO" (g/km). The letter 'd' means deteriorated factor. Also, evaporative emissions at average temperature ranges: "D_20_35", "S_20_35", "R_20_35", "D_10_25", "S_10_25", "R_10_25", "D_0_15" "S_0_15" and "R_0_15" where D means diurnal (g/day), S hot/warm soak (g/trip) and R hot/warm running losses (g/trip).
+- `veh`:	Character; Vehicle categories: "PC_G", "PC_FG", "PC_FE", "PC_E" "LCV_G", "LCV_FG", "LCV_FE", "LCV_E", "LCV_D", "SLT", "LT", "MT", "SHT" "HT", "UB", "SUB", "COACH", "ARTIC", "M_G_150", "M_G_150_500", "M_G_500" "M_FG_150", "M_FG_150_500", "M_FG_500". "M_FE_150", "M_FE_150_500", "M_FE_500", "CICLOMOTOR", "GNV
+full	
+- `Logical`; To return a data.frame instead or a vector adding Age, Year, Brazilian emissions standards and its euro equivalents.
 
 The letter 'd' means deteriorated factor. I added the pollutants "NO", "NO2" based 
 on the speciation of the -@NtziachristosSamaras2016 guidelines. 
 
-The following vehicular categories are covered:
-
-- "PC_G", "PC_FG", "PC_FE", "PC_E" "LCV_G", "LCV_FG", "LCV_FE", "LCV_E", "LCV_D",
-"SLT", "LT", "MT", "SHT" "HT", "UB", "SUB", "COACH", "ARTIC", "M_G_150", "M_G_150_500",
-"M_G_500" "M_FG_150", "M_FG_150_500", "M_FG_500". "M_FE_150", "M_FE_150_500", "M_FE_500",
-"CICLOMOTOR", "GNV".
-
 I also added the categiry "ARTIC" for articulated buses, based on the proportion
-of Articulated buses to standard urban buses on -@NtziachristosSamaras2016 guidelines,
-which is apporximatly 1.4 times the standard emission factor.
+of Articulated buses to standard urban buses on -@NtziachristosSamaras2016 guidelines, which is apporximatly 1.4 times the standard emission factor.
 

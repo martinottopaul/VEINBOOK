@@ -1385,28 +1385,28 @@ return print the new directories or not. The use is:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpJQp9lK/YourCity
+## files at /tmp/RtmptcgpkS/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpJQp9lK/YourCity"             
-##  [2] "/tmp/RtmpJQp9lK/YourCity/ef"          
-##  [3] "/tmp/RtmpJQp9lK/YourCity/emi"         
-##  [4] "/tmp/RtmpJQp9lK/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpJQp9lK/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpJQp9lK/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpJQp9lK/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpJQp9lK/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpJQp9lK/YourCity/est"         
-## [10] "/tmp/RtmpJQp9lK/YourCity/images"      
-## [11] "/tmp/RtmpJQp9lK/YourCity/network"     
-## [12] "/tmp/RtmpJQp9lK/YourCity/post"        
-## [13] "/tmp/RtmpJQp9lK/YourCity/post/df"     
-## [14] "/tmp/RtmpJQp9lK/YourCity/post/grids"  
-## [15] "/tmp/RtmpJQp9lK/YourCity/post/streets"
-## [16] "/tmp/RtmpJQp9lK/YourCity/profiles"    
-## [17] "/tmp/RtmpJQp9lK/YourCity/veh"
+##  [1] "/tmp/RtmptcgpkS/YourCity"             
+##  [2] "/tmp/RtmptcgpkS/YourCity/ef"          
+##  [3] "/tmp/RtmptcgpkS/YourCity/emi"         
+##  [4] "/tmp/RtmptcgpkS/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmptcgpkS/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmptcgpkS/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmptcgpkS/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmptcgpkS/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmptcgpkS/YourCity/est"         
+## [10] "/tmp/RtmptcgpkS/YourCity/images"      
+## [11] "/tmp/RtmptcgpkS/YourCity/network"     
+## [12] "/tmp/RtmptcgpkS/YourCity/post"        
+## [13] "/tmp/RtmptcgpkS/YourCity/post/df"     
+## [14] "/tmp/RtmptcgpkS/YourCity/post/grids"  
+## [15] "/tmp/RtmptcgpkS/YourCity/post/streets"
+## [16] "/tmp/RtmptcgpkS/YourCity/profiles"    
+## [17] "/tmp/RtmptcgpkS/YourCity/veh"
 \end{verbatim}
 
 \texttt{inventory} creates the direcrory ``YourCity'' and the sub
@@ -1481,7 +1481,7 @@ This argument prints the scripts created:
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpJQp9lK/YourCity
+## files at /tmp/RtmptcgpkS/YourCity
 \end{verbatim}
 
 \begin{verbatim}
@@ -2868,10 +2868,9 @@ function \(f(V)\).
 \end{Shaded}
 
 \begin{verbatim}
-## function (V) 
-## x[j, i]
-## <bytecode: 0x558540824a38>
-## <environment: 0x55855ce2a240>
+## function(V) x[j,i]
+## <bytecode: 0x563c87d4ae00>
+## <environment: 0x563c9ebf6100>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -3588,22 +3587,63 @@ but IVE allows to produce emission factors from the GPS recordings based
 on Mobile EPA emissions
 model\citep[\citet{Davisetal2005}]{arbor2003user}.
 
-VEIN includes all the BASE IVE emission factors covering:
+The arguments are:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{args}\NormalTok{(ef_ive)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (description = "Auto/Sml Truck", fuel = "Petrol", weight = "Light", 
+##     air_fuel_control = "Carburetor", exhaust = "None", evaporative = "PCV", 
+##     mileage, pol, details = FALSE) 
+## NULL
+\end{verbatim}
 
 \begin{itemize}
 \tightlist
 \item
-  ``VOC\_gkm'', ``CO\_gkm'', ``NOx\_gkm'', ``PM\_gkm'', ``Pb\_gkm'',
-  ``SO2\_gkm'', ``NH3\_gkm'', ``ONE\_3\_butadiene\_gkm'',
-  ``formaldehyde\_gkm'', ``acetaldehyde\_gkm'', ``benzene\_gkm'',
-  ``EVAP\_gkm'', ``CO2\_gkm'', ``N20\_gkm'', ``CH4\_gkm''
+  \texttt{description}: Character; ``Auto/Sml Truck'' ``Truck/Bus''
+  or``Sml Engine''.
 \item
-  ``VOC\_gstart'', ``CO\_gstart'', ``NOx\_gstart'', ``PM\_gstart'',
-  ``Pb\_gstart'', ``SO2\_gstart'', ``NH3\_gstart'',
-  ``ONE\_3butadiene\_gstart'',
+  \texttt{fuel}: Character; ``Petrol'', ``NG Retrofit'', ``Natural
+  Gas'', ``Prop Retro.'', ``Propane'', ``EthOH Retrofit'', ``OEM
+  Ethanol'', ``Diesel'', ``Ethanol'' or ``CNG/LPG''.
+\item
+  \texttt{weight}: Character; ``Light'', ``Medium'', ``Heavy'', ``Lt'',
+  ``Med'' or ``Hvy''
+\item
+  \texttt{air\_fuel\_control}: Character; One of the following
+  characters: ``Carburetor'', ``Single-Pt FI'', ``Multi-Pt FI'',
+  ``Carb/Mixer'', ``FI'', ``Pre-Chamber Inject.'', ``Direct Injection'',
+  ``2-Cycle'', ``2-Cycle, FI'', ``4-Cycle, Carb'', ``4-Cycle, FI''
+  ``4-Cycle''
+\item
+  \texttt{exhaust}: Character: ``None'', ``2-Way'', ``2-Way/EGR'',
+  ``3-Way'', ``3-Way/EGR'', ``None/EGR'', ``LEV'', ``ULEV'', ``SULEV'',
+  ``EuroI'', ``EuroII'', ``EuroIII'', ``EuroIV'', ``Hybrid'',
+  ``Improved'', ``EGR+Improv'', ``Particulate'', ``Particulate/NOx'',
+  ``EuroV'', ``High Tech'' or ``Catalyst''
+\item
+  \texttt{evaporative}: Character: ``PCV'', ``PCV/Tank'' or``None''.
+\item
+  \texttt{mileage}:Numeric; mileage of vehicle by age of use km.
+\item
+  \texttt{pol}: Character: ``VOC\_gkm'', ``CO\_gkm'', ``NOx\_gkm'',
+  ``PM\_gkm'', ``Pb\_gkm'', ``SO2\_gkm'', ``NH3\_gkm'',
+  ``ONE\_3\_butadiene\_gkm'', ``formaldehyde\_gkm'',
+  ``acetaldehyde\_gkm'', ``benzene\_gkm'', ``EVAP\_gkm'', ``CO2\_gkm'',
+  ``N20\_gkm'', ``CH4\_gkm'', ``VOC\_gstart'', ``CO\_gstart'',
+  ``NOx\_gstart'', ``PM\_gstart'', ``Pb\_gstart'', ``SO2\_gstart'',
+  ``NH3\_gstart'', ``ONE\_3butadiene\_gstart'',
   ``formaldehyde\_gstart'',``acetaldehyde\_gstart'',
   ``benzene\_gstart'', ``EVAP\_gstart'', ``CO2\_gstart'',
   ``N20\_gstart'', ``CH4\_gstart''
+\item
+  \texttt{details}: Logical; option to see or not more information about
+  vehicle.
 \end{itemize}
 
 \section{Emission factors from the Environmental Agency of São
@@ -3612,33 +3652,47 @@ Paulo}\label{emission-factors-from-the-environmental-agency-of-sao-paulo}
 It has been mentioned that the model includes already some emission
 factors from the Environmental Agency of São Paulo CETESB for year 2015.
 However, a new feature alredy present in VEIN is incorporation of all
-CETESB emission factors for 2016 \citep{CETESB2016}, covering the
-following list of pollutants:
+CETESB emission factors for 2016 \citep{CETESB2016}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{args}\NormalTok{(ef_cetesb)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (p, veh, full = FALSE) 
+## NULL
+\end{verbatim}
 
 \begin{itemize}
 \tightlist
 \item
-  ``COd'', ``HCd'', ``NMHCd'', ``CH4'', ``NOxd'', ``CO2'' ``PM'',
-  ``N2O'', ``KML'', ``FC'', ``NO2d'', ``NOd'', ``gCO2/KWH'', ``RCHOd'',
-  ``CO'', ``HC'', ``NMHC'', ``NOx'', ``NO2'' ,``NO'', ``RCHO''
+  \texttt{p}: Character; Pollutants: ``COd'', ``HCd'', ``NMHCd'',
+  ``CH4'', ``NOxd'', ``CO2'' ``PM'', ``N2O'', ``KML'', ``FC'', ``NO2d'',
+  ``NOd'', ``gD/KWH'', ``gCO2/KWH'', ``RCHOd'', ``CO'', ``HC'',
+  ``NMHC'', ``NOx'', ``NO2'' ,``NO'', ``RCHO'' (g/km). The letter `d'
+  means deteriorated factor. Also, evaporative emissions at average
+  temperature ranges: ``D\_20\_35'', ``S\_20\_35'', ``R\_20\_35'',
+  ``D\_10\_25'', ``S\_10\_25'', ``R\_10\_25'', ``D\_0\_15'' ``S\_0\_15''
+  and ``R\_0\_15'' where D means diurnal (g/day), S hot/warm soak
+  (g/trip) and R hot/warm running losses (g/trip).
+\item
+  \texttt{veh}: Character; Vehicle categories: ``PC\_G'', ``PC\_FG'',
+  ``PC\_FE'', ``PC\_E'' ``LCV\_G'', ``LCV\_FG'', ``LCV\_FE'',
+  ``LCV\_E'', ``LCV\_D'', ``SLT'', ``LT'', ``MT'', ``SHT'' ``HT'',
+  ``UB'', ``SUB'', ``COACH'', ``ARTIC'', ``M\_G\_150'',
+  ``M\_G\_150\_500'', ``M\_G\_500'' ``M\_FG\_150'', ``M\_FG\_150\_500'',
+  ``M\_FG\_500''. ``M\_FE\_150'', ``M\_FE\_150\_500'', ``M\_FE\_500'',
+  ``CICLOMOTOR'', ``GNV full\\
+\item
+  \texttt{Logical}; To return a data.frame instead or a vector adding
+  Age, Year, Brazilian emissions standards and its euro equivalents.
 \end{itemize}
 
 The letter `d' means deteriorated factor. I added the pollutants ``NO'',
 ``NO2'' based on the speciation of the \citet{NtziachristosSamaras2016}
 guidelines.
-
-The following vehicular categories are covered:
-
-\begin{itemize}
-\tightlist
-\item
-  ``PC\_G'', ``PC\_FG'', ``PC\_FE'', ``PC\_E'' ``LCV\_G'', ``LCV\_FG'',
-  ``LCV\_FE'', ``LCV\_E'', ``LCV\_D'', ``SLT'', ``LT'', ``MT'', ``SHT''
-  ``HT'', ``UB'', ``SUB'', ``COACH'', ``ARTIC'', ``M\_G\_150'',
-  ``M\_G\_150\_500'', ``M\_G\_500'' ``M\_FG\_150'', ``M\_FG\_150\_500'',
-  ``M\_FG\_500''. ``M\_FE\_150'', ``M\_FE\_150\_500'', ``M\_FE\_500'',
-  ``CICLOMOTOR'', ``GNV''.
-\end{itemize}
 
 I also added the categiry ``ARTIC'' for articulated buses, based on the
 proportion of Articulated buses to standard urban buses on
@@ -4495,7 +4549,7 @@ function is \texttt{emis\_merge}. As it can be seen on Fig.
 
 \begin{verbatim}
 ## function (pol = "CO", what = "STREETS.rds", streets = T, net, 
-##     path = "emi", crs, under = "after", as_list = FALSE) 
+##     path = "emi", crs, under = "after", ignore = FALSE, as_list = FALSE) 
 ## NULL
 \end{verbatim}
 
@@ -4542,31 +4596,31 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpJQp9lK/YourCity
+## files at /tmp/RtmptcgpkS/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpJQp9lK/YourCity"             
-##  [2] "/tmp/RtmpJQp9lK/YourCity/ef"          
-##  [3] "/tmp/RtmpJQp9lK/YourCity/emi"         
-##  [4] "/tmp/RtmpJQp9lK/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpJQp9lK/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpJQp9lK/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpJQp9lK/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpJQp9lK/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpJQp9lK/YourCity/est"         
-## [10] "/tmp/RtmpJQp9lK/YourCity/images"      
-## [11] "/tmp/RtmpJQp9lK/YourCity/network"     
-## [12] "/tmp/RtmpJQp9lK/YourCity/post"        
-## [13] "/tmp/RtmpJQp9lK/YourCity/post/df"     
-## [14] "/tmp/RtmpJQp9lK/YourCity/post/grids"  
-## [15] "/tmp/RtmpJQp9lK/YourCity/post/streets"
-## [16] "/tmp/RtmpJQp9lK/YourCity/profiles"    
-## [17] "/tmp/RtmpJQp9lK/YourCity/veh"
+##  [1] "/tmp/RtmptcgpkS/YourCity"             
+##  [2] "/tmp/RtmptcgpkS/YourCity/ef"          
+##  [3] "/tmp/RtmptcgpkS/YourCity/emi"         
+##  [4] "/tmp/RtmptcgpkS/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmptcgpkS/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmptcgpkS/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmptcgpkS/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmptcgpkS/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmptcgpkS/YourCity/est"         
+## [10] "/tmp/RtmptcgpkS/YourCity/images"      
+## [11] "/tmp/RtmptcgpkS/YourCity/network"     
+## [12] "/tmp/RtmptcgpkS/YourCity/post"        
+## [13] "/tmp/RtmptcgpkS/YourCity/post/df"     
+## [14] "/tmp/RtmptcgpkS/YourCity/post/grids"  
+## [15] "/tmp/RtmptcgpkS/YourCity/post/streets"
+## [16] "/tmp/RtmptcgpkS/YourCity/profiles"    
+## [17] "/tmp/RtmptcgpkS/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmpJQp9lK/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmptcgpkS/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5261,7 +5315,7 @@ And the resulting speciation is:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-95}Black Carbon and Organic Matter [g/168h]}
+\caption{\label{tab:unnamed-chunk-97}Black Carbon and Organic Matter [g/168h]}
 \centering
 \begin{tabular}[t]{l|l|l|l|l|l|l}
 \hline
@@ -5393,7 +5447,7 @@ emissions, and the smalle the diameter, higher the difference, as shows:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-97}Ratio between break and tyre wear emissions}
+\caption{\label{tab:unnamed-chunk-99}Ratio between break and tyre wear emissions}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -5659,7 +5713,7 @@ production such as: \citet{Nogueiraetal2015},
 an air quality simulation over South Easth Brazil from DAC/IAG/USP.
 
 \begin{figure}
-\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-101}
+\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-103}
 \end{figure}
 
 Some of these papers show measurements in tunnels, fuel, etc. The
@@ -5682,7 +5736,7 @@ Brazil, even more, in São Paulo.
 The currently speciation \texttt{iag} is:
 
 \begin{figure}
-\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-102}
+\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-104}
 \end{figure}
 
 The arguments of the function \texttt{speciate} take the following form:
@@ -5725,12 +5779,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9266105
-## 2 0.9261302
-## 3 0.9241043
-## 4 0.9280154
-## 5 0.9129768
-## 6 0.9303943
+## 1 0.9226740
+## 2 0.9243895
+## 3 0.9275782
+## 4 0.9277495
+## 5 0.9273263
+## 6 0.9257804
 \end{verbatim}
 
 \begin{Shaded}
@@ -5757,31 +5811,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9266105 0.9261302 0.9241043
+## [1] 0.9226740 0.9243895 0.9275782
 ## Units: [mol/h]
-## [1] 1.426859 1.426119 1.422999
+## [1] 1.420797 1.423439 1.428349
 ## Units: [mol/h]
-## [1] 0.5200474 0.5197779 0.5186409
+## [1] 0.5178381 0.5188010 0.5205905
 ## Units: [mol/h]
-## [1] 0.2509360 0.2508059 0.2502573
+## [1] 0.2498700 0.2503346 0.2511981
 ## Units: [mol/h]
-## [1] 1.903939 1.902952 1.898790
+## [1] 1.895851 1.899376 1.905928
 ## Units: [mol/h]
-## [1] 0.7982062 0.7977924 0.7960473
+## [1] 0.7948151 0.7962930 0.7990397
 ## Units: [mol/h]
-## [1] 0.5291831 0.5289088 0.5277519
+## [1] 0.5269350 0.5279148 0.5297358
 ## Units: [mol/h]
-## [1] 0.02538359 0.02537043 0.02531494
+## [1] 0.02527575 0.02532275 0.02541010
 ## Units: [mol/h]
-## [1] 0.4606613 0.4604225 0.4594154
+## [1] 0.4587043 0.4595572 0.4611424
 ## Units: [mol/h]
-## [1] 0.8776344 0.8771795 0.8752607
+## [1] 0.8739060 0.8755309 0.8785510
 ## Units: [mol/h]
-## [1] 1.232777 1.232138 1.229443
+## [1] 1.227540 1.229822 1.234064
 ## Units: [mol/h]
-## [1] 0.3455650 0.3453859 0.3446304
+## [1] 0.3440969 0.3447367 0.3459259
 ## Units: [mol/h]
-## [1] 0.4506896 0.4504560 0.4494707
+## [1] 0.4487750 0.4496094 0.4511603
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -5797,7 +5851,7 @@ as follow:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-104}Speciation of PM2.5}
+\caption{\label{tab:unnamed-chunk-106}Speciation of PM2.5}
 \centering
 \begin{tabular}[t]{r|r|r|r|r|r|r|r|r|r|r}
 \hline
@@ -5840,7 +5894,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 601988.04
+## Sum of street emissions 601978.39
 \end{verbatim}
 
 \begin{verbatim}
@@ -5848,7 +5902,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 601988.04
+## Sum of gridded emissions 601978.39
 \end{verbatim}
 
 \begin{Shaded}
@@ -5885,18 +5939,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001448040 [g/m^2/s] 0.01171596 0.0004645010 0.001980241 0.01880571
-## 2 0.001439303 [g/m^2/s] 0.01164527 0.0004616984 0.001968293 0.01869224
-## 3 0.001475335 [g/m^2/s] 0.01193680 0.0004732569 0.002017569 0.01916020
-## 4 0.002549542 [g/m^2/s] 0.02062811 0.0008178400 0.003486581 0.03311093
-## 5 0.005804243 [g/m^2/s] 0.04696160 0.0018618804 0.007937490 0.07537977
+## 1 0.001450788 [g/m^2/s] 0.01173820 0.0004653828 0.001984000 0.01884141
+## 2 0.001442035 [g/m^2/s] 0.01166737 0.0004625749 0.001972030 0.01872773
+## 3 0.001478136 [g/m^2/s] 0.01195946 0.0004741553 0.002021399 0.01919657
+## 4 0.002551438 [g/m^2/s] 0.02064345 0.0008184482 0.003489174 0.03313556
+## 5 0.005793162 [g/m^2/s] 0.04687194 0.0018583258 0.007922337 0.07523586
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05641712 0.005716935 0.02437220 0.01053120 0.004513370 0.05209181
-## 2 0.05607673 0.005682442 0.02422515 0.01046766 0.004486138 0.05177751
-## 3 0.05748060 0.005824700 0.02483162 0.01072971 0.004598448 0.05307375
-## 4 0.09933280 0.010065724 0.04291177 0.01854212 0.007946624 0.09171728
-## 5 0.22613932 0.022915451 0.09769219 0.04221267 0.018091146 0.20880198
+## 1 0.05652423 0.005727788 0.02441847 0.01055119 0.004521938 0.05219070
+## 2 0.05618318 0.005693229 0.02427113 0.01048753 0.004494654 0.05187580
+## 3 0.05758972 0.005835758 0.02487876 0.01075008 0.004607177 0.05317450
+## 4 0.09940667 0.010073209 0.04294368 0.01855591 0.007952533 0.09178549
+## 5 0.22570759 0.022871703 0.09750568 0.04213208 0.018056607 0.20840334
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
@@ -6902,7 +6956,7 @@ will not chech if the data is hourly or anunual.
 \subsection{Emission factors}\label{emission-factors-1}
 
 When I started this book, VEIN contained few emission factors. Now, the
-version 0.5.2 has all the 2016 emission factors of CETESB, almost 100
+version 0.5.4 has all the 2016 emission factors of CETESB, almost 100
 emisision factors from the European Emission guidelines the all the BASE
 emission factors from the International Vehicle Model (IVE). The
 functions to access this data are:
