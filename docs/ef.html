@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-25">
+<meta name="date" content="2018-11-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -173,6 +173,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
 <li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
 <li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+<li class="chapter" data-level="5.10" data-path="ef.html"><a href="ef.html#emission-factors-from-the-environmental-agency-of-sao-paulo"><i class="fa fa-check"></i><b>5.10</b> Emission factors from the Environmental Agency of São Paulo</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
 <li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
@@ -428,9 +429,10 @@ Figure 5.3: Emission factor of PC and LT by age of use
 ## Last has  36  functions</code></pre>
 <p>Indeed, if we want to see the content of the <code>EmissionFactorsList</code> we have to extract the elements of the list. EFL_CO has two lists; one for PC and one for LT. Then, each list has 36 functions, the command <code>class(EFL_CO[[1]][[1]])</code> shows the object is a function <span class="math inline">\(f(V)\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## function(V) x[j,i]
-## &lt;bytecode: 0x558360d80c60&gt;
-## &lt;environment: 0x558360d60a58&gt;</code></pre>
+<pre><code>## function (V) 
+## x[j, i]
+## &lt;bytecode: 0x558540824a38&gt;
+## &lt;environment: 0x558540823918&gt;</code></pre>
 <p>Also, as the speed functions are constant, there is no need to add values of V.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]](<span class="dv">100</span>) <span class="co"># constant speed function</span></code></pre></div>
 <pre><code>## [1] 0.171</code></pre>
@@ -707,14 +709,31 @@ LT &lt;-<span class="st"> </span><span class="kw">age_hdv</span>(<span class="dt
 </div>
 <div id="emission-factors-from-international-vehicle-emissions-ive" class="section level2">
 <h2><span class="header-section-number">5.9</span> Emission factors from International Vehicle Emissions (IVE)</h2>
-<p>The IVE models applies the vehicle specific power (VSP) methodology to predict emissions <span class="citation">(Jimenez et al. <a href="#ref-jimenez1999vehicle">1999</a>)</span>. The formlula is shown on Eq. <a href="ef.html#eq:vsp">(5.8)</a>.</p>
+<p>The IVE model is calculates emission factors by correcting BASE emission factors with the vehicle specific power (VSP) methodology to predict emissions <span class="citation">(Jimenez et al. <a href="#ref-jimenez1999vehicle">1999</a>)</span>. The formula is shown on Eq. <a href="ef.html#eq:vsp">(5.8)</a>.</p>
 <span class="math display" id="eq:vsp">\[\begin{equation}
 VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
 \tag{5.8}
 \end{equation}\]</span>
 <p>where: <span class="math inline">\(v\)</span> is velocity <span class="math inline">\((m \cdot s^{-1})\)</span>, <span class="math inline">\(a\)</span> is the second by second acceleration <span class="math inline">\((m \cdot s^{-2})\)</span> and grade the second by second change in height defined as <span class="math inline">\(\frac{(h_{t=0} - h_{t=-1})}{v}\)</span>; being <span class="math inline">\(h\)</span> as altitude <span class="math inline">\(m\)</span>. This method requires that the user measures the activity Global Position System (GPS) recordings second by second and/or emissions measurements with Portable Emissions Measurement Systems (PEMS).</p>
 <p><span class="citation">González et al. (<a href="#ref-gonzalez2017relative">2017</a>)</span> measure the vehicular activity in the city of Manizales, Colombia. In this case, there were no PEMS measurements, but IVE allows to produce emission factors from the GPS recordings based on Mobile EPA emissions model<span class="citation">(Arbor <a href="#ref-arbor2003user">2003</a>, <span class="citation">Davis et al. (<a href="#ref-Davisetal2005">2005</a>)</span>)</span>.</p>
-<p>The resulting emission factors vary for each type of vehicle and includes several pollutants. If the user wants to use IVE emission factors in VEIN, he/she would have to add them in each <code>*input.R</code>, after running <code>inventory</code>.</p>
+<p>VEIN includes all the BASE IVE emission factors covering:</p>
+<ul>
+<li>“VOC_gkm”, “CO_gkm”, “NOx_gkm”, “PM_gkm”, “Pb_gkm”, “SO2_gkm”, “NH3_gkm”, “ONE_3_butadiene_gkm”, “formaldehyde_gkm”, “acetaldehyde_gkm”, “benzene_gkm”, “EVAP_gkm”, “CO2_gkm”, “N20_gkm”, “CH4_gkm”</li>
+<li>“VOC_gstart”, “CO_gstart”, “NOx_gstart”, “PM_gstart”, “Pb_gstart”, “SO2_gstart”, “NH3_gstart”, “ONE_3butadiene_gstart”, “formaldehyde_gstart”,“acetaldehyde_gstart”, “benzene_gstart”, “EVAP_gstart”, “CO2_gstart”, “N20_gstart”, “CH4_gstart”</li>
+</ul>
+</div>
+<div id="emission-factors-from-the-environmental-agency-of-sao-paulo" class="section level2">
+<h2><span class="header-section-number">5.10</span> Emission factors from the Environmental Agency of São Paulo</h2>
+<p>It has been mentioned that the model includes already some emission factors from the Environmental Agency of São Paulo CETESB for year 2015. However, a new feature alredy present in VEIN is incorporation of all CETESB emission factors for 2016 <span class="citation">(CETESB <a href="#ref-CETESB2016">2016</a>)</span>, covering the following list of pollutants:</p>
+<ul>
+<li>“COd”, “HCd”, “NMHCd”, “CH4”, “NOxd”, “CO2” “PM”, “N2O”, “KML”, “FC”, “NO2d”, “NOd”, “gCO2/KWH”, “RCHOd”, “CO”, “HC”, “NMHC”, “NOx”, “NO2” ,“NO”, “RCHO”</li>
+</ul>
+<p>The letter ‘d’ means deteriorated factor. I added the pollutants “NO”, “NO2” based on the speciation of the <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> guidelines.</p>
+<p>The following vehicular categories are covered:</p>
+<ul>
+<li>“PC_G”, “PC_FG”, “PC_FE”, “PC_E” “LCV_G”, “LCV_FG”, “LCV_FE”, “LCV_E”, “LCV_D”, “SLT”, “LT”, “MT”, “SHT” “HT”, “UB”, “SUB”, “COACH”, “ARTIC”, “M_G_150”, “M_G_150_500”, “M_G_500” “M_FG_150”, “M_FG_150_500”, “M_FG_500”. “M_FE_150”, “M_FE_150_500”, “M_FE_500”, “CICLOMOTOR”, “GNV”.</li>
+</ul>
+<p>I also added the categiry “ARTIC” for articulated buses, based on the proportion of Articulated buses to standard urban buses on <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> guidelines, which is apporximatly 1.4 times the standard emission factor.</p>
 
 </div>
 </div>
@@ -791,6 +810,9 @@ VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
 </div>
 <div id="ref-arbor2003user">
 <p>Arbor, A. 2003. “User’s Guide to Mobile 6.1 and Mobile 6.2.” <em>Assessment and Standard Division, Office of Transportation and Air Quality, USEPA, Mich</em>.</p>
+</div>
+<div id="ref-CETESB2016">
+<p>CETESB. 2016. “Emissões Veiculares No Estado de São Paulo 2016.”</p>
 </div>
 </div>
             </section>

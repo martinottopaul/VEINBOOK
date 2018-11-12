@@ -848,8 +848,9 @@ emission factors in each `*input.R`.
 
 ## Emission factors from International Vehicle Emissions (IVE)
 
-The IVE models applies the  vehicle specific power (VSP) methodology to predict
-emissions [@jimenez1999vehicle]. The formlula is shown on Eq. \@ref(eq:vsp).
+The IVE model is calculates emission factors by correcting BASE emission factors
+with the vehicle specific power (VSP) methodology to predict
+emissions [@jimenez1999vehicle]. The formula is shown on Eq. \@ref(eq:vsp).
 
 \begin{equation}
 VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
@@ -869,6 +870,35 @@ Colombia. In this case, there were no PEMS measurements, but IVE allows to
 produce emission factors from the GPS recordings based on Mobile EPA emissions
 model[@arbor2003user, @Davisetal2005].
 
-The resulting emission factors vary for each type of vehicle and includes several 
-pollutants. If the user wants to use IVE emission factors in VEIN, he/she would have
-to add them in each `*input.R`, after running `inventory`.
+VEIN includes all the BASE IVE emission factors covering:
+
+- "VOC_gkm", "CO_gkm", "NOx_gkm", "PM_gkm", "Pb_gkm", "SO2_gkm", "NH3_gkm", 
+"ONE_3_butadiene_gkm", "formaldehyde_gkm", "acetaldehyde_gkm", "benzene_gkm", "EVAP_gkm", "CO2_gkm", "N20_gkm", "CH4_gkm"
+- "VOC_gstart", "CO_gstart", "NOx_gstart", "PM_gstart", "Pb_gstart", "SO2_gstart",
+"NH3_gstart", "ONE_3butadiene_gstart", "formaldehyde_gstart","acetaldehyde_gstart",
+"benzene_gstart", "EVAP_gstart", "CO2_gstart", "N20_gstart", "CH4_gstart"
+
+## Emission factors from the Environmental Agency of São Paulo
+
+It has been mentioned that the model includes already some emission factors from the
+Environmental Agency of São Paulo CETESB for year 2015. However, a new feature
+alredy present in VEIN is incorporation of all CETESB emission factors for 2016 [@CETESB2016],
+covering the following list of pollutants:
+
+- "COd", "HCd", "NMHCd", "CH4", "NOxd", "CO2" "PM", "N2O", "KML", "FC", "NO2d", 
+"NOd", "gCO2/KWH", "RCHOd", "CO", "HC", "NMHC", "NOx", "NO2" ,"NO", "RCHO"
+
+The letter 'd' means deteriorated factor. I added the pollutants "NO", "NO2" based 
+on the speciation of the -@NtziachristosSamaras2016 guidelines. 
+
+The following vehicular categories are covered:
+
+- "PC_G", "PC_FG", "PC_FE", "PC_E" "LCV_G", "LCV_FG", "LCV_FE", "LCV_E", "LCV_D",
+"SLT", "LT", "MT", "SHT" "HT", "UB", "SUB", "COACH", "ARTIC", "M_G_150", "M_G_150_500",
+"M_G_500" "M_FG_150", "M_FG_150_500", "M_FG_500". "M_FE_150", "M_FE_150_500", "M_FE_500",
+"CICLOMOTOR", "GNV".
+
+I also added the categiry "ARTIC" for articulated buses, based on the proportion
+of Articulated buses to standard urban buses on -@NtziachristosSamaras2016 guidelines,
+which is apporximatly 1.4 times the standard emission factor.
+

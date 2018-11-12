@@ -134,6 +134,9 @@ coluns of the matrix profile.
 expects a profile as a dataframe producing an array with dimensions (streets
 x columns x hours x days)
 
+When the only arguments present in the function are **veh**, **lkm** and **ef**
+assumes a _top-down_ and shows a message.
+
 ## The `emis_cold` function
 
 The arguments of `emis_cold` are:

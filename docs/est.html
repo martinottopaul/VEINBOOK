@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-10-25">
+<meta name="date" content="2018-11-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -173,6 +173,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.7" data-path="ef.html"><a href="ef.html#emission-factors-of-wear-ef_wear"><i class="fa fa-check"></i><b>5.7</b> Emission factors of wear <code>ef_wear</code></a></li>
 <li class="chapter" data-level="5.8" data-path="ef.html"><a href="ef.html#emission-factors-from-tunnel-studies"><i class="fa fa-check"></i><b>5.8</b> Emission factors from tunnel studies</a></li>
 <li class="chapter" data-level="5.9" data-path="ef.html"><a href="ef.html#emission-factors-from-international-vehicle-emissions-ive"><i class="fa fa-check"></i><b>5.9</b> Emission factors from International Vehicle Emissions (IVE)</a></li>
+<li class="chapter" data-level="5.10" data-path="ef.html"><a href="ef.html#emission-factors-from-the-environmental-agency-of-sao-paulo"><i class="fa fa-check"></i><b>5.10</b> Emission factors from the Environmental Agency of São Paulo</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="est.html"><a href="est.html"><i class="fa fa-check"></i><b>6</b> Estimation of emissions</a><ul>
 <li class="chapter" data-level="6.1" data-path="est.html"><a href="est.html#the-emis-function"><i class="fa fa-check"></i><b>6.1</b> The <code>emis</code> function</a></li>
@@ -288,6 +289,7 @@ Figure 6.1: Emissions estimation process with VEIN
 <li><code>day</code>: Number of considered days in estimation. As this information can be derived form the argument <code>profile</code>, the default value is the number of coluns of the matrix profile.</li>
 <li><code>array</code>: When FALSE produces a dataframe of the estimation. When TRUE expects a profile as a dataframe producing an array with dimensions (streets x columns x hours x days)</li>
 </ul>
+<p>When the only arguments present in the function are <strong>veh</strong>, <strong>lkm</strong> and <strong>ef</strong> assumes a <em>top-down</em> and shows a message.</p>
 </div>
 <div id="the-emis_cold-function" class="section level2">
 <h2><span class="header-section-number">6.2</span> The <code>emis_cold</code> function</h2>
