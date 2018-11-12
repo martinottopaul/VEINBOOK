@@ -304,25 +304,25 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 <p>This is a logical argument to decide if the output of the function will return print the new directories or not. The use is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 <span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmpDpnSQq/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpAxG1On/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmpDpnSQq/YourCity&quot;             
-##  [2] &quot;/tmp/RtmpDpnSQq/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmpDpnSQq/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmpDpnSQq/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmpDpnSQq/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmpDpnSQq/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmpDpnSQq/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmpDpnSQq/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmpDpnSQq/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmpDpnSQq/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmpDpnSQq/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmpDpnSQq/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmpDpnSQq/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmpDpnSQq/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmpDpnSQq/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmpDpnSQq/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmpDpnSQq/YourCity/veh&quot;</code></pre>
+##  [1] &quot;/tmp/RtmpAxG1On/YourCity&quot;             
+##  [2] &quot;/tmp/RtmpAxG1On/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmpAxG1On/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmpAxG1On/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmpAxG1On/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmpAxG1On/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmpAxG1On/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmpAxG1On/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmpAxG1On/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmpAxG1On/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmpAxG1On/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmpAxG1On/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmpAxG1On/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmpAxG1On/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmpAxG1On/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmpAxG1On/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmpAxG1On/YourCity/veh&quot;</code></pre>
 <p><code>inventory</code> creates the direcrory “YourCity” and the sub directories: daily, ef, emi, est, images, network and veh.</p>
 <ul>
 <li><strong>daily</strong>: Directory for storing the profiles saved as .csv files. For instance, <code>data(pc_profile)</code> is a matrix that could be saved as .csv.</li>
@@ -345,7 +345,7 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 <p>This argument prints the scripts created:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 <span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">FALSE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmpDpnSQq/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpAxG1On/YourCity</code></pre>
 <pre><code>## Scripts:
 ## [1] &quot;est/BUS_01_input.R&quot; &quot;est/HGV_01_input.R&quot; &quot;est/LCV_01_input.R&quot;
 ## [4] &quot;est/MC_01_input.R&quot;  &quot;est/PC_01_input.R&quot;  &quot;main.R&quot;            

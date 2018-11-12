@@ -432,8 +432,8 @@ Figure 5.3: Emission factor of PC and LT by age of use
 <p>Indeed, if we want to see the content of the <code>EmissionFactorsList</code> we have to extract the elements of the list. EFL_CO has two lists; one for PC and one for LT. Then, each list has 36 functions, the command <code>class(EFL_CO[[1]][[1]])</code> shows the object is a function <span class="math inline">\(f(V)\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## function(V) x[j,i]
-## &lt;bytecode: 0x561ffbd0a928&gt;
-## &lt;environment: 0x561ffbcd1d18&gt;</code></pre>
+## &lt;bytecode: 0x55712886ea90&gt;
+## &lt;environment: 0x557128838120&gt;</code></pre>
 <p>Also, as the speed functions are constant, there is no need to add values of V.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EFL_CO[[<span class="dv">1</span>]][[<span class="dv">1</span>]](<span class="dv">100</span>) <span class="co"># constant speed function</span></code></pre></div>
 <pre><code>## [1] 0.171</code></pre>
