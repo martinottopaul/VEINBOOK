@@ -187,7 +187,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
 <li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
 <li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
-<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-bottom-up-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding bottom-up emissions with <code>emis_grid</code></a></li>
+<li class="chapter" data-level="7.6" data-path="post.html"><a href="post.html#gridding-top-down-emissions-with-emis_dist"><i class="fa fa-check"></i><b>7.6</b> Gridding top-down emissions with <code>emis_dist</code></a></li>
+<li class="chapter" data-level="7.7" data-path="post.html"><a href="post.html#gridding-top-down-emissions-with-grid_emis"><i class="fa fa-check"></i><b>7.7</b> Gridding top-down emissions with <code>grid_emis</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
 <li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
@@ -302,25 +304,25 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 <p>This is a logical argument to decide if the output of the function will return print the new directories or not. The use is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 <span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmptcgpkS/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpDpnSQq/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmptcgpkS/YourCity&quot;             
-##  [2] &quot;/tmp/RtmptcgpkS/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmptcgpkS/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmptcgpkS/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmptcgpkS/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmptcgpkS/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmptcgpkS/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmptcgpkS/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmptcgpkS/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmptcgpkS/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmptcgpkS/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmptcgpkS/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmptcgpkS/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmptcgpkS/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmptcgpkS/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmptcgpkS/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmptcgpkS/YourCity/veh&quot;</code></pre>
+##  [1] &quot;/tmp/RtmpDpnSQq/YourCity&quot;             
+##  [2] &quot;/tmp/RtmpDpnSQq/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmpDpnSQq/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmpDpnSQq/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmpDpnSQq/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmpDpnSQq/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmpDpnSQq/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmpDpnSQq/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmpDpnSQq/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmpDpnSQq/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmpDpnSQq/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmpDpnSQq/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmpDpnSQq/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmpDpnSQq/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmpDpnSQq/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmpDpnSQq/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmpDpnSQq/YourCity/veh&quot;</code></pre>
 <p><code>inventory</code> creates the direcrory “YourCity” and the sub directories: daily, ef, emi, est, images, network and veh.</p>
 <ul>
 <li><strong>daily</strong>: Directory for storing the profiles saved as .csv files. For instance, <code>data(pc_profile)</code> is a matrix that could be saved as .csv.</li>
@@ -343,7 +345,7 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 <p>This argument prints the scripts created:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 <span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">FALSE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmptcgpkS/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpDpnSQq/YourCity</code></pre>
 <pre><code>## Scripts:
 ## [1] &quot;est/BUS_01_input.R&quot; &quot;est/HGV_01_input.R&quot; &quot;est/LCV_01_input.R&quot;
 ## [4] &quot;est/MC_01_input.R&quot;  &quot;est/PC_01_input.R&quot;  &quot;main.R&quot;            

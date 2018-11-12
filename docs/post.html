@@ -187,7 +187,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="post.html"><a href="post.html#total-emissions-in-data-frames"><i class="fa fa-check"></i><b>7.2</b> Total emissions in data-frames</a></li>
 <li class="chapter" data-level="7.3" data-path="post.html"><a href="post.html#merging-emissions"><i class="fa fa-check"></i><b>7.3</b> Merging emissions</a></li>
 <li class="chapter" data-level="7.4" data-path="post.html"><a href="post.html#creating-grids"><i class="fa fa-check"></i><b>7.4</b> Creating grids</a></li>
-<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding emissions with <code>emis_grid</code></a></li>
+<li class="chapter" data-level="7.5" data-path="post.html"><a href="post.html#gridding-bottom-up-emissions-with-emis_grid"><i class="fa fa-check"></i><b>7.5</b> Gridding bottom-up emissions with <code>emis_grid</code></a></li>
+<li class="chapter" data-level="7.6" data-path="post.html"><a href="post.html#gridding-top-down-emissions-with-emis_dist"><i class="fa fa-check"></i><b>7.6</b> Gridding top-down emissions with <code>emis_dist</code></a></li>
+<li class="chapter" data-level="7.7" data-path="post.html"><a href="post.html#gridding-top-down-emissions-with-grid_emis"><i class="fa fa-check"></i><b>7.7</b> Gridding top-down emissions with <code>grid_emis</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="he.html"><a href="he.html"><i class="fa fa-check"></i><b>8</b> Speciation</a><ul>
 <li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
@@ -420,26 +422,26 @@ Figure 7.6: NOx emissions of LT
 <p>In order to see how this functions works, let’s run the example in the <code>inventory</code> function. First, lets create a project, or in other words a directory named “YourCity”, into the temporary directory. In this part you can place your project wherever you want with the actual name of your city. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name)</code></pre></div>
-<pre><code>## files at /tmp/RtmptcgpkS/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpDpnSQq/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmptcgpkS/YourCity&quot;             
-##  [2] &quot;/tmp/RtmptcgpkS/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmptcgpkS/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmptcgpkS/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmptcgpkS/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmptcgpkS/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmptcgpkS/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmptcgpkS/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmptcgpkS/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmptcgpkS/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmptcgpkS/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmptcgpkS/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmptcgpkS/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmptcgpkS/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmptcgpkS/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmptcgpkS/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmptcgpkS/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/RtmptcgpkS/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/RtmpDpnSQq/YourCity&quot;             
+##  [2] &quot;/tmp/RtmpDpnSQq/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmpDpnSQq/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmpDpnSQq/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmpDpnSQq/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmpDpnSQq/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmpDpnSQq/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmpDpnSQq/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmpDpnSQq/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmpDpnSQq/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmpDpnSQq/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmpDpnSQq/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmpDpnSQq/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmpDpnSQq/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmpDpnSQq/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmpDpnSQq/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmpDpnSQq/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/RtmpDpnSQq/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This script starts with <code>setwd</code> function, Then the first section is the network, where user reads and prepares the traffic information. Then the second section runs a script whichruns the age functions for the deault vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -476,8 +478,8 @@ Figure 7.7: Grid with spacing of 500 mts
 </div>
 <p>The class of <code>net</code> is <code>SpatialLinesDataFrame</code>, which is converted to <code>sf</code>. Then, as the coordinte reference system of net is WGS84 with epsg 4326, we are transforming to UTM to create a grid with grid spacing of 500 mts. The class of the grid object, <code>g</code> is “sf data.frame”.</p>
 </div>
-<div id="gridding-emissions-with-emis_grid" class="section level2">
-<h2><span class="header-section-number">7.5</span> Gridding emissions with <code>emis_grid</code></h2>
+<div id="gridding-bottom-up-emissions-with-emis_grid" class="section level2">
+<h2><span class="header-section-number">7.5</span> Gridding bottom-up emissions with <code>emis_grid</code></h2>
 <p>The function<code>emis_grid</code> allocates emissions proportionally to each grid cell. The process is performed by intersection between geometries and the grid. It means that requires “sr” according with your location for the projection. It is assumed that spobj is a spatial*DataFrame or an “sf” with the pollutants in data. This function return an object class “sf”.</p>
 <p>Before <code>sf</code> era, i tried to use<code>raster::intersect</code> which imports <code>rgeos</code> and took <strong>ages</strong>. Then I started to use <span class="citation">QGIS Development Team (<a href="#ref-QGIS">2017</a>)</span> (<a href="https://www.qgis.org" class="uri">https://www.qgis.org</a>), and later the R package <span class="citation">Muenchow, Schratz, and Brenning (<a href="#ref-RQGIS">2018</a>)</span> which takes 10 minutes for allocating emissions of the mega-city of São Paulo and a grid spacing of 1 km. <em>10 min is not bad</em>. However, when <code>sf</code> appeared and also, included the Spatial Indexes (<a href="https://www.r-spatial.org/r/2017/06/22/spatial-index.html" class="uri">https://www.r-spatial.org/r/2017/06/22/spatial-index.html</a>), it changed the game. A new era started. It took <strong>5.5 seconds</strong>. I could not believe it. But there also some i could accelerate this process importing some <code>data.table</code> aggregation functions. Now <code>emis_grid</code> can aggegate big spatial extensions. I havent tried yet at continental scale, but I will try. Anyways, let’s go see the arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_grid)</code></pre></div>
@@ -531,6 +533,100 @@ NOxg &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(E_NOx_STREE
 <img src="veinbook_files/figure-html/Noxg-1.svg" alt="NOx emissions for 00:00 [g/h]" width="672" />
 <p class="caption">
 Figure 7.9: NOx emissions for 00:00 [g/h]
+</p>
+</div>
+</div>
+<div id="gridding-top-down-emissions-with-emis_dist" class="section level2">
+<h2><span class="header-section-number">7.6</span> Gridding top-down emissions with <code>emis_dist</code></h2>
+<p>When a top-down approach emissions inventory is made, the spatial distribution of emissions must be made considering some proxy. In the case of vehicular emissions, it can be done with data of Open Street Maps,distributing the emissions into the streets. This can be done with the function with the function <code>emis_dist</code>. In generaly, this function distribute the emissions into spatial feature on any type, not only lines.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_dist)</code></pre></div>
+<pre><code>## function (gy, spobj, pro, osm, verbose = TRUE) 
+## NULL</code></pre>
+<p>Where,</p>
+<ul>
+<li><code>gy</code>: Numeric; a unique total (top-down) emissions (grams)</li>
+<li><code>spobj</code>: A spatial dataframe of class “sp” or “sf”. When class is “sp” it is transformed to “sf”.</li>
+<li><code>pro</code>: Matrix or data-frame profiles, for instance, pc_profile.</li>
+<li><code>osm</code>: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers ‘motorway’ and ‘motorway_link. The second element covers ’trunk’ and ‘trunk_link’. The third element covers ‘primary’ and ‘primary_link’. The fourth element covers ‘secondary’ and ‘secondary_link’. The fifth element covers ‘tertiary’ and ‘tertiary_link’.</li>
+<li><code>verbose</code>: Logical; to show more info.</li>
+</ul>
+<p>In order test this function, it will be used the function <code>osmdata</code>. The process presented in the following code, consists in downloading the openstreetmap data delimited by the coordenaes og the grid <code>g</code>. Then filter only the lines</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(osmdata)</code></pre></div>
+<pre><code>## Data (c) OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf, <span class="dt">quietly =</span> T)
+osm &lt;-<span class="st"> </span><span class="kw">osmdata_sf</span>(
+  <span class="kw">add_osm_feature</span>(
+    <span class="kw">opq</span>(<span class="dt">bbox =</span> <span class="kw">st_bbox</span>(g)),                             
+    <span class="dt">key =</span> <span class="st">&#39;highway&#39;</span>))<span class="op">$</span>osm_lines[, <span class="kw">c</span>(<span class="st">&quot;highway&quot;</span>)]
+st &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motorway&quot;</span>, <span class="st">&quot;motorway_link&quot;</span>, <span class="st">&quot;</span>
+<span class="st">        trunk&quot;</span>, <span class="st">&quot;trunk_link&quot;</span>, 
+        <span class="st">&quot;primary&quot;</span>, <span class="st">&quot;primary_link&quot;</span>, 
+        <span class="st">&quot;secondary&quot;</span>, <span class="st">&quot;secondary_link&quot;</span>, 
+        <span class="st">&quot;tertiary&quot;</span>, <span class="st">&quot;tertiary_link&quot;</span>)
+osm &lt;-<span class="st"> </span>osm[osm<span class="op">$</span>highway <span class="op">%in%</span><span class="st"> </span>st, ]
+<span class="kw">plot</span>(osm, <span class="dt">axes =</span> T)</code></pre></div>
+<div class="figure"><span id="fig:osmsp"></span>
+<img src="veinbook_files/figure-html/osmsp-1.svg" alt="Open street map lines" width="672" />
+<p class="caption">
+Figure 7.10: Open street map lines
+</p>
+</div>
+<p>The we will distribute the total emissions of E_NOx 3.402987310^{7} into this new lines. There is the argument osm, which gives percentage weights to the type of streets in the following order: “motorway”, “trunk”, “primary”, “secondary” and “tertiary” . For instance <strong>osm = 5:1</strong> means 33% of emissions into “motorway” because it is 5 / (1 + 2 + 3 + 4 + 5).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estreet &lt;-<span class="st"> </span><span class="kw">emis_dist</span>(<span class="dt">gy =</span> <span class="kw">sum</span>(E_NOx), <span class="dt">spobj =</span> osm)</code></pre></div>
+<pre><code>## Columns: geometry emission</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estreet<span class="op">$</span>emission_osm &lt;-<span class="st"> </span><span class="kw">emis_dist</span>(<span class="dt">gy =</span> <span class="kw">sum</span>(E_NOx), <span class="dt">spobj =</span> osm, 
+                                   <span class="dt">osm =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">1</span>)<span class="op">$</span>emission</code></pre></div>
+<pre><code>## Selecting: motorway motorway_link trunk trunk_link primary primary_link secondary secondary_link tertiary tertiary_link 
+## Columns: emission highway geometry</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(estreet[<span class="kw">c</span>(<span class="st">&quot;emission&quot;</span>)], 
+     <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&quot;Emissions with Default distribution: &quot;</span>,
+                   <span class="kw">round</span>(<span class="kw">sum</span>(estreet<span class="op">$</span>emission)), <span class="st">&quot; [g]&quot;</span>), 
+     <span class="dt">axes =</span> T,<span class="dt">pal =</span> <span class="kw">cpt</span>(<span class="dt">colorRampPalette =</span> T))</code></pre></div>
+<div class="figure"><span id="fig:osmemi"></span>
+<img src="veinbook_files/figure-html/osmemi-1.svg" alt="Emissions distributed into OSM lines" width="672" />
+<p class="caption">
+Figure 7.11: Emissions distributed into OSM lines
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(estreet[<span class="kw">c</span>(<span class="st">&quot;emission_osm&quot;</span>)],
+          <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&quot;Emission with OSM distribution: &quot;</span>,
+                        <span class="kw">round</span>(<span class="kw">sum</span>(estreet<span class="op">$</span>emission_osm)), <span class="st">&quot; [g]&quot;</span>),  
+     <span class="dt">axes =</span> T,<span class="dt">pal =</span> <span class="kw">cpt</span>(<span class="dt">colorRampPalette =</span> T))</code></pre></div>
+<div class="figure"><span id="fig:osmemi"></span>
+<img src="veinbook_files/figure-html/osmemi-2.svg" alt="Emissions distributed into OSM lines" width="672" />
+<p class="caption">
+Figure 7.11: Emissions distributed into OSM lines
+</p>
+</div>
+</div>
+<div id="gridding-top-down-emissions-with-grid_emis" class="section level2">
+<h2><span class="header-section-number">7.7</span> Gridding top-down emissions with <code>grid_emis</code></h2>
+<p>Another option to distribute top-down emissions consits in the use of the function <code>grid_emis</code>, which does a similar job than <code>emis_dist</code> but cell by cell. This means that the total emissions are distributed inside each grid cell and not one distribution for the whole domain. This functions runs a lapply of <code>emis_dist</code>, hence it takes a litle bit of more time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>grid_emis)</code></pre></div>
+<pre><code>## function (spobj, g, sr, pro, osm, verbose = TRUE) 
+## NULL</code></pre>
+<p>Where,</p>
+<ul>
+<li><code>spobj</code>: A spatial dataframe of class “sp” or “sf”. When class is “sp” it is transformed to “sf”.</li>
+<li><code>g</code>: A grid with class “SpatialPolygonsDataFrame” or “sf”. This grid includes the total emissions with the column “emission”. If profile is going to be used, the column ‘emission’ must include the sum of the emissions for each profile. For instance, if profile covers the hourly emissions, the column ‘emission’ bust be the sum of the hourly emissions.</li>
+<li><code>sr</code>: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a>.</li>
+<li><code>pro</code>: Numeric, Matrix or data-frame profiles, for instance, pc_profile.</li>
+<li><code>osm</code>: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers ‘motorway’ and ‘motorway_link. The second element covers ’trunk’ and ‘trunk_link’. The third element covers ‘primary’ and ‘primary_link’. The fourth element covers ‘secondary’ and ‘secondary_link’. The fifth element covers ‘tertiary’ and ‘tertiary_link’.</li>
+<li><code>verbose</code>: Logical; to show more info.</li>
+</ul>
+<p>It is required that the grid</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NOxg &lt;-<span class="st"> </span>NOxg[, <span class="st">&quot;V1&quot;</span>]
+<span class="kw">names</span>(NOxg)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;emission&quot;</span>
+xnet &lt;-<span class="st"> </span><span class="kw">grid_emis</span>(osm, NOxg)</code></pre></div>
+<pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
+<pre><code>## Sum of gridded emissions 77253.6
+## Sum of street emissions 77253.6
+## Columns: emission geometry</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(xnet, <span class="dt">axes =</span> T,<span class="dt">pal =</span> <span class="kw">cpt</span>(<span class="dt">colorRampPalette =</span> T))</code></pre></div>
+<div class="figure"><span id="fig:osmspgrid"></span>
+<img src="veinbook_files/figure-html/osmspgrid-1.svg" alt="Use of grid_emis" width="672" />
+<p class="caption">
+Figure 7.12: Use of grid_emis
 </p>
 </div>
 
