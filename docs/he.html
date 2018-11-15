@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-12">
+<meta name="date" content="2018-11-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -770,12 +770,12 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;e_eth&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>)
 <span class="kw">head</span>(dfa)</code></pre></div>
 <pre><code>##       e_eth
-## 1 0.9303829
-## 2 0.9336580
-## 3 0.9244302
-## 4 0.9243937
-## 5 0.9384012
-## 6 0.9307047</code></pre>
+## 1 0.9241769
+## 2 0.9383248
+## 3 0.9275332
+## 4 0.9265685
+## 5 0.9275409
+## 6 0.9272845</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;iag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(df)</code></pre></div>
@@ -786,31 +786,31 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
   <span class="kw">print</span>(df[[i]][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]) <span class="co"># Firt three lines of each element of the list</span>
 }</code></pre></div>
 <pre><code>## Units: [mol/h]
-## [1] 0.9303829 0.9336580 0.9244302
+## [1] 0.9241769 0.9383248 0.9275332
 ## Units: [mol/h]
-## [1] 1.432668 1.437711 1.423501
+## [1] 1.423111 1.444897 1.428279
 ## Units: [mol/h]
-## [1] 0.5221647 0.5240028 0.5188238
+## [1] 0.5186816 0.5266219 0.5205653
 ## Units: [mol/h]
-## [1] 0.2519576 0.2528446 0.2503456
+## [1] 0.2502770 0.2541084 0.2511859
 ## Units: [mol/h]
-## [1] 1.911691 1.918420 1.899460
+## [1] 1.898939 1.928009 1.905835
 ## Units: [mol/h]
-## [1] 0.8014558 0.8042771 0.7963281
+## [1] 0.7961098 0.8082972 0.7990011
 ## Units: [mol/h]
-## [1] 0.5313376 0.5332080 0.5279380
+## [1] 0.5277934 0.5358731 0.5297101
 ## Units: [mol/h]
-## [1] 0.02548693 0.02557665 0.02532387
+## [1] 0.02531693 0.02570449 0.02540887
 ## Units: [mol/h]
-## [1] 0.4625368 0.4641650 0.4595774
+## [1] 0.4594515 0.4664850 0.4611201
 ## Units: [mol/h]
-## [1] 0.8812075 0.8843095 0.8755694
+## [1] 0.8753295 0.8887296 0.8785084
 ## Units: [mol/h]
-## [1] 1.237796 1.242153 1.229876
+## [1] 1.229539 1.248362 1.234004
 ## Units: [mol/h]
-## [1] 0.3469719 0.3481933 0.3447519
+## [1] 0.3446574 0.3499337 0.3459091
 ## Units: [mol/h]
-## [1] 0.4525245 0.4541175 0.4496292
+## [1] 0.4495060 0.4563873 0.4511385
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -863,9 +863,9 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <pre><code>## Number of lon points: 23
 ## Number of lat points: 19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gx &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(net, g)</code></pre></div>
-<pre><code>## Sum of street emissions 602016.38</code></pre>
+<pre><code>## Sum of street emissions 601951.4</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 602016.38</code></pre>
+<pre><code>## Sum of gridded emissions 601951.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(gx, <span class="dt">spec =</span> <span class="st">&quot;pmiag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>, <span class="dt">dx =</span> <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## To be used in emissions grid only, emissions must be in g/(Xkm^2)/h</code></pre>
@@ -875,18 +875,18 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 ##  [7] &quot;e_orgi&quot;   &quot;e_orgj&quot;   &quot;e_eci&quot;    &quot;e_ecj&quot;    &quot;h2o&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
 <pre><code>##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001441152 [g/m^2/s] 0.01166023 0.0004622915 0.001970822 0.01871626
-## 2 0.001432456 [g/m^2/s] 0.01158987 0.0004595023 0.001958931 0.01860333
-## 3 0.001468318 [g/m^2/s] 0.01188002 0.0004710058 0.002007972 0.01906906
-## 4 0.002537392 [g/m^2/s] 0.02052981 0.0008139427 0.003469966 0.03295315
-## 5 0.005760086 [g/m^2/s] 0.04660433 0.0018477158 0.007877104 0.07480631
+## 1 0.001446112 [g/m^2/s] 0.01170036 0.0004638828 0.001977605 0.01878068
+## 2 0.001437387 [g/m^2/s] 0.01162977 0.0004610839 0.001965673 0.01866736
+## 3 0.001473372 [g/m^2/s] 0.01192092 0.0004726270 0.002014884 0.01913470
+## 4 0.002549822 [g/m^2/s] 0.02063038 0.0008179300 0.003486965 0.03311457
+## 5 0.005781700 [g/m^2/s] 0.04677921 0.0018546492 0.007906662 0.07508701
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05614877 0.005689742 0.02425627 0.01048110 0.004491902 0.05184403
-## 2 0.05580999 0.005655412 0.02410992 0.01041786 0.004464799 0.05153122
-## 3 0.05720718 0.005796994 0.02471350 0.01067867 0.004576575 0.05282130
-## 4 0.09885944 0.010017757 0.04270728 0.01845376 0.007908755 0.09128022
-## 5 0.22441893 0.022741118 0.09694898 0.04189153 0.017953514 0.20721348
+## 1 0.05634204 0.005709326 0.02433976 0.01051718 0.004507363 0.05202248
+## 2 0.05600209 0.005674878 0.02419290 0.01045372 0.004480167 0.05170860
+## 3 0.05740409 0.005816948 0.02479857 0.01071543 0.004592327 0.05300311
+## 4 0.09934372 0.010066830 0.04291649 0.01854416 0.007947498 0.09172737
+## 5 0.22526103 0.022826451 0.09731277 0.04204873 0.018020883 0.20799102
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000</code></pre>
 
 </div>

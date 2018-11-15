@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-12">
+<meta name="date" content="2018-11-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -408,7 +408,7 @@ Figure 7.6: NOx emissions of LT
 <p>The function <code>inventory</code> was designed to store the emissions of each type of vehicle in each directory. Hence, it was necessary to create a function that read and merge the emissions that are in each directory, returning a data-frame os a spatial feature data-frame. The function is <code>emis_merge</code>. As it can be seen on Fig. <a href="post.html#fig:demispost">7.1</a>, <code>emis_merge</code> comes after <code>emis_post</code> or <code>speciate</code>. The arguments of <code>emis_merge</code> are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_merge)</code></pre></div>
 <pre><code>## function (pol = &quot;CO&quot;, what = &quot;STREETS.rds&quot;, streets = T, net, 
-##     path = &quot;emi&quot;, crs, under = &quot;after&quot;, ignore = FALSE, as_list = FALSE) 
+##     path = &quot;emi&quot;, crs, under = &quot;after&quot;, as_list = FALSE) 
 ## NULL</code></pre>
 <p>Where,</p>
 <ul>
@@ -422,26 +422,26 @@ Figure 7.6: NOx emissions of LT
 <p>In order to see how this functions works, let’s run the example in the <code>inventory</code> function. First, lets create a project, or in other words a directory named “YourCity”, into the temporary directory. In this part you can place your project wherever you want with the actual name of your city. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name)</code></pre></div>
-<pre><code>## files at /tmp/RtmpAxG1On/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmplMBTd0/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmpAxG1On/YourCity&quot;             
-##  [2] &quot;/tmp/RtmpAxG1On/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmpAxG1On/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmpAxG1On/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmpAxG1On/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmpAxG1On/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmpAxG1On/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmpAxG1On/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmpAxG1On/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmpAxG1On/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmpAxG1On/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmpAxG1On/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmpAxG1On/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmpAxG1On/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmpAxG1On/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmpAxG1On/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmpAxG1On/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/RtmpAxG1On/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/RtmplMBTd0/YourCity&quot;             
+##  [2] &quot;/tmp/RtmplMBTd0/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmplMBTd0/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmplMBTd0/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmplMBTd0/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmplMBTd0/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmplMBTd0/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmplMBTd0/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmplMBTd0/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmplMBTd0/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmplMBTd0/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmplMBTd0/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmplMBTd0/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmplMBTd0/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmplMBTd0/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmplMBTd0/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmplMBTd0/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/RtmplMBTd0/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This script starts with <code>setwd</code> function, Then the first section is the network, where user reads and prepares the traffic information. Then the second section runs a script whichruns the age functions for the deault vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>
