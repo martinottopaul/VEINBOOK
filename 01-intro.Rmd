@@ -2,58 +2,40 @@
 
 ## Definitions and sources of information
 
-Developing emissions inventories is a complex task. Therefore, before entering 
-into the details of the functions, it is good to provide some initial definitions.
+Developing emissions inventories is a complex task. Therefore, before entering into the details of the functions, it is good to provide some initial definitions.
 
-A good starting point is the book _"The Art of Emissions Inventorying"_ [@pulles2010art].
-This book provides general description of what is an emissions inventory. One of the early
-sources of information about emissions inventories and emissions factors is the
-Environmental Protection Agency (U.S.EPA) and its compilation of emission factors AP42 (https://www.epa.gov/air-emissions-factors-and-quantification).
-A third source of information are the European EMEP/EEA air pollutant emission inventory guidebook (https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/).
+A good starting point is a book _"The Art of Emissions Inventorying"_ [@pulles2010art]. This book provides a general description of what is an emissions inventory. One of the early sources of information about emissions inventories and emissions factors are the Environmental Protection Agency (U.S.EPA) and its compilation of emission factors AP42 (https://www.epa.gov/air-emissions-factors-and-quantification).
+A third source of information is the European EMEP/EEA air pollutant emission inventory guidebook (https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/).
 
-An emissions inventory is the compilation of all mass emitted into the atmosphere
-by activities in a defined area during a lapse of time. The Eq. (\@ref(eq:efGERAL) shows the
+An emissions inventory is the compilation of all mass emitted into the atmosphere by activities in a defined area during a lapse of time. The Eq. (\@ref(eq:efGERAL) shows the
 general form [@guia]:
 
 \begin{equation}
-Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{activity, pollutant}
+Emission_{pollutant}=\sum_{activities} Activity \cdot Emission factor_{activity, pollutant}
 (\#eq:efGERAL)
 \end{equation}
 
-There are two main types of inventories based on the application, one type is for policy
-application and the other for scientific application [@pulles2010art]. 
+There are two main kinds of inventories based on the application; one is for policy application and the other for scientific application [@pulles2010art]. 
 
 - Inventories for policy application include the National Greenhouse Gas Inventory for the parties under the United Nations Framework on Climate Change [@unfccc].
 - Emissions inventories with scientific applications include the Emission 
 Database for Global Atmospheric Research EDGAR [@edgar].
 
-Emissions inventories can be also multimedia inventories, such as the Pollutant Release
-and Transfer Registers (PRTR) which include pollutants released to air, water and soil 
-and transferred off-site for treatment or disposal (http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/). However,
-the type of inventory covered in this book cover only the emissions released into the 
-atmosphere.
+Emissions inventories can also be multimedia inventories, such as the Pollutant Release
+and Transfer Registers (PRTR) which include pollutants released to air, water, and soil and transferred off-site for treatment or disposal (http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/). However, the type of inventory covered in this book includes only the emissions released into the atmosphere.
 
 ### Approaches
 
-It is necessary show some definitions of vehicular emissions inventories approaches, 
-which in this case comes from the European Emissions Guidelines [@NtziachristosSamaras2016]:
+It is necessary to show some definitions of vehicular emissions inventories approaches, which in this case comes from the European Emissions Guidelines [@NtziachristosSamaras2016]:
 
-- **Top-down** inventories are using input activity traffic data as fleet statistics,
-fuel consumption, representative speeds and country balances. The emissions factors
-are based on representative speeds. These inventories are also know as _static_.
-- **Bottom-up** invetories are using input activity traffic data from traffic counts, traffic
-simulations, vehicle composition, speed recordings and length of roads. The
-emission factors are speed or/and acceleration functions. These inventories are also 
-know as _dynamic_.
-- **Reconciliation** Both approaches can be reconciliated in urban emissions inventories
-with comparison of total mileage, cold start mileage or emission factors to ensure
-that the comparison with the total fuel consumption in the study area is satisfactory.
-This means that bottom-up and top-down vehicular emissions must match the fuel sales
-over a region of study. 
+- **Top-down** uses input activity traffic data as fleet statistics,
+fuel consumption, representative speeds, and country balances. The emissions factors are based on representative speeds. These inventories are also known as _static_.
+- **Bottom-up** uses using input activity traffic data from traffic counts, traffic simulations, vehicle composition, speed recordings and length of roads. The emission factors are speed or/and acceleration functions. These inventories are also known as _dynamic_.
+- **Reconciliation** Both approaches must be reconciled in urban emissions inventories with the comparison of total mileage, cold start mileage or emission factors to ensure that the comparison with the total fuel consumption in the study area is satisfactory.  Another point of calibration is that the estimation of fuel consumption must match the fuel sales in your study area.
 
 ## Installation
 
-The VEIN r-package can be installed from Comprehensive R Archive Network 
+The VEIN R-package can be installed from Comprehensive R Archive Network 
 [CRAN](https://cran.r-project.org/) directly:
 
 ```{r, eval=FALSE, echo = TRUE}
@@ -68,21 +50,16 @@ library(devtools)
 install_github("ibarraespinosa/vein")
 ```
 
-The github installation requires that the _devtools_ package [@devtools] must be installed, including
-its dependencies.
+The GitHub installation requires that the _devtools_ package [@devtools] must be installed, including dependencies.
 
 ## Required R packages and dependencies
 
-VEIN improts functions from other R packages. HEnce, these packages are necessary::
+VEIN imports functions from other R packages. Hence, these packages are necessary::
 
-**sf** is a package that provides simple features access for R [@sf]. It depends on the library
-GEOS (http://trac.osgeo.org/geos), 'Geospatial' Data Abstraction Library ('GDAL')
-(http://www.gdal.org/) and PROJ (http://proj4.org/).
-**data.table** is a package that provides simple features access for R [@sf]. It can be
-installed.
-- **sp**. This is a package that provides classes and methods for spatial data [@sp] 
-considering points, lines, polygons and grids. few function of sp are imported, most of them 
-comes from sf.
+**sf** is a package that provides simple features access for R [@sf]. It depends on the libraries GEOS (http://trac.osgeo.org/geos), 'Geospatial' Data Abstraction Library ('GDAL')
+(http://www.gdal.org/) also, PROJ (http://proj4.org/).
+**data.table** is a package is an extension of data.frame class, providing high-speed operations [@datatable].
+- **sp**. This is a package that provides classes and methods for spatial data [@sp] Considering points, lines, polygons, and grids. Few functions of 'sp' are imported, most of them come from sf.
 **eixport** is a package [@eixport2] that creates inputs for atmospheric models [@eixport].
 - **units**. It is a package for measurement units in R [@units]. This package depends on the library udunits2 (http://www.unidata.ucar.edu/software/udunits/). I
 
@@ -91,9 +68,8 @@ comes from sf.
 install.packages(c("sf", "data.table", "sp", "eixport", "units"))
 ```
 
-
-In order to install **sf** package it is necessary to install the 
-dependencies into each operational system.
+You have to install the package **sf**, including its
+library dependencies into your operating system.
 
 **Ubuntu**
 ```{bash eval=FALSE}
@@ -159,7 +135,8 @@ There are several datasets available inside the model:
 
 - **fe2015**: Emission factors from the Environmental Agency of Sao Paulo (CETESB).
 Pollutants included: "CH4", "CO", "CO2", "HC", "N2O", "NMHC", "NOx" and "PM". The
-type of vehicles included are Passenger Cars (PC).
+type of vehicles included is Passenger Cars (PC). Please note that I added a new function `ef_cetesb` in version 0.4.4 which covers all CETESB 
+emission factors.
 
 usage:
 ```{r}
@@ -179,8 +156,7 @@ knitr::kable(
 ### Mileage functions of Brazilian Fleet
 
 - **fkm**: A list of functions of mileage in km for the Brazilian fleet. It includes mileage
-functions based on more than 2 million recordings of vehicles [@BruniBales2013]. It consists
-a list of age functions. The type of vehicles are Passneger Cars (PC), Light 
+functions based on more than 2 million recordings of vehicles [@BruniBales2013]. It consists of a list of age functions. The type of cars are Passenger Cars (PC), Light 
 Commercial Vehicles (LCV), Small Busses (SBUS), Trucks, Articulated Trucks (ATRUCKS),
 Motorcycles (MOTO) and Light vehicles (LDV). The fuels are Gasoline using 25\% of
 ethanol (E25), Ethanol 100\% (E100) and Diesel with 5\% of biodiesel (B5). There are
@@ -194,7 +170,7 @@ library(vein, quietly = T)
 data(fkm)
 names(fkm)
 age <- 1:50
-mileage <- fkm[["KM_PC_E25"]](1:50) 
+mileage <- fkm$KM_PC_E25(1:50) 
 par(mar = c(4, 4, .1, .1))
 plot(y = mileage, x = age, pch = 19, type = "b")
 ```
@@ -210,10 +186,8 @@ for travelling each link, min). The Fig. (\@ref(traffic) shows more details.
 
 ### Temporal factors for Passenger Cars
 
-Temporal factors (TF) are marix of jourly traffic data normalized for the hour
-of interest, normally the morning rush hour 08:00-09:00 in local time (LT) [@gmd-2017-193].
-This dataset cover 168 hours of one week and it is based on traffic counts
-of toll stations near the center of the city of SãoPaulo, Brazil. The Fig.
+Temporal factors (TF) are the matrix of hourly traffic data normalized for the hour of interest, usually the morning rush hour 08:00-09:00 in local time (LT) [@gmd-2017-193].
+This dataset covers 168 hours of one week, from traffic counts of toll stations near the center of the city of SãoPaulo, Brazil. Fig.
 (\@ref(fig:tf) shows the temporal factors for PC.
 
 usage:
@@ -229,10 +203,7 @@ plot(y = tf, x = hours, pch = 16, type = "b")
 
 ### Profile for cold starts of Passenger Cars
 
-This is a profile with the hourly percentage of cold starts of Passenger Cars. This
-data covers 24 hours of a working day and it is based cold start recordings during 
-the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005]
-in São Paulo [@ivesp]. The Fig. (\@ref(fig:cold) shows the cold-start profile.
+I included a profile of hourly percentage of cold starts of Passenger Cars. This data covers 24 hours of a working day, and it is based cold start recordings during the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005] in São Paulo [@ivesp]. The Fig. (\@ref(fig:cold) shows the cold-start profile.
 
 usage:
 ```{r cold, fig.cap='Cold-starts profile for PC', out.width='80%', fig.asp=.75, fig.align='center'}
@@ -246,5 +217,4 @@ plot(y = cold, x = hours, pch = 16, type = "b")
 
 ## Acknowledgements
 
-Martin Ramacher, PhD Student Chemistry Transport Modelling, Institute for Coastal Research, Helmholtz-Zentrum Geesthacht, Germany - Proofreading.
-Leila Droprinchinski Martins, Professor (Associate) Federal Technological University of Parana, Brazil - Comments.
+Martin Ramacher, Ph.D. Student Chemistry Transport Modelling, Institute for Coastal Research, Helmholtz-Zentrum Geesthacht, Germany - Proofreading. Leila Droprinchinski Martins, Professor (Associate) Federal Technological University of Parana, Brazil - Comments.
