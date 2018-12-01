@@ -49,6 +49,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -111,20 +148,18 @@
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
 <li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
+<li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#not-specifying-the-api-will-add-the-key-as-your-default"><i class="fa fa-check"></i><b>4.2</b> not specifying the api will add the key as your ‘default’</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.2.1</b> Top-down approach</a></li>
+<li class="chapter" data-level="4.2" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.2</b> Main functions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.2.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.2.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.2.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.2.4</b> The function <code>my_age</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.2.5</b> The class <code>Vehicles</code></a></li>
+<li class="chapter" data-level="4.2.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.2.6</b> Other traffic functions</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#main-functions"><i class="fa fa-check"></i><b>4.3</b> Main functions</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="traffic.html"><a href="traffic.html#expanding-traffic-data-with-the-function-temp_fact"><i class="fa fa-check"></i><b>4.3.1</b> Expanding traffic data with the function <code>temp_fact</code></a></li>
-<li class="chapter" data-level="4.3.2" data-path="traffic.html"><a href="traffic.html#calculating-speed-at-other-hours-with-the-function-netspeed"><i class="fa fa-check"></i><b>4.3.2</b> Calculating speed at other hours with the function <code>netspeed</code></a></li>
-<li class="chapter" data-level="4.3.3" data-path="traffic.html"><a href="traffic.html#distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto"><i class="fa fa-check"></i><b>4.3.3</b> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></a></li>
-<li class="chapter" data-level="4.3.4" data-path="traffic.html"><a href="traffic.html#the-function-my_age"><i class="fa fa-check"></i><b>4.3.4</b> The function <code>my_age</code></a></li>
-<li class="chapter" data-level="4.3.5" data-path="traffic.html"><a href="traffic.html#the-class-vehicles"><i class="fa fa-check"></i><b>4.3.5</b> The class <code>Vehicles</code></a></li>
-<li class="chapter" data-level="4.3.6" data-path="traffic.html"><a href="traffic.html#other-traffic-functions"><i class="fa fa-check"></i><b>4.3.6</b> Other traffic functions</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.4</b> Vehicular composition</a></li>
-<li class="chapter" data-level="4.5" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.5</b> Application</a></li>
+<li class="chapter" data-level="4.3" data-path="traffic.html"><a href="traffic.html#vehicular-composition"><i class="fa fa-check"></i><b>4.3</b> Vehicular composition</a></li>
+<li class="chapter" data-level="4.4" data-path="traffic.html"><a href="traffic.html#application"><i class="fa fa-check"></i><b>4.4</b> Application</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
@@ -190,11 +225,14 @@
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="appendix"><span><b>Appendix</b></span><ul>
-<li class="chapter" data-level="A.3" data-path="references.html"><a href="references.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
-<li class="chapter" data-level="A.4" data-path="references.html"><a href="references.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
-<li class="chapter" data-level="A.5" data-path="references.html"><a href="references.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="appendix-a-fast-example-of-vein.html"><a href="appendix-a-fast-example-of-vein.html"><i class="fa fa-check"></i>Appendix A: Fast Example of VEIN</a></li>
+<li class="chapter" data-level="" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html"><i class="fa fa-check"></i>Appendix B: Detailed Example of VEIN</a><ul>
+<li class="chapter" data-level="A.3" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#network-1"><i class="fa fa-check"></i><b>A.3</b> Network</a></li>
+<li class="chapter" data-level="A.4" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#vehicular-composition-cetesb2015"><i class="fa fa-check"></i><b>A.4</b> Vehicular composition <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span></a></li>
+<li class="chapter" data-level="A.5" data-path="appendix-b-detailed-example-of-vein.html"><a href="appendix-b-detailed-example-of-vein.html#traffic-data"><i class="fa fa-check"></i><b>A.5</b> Traffic data</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i>Appendix B</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
@@ -228,7 +266,7 @@
 <!-- ![](figuras/vein6_400.png) -->
 <!-- render_book("veinbook.Rmd", pdf_book()) -->
 <!-- render_book("veinbook.Rmd", epub_book()) -->
-<p>This book is about the process for estimating vehicular emissions. This process is complex and <em>can</em> be dificult. It is required a big amount of information related to traffic, emissions factors and then process the outpus for the desired purpose. In this book this process is addressed with the <strong>VEIN</strong> <span class="citation">(Ibarra-Espinosa et al. <a href="#ref-gmd-2017-193">2018</a>)</span> model, which is an R package available at <a href="https://CRAN.R-project.org/package=vein" class="uri">https://CRAN.R-project.org/package=vein</a>}.</p>
+<p>This book is about the process for estimating vehicular emissions. This process is complex and <em>can</em> be dificult. It is required a big amount of information related to traffic, emissions factors and then process the outpus for the desired purpose. In this book this process is addressed with the <strong>VEIN</strong> <span class="citation">(S. Ibarra-Espinosa et al. <a href="#ref-gmd-2017-193">2018</a>)</span> model, which is an R package available at <a href="https://CRAN.R-project.org/package=vein" class="uri">https://CRAN.R-project.org/package=vein</a>}.</p>
 <div id="purpose" class="section level2 unnumbered">
 <h2>Purpose</h2>
 <p>I wrote this book to provide instructions to all possible users who want to estimate vehicular emissions using VEIN. VEIN provides several function which are related to each other reading different traffic sources and emission factors for different pollutants. However, incorporating all the functions with input/output (I/O) process can be difficult. Moreover, communicating the recommended practices and instructions to a increasingly broader audience can be more difficult. Therefore, the purpose of this book is to reach the maximum amount of interested people in a simple way. The language chosen is engligh because it is the global language.</p>
@@ -244,10 +282,10 @@
 
 </div>
 </div>
-<h3>References</h3>
+<h3>Appendix B</h3>
 <div id="refs" class="references">
 <div id="ref-gmd-2017-193">
-<p>Ibarra-Espinosa, S., R. Ynoue, S. O’Sullivan, E. Pebesma, M. D. F. Andrade, and M. Osses. 2018. “VEIN V0.2.2: An R Package for Bottom–up Vehicular Emissions Inventories.” <em>Geoscientific Model Development</em> 11 (6): 2209–29. doi:<a href="https://doi.org/10.5194/gmd-11-2209-2018">10.5194/gmd-11-2209-2018</a>.</p>
+<p>Ibarra-Espinosa, S., R. Ynoue, S. O’Sullivan, E. Pebesma, M. D. F. Andrade, and M. Osses. 2017. “VEIN V0.2.2: An R Package for Bottom-up Vehicular Emissions Inventories.” <em>Geoscientific Model Development Discussions</em> 2017: 1–29. doi:<a href="https://doi.org/10.5194/gmd-2017-193">10.5194/gmd-2017-193</a>.</p> 2018. “VEIN V0.2.2: An R Package for Bottom–up Vehicular Emissions Inventories.” <em>Geoscientific Model Development</em> 11 (6): 2209–29. doi:<a href="https://doi.org/10.5194/gmd-11-2209-2018">10.5194/gmd-11-2209-2018</a>.</p>
 </div>
 </div>
             </section>

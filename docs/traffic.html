@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-12-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,6 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
 <li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
 <li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic.html"><a href="basic.html#subseting-your-data.frame"><i class="fa fa-check"></i><b>2.2.9</b> Subseting your data.frame</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
 </ul></li>
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
-<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
@@ -162,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-the-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on the speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-the-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on the speed with the function <code>ef_hdv_speed</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
 <li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
@@ -254,19 +255,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="traffic" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Traffic data</h1>
-<p>Traffic data is read in VEIN as spatial information. In other words, traffic data must be in any vectorial line spatial format with the drivers provided by the library <strong>GDAL</strong> (<a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>), which is called by the packages <strong>rgdal</strong> or <strong>sf</strong>. This means that traffic data must be in in any GDAL spatial format. The Eq. <a href="traffic.html#eq:flow">(4.1)</a> shows how traffic data is treated in VEIN.</p>
+<p>The traffic data can have different formats, but it is inherently spatial data. Hence, traffic data must be in any <strong>vectorial</strong> spatial format with the drivers provided by the library<strong>GDAL</strong> (<a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>), using the package <strong>sf</strong> <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. Eventually, some traffic data can be distributed in raster format, for instance, after some spatial interpolations. In this case, I recommend using the function <code>grid_emis</code> to distribute the traffic of each cell into vectorial lines of streets, see section @ref(#post). The Eq. <a href="traffic.html#eq:flow">(4.1)</a> shows how hourly traffic data considered in VEIN.</p>
 <span class="math display" id="eq:flow">\[\begin{equation}
 F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
 \tag{4.1}
 \end{equation}\]</span>
 <p>where <span class="math inline">\(F^*_{i,j,k}\)</span> is the vehicular flow at street link <span class="math inline">\(i\)</span> for vehicle type <span class="math inline">\(j\)</span> by age of use <span class="math inline">\(k\)</span>. <span class="math inline">\(j\)</span> defines the vehicular composition according to its type of use, type of fuel, size of engine and gross weight, based on definitions of <span class="citation">(Corvalán, Osses, and Urrutia <a href="#ref-Corvalanetal2002">2002</a>)</span>. <span class="math inline">\(Q_i\)</span> is the traffic flow at street link <span class="math inline">\(i\)</span>. <span class="math inline">\(VC_{i,j}\)</span> is the fraction of vehicles varying according to the type of vehicles <span class="math inline">\(j\)</span> in the vehicle fleet at street link <span class="math inline">\(i\)</span>. <span class="math inline">\(Age_{j,k}\)</span> is the age distribution by vehicular composition <span class="math inline">\(j\)</span> and age of use <span class="math inline">\(k\)</span>.</p>
-<p>This Equation shows that <span class="math inline">\(VC\)</span> splits the total vehicular flow <span class="math inline">\(Q\)</span> to identify the vehicular fraction, which varies according to the type of fuel, size of motor and gross weight. For example, if <span class="math inline">\(Q\)</span> is light duty vehicles (LDV) and it is known that 5% of the <span class="math inline">\(Q\)</span> are passenger cars (PC), with engines lesser than 1400 cc, <span class="math inline">\(VC\)</span> is 0.05. This characterization of the fleet depends on the amount and quality of the available information. VEIN then multiplies the traffic with <span class="math inline">\(Age\)</span> to obtain the amount of each type of vehicle by age of use.</p>
+<p>This Equation shows that <span class="math inline">\(VC\)</span> splits the total vehicular flow <span class="math inline">\(Q\)</span> to identify the vehicular fraction, which varies according to the type of fuel, size of motor and gross weight. For example, if <span class="math inline">\(Q\)</span> is light-duty vehicles (LDV) and it is known that 5% of the <span class="math inline">\(Q\)</span> are passenger cars (PC), with engines lesser than 1400 cc, <span class="math inline">\(VC\)</span> is 0.05. This characterization of the fleet depends on the amount and quality of the available information. VEIN then multiplies the traffic with <span class="math inline">\(Age\)</span> to obtain the amount of each type of vehicle by the age of use.</p>
 <div id="sources-of-traffic-data" class="section level2">
 <h2><span class="header-section-number">4.1</span> Sources of traffic data</h2>
 <div id="travel-demand-outputs" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Travel demand outputs</h3>
-<p>VEIN was developepd according to the available traffic data in São Pauo, Brazil. In this case, the available data was a 4-stage macroscopic travel model for morning rush hours and hourly traffic counts for morning and evening rush hours. The travel model is based on data from an Origin-Destination-Survey (ODS) <span class="citation">(Metro <a href="#ref-ODS">2017</a>)</span> which started in the decade of 1950 in São Paulo. A classic reference of a 4-stage modeling transport is <span class="citation">(Ortuzar and Willumsen <a href="#ref-OrtuzarWillumsen2002">2002</a>)</span>. The 4 stages of the traffic modeling include characterization of trip attractions and productions by zone in some regions, distribution of these trips, the preferred mode of transport for traveling and finally the allocation of the trips at each mode; in this case into the road network. The ODS is made every 10 years by Metro (<a href="http://www.metro.sp.gov.br/" class="uri">http://www.metro.sp.gov.br/</a>), which is the underground company, and they perform a smaller update of ODS after 5 years. The information gathered in the ODS is massive due to participation of thousands of commuters. It helps to identify characteristics of the trips inside MASP. CET uses the information from ODS and performs the traffic simulation. In this case, it is a macro or strategic traffic simulation which represents the equilibrium between offer and supply of transportation at maximum load of the road network, that is, at the rush hour, which is from 08:00 to 09:00 Local Time (LT).</p>
-<p>VEIN incorporates an extract of a traffic model simulation for the west part of São Paulo named <em>net</em>. The Fig. (<a href="traffic.html#fig:ldv">4.1</a> shows the traffic of Light Duty Vehicles (LDV). This data covers the surrounding area of the University of São Paulo. The information obtained from CET consists in:</p>
+<p>VEIN was developed according to the available traffic data in São Paulo, Brazil. In this case, the available data was a 4-stage macroscopic travel model for morning rush hours and hourly traffic counts for morning and evening rush hours. The travel model is based on data from an Origin-Destination-Survey (ODS) <span class="citation">(Metro <a href="#ref-ODS">2017</a>)</span> which started in the decade of 1950 in São Paulo. A classic reference of a 4-stage modeling transport is <span class="citation">(Ortuzar and Willumsen <a href="#ref-OrtuzarWillumsen2002">2002</a>)</span>. The 4 stages of the traffic modeling include characterization of trip attractions and productions by zone in some regions, distribution of these trips, the preferred mode of transport for traveling and finally the allocation of the trips at each mode; in this case into the road network. The ODS is made every 10 years by Metro (<a href="http://www.metro.sp.gov.br/" class="uri">http://www.metro.sp.gov.br/</a>), which is the underground company, and they perform a smaller update of ODS after 5 years. The information gathered in the ODS is massive due to the participation of thousands of commuters. It helps to identify the characteristics of the trips inside MASP. CET uses the information from ODS and performs the traffic simulation. In this case, it is a macro or strategic traffic simulation which represents the equilibrium between offer and supply of transportation at maximum load of the road network, that is, at the rush hour, which is from 08:00 to 09:00 Local Time (LT).</p>
+<p>VEIN incorporates an extract of a traffic model simulation for the west part of São Paulo named <em>net</em>. The Fig. (<a href="traffic.html#fig:ldv">4.1</a> shows the traffic of Light-Duty Vehicles (LDV). This data covers the surrounding area of the University of São Paulo. The information obtained from CET consists in:</p>
 <ul>
 <li><em>ldv</em>: Light Duty Vehicles (1/h).</li>
 <li><em>hdv</em>: Heavy Duty Vehicles (1/h).</li>
@@ -276,10 +277,10 @@ F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
 <li><em>tstreet</em>: Type of street.</li>
 <li><em>lanes</em>: Number of lanes per link.</li>
 <li><em>capacity</em>: Capacity of vehicles in each link (1/h).</li>
-<li><em>tmin</em>: Time for travelling each link (min).</li>
+<li><em>tmin</em>: Time for traveling each link (min).</li>
 </ul>
-<p>The following scripts show how to load this data in R. This data has the class “SpatialLinesDataFrame” from the package <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span>. This data was converted into an spatial feature “sf” object <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span> because it consists of a data-frame with a list-column of geometry with the spatial attributes and it is easier to handle than an sp object class. As mentioned, future versions of VEIN will migrate to sf.</p>
-<p>The user must call the library VEIN first, then load the data net. The object net has the class “SpatialLinesDataFrame”. This data can be loaded and shown in R like this:</p>
+<p>The following scripts show how to load this data in R. This data has the class “SpatialLinesDataFrame” from the package <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span>. This data was converted into a spatial feature “sf” object <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span> because it consists of a data-frame with a list-column of geometry with the spatial attributes and it is easier to handle than an sp object class.</p>
+<p>The user must call the library VEIN first, then load the data <strong>net</strong>. The object net has the class “SpatialLinesDataFrame”. This data can be loaded and shown in R like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">library</span>(sp)
 <span class="kw">data</span>(net)
@@ -287,7 +288,7 @@ F^*_{i,j,k} = Q_{i} \cdot VC_{i,j} \cdot Age_{j,k}
 <pre><code>## [1] &quot;SpatialLinesDataFrame&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;sp&quot;</code></pre>
-<p>The Fig. (<a href="traffic.html#fig:ldv">4.1</a>) shows that traffic is concentrated in main streets such as the motorway Marginal Pinheiros, located in the north east part of the area.</p>
+<p>The Fig. (<a href="traffic.html#fig:ldv">4.1</a>) shows that traffic is concentrated in main streets such as the motorway Marginal Pinheiros, located in the northeast part of the area.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
 net<span class="op">$</span>ldv &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(net<span class="op">$</span>ldv)
@@ -300,20 +301,20 @@ Figure 4.1: LDV at 08:00-09:00 (LT) in west São Paulo
 </p>
 </div>
 </div>
-<div id="inteprolation-of-traffic-counts" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Inteprolation of traffic counts</h3>
-<p>Travel model simulations are not always available and the user interested in estimating vehicular emisisons with a bottom-up approach would have to look for alternatives to obtain traffic data at street level. These alternatives cover interpolating traffic data for different temporal resolutions. For instance, <span class="citation">Réquia Jr, Koutrakis, and Roig (<a href="#ref-requia">2015</a>)</span> developed a vehicular bottom-up inventory using traffic counts and a geostatistic method called Global Moran’s I test <span class="citation">(Anselin <a href="#ref-anselin">1995</a>)</span>. It measures the spatial autocorrelation. However, this technique requires that the observed values are normal, which is not the case for count data.</p>
-<p>Other authors were instested in predicting Anual Average Daily Traffic (AADT) or only ADT. <span class="citation">Lowry (<a href="#ref-lowry2014spatial">2014</a>)</span> presented a new method for predicting AADT based on the concept of origin-destination centrality. The idea is to obtain predictor variables directly from the road network. He identified origin and destination zones and added multiplication factors based on the land-use characteristics.</p>
-<p><span class="citation">Zhao and Chung (<a href="#ref-zhao2001contributing">2001</a>)</span> tested several multiple stepwise regressions incorporating land-use characteristics. They considered several variables: number of lanes, classificatiion of road type, employment numbers and access to expressway with correlations between 0.66 and 0.82. <span class="citation">Lam and Xu (<a href="#ref-lam2000estimation">2000</a>)</span> compared neural networks and regressions for a dataset of 13 locations. Kriging methods were used in AADT interpolation by <span class="citation">Eom et al. (<a href="#ref-eom2006improving">2006</a>)</span>, who predicted AADT for non-motorway streets. Also, <span class="citation">Selby and Kockelman (<a href="#ref-selby2013spatial">2013</a>)</span> compared Kriging and geographically weighted regressions in the prediction of AADT.</p>
-<p>Another approach is to perform a spatial regression based on the distributio on the observed data. As the data is counts of traffic, a poisson, quasi-poisson or negative binomial regressions can be used <span class="citation">(Zeileis, Kleiber, and Jackman <a href="#ref-zeileis2008regression">2008</a>)</span>. Recently, <span class="citation">Sergio Ibarra-Espinosa, O’Sullivan, et al. (<a href="#ref-Ibarraetal2017a">2017</a>)</span> compared quasi-poisson and negative binomial regresions predicting hourly traffic data, with better results for a quasi-poisson approach (correlation of 0.72).</p>
+<div id="interpolation-of-traffic-counts" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Interpolation of traffic counts</h3>
+<p>Travel model simulations are not always available, and the user interested in estimating vehicular emissions with a bottom-up approach would have to look for alternatives to obtain traffic data at street level. These alternatives cover interpolating traffic data for different temporal resolutions. For instance, <span class="citation">Réquia Jr, Koutrakis, and Roig (<a href="#ref-requia">2015</a>)</span> developed a vehicular bottom-up inventory using traffic counts and a geostatistic method called Global Moran’s I test <span class="citation">(Anselin <a href="#ref-anselin">1995</a>)</span>. It measures the spatial autocorrelation. However, this technique requires that the observed values with a normal distribution, which is not the case for count data.</p>
+<p>Other authors were interested in predicting Anual Average Daily Traffic (AADT) or only ADT. <span class="citation">Lowry (<a href="#ref-lowry2014spatial">2014</a>)</span> presented a new method for predicting AADT based on the concept of origin-destination centrality. The idea is to obtain predictor variables directly from the road network. He identified origin and destination zones and added multiplication factors based on the land-use characteristics.</p>
+<p><span class="citation">Zhao and Chung (<a href="#ref-zhao2001contributing">2001</a>)</span> tested several multiple stepwise regressions incorporating land-use characteristics. They considered several variables: number of lanes, classification of road type, employment numbers and access to expressway with correlations between 0.66 and 0.82. <span class="citation">Lam and Xu (<a href="#ref-lam2000estimation">2000</a>)</span> compared neural networks and regressions for a dataset of 13 locations. Kriging methods were used in AADT interpolation by <span class="citation">Eom et al. (<a href="#ref-eom2006improving">2006</a>)</span>, who predicted AADT for non-motorway streets. Also, <span class="citation">Selby and Kockelman (<a href="#ref-selby2013spatial">2013</a>)</span> compared Kriging and geographically weighted regressions in the prediction of AADT.</p>
+<p>Another approach is to perform a spatial regression based on the distribution of the observed data. As the data are counts of traffic, a Poisson, quasi-Poisson or negative binomial regressions can be used <span class="citation">(Zeileis, Kleiber, and Jackman <a href="#ref-zeileis2008regression">2008</a>)</span>. Recently, <span class="citation">S. (<a href="#ref-Ibarraetal2017a">2017</a>)</span> compared quasi-Poisson and negative binomial regressions predicting hourly traffic data, with better results for a quasi-Poisson approach (correlation of 0.72).</p>
 <p>Newer approaches involve GPS data from smartphones and cars.</p>
 </div>
 <div id="generating-traffic-flows-from-origin-destination-surveys-ods" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Generating traffic flows from Origin-Destination-Surveys (ODS)</h3>
-<p>The origin destination survey (ODS) is an important tool which quantifies the amount of trips generated in the study area. ODS studies started decades ago. The oldest ODS paper on Google Scholar is entitles “FUNCTIONS OF A HIGHWAY-PLANNING SURVEY DEPARTMENT” by W. J. Sapp in 1938 at the TWENTY-FOURTH ANNUAL ROAD SCHOOL <span class="citation">(Sapp <a href="#ref-sapp1938runctions">1938</a>)</span>. In this paper the importance of information for the traffic engineer is discussed: “The engineer must have the supporting data available to substantiate his decisions.”</p>
-<p>Another study of 1942 shows the importance of traffic counts, disucssing the elaboration of an origin destination survey where 8000 Boy Scouts of America participated in counting traffic. The method for analyzing the data consisted in counting the vehicles identifying the licence plate in order to determine the origin (the first time the vehicle was recorded), the route of vehicles, the destination and the approximate time for the trip.</p>
-<p>After those pioneer studies many many other studies went deeper into the subject. And after that, with the irruption of new technologies, new software, use of smarthphones with GPS, satellites and big technological centers owned by companies such as Google (<a href="http://www.google.com" class="uri">http://www.google.com</a>), new ways for characterizing trips were developed. In this section i will briefly mention the Google Distance Matrix (<a href="https://developers.google.com/maps/documentation/distance-matrix/" class="uri">https://developers.google.com/maps/documentation/distance-matrix/</a>), the pgRouting library <span class="citation">(Patrushev <a href="#ref-patrushev2007shortest">2007</a>)</span> for postGIS and will expand with two R packages, googleway <span class="citation">(Cooley <a href="#ref-googleway">2018</a>)</span> and dodgr <span class="citation">(Padgham and Peutschnig <a href="#ref-dodgr">2018</a>)</span>.</p>
-<p>The ODS will provide us the matrix of pairs of zones origin and destinations by mode of transport. Then, we can use any of the mentioned softwares to find the shortest path between each zone. The table <a href="traffic.html#tab:ods">4.1</a> shows an extraction of the OD matrix for the Metropolitan Area of São Paulo (MASP) in 2007 for motorized individual trips. The fig @ref(fig.zod) shows a map with the location of the zones OD.</p>
+<p>The origin-destination survey (ODS) is an important tool which quantifies the number of trips generated in the study area. ODS studies started decades ago. The oldest ODS paper on Google Scholar is entitled “FUNCTIONS OF A HIGHWAY-PLANNING SURVEY DEPARTMENT” by W. J. Sapp in 1938 at the TWENTY-FOURTH ANNUAL ROAD SCHOOL <span class="citation">(Sapp <a href="#ref-sapp1938runctions">1938</a>)</span>. In this paper, the importance of information for the traffic engineer is discussed: “The engineer must have the supporting data available to substantiate his decisions.”</p>
+<p>Another study of 1942 shows the importance of traffic counts, discussing The elaboration of an origin-destination survey where 8000 Boy Scouts of America participated in counting traffic. The method for analyzing the data consisted in counting the vehicles identifying the license plate to determine the origin (the first time the vehicle was recorded), the route of vehicles, the destination and the approximate time for the trip.</p>
+<p>After those pioneer studies, many many other studies went deeper into the subject. Moreover, after that, with the irruption of new technologies, new software, use of smartphones with GPS, satellites and big technological centers owned by companies such as Google (<a href="http://www.google.com" class="uri">http://www.google.com</a>), new ways for characterizing trips were developed. In this section, I will briefly mention the Google Distance Matrix (<a href="https://developers.google.com/maps/documentation/distance-matrix/" class="uri">https://developers.google.com/maps/documentation/distance-matrix/</a>), the pgRouting library <span class="citation">(Patrushev <a href="#ref-patrushev2007shortest">2007</a>)</span> for PostGIS and will expand with two R packages, googleway <span class="citation">(Cooley <a href="#ref-googleway">2018</a>)</span> and dodgr <span class="citation">(Padgham and Peutschnig <a href="#ref-dodgr">2018</a>)</span>.</p>
+<p>The ODS provides the matrix of pairs of zones origin and destinations by mode of transport. Then, we can use any of the mentioned software to find the shortest path between each zone. The table <a href="traffic.html#tab:ods">4.1</a> shows extraction of the OD matrix for the Metropolitan Area of São Paulo (MASP) in 2007 for individual motorized trips. The fig @ref(fig.zod) shows a map with the location of the zones OD.</p>
 <table>
 <caption><span id="tab:ods">Table 4.1: </span>Matrix OD for motorized indivitual trips between 06:30 and 08:30 MASP 2007</caption>
 <thead>
@@ -470,13 +471,13 @@ Figure 4.1: LDV at 08:00-09:00 (LT) in west São Paulo
 Figure 4.2: Zones OD for MASP 2007
 </p>
 </div>
-<p>Now, as we know the the trips between each pair of OD zones, we can find the routes that connects them. Algorithms are used to find the shortest path. It connects two nodes minimizing the total travel time. There are several algorithms, including <span class="citation">Dijkstra (<a href="#ref-dijkstra1959note">1959</a>)</span>.</p>
+<p>Now, as we know the trips between each pair of OD zones, we can find the routes that connect them. Algorithms are used to find the shortest path. It connects two nodes minimizing the total travel time. There are several algorithms, including <span class="citation">Dijkstra (<a href="#ref-dijkstra1959note">1959</a>)</span>.</p>
 <div id="google-distance-matrix-api" class="section level4">
 <h4><span class="header-section-number">4.1.3.1</span> Google Distance Matrix API</h4>
-<p>This service allows to “retrieve duration and distance values based on the recommended route between start and end points.” It returns durations and distance and it is possible to choose modes of transport as well as to choose between current or historical times. The first step is to get a KEY.</p>
+<p>This service allows to “retrieve duration and distance values based on the recommended route between start and end points.” It returns durations and distance, and it is possible to choose modes of transport as well as to choose between current or historical times. The first step is to get a KEY.</p>
 <p>If you browse</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">https</span>://maps.googleapis.com/maps/api/distancematrix/json?units=imperial<span class="kw">&amp;</span><span class="va">origins=</span>Washington,DC<span class="kw">&amp;</span><span class="va">destinations=</span>New+York+City,NY<span class="kw">&amp;</span><span class="va">key=</span>YOUR_API_KEY</code></pre></div>
-<p>and replace YOUR_API_KEY you will see (my brower is in portuguese):</p>
+<p>Replace YOUR_API_KEY (my browser is in Portuguese):</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">{</span>
   <span class="st">&quot;destination_addresses&quot;</span> <span class="bu">:</span> [ <span class="st">&quot;Nova York, NY, EUA&quot;</span> ],
   <span class="st">&quot;origin_addresses&quot;</span> <span class="bu">:</span> [ <span class="st">&quot;Washington, D.C., Distrito de Columbia, EUA&quot;</span> ],
@@ -503,11 +504,11 @@ Figure 4.2: Zones OD for MASP 2007
 </div>
 <div id="pgrouting-for-postgis" class="section level4">
 <h4><span class="header-section-number">4.1.3.2</span> pgRouting for postGIS</h4>
-<p>pgRouting (<a href="http://pgrouting.org/" class="uri">http://pgrouting.org/</a>) is an open source routing library for postGIS. It provides many routing algorithms and it can be run via QGIS (<a href="https://www.qgis.org" class="uri">https://www.qgis.org</a>). This library is very extensive. A good resource is the book “pgRouting: A Practical Guide” (<a href="http://locatepress.com/pgrouting" class="uri">http://locatepress.com/pgrouting</a>).</p>
+<p>pgRouting (<a href="http://pgrouting.org/" class="uri">http://pgrouting.org/</a>) is an open source routing library for postGIS. It provides many routing algorithms, and it can be run via QGIS (<a href="https://www.qgis.org" class="uri">https://www.qgis.org</a>). This library is very extensive. An excellent resource is the book “pgRouting: A Practical Guide” (<a href="http://locatepress.com/pgrouting" class="uri">http://locatepress.com/pgrouting</a>).</p>
 </div>
 <div id="the-r-package-googleway" class="section level4">
 <h4><span class="header-section-number">4.1.3.3</span> The R package googleway</h4>
-<p>googleway <span class="citation">(Cooley <a href="#ref-googleway">2018</a>)</span> R package allows to access Goolge Maps API <a href="https://developers.google.com/maps/" class="uri">https://developers.google.com/maps/</a>. The API functions are:</p>
+<p>googleway <span class="citation">(Cooley <a href="#ref-googleway">2018</a>)</span> R package allows accessing Google Maps API <a href="https://developers.google.com/maps/" class="uri">https://developers.google.com/maps/</a>. The API functions are:</p>
 <ul>
 <li>Directions - <code>google_directions()</code></li>
 <li>Distance Matrix - <code>google_distance()</code></li>
@@ -519,7 +520,7 @@ Figure 4.2: Zones OD for MASP 2007
 <li>Time zone - <code>google_timezone()</code></li>
 <li>Roads - <code>google_snapToRoads()</code> and <code>google_nearestRoads()</code></li>
 </ul>
-<p>This package allows to plot over Google Maps.</p>
+<p>This package allows plotting over Google Maps.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(googleway)
 ## not specifying the api will add the key as your &#39;default&#39;
 key &lt;-<span class="st"> &quot;my_api_key&quot;</span>
@@ -546,7 +547,7 @@ key &lt;-<span class="st"> &quot;my_api_key&quot;</span>
                    <span class="dt">from_long =</span> <span class="fl">-46.634613</span>,
                    <span class="dt">to_lat =</span> <span class="fl">-23.52204</span>,
                    <span class="dt">to_long =</span> <span class="fl">-46.64482</span>)</code></pre></div>
-<p>Then we use the package <code>googleway</code> to create the points between origin and destination and maptools to transform points to lines.</p>
+<p>Then we use the package <code>googleway</code> to create the points between origin and destination and maptools to transform points into lines.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maptools, <span class="dt">quietly =</span> T)
 <span class="kw">library</span>(googleway)
 foo &lt;-<span class="st"> </span><span class="kw">google_directions</span>(<span class="dt">origin =</span> <span class="kw">unlist</span>(mydf[<span class="dv">1</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]),
@@ -560,7 +561,7 @@ streets &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="
 streets &lt;-<span class="st"> </span><span class="kw">map2SpatialLines</span>(streets)
 <span class="kw">plot</span>(streets, <span class="dt">axes =</span> T, <span class="dt">main=</span> <span class="st">&quot;Route of 133 LDV trips&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="dt">path =</span> <span class="st">&quot;figuras/gway.png&quot;</span>)</code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-42"></span>
+<div class="figure"><span id="fig:unnamed-chunk-37"></span>
 <img src="figuras/gway.png" alt="Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo" width="175" />
 <p class="caption">
 Figure 4.3: Driving route between zones ‘Luz’ and ‘Bom Retiro’ in São Paulo
@@ -569,8 +570,8 @@ Figure 4.3: Driving route between zones ‘Luz’ and ‘Bom Retiro’ in São P
 </div>
 <div id="the-r-package-dodgr" class="section level4">
 <h4><span class="header-section-number">4.1.3.4</span> The R package dodgr</h4>
-<p>dpdgr<span class="citation">(Padgham and Peutschnig <a href="#ref-dodgr">2018</a>)</span> is a new R package with great capbilities. It calculates the distance on dual-weight graphs using priority-queue shortest paths. In order to calculate the traffic flows it is necessary to have the matrix OD for the desired mode of transport and the coorodinates of centroids of the OD zones.</p>
-<p>The function <code>dodgr_streetnet</code> uses the osmdata r package to download street network data from Open Street Map <span class="citation">(contributors <a href="#ref-osm">2017</a>)</span> for the points of the centroids of zones OD. Depending on the spatial extent of the data, the resulting data can be large. The function <code>weight_streetnet</code> weight the lines from OSM road network according to a specific profile of traffic: “psv” for Public Service Vehicle. “bicycle”, nd others. The weights are profile values for the OSM type of roads based on this webpage: <a href="https://www.routino.org/xml/routino-profiles.xml" class="uri">https://www.routino.org/xml/routino-profiles.xml</a>. The function <code>dodgr_vertices</code> extract the vertices pf thegraph including the coordinates. Finally, the function <code>dodgr_flowmap</code> reads the graph and plots the flows. Below is an example for São Paulo using the data of ODS <span class="citation">(Metro <a href="#ref-ODS">2017</a>)</span>.</p>
+<p>dpdgr<span class="citation">(Padgham and Peutschnig <a href="#ref-dodgr">2018</a>)</span> is a new R package with excellent capabilities. It calculates the distance on dual-weight graphs using priority-queue shortest paths. To calculate the traffic flows it is necessary to have the matrix OD for the desired mode of transport and the coordinates of centroids of the OD zones.</p>
+<p>The function <code>dodgr_streetnet</code> uses the osmdata R package to download street network data from Open Street Map <span class="citation">(contributors <a href="#ref-osm">2017</a>)</span> for the points of the centroids of zones OD. Depending on the spatial extent of the data, the resulting data can be large. The function <code>weight_streetnet</code> weight the lines from OSM road network according to a specific profile of traffic: “psv” for Public Service Vehicle. “bicycle”, and others. The weights are profile values for the OSM type of roads based on this webpage: <a href="https://www.routino.org/xml/routino-profiles.xml" class="uri">https://www.routino.org/xml/routino-profiles.xml</a>. The function <code>dodgr_vertices</code> extract the vertices of the graph including the coordinates. Finally, the function <code>dodgr_flowmap</code> reads the graph and plots the flows. Below is an example for São Paulo using the data of ODS <span class="citation">(Metro <a href="#ref-ODS">2017</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:rdodgr"></span>
 <img src="figuras/dodgr.png" alt="Daily trips of Light Duty Vehicles in São Paulo" width="463" />
 <p class="caption">
@@ -581,22 +582,22 @@ Figure 4.4: Daily trips of Light Duty Vehicles in São Paulo
 </div>
 <div id="top-down-approach" class="section level3">
 <h3><span class="header-section-number">4.1.4</span> Top-down approach</h3>
-<p>VEIN was designed with traffic flow at street leve on mind, however, it is possible that user might want or need to use a top-down approach. Here are some possible causes:</p>
+<p>I designed VEIN with traffic flow at street level on the mind. However, it is possible that the user might want or need to use a top-down approach. Here are some possible causes:</p>
 <ol style="list-style-type: decimal">
-<li>Bottom-up approach can demand more computatonal resources for a country or a continent.</li>
-<li>Another possibility is that the emissions inventory is going to be used solely for air quality modelling purposes, where the proportion of grid spacing and street is such that spatial detail would be lose, for instance with resolution of 10 km.</li>
+<li>Bottom-up approach can demand more computational resources for a country or a continent.</li>
+<li>Another possibility is that the emissions inventory is going to be used solely for air quality modeling purposes, where the proportion of grid spacing and the street is such that spatial detail would be loose, for instance with a resolution of 10 km.</li>
 <li>Also, it is possible that there is no way of obtaining traffic information at street level.</li>
-<li>Limited resources, time, funding, human resources, etc.</li>
-<li>Lastly, due to simplism. It is also possible that the objective simply is to estimate an emissions inventory using a top-down approach.</li>
+<li>Limited resources, time, funding, human resources.</li>
+<li>Lastly, due to simplism. It is also possible that the objective is to estimate an emissions inventory using a top-down approach.</li>
 </ol>
-<p>Under these circumstances a top-down approach would be better suited for some users. As VEIN is a toolkit for estimating emissions, it is reasonable to use all VEIN resources with a top-down approach.</p>
+<p>Under these circumstances, a top-down approach would be better suited for some users. As VEIN is a toolkit for estimating emissions, it is reasonable to use all VEIN resources with a top-down approach.</p>
 <p>In this case, the user must follow some considerations:</p>
 <ul>
-<li>Use <code>inventory</code> functions in the same way as shown on section <a href="st.html#st">3</a>.</li>
+<li>Use <code>inventory</code> functions in the same way as shown in section <a href="st.html#st">3</a>.</li>
 <li>Create a network, but instead of using a road network with spatial lines, use spatial polygons. The Spatial polygon might represent some area where the amount of vehicles is known.</li>
-<li>The <code>age</code> functions shown in following sections, show that it is possible to apply age distributions to each street, in this case, to each area.</li>
+<li>The <code>age</code> functions shown in the following sections show that it is possible to apply age distributions to each street, in this case, to each area.</li>
 </ul>
-<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> shows the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(Sergio Ibarra-Espinosa, Freitas, et al. <a href="#ref-ibarraigac">2018</a>)</span>.</p>
+<p>The Fig. <a href="traffic.html#fig:ftd">4.5</a> showed the emissions of PM for each state Brazil and prepared for a congress using VEIN as a top-down tool <span class="citation">(Sergio Ibarra-Espinosa et al. <a href="#ref-ibarraigac">2018</a>)</span>.</p>
 <div class="figure"><span id="fig:ftd"></span>
 <img src="veinbook_files/figure-html/ftd-1.svg" alt="Emissions of PM due trafifc, 2017" width="672" />
 <p class="caption">
@@ -607,8 +608,8 @@ Figure 4.5: Emissions of PM due trafifc, 2017
 </div>
 <div id="main-functions" class="section level2">
 <h2><span class="header-section-number">4.2</span> Main functions</h2>
-<p>The Fig.(<a href="st.html#fig:diavein">3.1</a>) shows a complete diagram with the steps for elaborating an emissions inventory. Also, the function <code>inventory</code> shown on sub-section (<a href="st.html#veinstructure">3.1</a>) shows the functions to structure an inventory. This and the following subsection of application shows respective the part of the diagram Fig.(<a href="traffic.html#fig:diatraffic">4.6</a>) and how to run VEIN as well as storing the results in the directories shown in Fig. (<a href="st.html#st">3</a>).</p>
-<p>The first element that the user must have is the traffic at street level. This is shown as a green circle with the word ‘traffic’ on Fig. (<a href="traffic.html#fig:diatraffic">4.6</a>). The user must use any <code>age</code> function which produces objects of class <code>Vehicles</code>. The function <code>netspeed</code> produces an object of class <code>Speed</code>. This objects are required by the <code>emis</code> function.</p>
+<p>The Fig.(<a href="st.html#fig:diavein">3.1</a>) shows a complete diagram with the steps for elaborating an emissions inventory. Also, the function <code>inventory</code> shown on sub-section (<a href="st.html#veinstructure">3.1</a>) shows the functions to structure an inventory. The following subsection shows the part of the diagram Fig.(<a href="traffic.html#fig:diatraffic">4.6</a>) and how to run VEIN as well as storing the results in the directories shown in Fig. (<a href="st.html#st">3</a>).</p>
+<p>The first element that the user must have is the traffic at street level, shown as a green circle with the word ‘traffic’ in Fig. (<a href="traffic.html#fig:diatraffic">4.6</a>). The user must use any <code>age</code> function which produces objects of class <code>Vehicles</code>. The function <code>netspeed</code> produces an object of class <code>Speed</code>. The <code>emis</code> function requires this objects.</p>
 <div class="figure" style="text-align: center"><span id="fig:diatraffic"></span>
 <img src="figuras/dia4.png" alt="Structuring an emissions inventories with VEIN" width="100%" />
 <p class="caption">
@@ -617,43 +618,43 @@ Figure 4.6: Structuring an emissions inventories with VEIN
 </div>
 <div id="expanding-traffic-data-with-the-function-temp_fact" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Expanding traffic data with the function <code>temp_fact</code></h3>
-<p>Traffic data must be temporally extrapolated because it is usually available only for the morning rush hour. Traffic data can be estimated from short period traffic count datasets, then expanded to represent longer timespan, such as Annual Average Daily Traffic (AADT; <span class="citation">(Wang and Kockelman <a href="#ref-wang2009forecasting">2009</a>, lam2000estimation)</span>). The next step is to extrapolate the vehicular flow at street link <span class="math inline">\(i\)</span>, vehicle type <span class="math inline">\(j\)</span>, and age of use <span class="math inline">\(k\)</span>, to obtain the vehicular flow for hour of the week <span class="math inline">\(l\)</span> (<span class="math inline">\(F_{i,j,k,l}\)</span>; see equation <a href="traffic.html#eq:flowx">(4.2)</a>.</p>
+<p>Traffic data must be temporally extrapolated because it is usually available only for the morning rush hour. Traffic data can be estimated from short period traffic count datasets, then expanded to represent longer timespan, such as Annual Average Daily Traffic (AADT; <span class="citation">(Wang and Kockelman <a href="#ref-wang2009forecasting">2009</a>, lam2000estimation)</span>). The next step is to extrapolate the vehicular flow at street link <span class="math inline">\(i\)</span>, vehicle type <span class="math inline">\(j\)</span>, and age of use <span class="math inline">\(k\)</span>, to obtain the vehicular flow for the hour of the week <span class="math inline">\(l\)</span> (<span class="math inline">\(F_{i,j,k,l}\)</span>; see equation <a href="traffic.html#eq:flowx">(4.2)</a>.</p>
 <span class="math display" id="eq:flowx">\[\begin{equation}
 F_{i,j,k,l} = F^*_{i,j,k} \cdot TF_{j,l}
 \tag{4.2}
 \end{equation}\]</span>
-<p>where <span class="math inline">\(TF_{j,l}\)</span> are the temporal factors varying according to each hour of <span class="math inline">\(l\)</span> and type of vehicle <span class="math inline">\(j\)</span>. For instance, <span class="math inline">\(TF\)</span> is defined as a matrix with 24 lines and numbers of columns to each day considered, from Monday to Sunday. In order to expand traffic to other hours, <span class="math inline">\(TF\)</span> matrices must be normalized to the hour that represents the traffic data. It means that <span class="math inline">\(TF\)</span> values at morning peak hour must be 1 and the respective proportion must be assigned to the other hours. For example, <span class="math inline">\(TF\)</span> values can be obtained from automatic traffic count stations.</p>
+<p>Where <span class="math inline">\(TF_{j,l}\)</span> are the temporal factors varying according to each hour of <span class="math inline">\(l\)</span> and type of vehicle <span class="math inline">\(j\)</span>. For instance, <span class="math inline">\(TF\)</span> is defined as a matrix with 24 lines and numbers of columns to each day considered, from Monday to Sunday. <span class="math inline">\(TF\)</span> matrices must be normalized to the hour that represents the traffic data. It means that <span class="math inline">\(TF\)</span> values at morning peak hour must be 1 and the respective proportion are assigned to the other hours. For example, <span class="math inline">\(TF\)</span> values are obtained from automatic traffic count stations.</p>
 <p>The function <code>temp_fact</code> return <span class="math inline">\(F_{i,j,k,l}\)</span> as an object with class <code>Vehicles</code>. The arguments are:</p>
 <ul>
 <li><code>q</code> is a data-frame of traffic flow to each hour (veh/h) at each street.</li>
-<li><code>pro</code> s a matrix or data-frame to extrapolate .</li>
+<li><code>pro</code> s a matrix or data-frame to extrapolate.</li>
 </ul>
 </div>
 <div id="calculating-speed-at-other-hours-with-the-function-netspeed" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Calculating speed at other hours with the function <code>netspeed</code></h3>
-<p>The average speed of traffic flow is very important and it must be determined for each link and hour. Once the vehicular flow is identified for each hour, the average speed is then identified for each hour. This was accomplished by employing curves from the Bureau of Public Roads (BPR; <span class="citation">(Bureau of Public Roads <a href="#ref-bpr">1964</a>)</span>), as shown in Eq. <a href="traffic.html#eq:bpr">(4.3)</a>. The process involves calculating speed by dividing the length of road by the time. The time is calculated using the total traffic expanded to each street link <span class="math inline">\(i\)</span> and hour <span class="math inline">\(l\)</span>.</p>
+<p>The average speed of traffic flow is critical, and it must be determined for each link an hour. Once the vehicular flow is identified for each hour, the average speed is then identified for each hour, using the curves from the Bureau of Public Roads (BPR; <span class="citation">(Bureau of Public Roads <a href="#ref-bpr">1964</a>)</span>), as shown in Eq. <a href="traffic.html#eq:bpr">(4.3)</a>. The process involves calculating speed by dividing the length of the road by the time. The time is calculated using the total traffic expanded to each street link <span class="math inline">\(i\)</span> and hour <span class="math inline">\(l\)</span>.</p>
 <span class="math display" id="eq:bpr">\[\begin{equation}
 T_{i,l} = To_i \cdot \left(1 +\alpha \cdot \left(\dfrac{Q_{i,l}}{C_i}\right)^\beta \right)
 \tag{4.3}
 \end{equation}\]</span>
-<p>The function <code>netspeed</code> do this calculations. The arguments of this function are:</p>
+<p>The function <code>netspeed</code> do these calculations. The arguments of this function are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(netspeed)</code></pre></div>
 <pre><code>## function (q = 1, ps, ffs, cap, lkm, alpha = 0.15, beta = 4, net, 
 ##     scheme = FALSE, distance = &quot;km&quot;, time = &quot;h&quot;, isList) 
 ## NULL</code></pre>
-<p><code>netspeed</code> allows basically creates two types of speeds data-frames which depends on the availability of data by the user. If the user has <code>q</code>, <code>ps</code>, <code>ffs</code> and <code>cap</code> the user can use the argument <code>scheme = FALSE</code>, or when the user only has <code>ps</code> and <code>ffs</code> the user can use the argument <code>scheme = TRUE</code>.</p>
+<p><code>netspeed</code> allows creates two types of speeds data-frames which depends on the availability of data by the user. If the user has <code>q</code>, <code>ps</code>, <code>ffs</code> and <code>cap</code> the user can use the argument <code>scheme = FALSE</code>, or when the user only has <code>ps</code> and <code>ffs</code> the user can use the argument <code>scheme = TRUE</code>.</p>
 <ul>
 <li><code>q</code> is a data-frame of traffic flow to each hour (veh/h) at each street.</li>
 <li><code>ps</code>is the Peak speed (km/h) at each street.</li>
 <li><code>ffs</code> Free flow speed (km/h) at each street.</li>
-<li><code>cap</code> Capacity of link (veh/h) at each street.</li>
+<li><code>cap</code> Capacity of the link (veh/h) at each street.</li>
 <li><code>lkm</code> Distance of link (km) of each street.</li>
 <li><code>alpha</code> Parameter of <span class="citation">Bureau of Public Roads (<a href="#ref-bpr">1964</a>)</span> curves.</li>
 <li><code>beta</code> Parameter of <span class="citation">Bureau of Public Roads (<a href="#ref-bpr">1964</a>)</span> curves.</li>
 <li><code>scheme</code> Logical to create a Speed data-frame with 24 hours and a default profile. It needs <code>ffs</code> and <code>ps</code> at each street:</li>
 </ul>
 <table>
-<caption><span id="tab:unnamed-chunk-45">Table 4.2: </span>speeds for scheme = T</caption>
+<caption><span id="tab:unnamed-chunk-40">Table 4.2: </span>speeds for scheme = T</caption>
 <thead>
 <tr class="header">
 <th align="center">Period</th>
@@ -694,36 +695,36 @@ T_{i,l} = To_i \cdot \left(1 +\alpha \cdot \left(\dfrac{Q_{i,l}}{C_i}\right)^\be
 </div>
 <div id="distribution-of-vehicles-by-age-of-use-with-the-functions-age_ldv-age_hdv-and-age_moto" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Distribution of vehicles by age of use with the functions <code>age_ldv</code>, <code>age_hdv</code> and <code>age_moto</code></h3>
-<p>These functions reads traffic data at each street and return an object of class <code>Vehicles</code>, which is a data-frame with the number of vehicles at each street and the number of columns represent the amount of vehicles at each age. The functions <code>age_moto</code> and <code>age_hdv</code> are identical. These functions apply survival equations into the fleet from <span class="citation">Ministerio do Meio Ambiente (<a href="#ref-MMA2011">2011</a>)</span>. The arguments are:</p>
+<p>These functions read traffic data at each street and return an object of class <code>Vehicles</code>, which is a data-frame with the number of vehicles at each street, and the number of columns represents the number of vehicles at each age. The functions <code>age_moto</code> and <code>age_hdv</code> are identical. These functions apply survival equations into the fleet from <span class="citation">Ministerio do Meio Ambiente (<a href="#ref-MMA2011">2011</a>)</span>. The arguments are:</p>
 <ul>
-<li><code>x</code>numerical vector of vehicles at each street.</li>
-<li><code>name</code> word of vehicle assigned to columns of dataframe.</li>
+<li><code>x</code> numeric vector of vehicles at each street.</li>
+<li><code>name</code> word of the vehicle assigned to columns of dataframe.</li>
 <li><code>a</code> parameter of survival equation. The default value for <code>age_ldv</code> is 1.698 and for <code>age_hdv</code> and <code>age_moto</code> is 0.2.</li>
 <li><code>b</code> parameter of survival equation. The default value for <code>age_ldv</code> is -0.2 and for <code>age_hdv</code> and <code>age_moto</code> is 17.</li>
-<li><code>agemin</code> age of newest vehicles for that category. The default value is 1, however it can be bigger than one when it is a vehicle that is not circulating more then a year ago.</li>
-<li><code>agemax</code> age of oldest vehicles for that category. The default value is 50 assuming that the oldest vehicle in circulation has 50 years of use. However, new type of vehicles will be newer.</li>
-<li><code>k</code> multiplication factor. This factor helps to split the traffic <code>x</code> in the vehicular composition.</li>
-<li><code>bystreet</code> when TRUE it is expecting that <code>a</code> and <code>b</code> are numeric vectors with length equal to <code>x</code>. In other words, the values of <code>a</code> and <code>b</code> varies in each street.</li>
-<li><code>message</code> message with average age and total number of vehicles.</li>
+<li><code>agemin</code> age of newest vehicles for that category. The default value is 1; however, it can be bigger than one when it is a vehicle that is not circulating more than a year ago.</li>
+<li><code>agemax</code> age of oldest vehicles for that category. The default value is 50, assuming that the oldest vehicle in circulation has 50 years of use.</li>
+<li><code>k</code> multiplication factor. This factor helps to split the traffic <code>x</code> in the composition.</li>
+<li><code>bystreet</code> when TRUE it is expecting that <code>a</code> and <code>b</code> are numeric vectors with length equal to <code>x</code>. In other words, the values of <code>a</code> and <code>b</code> vary in each street.</li>
+<li><code>message</code> message with average age and the total number of vehicles.</li>
 </ul>
 </div>
 <div id="the-function-my_age" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> The function <code>my_age</code></h3>
-<p>These functions also reads traffic data at each street and returns an object of class <code>Vehicles</code>, which is a data-frame with the number of vehicles at each street and the columns represent the amount of vehicles at each age. However, it is based on data the user has and not by parameters. Therefore, using this function with own data should produce more representative results. The arguments are:</p>
+<p>These functions also read traffic data at each street and return an object of class <code>Vehicles</code>, which is a data-frame with the number of vehicles at each street, and the columns represent the number of vehicles at each age. However, it is based on data the user has and not by parameters. Therefore, using this function with own data should produce more representative results. The arguments are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(my_age)</code></pre></div>
 <pre><code>## function (x, y, name = &quot;age&quot;, k = 1, pro_street, net, message = TRUE) 
 ## NULL</code></pre>
 <ul>
 <li><code>x</code> numerical vector of vehicles at each street.</li>
 <li><code>y</code> Age distribution of vehicles. This parameter can be annual sales or annual registry for the category of vehicle.</li>
-<li><code>name</code> of vehicle assigned to columns of dataframe.</li>
-<li><code>k</code> multiplication factor. This factor helps to split the traffic <code>x</code> in the vehicular composition.</li>
-<li><code>message</code> message with average age and total number of vehicles.</li>
+<li><code>name</code> of the vehicle assigned to columns of dataframe.</li>
+<li><code>k</code> multiplication factor. This factor helps to split the traffic <code>x</code> in the composition.</li>
+<li><code>message</code> message with average age and the total number of vehicles.</li>
 </ul>
 </div>
 <div id="the-class-vehicles" class="section level3">
 <h3><span class="header-section-number">4.2.5</span> The class <code>Vehicles</code></h3>
-<p><code>Vehicles</code> is a class in VEIN, shown in on Fig. (<a href="traffic.html#fig:diatraffic">4.6</a>). This class includes the methods <code>print</code>, <code>plot</code> and <code>summary</code>. This means that, <code>Vehicles</code> objects presents customized versions of <code>print</code>, <code>plot</code> and <code>summary</code> in order to make easier to the user to use VEIN. The figure @ref(fig.plotpc) shows a simple plot of a <code>Vehicles</code> object, followed by the <code>head</code> of this object. The plot shows the sum of each type of vehicle by age of use, with a vertical red line indicating the average age, 11.17 years of use.</p>
+<p><code>Vehicles</code> is a class in VEIN, shown in Fig. (<a href="traffic.html#fig:diatraffic">4.6</a>). This class includes the methods <code>print</code>, <code>plot</code> and <code>summary</code>, meaning that, <code>Vehicles</code> objects presents customized versions of <code>print</code>, <code>plot</code> and <code>summary</code> to make easier to the user to use VEIN. The figure @ref(fig.plotpc) shows a simple plot of a <code>Vehicles</code> object, followed by the <code>head</code> of this object. The plot shows the sum of each type of vehicle by the age of use, with a vertical red line indicating the average age, 11.17 years of use.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
 PC_E25 &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(<span class="dt">x =</span> net<span class="op">$</span>ldv,<span class="dt">name =</span> <span class="st">&quot;PC_E25&quot;</span>, <span class="dt">k =</span> <span class="dv">75</span><span class="op">/</span><span class="dv">100</span><span class="op">*</span><span class="fl">37.25</span>, <span class="dt">message =</span> F)
@@ -743,7 +744,7 @@ PC_E25 &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(<span class
 </div>
 <div id="other-traffic-functions" class="section level3">
 <h3><span class="header-section-number">4.2.6</span> Other traffic functions</h3>
-<p>Another function is <code>adt</code> which calculates average daily traffic (ADT) from hourly traffic data. This function reads numeric vectors with the amount of vehicles at each street and expands the traffic with temporal factors for each type of vehicle. The arguments are:</p>
+<p>Another function is <code>adt</code> which calculates average daily traffic (ADT) from Hourly traffic data. This function reads numeric vectors with the number of vehicles at each street and expands the traffic with temporal factors for each type of vehicle. The arguments are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(adt)</code></pre></div>
 <pre><code>## function (pc, lcv, hgv, bus, mc, p_pc, p_lcv, p_hgv, p_bus, p_mc, 
 ##     expanded = FALSE) 
@@ -767,7 +768,7 @@ PC_E25 &lt;-<span class="st"> </span><span class="kw">age_ldv</span>(<span class
 </div>
 <div id="application" class="section level2">
 <h2><span class="header-section-number">4.4</span> Application</h2>
-<p>As mentioned above, the application consists in using the travel demand model for west part of São Paulo city, present in VEIN. This script reads traffic data and expands it applying an age function. It uses the <code>inventory</code> function with the default vehicular composition, shown on section (@red(st)). Please, use the scripts in the extra material of this book. The base year is 2015 and the extended example is available in appendix 1.</p>
+<p>As mentioned above, the application consists of using the travel demand model for the west part of São Paulo city, present in VEIN. This script reads traffic data and expands it applying an age function. It uses the <code>inventory</code> function with the default vehicular composition, shown in section (@red(st)).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">inventory</span>(<span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>))
 <span class="kw">setwd</span>(<span class="st">&quot;YourCity&quot;</span>)
@@ -783,6 +784,9 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 </div>
 <h3>Appendix B</h3>
 <div id="refs" class="references">
+<div id="ref-sf">
+<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+</div>
 <div id="ref-Corvalanetal2002">
 <p>Corvalán, Roberto M, Mauricio Osses, and Cristian M Urrutia. 2002. “Hot Emission Model for Mobile Sources: Application to the Metropolitan Region of the City of Santiago, Chile.” <em>Journal of the Air &amp; Waste Management Association</em> 52 (2). Taylor &amp; Francis: 167–74.</p>
 </div>
@@ -794,9 +798,6 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 </div>
 <div id="ref-sp">
 <p>Pebesma, Edzer J., and Roger S. Bivand. 2005. “Classes and Methods for Spatial Data in R.” <em>R News</em> 5 (2): 9–13. <a href="https://CRAN.R-project.org/doc/Rnews/" class="uri">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
-</div>
-<div id="ref-sf">
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
 </div>
 <div id="ref-requia">
 <p>Réquia Jr, Weeberb Joao, Petros Koutrakis, and Henrique Llacer Roig. 2015. “Spatial Distribution of Vehicle Emission Inventories in the Federal District, Brazil.” <em>Atmospheric Environment</em> 112. Elsevier: 32–39.</p>
@@ -823,7 +824,7 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pc_week, ne
 <p>Zeileis, Achim, Christian Kleiber, and Simon Jackman. 2008. “Regression Models for Count Data in R.” <em>Journal of Statistical Software</em> 27 (8). Foundation for Open Access Statistics: 1–25.</p>
 </div>
 <div id="ref-Ibarraetal2017a">
-<p>Ibarra-Espinosa, Sergio, Shane O’Sullivan, Mauricio Osses, and Rita Ynoue. 2017. “Negative Binomial and Quasi-Poisson Regressions of Hourly Traffic Data with Openstreetmap.” <em>Journal of Computers, Environment and Urban Systems</em>.</p>
+<p>S., Ibarra-Espinosa. 2017. “Air Pollution Modeling in São Paulo Using Bottom-up Vehicular Emissions Inventories.” PhD thesis, São Paulo, Brazil: Instituto de Astronomia, Geofísica e Ciências Atmosféricas, Universidade de São Paulo.</p>
 </div>
 <div id="ref-sapp1938runctions">
 <p>Sapp, WJ. 1938. “Runctions of a Highway-Planning Survey Department.” <em>Annual Road School</em>.</p>

@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-12-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,6 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
 <li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
 <li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic.html"><a href="basic.html#subseting-your-data.frame"><i class="fa fa-check"></i><b>2.2.9</b> Subseting your data.frame</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
 </ul></li>
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
-<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
@@ -162,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-the-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on the speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-the-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on the speed with the function <code>ef_hdv_speed</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
 <li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
@@ -256,11 +257,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 2</span> Basics of R</h1>
 <div id="brief-history" class="section level2">
 <h2><span class="header-section-number">2.1</span> Brief history</h2>
-<p>R is a programming language developed by Ross Ihaka and Robert Genleman in 1993 <span class="citation">(Ihaka and Gentleman <a href="#ref-ihaka1996r">1996</a>)</span>. A good resource about R is the book “Programming for data science” <span class="citation">(Peng <a href="#ref-peng2015r">2015</a>)</span>. R can be explained as a free version of S-PLUS programming language (<a href="http://www.solutionmetrics.com.au/products/splus/default.html" class="uri">http://www.solutionmetrics.com.au/products/splus/default.html</a>). It is free and recognized as GNU software (<a href="https://www.gnu.org/software/software.html" class="uri">https://www.gnu.org/software/software.html</a>) with GNU General Public License (GPLV2-GPLV3) license. This feature allowed that many developers started improving and adding code over the years.</p>
-<p>R includes several statistical functions, therefore, users who just want to use the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous publications such as the book “R packages: organize, test, document, and share your code” <span class="citation">(Wickham <a href="#ref-wickham2015r">2015</a>)</span>, or “The art of R programming: A tour of statistical software design” <span class="citation">(Matloff <a href="#ref-matloff2011art">2011</a>)</span>.</p>
+<p>R is a programming language developed by Ross Ihaka and Robert Genleman in 1993 <span class="citation">(Ihaka and Gentleman <a href="#ref-ihaka1996r">1996</a>)</span>. An excellent resource about R is the book “Programming for data science” <span class="citation">(Peng <a href="#ref-peng2015r">2015</a>)</span>. R is like a free version of S-PLUS programming language (<a href="http://www.solutionmetrics.com.au/products/splus/default.html" class="uri">http://www.solutionmetrics.com.au/products/splus/default.html</a>). It is free and recognized as GNU software (<a href="https://www.gnu.org/software/software.html" class="uri">https://www.gnu.org/software/software.html</a>) with GNU General Public License (GPLV2-GPLV3) license. This feature allowed that many developers started improving and adding code over the years.</p>
+<p>R includes several statistical functions; therefore, users who want to use the base capabilities of R are not forced to learn R-programming. However, the evolution from user to developer in R has been facilitated with numerous publications such as the book “R packages: organize, test, document, and share your code” <span class="citation">(Wickham <a href="#ref-wickham2015r">2015</a>)</span>, or “The art of R programming: A tour of statistical software design” <span class="citation">(Matloff <a href="#ref-matloff2011art">2011</a>)</span>.</p>
 <div id="installation-1" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Installation</h3>
-<p>R can be installed in different OS including Linux, Windows, Mac and Solaris. The webpage <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> shows how to install R in any platform. A popular Integrated development environment (IDE) is <strong>RStudio</strong> <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>, which contains many useful integrated options. However, R can be run on the terminal and any any text editor can be used to write scripts in R.</p>
+<p>R can be installed in different OS including Linux, Windows, Mac, and Solaris. The webpage <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> shows how to install R in any platform. A modern Integrated development environment (IDE) is <strong>RStudio</strong> <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>, which contains many useful integrated options. However, you can run R on the terminal, and use any text editor to write and save scripts in R. Even more, you can run R scripts on the terminal by typing <code>Rscript -e &quot;YourScript.R&quot;</code>.</p>
 </div>
 </div>
 <div id="using-r" class="section level2">
@@ -271,7 +272,7 @@ x        <span class="co"># Print results</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x) <span class="co"># Explicit print x</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<p>The integer 1 was <em>assigned</em> (&lt;-) to x, then writing x or print(x) will show the value of x. Instead of numbers, other expressions such as strings, dates or other objects can be assigned. R includes several statistical functions. For instance, if we type ‘pi’ at the terminal, it will print the pi number.</p>
+<p>The integer 1 was <em>assigned</em> (&lt;-) to x, then writing x or print(x) shows the value of x. Instead of numbers, other expressions such as strings, dates or other objects can n be assigned. R includes several statistical functions. For instance, if we type ‘pi’ at the terminal, it prints the <em>pi</em> number.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pi</code></pre></div>
 <pre><code>## [1] 3.141593</code></pre>
 <div id="r-objects" class="section level3">
@@ -284,7 +285,7 @@ x        <span class="co"># Print results</span></code></pre></div>
 <li>complex.</li>
 <li>logical (TRUE/FALSE or just T or F).</li>
 </ul>
-<p>Objects of the same class can be grouped in <strong>vectors</strong>. Vectors are created with writing <strong>c()</strong> with the elements of the vector inside the parenthesis, separated by colon. In fact, <strong>c</strong> is a built-in function to create vectors. In this case, the vector v1 contains a sequence of three integers, from 1 to 3. The resulting class is numeric.</p>
+<p>Objects of the same class can be grouped in <strong>vectors</strong>. You can createVectors are created with writing<strong>c()</strong> with the elements of the vector inside the parenthesis, separated by a colon. <strong>c</strong> is a built-in function to create vectors. In this case, the vector v1 contains a sequence of three integers, from 1 to 3. The resulting class is numeric.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>
 v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
 <span class="kw">identical</span>(v1, v2)</code></pre></div>
@@ -293,7 +294,7 @@ v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</s
 <pre><code>## [1] 1 2 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(v1)</code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<p>With the operator <code>[</code> we can get specific elements of your vectors. In the following code the function <code>length</code> is used additionally, which simply returns the length of an object.</p>
+<p>With the operator <code>[</code> we can get specific elements of your vectors. In the following code, the function <code>length</code> is used additionally, which returns the length of an object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v1[<span class="dv">1</span>]          <span class="co"># first element of v1</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v1[<span class="kw">length</span>(v1)] <span class="co"># last element element of v1</span></code></pre></div>
@@ -304,14 +305,14 @@ v2</code></pre></div>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;a&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(v2)</code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>Objects can be converted to other classes with the as.* functions. For instance, if we convert the vector v2 to numeric, it will recognize the numbers adding an NA into the position of the character.</p>
+<p>Objects can be converted to other classes with the as.* functions. For instance, if we convert the vector v2 to numeric, it recognizes the numbers adding an NA into the position of the character.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.numeric</span>(v2)</code></pre></div>
 <pre><code>## Warning: NAs introduzidos por coerção</code></pre>
 <pre><code>## [1]  1  2  3 NA</code></pre>
 </div>
 <div id="factors" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Factors</h3>
-<p>Factors represents categorical data. A typical example is a character vector of days of the week. The function <code>factor</code> creates factors. To see the help section, type <code>?factor</code>. The following example will use this function with the arguments <code>x</code> and <code>levels</code>.</p>
+<p>Factors represent categorical data. A typical example is a character vector of days of the week. The function <code>factor</code> creates factors. To see the help section, type <code>?factor</code>. The following example uses this function with the arguments <code>x</code> and <code>levels</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dow &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>),
               <span class="dt">levels =</span>  <span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>,
                           <span class="st">&quot;Friday&quot;</span>))
@@ -321,7 +322,7 @@ dow</code></pre></div>
 </div>
 <div id="missing-values" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Missing Values</h3>
-<p>Missing values in data-sets are a typical source of headache for R users. Fortunatly, R counts with several tools to avoid these headaches. These tools are fhe functions <code>is.na</code> to check for NA (not available) and <code>is.nan</code> (not a number). This functions returns logical values.</p>
+<p>Missing values in data-sets are a typical source of a headache for R users. Fortunately, R counts with several tools to avoid these headaches. These tools are the functions <code>is.na</code> to check for NA (not available) and <code>is.nan</code> (not a number). This function returns logical values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="ot">NA</span>)
 <span class="kw">is.na</span>(n)</code></pre></div>
 <pre><code>## [1] FALSE  TRUE</code></pre>
@@ -333,7 +334,7 @@ dow</code></pre></div>
 </div>
 <div id="matrices" class="section level3">
 <h3><span class="header-section-number">2.2.4</span> Matrices</h3>
-<p>Matrices are structure with rows and columns. They can be created using the <code>matrix</code> function and also, using vectors. Remember, if you want to know more about any function you just have to type <strong>?</strong> and the function (e.g. <code>?matrix</code>) and the help documentation for the function <code>matrix</code> will be opened.</p>
+<p>Matrix is a structure with rows and columns. They can be created using the <code>matrix</code> function and also, using vectors. Remember, if you want to know more about any function you have to type <strong>?</strong> and the function (e.g. <code>?matrix</code>), which opens the help documentation page.</p>
 <p>Let’s create a matrix using vectors:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>  <span class="co">#numeric vector</span>
 (m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> a, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>))</code></pre></div>
@@ -356,7 +357,7 @@ dow</code></pre></div>
 </div>
 <div id="arrays" class="section level3">
 <h3><span class="header-section-number">2.2.5</span> Arrays</h3>
-<p>Arrays are like matrices inside other matrices. In fact, a matrix is a 2-dimensional array. Let’s create an array create an array using the same vector <code>a</code> and same dimensiones of <code>m</code>, 3 and 4. <code>array</code> has three arguments, <code>data</code>, <code>dim</code> and <code>dimnames</code>. In the argument <code>dim</code> let’s add the number 2, resulting in an array of two matrices identical to <code>m</code>.</p>
+<p>Arrays are like matrices inside other matrices. A matrix is a 2-dimensional array. Let’s create an array create an array using the same vector <code>a</code> and same dimensions of <code>m</code>, 3 and 4. <code>array</code> has three arguments, <code>data</code>, <code>dim</code> and <code>dimnames</code>. In the argument <code>dim</code> let’s add the number 2, resulting in an array of two matrices identical to <code>m</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(a &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">data =</span> a, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>)))</code></pre></div>
 <pre><code>## , , 1
 ## 
@@ -381,7 +382,7 @@ dow</code></pre></div>
 </div>
 <div id="lists" class="section level3">
 <h3><span class="header-section-number">2.2.6</span> Lists</h3>
-<p>List are objects that can contain elements of different classes. I like to call lists as bags. In a bag you can put almost anything. Also, inside the bag, you can put other bags with different things. This means that you can have a list of lists of any R object. Lists can be created with the <code>list</code> function. Let’s create an empty list. Then we will use the vecctor <code>a</code> to create another list.</p>
+<p>List are objects that can contain elements of different classes. I like to call lists as bags. In a bag, you can put almost anything. Also, inside the bag, you can put other bags with different things, meaning that you can have a list of lists of any R object. You can create lists with the <code>list</code> function. Let’s create an empty list. Then I’m using the vector <code>a</code> to create another list.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>          <span class="co"># vector of three elements</span>
 l1 &lt;-<span class="st"> </span><span class="kw">list</span>()      <span class="co"># empty list</span>
 l1 &lt;-<span class="st"> </span><span class="kw">list</span>(a)     <span class="co"># vector of three elements</span>
@@ -398,16 +399,16 @@ l1 &lt;-<span class="st"> </span><span class="kw">list</span>(a)     <span class
 </div>
 <div id="data-frames" class="section level3">
 <h3><span class="header-section-number">2.2.7</span> Data-Frames</h3>
-<p>“Data-frames are used to store tabular data in R” <span class="citation">(Peng <a href="#ref-peng2015r">2015</a>)</span>. You can think of data-frames as spreadsheet-like objects. They are similar to matrices and you can have a matrix and a data-frame with the same dimensions. Basically, you have rows and columns, columns can have different classes, and the columns usually have a one-word name.</p>
-<p>As this type of object is very used by scientists, there are R packages created to work with this type of ojects. Below some of them:</p>
+<p>“Data-frames are used to store tabular data in R” <span class="citation">(Peng <a href="#ref-peng2015r">2015</a>)</span>. You can think of data-frames as spreadsheet-like objects. They are similar to matrices, and you can have a matrix and a data.frame with the same dimensions. You have rows and columns, columns can have different classes, and the columns usually have a one-word name.</p>
+<p>Programmers, scientists, and practitioners use tabular data. Hence, there are R packages created to extend the capabilities of the data-frames. Below some of them:</p>
 <ul>
-<li><code>data.frame</code>: This is not a package. It is a class and function from the <code>base</code> library in R. With this function you can create data-frames.</li>
-<li><code>data-table</code> <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>: <code>data.tables</code> objects has the class <code>data.table</code> which inherits from the class <code>data-frame</code>, which means that they share common characteristics. However, the big difference with <code>data-table</code> is the efficiency with memory. It includes functions such as <code>fread</code> for reading millions of observations in seconds.</li>
-<li><code>tidyr</code><span class="citation">(Wickham and Henry <a href="#ref-tidyr">2018</a>)</span>: Sometimes your data is in long format and you need it in wide format, and viceversa. This package does the job.</li>
-<li><code>readxl</code> <span class="citation">(Wickham and Bryan <a href="#ref-readxl">2017</a>)</span>: Good package for importing Excel and LibreOffice files. I recommend this packages for newbies.</li>
+<li><code>data.frame</code> : This is not a package. It is a class and function from the <code>base</code> library in R. With this function you can create data-frames.</li>
+<li><code>data-table</code> <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>: <code>data.tables</code> objects have the class <code>data.table</code> Which inherits from the class <code>data-frame</code>, which means that they share common characteristics. However, the big difference with <code>data-table</code> is the efficiency with memory. It includes functions such as <code>fread</code> for reading millions of observations in seconds.</li>
+<li><code>tidyr</code><span class="citation">(Wickham and Henry <a href="#ref-tidyr">2018</a>)</span>: Sometimes your data is in long format, and you need it in wide format, and vice-versa. This package does the job.</li>
+<li><code>readxl</code> <span class="citation">(Wickham and Bryan <a href="#ref-readxl">2017</a>)</span>: a Good package for importing Excel and LibreOffice files. I recommend this packages for newbies.</li>
 <li><code>sf</code> <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>: This package presents the class <code>sf</code> and introduces the list-column of spatial geometry.</li>
 </ul>
-<p>Let’s create a data-frame.</p>
+<p>Let’s create a data.frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>
 b &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">:</span><span class="dv">5</span>
 (ab &lt;-<span class="st"> </span><span class="kw">data.frame</span>(a, b))</code></pre></div>
@@ -427,19 +428,31 @@ b &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">:</spa
 <span class="kw">names</span>(ab)                <span class="co"># new names</span></code></pre></div>
 <pre><code>## [1] &quot;c&quot; &quot;d&quot;</code></pre>
 </div>
+<div id="subseting-your-data.frame" class="section level3">
+<h3><span class="header-section-number">2.2.9</span> Subseting your data.frame</h3>
+<p>There are several packages for filtering and manipulating data.frames and databases, such as the famous <code>dplyr</code> <span class="citation">(Wickham et al. <a href="#ref-dplyr">2017</a>)</span>. However, I will mention an essential characteristic to filter data.frames, and it is not necessary for any new package, consisted in subsetting using indices. Recall that data.frames are similar matrices, and you can select values with this structure: <em>[rows, columns]</em>.</p>
+<p>Let’s create a data.frame with three columns and select all commons that match criteria for a row. Specifically, the column a fas rows with values equal of 2</p>
+<pre><code>df &lt;- data.frame(a = 1:3, b = 4:6, c = 7:9)
+(aa &lt;- df[df$a == 2,])
+class(aa)</code></pre>
+<p>here we are selecting all columns and the class of <code>aa</code> is <code>data.frame</code>. The same applies for selecting columns, lets select the columns “b” and “c”.</p>
+<pre><code>(df[, c(&quot;b&quot;, &quot;c&quot;)])</code></pre>
+</div>
 </div>
 <div id="inputting-data-into-r" class="section level2">
 <h2><span class="header-section-number">2.3</span> Inputting data into R</h2>
-<p>Your data can be in different formats. In this section I will show you how you can input text and comma separated value files, which is a very common task. Let’s say that you are using a spreadsheet program such as Microsoft Excel or LibreOffice. Then you might want to import your data into R.</p>
+<p>Your data can be in different formats. In this section, I’m showing you how you can input text and comma separated value files, which is a ubiquitous task. Let’s say that you are using a spreadsheet program such as Microsoft Excel or LibreOffice. Then you might want to import your data into R.</p>
 <ul>
-<li>Your first check is, if the first row of your data has a name or not. If they do have names, this means that they have a header.</li>
+<li>Your first check is if the first row of your data has a name or not. If they do have names, this means that they have a header.</li>
 <li>Then click on ‘Save as’ and search text file with extension .txt or .csv.</li>
-<li>Then you edit your file with a notepad (e.g. bloc, gedit, vi or other tool) to check if the decimal character is point ‘.’ and the separator character is comma ‘,’ or semicolon ‘;’ or another character. This depends on the regional configuration of your spreadsheet software.</li>
+<li>Then you edit your file with notepad (e.g., bloc, gedit, vi or another tool) to check if the decimal character is a point ‘.’ so the separator character is a comma ‘,’ or semicolon ‘;’ or another character, which depends on the local configuration of your spreadsheet software.</li>
 <li>If your file has the extension ‘.txt’, use <code>read.table</code> and if it is ‘.csv’, use <code>read.csv</code>.</li>
 </ul>
 <p>Once you checked the format, you can import your ‘.txt’ or ‘.csv’ files in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;path/to/file.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> T)
-a &lt;-<span class="st"> </span><span class="kw">read.tablesv</span>(<span class="st">&quot;path/to/file.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">header =</span> T)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;path/to/file.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>,
+              <span class="dt">header =</span> T, <span class="dt">stringsAsFactors =</span> F)
+a &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;path/to/file.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>,
+                <span class="dt">header =</span> T, <span class="dt">stringsAsFactors =</span> F)</code></pre></div>
 
 </div>
 </div>
@@ -468,6 +481,9 @@ a &lt;-<span class="st"> </span><span class="kw">read.tablesv</span>(<span class
 </div>
 <div id="ref-sf">
 <p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+</div>
+<div id="ref-dplyr">
+<p>Wickham, Hadley, Romain Francois, Lionel Henry, and Kirill Müller. 2017. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
 </div>
             </section>

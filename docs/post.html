@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-12-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,6 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
 <li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
 <li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic.html"><a href="basic.html#subseting-your-data.frame"><i class="fa fa-check"></i><b>2.2.9</b> Subseting your data.frame</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
 </ul></li>
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
-<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
@@ -162,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-the-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on the speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-the-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on the speed with the function <code>ef_hdv_speed</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
 <li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
@@ -302,8 +303,6 @@ speed &lt;-<span class="st"> </span><span class="kw">netspeed</span>(pcw <span c
 lef &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant<span class="op">==</span><span class="st">&quot;CO&quot;</span>, <span class="st">&quot;PC_G&quot;</span>])
 E_CO &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> PC_G,<span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> lef, <span class="dt">speed =</span> speed,
              <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2014</span>)</code></pre></div>
-<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
-<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
 <pre><code>## 187546.38 kg emissions in 24 hours and 7 days</code></pre>
 <p>Now that we have our <code>EmissionsArray</code> E_CO, we can process it with the function <code>emis_post</code>. The emissions by street are obtained with the argument <code>by</code> = “streets_wide”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E_CO_STREETS &lt;-<span class="st"> </span><span class="kw">emis_post</span>(E_CO, <span class="dt">by =</span> <span class="st">&quot;streets_wide&quot;</span>)
@@ -336,8 +335,6 @@ Figure 7.2: CO emisions of PC (g/h)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lef &lt;-<span class="st"> </span><span class="kw">EmissionFactorsList</span>(fe2015[fe2015<span class="op">$</span>Pollutant<span class="op">==</span><span class="st">&quot;NOx&quot;</span>, <span class="st">&quot;LT&quot;</span>])
 E_NOx &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt">veh =</span> LT, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">ef =</span> lef, <span class="dt">speed =</span> speed,
               <span class="dt">profile =</span> profiles<span class="op">$</span>PC_JUNE_<span class="dv">2014</span>)</code></pre></div>
-<pre><code>## Number of columns of &#39;veh&#39; is different than length of &#39;ef&#39;</code></pre>
-<pre><code>## adjusting length of ef to the number of colums of &#39;veh&#39;</code></pre>
 <pre><code>## 34029.87 kg emissions in 24 hours and 7 days</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E_NOx_STREETS &lt;-<span class="st"> </span><span class="kw">emis_post</span>(E_NOx, <span class="dt">by =</span> <span class="st">&quot;streets_wide&quot;</span>, <span class="dt">net =</span> net)
 <span class="kw">ggplot</span>(E_NOx_STREETS) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">as.numeric</span>(V9))) <span class="op">+</span>
@@ -408,7 +405,7 @@ Figure 7.6: NOx emissions of LT
 <p>The function <code>inventory</code> was designed to store the emissions of each type of vehicle in each directory. Hence, it was necessary to create a function that read and merge the emissions that are in each directory, returning a data-frame os a spatial feature data-frame. The function is <code>emis_merge</code>. As it can be seen on Fig. <a href="post.html#fig:demispost">7.1</a>, <code>emis_merge</code> comes after <code>emis_post</code> or <code>speciate</code>. The arguments of <code>emis_merge</code> are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_merge)</code></pre></div>
 <pre><code>## function (pol = &quot;CO&quot;, what = &quot;STREETS.rds&quot;, streets = T, net, 
-##     path = &quot;emi&quot;, crs, under = &quot;after&quot;, as_list = FALSE) 
+##     path = &quot;emi&quot;, crs, under = &quot;after&quot;, ignore = FALSE, as_list = FALSE) 
 ## NULL</code></pre>
 <p>Where,</p>
 <ul>
@@ -421,27 +418,27 @@ Figure 7.6: NOx emissions of LT
 </ul>
 <p>In order to see how this functions works, let’s run the example in the <code>inventory</code> function. First, lets create a project, or in other words a directory named “YourCity”, into the temporary directory. In this part you can place your project wherever you want with the actual name of your city. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
-vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name)</code></pre></div>
-<pre><code>## files at /tmp/RtmplMBTd0/YourCity</code></pre>
+vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.main =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## files at /tmp/Rtmpxklera/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmplMBTd0/YourCity&quot;             
-##  [2] &quot;/tmp/RtmplMBTd0/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmplMBTd0/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmplMBTd0/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmplMBTd0/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmplMBTd0/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmplMBTd0/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmplMBTd0/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmplMBTd0/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmplMBTd0/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmplMBTd0/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmplMBTd0/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmplMBTd0/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmplMBTd0/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmplMBTd0/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmplMBTd0/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmplMBTd0/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/RtmplMBTd0/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/Rtmpxklera/YourCity&quot;             
+##  [2] &quot;/tmp/Rtmpxklera/YourCity/ef&quot;          
+##  [3] &quot;/tmp/Rtmpxklera/YourCity/emi&quot;         
+##  [4] &quot;/tmp/Rtmpxklera/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/Rtmpxklera/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/Rtmpxklera/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/Rtmpxklera/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/Rtmpxklera/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/Rtmpxklera/YourCity/est&quot;         
+## [10] &quot;/tmp/Rtmpxklera/YourCity/images&quot;      
+## [11] &quot;/tmp/Rtmpxklera/YourCity/network&quot;     
+## [12] &quot;/tmp/Rtmpxklera/YourCity/post&quot;        
+## [13] &quot;/tmp/Rtmpxklera/YourCity/post/df&quot;     
+## [14] &quot;/tmp/Rtmpxklera/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/Rtmpxklera/YourCity/post/streets&quot;
+## [16] &quot;/tmp/Rtmpxklera/YourCity/profiles&quot;    
+## [17] &quot;/tmp/Rtmpxklera/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/Rtmpxklera/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This script starts with <code>setwd</code> function, Then the first section is the network, where user reads and prepares the traffic information. Then the second section runs a script whichruns the age functions for the deault vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>

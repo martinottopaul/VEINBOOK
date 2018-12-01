@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-12-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,6 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
 <li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
 <li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic.html"><a href="basic.html#subseting-your-data.frame"><i class="fa fa-check"></i><b>2.2.9</b> Subseting your data.frame</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
 </ul></li>
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
-<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
@@ -162,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-the-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on the speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-the-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on the speed with the function <code>ef_hdv_speed</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
 <li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
@@ -254,18 +255,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="st" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Structuring an Emissions Inventory</h1>
-<p>The elaboration of vehicular emissions inventories in vein, consists of four stages:</p>
+<p>The elaboration of vehicular emissions inventories in VEIN consists of four stages:</p>
 <ol style="list-style-type: decimal">
 <li>pre-processing activity data,</li>
 <li>preparing emissions factors,</li>
 <li>estimating the emissions and</li>
 <li>post-processing of emissions in maps and databases.</li>
 </ol>
-<p>This means that vein provides functions to be used in each of the stages. However, in order to follow these stages, a structure of directories with scripts including vein functions is necessary. Therefore, the vein function <code>inventory</code> was created to create this structure of directories.</p>
+<p>VEIN provides functions to each of the stages. However, to follow these stages, a structure of directories with scripts including vein functions is necessary. Therefore, the vein function <code>inventory</code> creates this structure of directories.</p>
 <div id="veinstructure" class="section level2">
 <h2><span class="header-section-number">3.1</span> Overview of emissions inventorying using VEIN</h2>
 <div class="figure" style="text-align: center"><span id="fig:diavein"></span>
-<img src="figuras/dia1.png" alt="Structuring an emissions inventories with VEIN" width="100%" />
+<img src="figuras/dia1.png" alt="Structuring an emissions inventories with VEIN" width="70%" />
 <p class="caption">
 Figure 3.1: Structuring an emissions inventories with VEIN
 </p>
@@ -273,57 +274,60 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 </div>
 <div id="the-inventory-function" class="section level2">
 <h2><span class="header-section-number">3.2</span> The <code>inventory</code> function</h2>
-<p>The inventory function creates creates a structure of directories and scripts to run vein. This structure is a suggestion and the user can use any other. The following code shows the arguments of the function. This is done using the base function <code>args</code> with <code>inventory</code>.</p>
+<p>The inventory function creates a structure of directories and scripts to run VEIN. This structure is a suggestion, and the user can use any other. The following code shows the arguments of the function using the <code>args</code> function with <code>inventory</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(inventory)</code></pre></div>
 <pre><code>## function (name, vehcomp = c(PC = 1, LCV = 1, HGV = 1, BUS = 1, 
-##     MC = 1), scripts = TRUE, show.dir = TRUE, show.scripts = FALSE, 
-##     clear = TRUE, rush.hour = FALSE) 
+##     MC = 1), show.main = TRUE, scripts = TRUE, show.dir = TRUE, 
+##     show.scripts = FALSE, clear = TRUE, rush.hour = FALSE) 
 ## NULL</code></pre>
-<p>The arguments are <code>name</code>, <code>vehcomp</code>, <code>scripts</code>, <code>show.dir</code>, <code>show.scripts</code> and <code>clear</code>.</p>
+<p>The arguments are <code>name</code>, <code>vehcomp</code>, <code>show.main</code>, <code>scripts</code>, <code>show.dir</code>, <code>show.scripts</code> and <code>clear</code>.</p>
 <ul>
 <li>The argument <code>name</code></li>
 </ul>
-<p>The argument name is a word to be used as main directory where directories and scripts are stored in. It consists in <em>one</em> word with ascii characters. It is also recommended to be used without any special character or accents, for instance:</p>
+<p>The argument name is a word to be used as the main directory where directories and scripts are stored. It consists in <em>one</em> word with ASCII characters. It is also recommended to exclude any special character or accents, for instance:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
-<span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">inventory</span>(<span class="dt">name =</span> name,  <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ul>
-<li>The argument <code>vehcomp</code> This argument is very important and comes from <em>Vehicular Composition</em>, which is the classification of the fleet by type of use, type of fuel, size of engine and gross weight, based on definitions of <span class="citation">Corvalán, Osses, and Urrutia (<a href="#ref-Corvalanetal2002">2002</a>)</span>. There is also the <em>technological composition</em> of the fleet which relates the technological modifications of the car in order to accomplish the emissions standards. However, vein uses a distribution by age of use as <a href="traffic.html#traffic">4</a> shows.</li>
+<li>The argument <code>vehcomp</code> This argument is critical and comes from <em>Vehicular Composition</em>, which is the classification of the fleet by type of use, type of fuel, size of engine and gross weight, based on definitions of <span class="citation">Corvalán, Osses, and Urrutia (<a href="#ref-Corvalanetal2002">2002</a>)</span>. There is also the <em>technological composition</em> of the fleet which relates the technological modifications of the car to accomplish the emissions standards. However, vein uses a distribution by the age of use as <a href="traffic.html#traffic">4</a> shows.</li>
 </ul>
 <p>The vehicular composition <code>vehcomp</code> has 5 types of vehicles:</p>
 <ol style="list-style-type: decimal">
-<li>Passenger Carss (PC).</li>
+<li>Passenger Cars (PC).</li>
 <li>Light Commercial Vehicles (LCV).</li>
 <li>Heavy Good Vehicles or trucks (HGV).</li>
 <li>Buses (BUS).</li>
 <li>Motorcycles (MC).</li>
 </ol>
-<p>The default value of this argument is: <code>c(PC = 1, LCV = 1, HGV = 1, BUS = 1, MC = 1)</code>, which means that there are 1 types of PC, 1 of LCV, 1 of trucks, 1 of buses and 1 types of motorcycles. This vehicular composition is only for ilutrasting that the user can change these values according to its own data. Appendix B shows the vehicular composition from the vehicular emissions inventory of the Environmental Agency of São Paulo, Brazil <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span>. In Brazil, the fuel used in vehicles is blended with ethanol with and biodiesel. The user can use <strong>any</strong> vehicular composition that representes its fleet with up-to 99 types of vehicles per category. For instance, if there are 4 types of PC in a fleet, <code>PC = 4</code>, and each one has aa age of use distribution.</p>
+<p>The default value of this argument is: <code>c(PC = 1, LCV = 1, HGV = 1, BUS = 1, MC = 1)</code>, which means that there are 1 types of PC, 1 of LCV, 1 of trucks, 1 of buses and 1 types of motorcycles. This vehicular composition is only for illustrating that the user can change these values according to its data. Appendix B shows the vehicular composition from the vehicular emissions inventory of the Environmental Agency of São Paulo, Brazil <span class="citation">(CETESB <a href="#ref-CETESB2015">2015</a>)</span>. In Brazil, the fuel used in vehicles is blended with ethanol with and biodiesel. The user can use <strong>any</strong> vehicular composition that represents its fleet with up to 99 types of vehicles per category. For instance, if there are 4 types of PC in a fleet, <code>PC = 4</code>, and each one has aa age of use distribution.</p>
+<ul>
+<li>The argument <code>scripts</code></li>
+</ul>
+<p>This argument adds scripts into the directories. The default is TRUE. The type of scripts create are:</p>
+<ul>
+<li>main.R: Adds the <code>setwd(&quot;YourCity&quot;)</code>, <code>library(vein)</code>, <code>source(traffic.R)</code>, some comments and a loop to source all inputs. It is recommended not using the loop till it is certain that all scripts are correct.</li>
+<li>traffic.R: Includes two lines with examples of how to use the <code>age_ldv</code> function and saving the output in the directory veh.</li>
+<li><p>input.R: Each file has the scripts for reading the network, vehicles, emission factors and estimating emissions.</p></li>
+<li><p>The argument <code>show.main</code></p></li>
+</ul>
+<p>This argument is to open automatically the file main.R. Default value is TRUE.</p>
 <ul>
 <li>The argument <code>show.dir</code></li>
 </ul>
 <p>This is a logical argument to decide if the output of the function will return print the new directories or not. The use is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
-<span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmplMBTd0/YourCity</code></pre>
-<pre><code>## Directories:
-##  [1] &quot;/tmp/RtmplMBTd0/YourCity&quot;             
-##  [2] &quot;/tmp/RtmplMBTd0/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmplMBTd0/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmplMBTd0/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmplMBTd0/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmplMBTd0/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmplMBTd0/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmplMBTd0/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmplMBTd0/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmplMBTd0/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmplMBTd0/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmplMBTd0/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmplMBTd0/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmplMBTd0/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmplMBTd0/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmplMBTd0/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmplMBTd0/YourCity/veh&quot;</code></pre>
-<p><code>inventory</code> creates the direcrory “YourCity” and the sub directories: daily, ef, emi, est, images, network and veh.</p>
+<span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.main =</span> <span class="ot">FALSE</span>, <span class="dt">show.dir =</span> <span class="ot">TRUE</span>, <span class="dt">show.scripts =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>files at /tmp/RtmpT5bNtr/YourCity
+Directories:
+ [1] &quot;/tmp/RtmpT5bNtr/YourCity&quot;              &quot;/tmp/RtmpT5bNtr/YourCity/ef&quot;          
+ [3] &quot;/tmp/RtmpT5bNtr/YourCity/emi&quot;          &quot;/tmp/RtmpT5bNtr/YourCity/emi/BUS_01&quot;  
+ [5] &quot;/tmp/RtmpT5bNtr/YourCity/emi/HGV_01&quot;   &quot;/tmp/RtmpT5bNtr/YourCity/emi/LCV_01&quot;  
+ [7] &quot;/tmp/RtmpT5bNtr/YourCity/emi/MC_01&quot;    &quot;/tmp/RtmpT5bNtr/YourCity/emi/PC_01&quot;   
+ [9] &quot;/tmp/RtmpT5bNtr/YourCity/est&quot;          &quot;/tmp/RtmpT5bNtr/YourCity/images&quot;      
+[11] &quot;/tmp/RtmpT5bNtr/YourCity/network&quot;      &quot;/tmp/RtmpT5bNtr/YourCity/post&quot;        
+[13] &quot;/tmp/RtmpT5bNtr/YourCity/post/df&quot;      &quot;/tmp/RtmpT5bNtr/YourCity/post/grids&quot;  
+[15] &quot;/tmp/RtmpT5bNtr/YourCity/post/streets&quot; &quot;/tmp/RtmpT5bNtr/YourCity/profiles&quot;    
+[17] &quot;/tmp/RtmpT5bNtr/YourCity/veh&quot;     </code></pre>
+<p><code>inventory</code> creates the directory “YourCity” and the subdirectories: daily, ef, emi, est, images, network, and veh.</p>
 <ul>
 <li><strong>daily</strong>: Directory for storing the profiles saved as .csv files. For instance, <code>data(pc_profile)</code> is a matrix that could be saved as .csv.</li>
 <li><strong>ef</strong>: Directory for storing the emission factors data-frame, similar to <code>data(fe2015)</code> but including one column for each of the categories of the vehicular composition. For instance, if PC = 5, there should be 5 columns with emission factors in this file. If LCV = 5, another 5 columns should be present, and so on.</li>
@@ -331,30 +335,23 @@ Figure 3.1: Structuring an emissions inventories with VEIN
 <li><strong>est</strong>: Directory with subdirectories matching the vehicular composition for storing the scripts named <code>input.R</code>.</li>
 <li><strong>images</strong>: Directory for saving images.</li>
 <li><strong>network</strong>: Directory for saving the road network with the required attributes. This file will include the vehicular flow per street to be used by functions <code>age_ldv</code>, <code>age_hdv</code>, <code>age_moto</code> or <code>my_ldv</code>.</li>
-<li><strong>post</strong>: Directory for storing the processed emissions. It includes the directories <strong>df</strong> for emissions by age of use, hour and other parameters, <strong>streets</strong> for storing the total emissions by streets and <strong>grids</strong> for storing total gridded emissions by pollutant.</li>
-<li><p><strong>veh</strong>: Directory for storing the distribution by age of use of each category of the vehicular composition. Those are data-frames with number of columns with the age distribution and the number of rows as the number of streets. The class of these objects is “Vehicles”.</p></li>
-<li><p>The argument <code>scripts</code></p></li>
-</ul>
-<p>This argument adds scripts into the directories. The default is TRUE. The type of scrits create are:</p>
-<ul>
-<li>main.R: Adds the <code>setwd(&quot;YourCity&quot;)</code>, <code>library(vein)</code>, <code>source(traffic.R)</code>, some comments and a loop to source all inputs. It is recommended not using the loop till it is certain that all scripts are correct.</li>
-<li>traffic.R: Includes two lines with exampmles of how to use the <code>age_ldv</code> function and saving the output in the directory veh.</li>
-<li><p>input.R: Each file has the scripts for reading the network, vehicles, emission factors and estimating emissions.</p></li>
+<li><strong>post</strong>: Directory for storing the processed emissions. It includes the directories <strong>df</strong> for emissions by the age of use, hour and other parameters, <strong>streets</strong> for storing the total emissions by streets and <strong>grids</strong> for storing total gridded emissions by pollutant.</li>
+<li><p><strong>veh</strong>: Directory for storing the distribution by the age of use of each category of the vehicular composition. Those are data-frames with each column as the age of use, and the number of rows as the number of streets. The class of these objects is “Vehicles”.</p></li>
 <li><p>The argument <code>show.scripts</code></p></li>
 </ul>
 <p>This argument prints the scripts created:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
-<span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.dir =</span> <span class="ot">FALSE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmplMBTd0/YourCity</code></pre>
-<pre><code>## Scripts:
-## [1] &quot;est/BUS_01_input.R&quot; &quot;est/HGV_01_input.R&quot; &quot;est/LCV_01_input.R&quot;
-## [4] &quot;est/MC_01_input.R&quot;  &quot;est/PC_01_input.R&quot;  &quot;main.R&quot;            
-## [7] &quot;post.R&quot;             &quot;traffic.R&quot;</code></pre>
+<span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.main =</span> <span class="ot">FALSE</span>, <span class="dt">show.dir =</span> <span class="ot">FALSE</span>, <span class="dt">show.scripts =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>files at /tmp/RtmpT5bNtr/YourCity
+Scripts:
+[1] &quot;est/BUS_01_input.R&quot; &quot;est/HGV_01_input.R&quot; &quot;est/LCV_01_input.R&quot;
+[4] &quot;est/MC_01_input.R&quot;  &quot;est/PC_01_input.R&quot;  &quot;main.R&quot;            
+[7] &quot;post.R&quot;             &quot;traffic.R&quot;   </code></pre>
 <ul>
 <li>The argument <code>clear</code></li>
 </ul>
-<p>This is a logical argument that deletes recursively when TRUE, or not when FALSE, the directory and creates another one. Default is TRUE.</p>
-<p>The following chapters show the use of other vein functions inside an structure of directories and scripts with the name <code>inventory(&quot;YourCity&quot;)</code>.</p>
+<p>This is a logical argument that deletes recursively when TRUE, or not when FALSE, the directory and creates another one. The default is TRUE.</p>
+<p>The following chapters show the use of other vein functions inside a structure of directories and scripts with the name <code>inventory(&quot;YourCity&quot;)</code>.</p>
 
 </div>
 </div>

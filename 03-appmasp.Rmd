@@ -104,23 +104,23 @@ knitr::include_graphics("figuras/dia1.png")
 
 The inventory function creates a structure of directories and scripts to run VEIN. This structure is a suggestion, and the user can use any other. The following code shows the arguments of the function using the `args` function with `inventory`.
 
-```{r, message=FALSE, echo=FALSE}
+```{r 3.2, message=FALSE, echo=FALSE}
 library(vein)
 ```
 
-```{r}
+```{r 3.3}
 args(inventory)
 ```
 
-The arguments are `name`, `vehcomp`, `scripts`, `show.dir`, `show.scripts` and `clear`.
+The arguments are `name`, `vehcomp`, `show.main`, `scripts`, `show.dir`, `show.scripts` and `clear`.
 
 - The argument `name`
 
 The argument name is a word to be used as the main directory where directories and scripts are stored. It consists in *one* word with ASCII characters. It is also recommended to exclude any special character or accents, for instance:
 
-```{r, eval = FALSE}
+```{r 3.4, eval = FALSE}
 name = file.path(tempdir(), "YourCity")
-inventory(name = name, show.dir = TRUE, show.scripts = TRUE)
+inventory(name = name,  show.dir = TRUE, show.scripts = TRUE)
 ```
 
 - The argument `vehcomp`
@@ -138,13 +138,42 @@ The default value of this argument is: `c(PC = 1, LCV = 1, HGV = 1, BUS = 1, MC 
 category. For instance, if there are 4 types of PC in a fleet, `PC = 4`, and
 each one has aa age of use distribution.
 
+- The argument `scripts`
+
+This argument adds scripts into the directories. The default is TRUE. The type of scripts create are:
+
+- main.R: Adds the `setwd("YourCity")`, `library(vein)`, `source(traffic.R)`,
+some comments and a loop to source all inputs. It is recommended not using the loop till it is certain that all scripts are correct.
+- traffic.R: Includes two lines with examples of how to use the `age_ldv`
+function and saving the output in the directory veh.
+- input.R: Each file has the scripts for reading the network, vehicles, emission factors and estimating emissions.
+
+
+- The argument `show.main`
+
+This argument is to open automatically the file main.R. Default value is TRUE.
+
 - The argument `show.dir`
 
 This is a logical argument to decide if the output of the function will return print the new directories or not. The use is:
 
-```{r}
+```{r 3.5, eval = FALSE}
 name = file.path(tempdir(), "YourCity")
-inventory(name = name, show.dir = TRUE, show.scripts = FALSE)
+inventory(name = name, show.main = FALSE, show.dir = TRUE, show.scripts = FALSE)
+```
+
+```
+files at /tmp/RtmpT5bNtr/YourCity
+Directories:
+ [1] "/tmp/RtmpT5bNtr/YourCity"              "/tmp/RtmpT5bNtr/YourCity/ef"          
+ [3] "/tmp/RtmpT5bNtr/YourCity/emi"          "/tmp/RtmpT5bNtr/YourCity/emi/BUS_01"  
+ [5] "/tmp/RtmpT5bNtr/YourCity/emi/HGV_01"   "/tmp/RtmpT5bNtr/YourCity/emi/LCV_01"  
+ [7] "/tmp/RtmpT5bNtr/YourCity/emi/MC_01"    "/tmp/RtmpT5bNtr/YourCity/emi/PC_01"   
+ [9] "/tmp/RtmpT5bNtr/YourCity/est"          "/tmp/RtmpT5bNtr/YourCity/images"      
+[11] "/tmp/RtmpT5bNtr/YourCity/network"      "/tmp/RtmpT5bNtr/YourCity/post"        
+[13] "/tmp/RtmpT5bNtr/YourCity/post/df"      "/tmp/RtmpT5bNtr/YourCity/post/grids"  
+[15] "/tmp/RtmpT5bNtr/YourCity/post/streets" "/tmp/RtmpT5bNtr/YourCity/profiles"    
+[17] "/tmp/RtmpT5bNtr/YourCity/veh"     
 ```
 
 `inventory` creates the directory "YourCity" and the subdirectories: daily,
@@ -164,26 +193,22 @@ directories **df** for emissions by the age of use, hour and other  parameters,
 **streets** for storing the total emissions by streets and **grids** for storing total gridded emissions by pollutant.
 - **veh**: Directory for storing the distribution by the age of use of each category of the vehicular composition. Those are data-frames with each column as the age of use, and the number of rows as the number of streets. The class of these objects is "Vehicles".
 
-- The argument `scripts`
-
-This argument adds scripts into the directories. The default is TRUE. The type of scripts create are:
-
-- main.R: Adds the `setwd("YourCity")`, `library(vein)`, `source(traffic.R)`,
-some comments and a loop to source all inputs. It is recommended not using the loop till it is certain that all scripts are correct.
-- traffic.R: Includes two lines with examples of how to use the `age_ldv`
-function and saving the output in the directory veh.
-- input.R: Each file has the scripts for reading the network, vehicles, emission factors and estimating emissions.
-
 
 - The argument `show.scripts`
 
 This argument prints the scripts created:
 
-```{r}
+```{r 3.6 , eval = FALSE}
 name = file.path(tempdir(), "YourCity")
-inventory(name = name, show.dir = FALSE, show.scripts = TRUE)
+inventory(name = name, show.main = FALSE, show.dir = FALSE, show.scripts = TRUE)
 ```
-
+```
+files at /tmp/RtmpT5bNtr/YourCity
+Scripts:
+[1] "est/BUS_01_input.R" "est/HGV_01_input.R" "est/LCV_01_input.R"
+[4] "est/MC_01_input.R"  "est/PC_01_input.R"  "main.R"            
+[7] "post.R"             "traffic.R"   
+```
 
 - The argument `clear`
 

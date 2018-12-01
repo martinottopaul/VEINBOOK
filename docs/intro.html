@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-11-15">
+<meta name="date" content="2018-12-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,6 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.6" data-path="basic.html"><a href="basic.html#lists"><i class="fa fa-check"></i><b>2.2.6</b> Lists</a></li>
 <li class="chapter" data-level="2.2.7" data-path="basic.html"><a href="basic.html#data-frames"><i class="fa fa-check"></i><b>2.2.7</b> Data-Frames</a></li>
 <li class="chapter" data-level="2.2.8" data-path="basic.html"><a href="basic.html#names"><i class="fa fa-check"></i><b>2.2.8</b> Names</a></li>
+<li class="chapter" data-level="2.2.9" data-path="basic.html"><a href="basic.html#subseting-your-data.frame"><i class="fa fa-check"></i><b>2.2.9</b> Subseting your data.frame</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="basic.html"><a href="basic.html#inputting-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Inputting data into R</a></li>
 </ul></li>
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
-<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#inteprolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Inteprolation of traffic counts</a></li>
+<li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
 </ul></li>
@@ -162,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ef.html"><a href="ef.html"><i class="fa fa-check"></i><b>5</b> Emission Factors</a><ul>
 <li class="chapter" data-level="5.1" data-path="ef.html"><a href="ef.html#speedef"><i class="fa fa-check"></i><b>5.1</b> Speed functions <code>ef_ldv_speed</code> and <code>ef_hdv_speed</code></a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on speed with the function <code>ef_ldv_speed</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on speed with the function <code>ef_hdv_speed</code></a></li>
+<li class="chapter" data-level="5.1.1" data-path="ef.html"><a href="ef.html#emission-factors-of-ldv-depending-on-the-speed-with-the-function-ef_ldv_speed"><i class="fa fa-check"></i><b>5.1.1</b> Emission factors of LDV depending on the speed with the function <code>ef_ldv_speed</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="ef.html"><a href="ef.html#emission-factors-of-hdv-depending-on-the-speed-with-the-function-ef_hdv_speed"><i class="fa fa-check"></i><b>5.1.2</b> Emission factors of HDV depending on the speed with the function <code>ef_hdv_speed</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ef.html"><a href="ef.html#localef"><i class="fa fa-check"></i><b>5.2</b> Local emission factors by age of use. The functions <code>EmissionFactors</code> and <code>EmissionFactorsList</code></a></li>
 <li class="chapter" data-level="5.3" data-path="ef.html"><a href="ef.html#scale"><i class="fa fa-check"></i><b>5.3</b> Incorporating speed variation with the functions <code>ef_ldv_scaled</code> and <code>ef_hdv_scaled</code></a></li>
@@ -257,44 +258,44 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="definitions-and-sources-of-information" class="section level2">
 <h2><span class="header-section-number">1.1</span> Definitions and sources of information</h2>
 <p>Developing emissions inventories is a complex task. Therefore, before entering into the details of the functions, it is good to provide some initial definitions.</p>
-<p>A good starting point is the book <em>“The Art of Emissions Inventorying”</em> <span class="citation">(Pulles and Heslinga <a href="#ref-pulles2010art">2010</a>)</span>. This book provides general description of what is an emissions inventory. One of the early sources of information about emissions inventories and emissions factors is the Environmental Protection Agency (U.S.EPA) and its compilation of emission factors AP42 (<a href="https://www.epa.gov/air-emissions-factors-and-quantification" class="uri">https://www.epa.gov/air-emissions-factors-and-quantification</a>). A third source of information are the European EMEP/EEA air pollutant emission inventory guidebook (<a href="https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/" class="uri">https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/</a>).</p>
+<p>A good starting point is a book <em>“The Art of Emissions Inventorying”</em> <span class="citation">(Pulles and Heslinga <a href="#ref-pulles2010art">2010</a>)</span>. This book provides a general description of what is an emissions inventory. One of the early sources of information about emissions inventories and emissions factors are the Environmental Protection Agency (U.S.EPA) and its compilation of emission factors AP42 (<a href="https://www.epa.gov/air-emissions-factors-and-quantification" class="uri">https://www.epa.gov/air-emissions-factors-and-quantification</a>). A third source of information is the European EMEP/EEA air pollutant emission inventory guidebook (<a href="https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/" class="uri">https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/</a>).</p>
 <p>An emissions inventory is the compilation of all mass emitted into the atmosphere by activities in a defined area during a lapse of time. The Eq. (<a href="intro.html#eq:efGERAL">(1.1)</a> shows the general form <span class="citation">(McGlade and Vidic <a href="#ref-guia">2009</a>)</span>:</p>
 <span class="math display" id="eq:efGERAL">\[\begin{equation}
-Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{activity, pollutant}
+Emission_{pollutant}=\sum_{activities} Activity \cdot Emission factor_{activity, pollutant}
 \tag{1.1}
 \end{equation}\]</span>
-<p>There are two main types of inventories based on the application, one type is for policy application and the other for scientific application <span class="citation">(Pulles and Heslinga <a href="#ref-pulles2010art">2010</a>)</span>.</p>
+<p>There are two main kinds of inventories based on the application; one is for policy application and the other for scientific application <span class="citation">(Pulles and Heslinga <a href="#ref-pulles2010art">2010</a>)</span>.</p>
 <ul>
 <li>Inventories for policy application include the National Greenhouse Gas Inventory for the parties under the United Nations Framework on Climate Change <span class="citation">(UNFCCC <a href="#ref-unfccc">2017</a>)</span>.</li>
 <li>Emissions inventories with scientific applications include the Emission Database for Global Atmospheric Research EDGAR <span class="citation">(EJ-JRC/PBL <a href="#ref-edgar">2016</a>)</span>.</li>
 </ul>
-<p>Emissions inventories can be also multimedia inventories, such as the Pollutant Release and Transfer Registers (PRTR) which include pollutants released to air, water and soil and transferred off-site for treatment or disposal (<a href="http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/" class="uri">http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/</a>). However, the type of inventory covered in this book cover only the emissions released into the atmosphere.</p>
+<p>Emissions inventories can also be multimedia inventories, such as the Pollutant Release and Transfer Registers (PRTR) which include pollutants released to air, water, and soil and transferred off-site for treatment or disposal (<a href="http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/" class="uri">http://www.oecd.org/chemicalsafety/pollutant-release-transfer-register/</a>). However, the type of inventory covered in this book includes only the emissions released into the atmosphere.</p>
 <div id="approaches" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> Approaches</h3>
-<p>It is necessary show some definitions of vehicular emissions inventories approaches, which in this case comes from the European Emissions Guidelines <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>:</p>
+<p>It is necessary to show some definitions of vehicular emissions inventories approaches, which in this case comes from the European Emissions Guidelines <span class="citation">(Ntziachristos and Samaras <a href="#ref-NtziachristosSamaras2016">2016</a>)</span>:</p>
 <ul>
-<li><strong>Top-down</strong> inventories are using input activity traffic data as fleet statistics, fuel consumption, representative speeds and country balances. The emissions factors are based on representative speeds. These inventories are also know as <em>static</em>.</li>
-<li><strong>Bottom-up</strong> invetories are using input activity traffic data from traffic counts, traffic simulations, vehicle composition, speed recordings and length of roads. The emission factors are speed or/and acceleration functions. These inventories are also know as <em>dynamic</em>.</li>
-<li><strong>Reconciliation</strong> Both approaches can be reconciliated in urban emissions inventories with comparison of total mileage, cold start mileage or emission factors to ensure that the comparison with the total fuel consumption in the study area is satisfactory. This means that bottom-up and top-down vehicular emissions must match the fuel sales over a region of study.</li>
+<li><strong>Top-down</strong> uses input activity traffic data as fleet statistics, fuel consumption, representative speeds, and country balances. The emissions factors are based on representative speeds. These inventories are also known as <em>static</em>.</li>
+<li><strong>Bottom-up</strong> uses using input activity traffic data from traffic counts, traffic simulations, vehicle composition, speed recordings and length of roads. The emission factors are speed or/and acceleration functions. These inventories are also known as <em>dynamic</em>.</li>
+<li><strong>Reconciliation</strong> Both approaches must be reconciled in urban emissions inventories with the comparison of total mileage, cold start mileage or emission factors to ensure that the comparison with the total fuel consumption in the study area is satisfactory. Another point of calibration is that the estimation of fuel consumption must match the fuel sales in your study area.</li>
 </ul>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2><span class="header-section-number">1.2</span> Installation</h2>
-<p>The VEIN r-package can be installed from Comprehensive R Archive Network <a href="https://cran.r-project.org/">CRAN</a> directly:</p>
+<p>The VEIN R-package can be installed from Comprehensive R Archive Network <a href="https://cran.r-project.org/">CRAN</a> directly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># CRAN</span>
 <span class="kw">install.packages</span>(<span class="st">&quot;vein&quot;</span>)</code></pre></div>
 <p>VEIN can be also installed from github:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="kw">install_github</span>(<span class="st">&quot;ibarraespinosa/vein&quot;</span>)</code></pre></div>
-<p>The github installation requires that the <em>devtools</em> package <span class="citation">(Wickham and Chang <a href="#ref-devtools">2017</a>)</span> must be installed, including its dependencies.</p>
+<p>The GitHub installation requires that the <em>devtools</em> package <span class="citation">(Wickham and Chang <a href="#ref-devtools">2017</a>)</span> must be installed, including dependencies.</p>
 </div>
 <div id="required-r-packages-and-dependencies" class="section level2">
 <h2><span class="header-section-number">1.3</span> Required R packages and dependencies</h2>
-<p>VEIN improts functions from other R packages. HEnce, these packages are necessary::</p>
-<p><strong>sf</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It depends on the library GEOS (<a href="http://trac.osgeo.org/geos" class="uri">http://trac.osgeo.org/geos</a>), ‘Geospatial’ Data Abstraction Library (‘GDAL’) (<a href="http://www.gdal.org/" class="uri">http://www.gdal.org/</a>) and PROJ (<a href="http://proj4.org/" class="uri">http://proj4.org/</a>). <strong>data.table</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It can be installed. - <strong>sp</strong>. This is a package that provides classes and methods for spatial data <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span> considering points, lines, polygons and grids. few function of sp are imported, most of them comes from sf. <strong>eixport</strong> is a package <span class="citation">(Ibarra-Espinosa, Schuch, and de Freitas <a href="#ref-eixport2">2017</a>)</span> that creates inputs for atmospheric models <span class="citation">(Ibarra-Espinosa, Schuch, and Dias de Freitas <a href="#ref-eixport">2018</a>)</span>. - <strong>units</strong>. It is a package for measurement units in R <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-units">2016</a>)</span>. This package depends on the library udunits2 (<a href="http://www.unidata.ucar.edu/software/udunits/" class="uri">http://www.unidata.ucar.edu/software/udunits/</a>). I</p>
+<p>VEIN imports functions from other R packages. Hence, these packages are necessary::</p>
+<p><strong>sf</strong> is a package that provides simple features access for R <span class="citation">(Pebesma <a href="#ref-sf">2017</a>)</span>. It depends on the libraries GEOS (<a href="http://trac.osgeo.org/geos" class="uri">http://trac.osgeo.org/geos</a>), ‘Geospatial’ Data Abstraction Library (‘GDAL’) (<a href="http://www.gdal.org/" class="uri">http://www.gdal.org/</a>) also, PROJ (<a href="http://proj4.org/" class="uri">http://proj4.org/</a>). <strong>data.table</strong> is a package is an extension of data.frame class, providing high-speed operations <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>. - <strong>sp</strong>. This is a package that provides classes and methods for spatial data <span class="citation">(Pebesma and Bivand <a href="#ref-sp">2005</a>)</span> Considering points, lines, polygons, and grids. Few functions of ‘sp’ are imported, most of them come from sf. <strong>eixport</strong> is a package <span class="citation">(Ibarra-Espinosa, Schuch, and de Freitas <a href="#ref-eixport2">2017</a>)</span> that creates inputs for atmospheric models <span class="citation">(Ibarra-Espinosa, Schuch, and Dias de Freitas <a href="#ref-eixport">2018</a>)</span>. - <strong>units</strong>. It is a package for measurement units in R <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-units">2016</a>)</span>. This package depends on the library udunits2 (<a href="http://www.unidata.ucar.edu/software/udunits/" class="uri">http://www.unidata.ucar.edu/software/udunits/</a>). I</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;data.table&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;eixport&quot;</span>, <span class="st">&quot;units&quot;</span>))</code></pre></div>
-<p>In order to install <strong>sf</strong> package it is necessary to install the dependencies into each operational system.</p>
+<p>You have to install the package <strong>sf</strong>, including its library dependencies into your operating system.</p>
 <p><strong>Ubuntu</strong></p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 <span class="fu">sudo</span> apt-get update
@@ -335,7 +336,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 <div id="emission-factors-from-cetesb" class="section level3">
 <h3><span class="header-section-number">1.4.1</span> Emission factors from CETESB</h3>
 <ul>
-<li><strong>fe2015</strong>: Emission factors from the Environmental Agency of Sao Paulo (CETESB). Pollutants included: “CH4”, “CO”, “CO2”, “HC”, “N2O”, “NMHC”, “NOx” and “PM”. The type of vehicles included are Passenger Cars (PC).</li>
+<li><strong>fe2015</strong>: Emission factors from the Environmental Agency of Sao Paulo (CETESB). Pollutants included: “CH4”, “CO”, “CO2”, “HC”, “N2O”, “NMHC”, “NOx” and “PM”. The type of vehicles included is Passenger Cars (PC). Please note that I added a new function <code>ef_cetesb</code> in version 0.4.4 which covers all CETESB emission factors.</li>
 </ul>
 <p>usage:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein, <span class="dt">quietly =</span> T)
@@ -400,7 +401,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 <div id="mileage-functions-of-brazilian-fleet" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Mileage functions of Brazilian Fleet</h3>
 <ul>
-<li><strong>fkm</strong>: A list of functions of mileage in km for the Brazilian fleet. It includes mileage functions based on more than 2 million recordings of vehicles <span class="citation">(Bruni and Bales <a href="#ref-BruniBales2013">2013</a>)</span>. It consists a list of age functions. The type of vehicles are Passneger Cars (PC), Light Commercial Vehicles (LCV), Small Busses (SBUS), Trucks, Articulated Trucks (ATRUCKS), Motorcycles (MOTO) and Light vehicles (LDV). The fuels are Gasoline using 25% of ethanol (E25), Ethanol 100% (E100) and Diesel with 5% of biodiesel (B5). There are also vehicles with flex engines which can run either with E25, E100 or any mixture in between <span class="citation">(Giroldo et al. <a href="#ref-2005-01-4130">2005</a>)</span>. The Fig. (<a href="intro.html#fig:mil">1.1</a> shows the mileage of PC using fuel E25.</li>
+<li><strong>fkm</strong>: A list of functions of mileage in km for the Brazilian fleet. It includes mileage functions based on more than 2 million recordings of vehicles <span class="citation">(Bruni and Bales <a href="#ref-BruniBales2013">2013</a>)</span>. It consists of a list of age functions. The type of cars are Passenger Cars (PC), Light Commercial Vehicles (LCV), Small Busses (SBUS), Trucks, Articulated Trucks (ATRUCKS), Motorcycles (MOTO) and Light vehicles (LDV). The fuels are Gasoline using 25% of ethanol (E25), Ethanol 100% (E100) and Diesel with 5% of biodiesel (B5). There are also vehicles with flex engines which can run either with E25, E100 or any mixture in between <span class="citation">(Giroldo et al. <a href="#ref-2005-01-4130">2005</a>)</span>. The Fig. (<a href="intro.html#fig:mil">1.1</a> shows the mileage of PC using fuel E25.</li>
 </ul>
 <p>usage:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein, <span class="dt">quietly =</span> T)
@@ -411,7 +412,7 @@ Emission_{pollutant}=\sum_{activities} Activity reate \cdot Emission factor_{act
 ##  [9] &quot;KM_LCV_B5&quot;     &quot;KM_SBUS_B5&quot;    &quot;KM_ATRUCKS_B5&quot; &quot;KM_MOTO_E25&quot;  
 ## [13] &quot;KM_LDV_GNV&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">50</span>
-mileage &lt;-<span class="st"> </span>fkm[[<span class="st">&quot;KM_PC_E25&quot;</span>]](<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>) 
+mileage &lt;-<span class="st"> </span>fkm<span class="op">$</span><span class="kw">KM_PC_E25</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>) 
 <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))
 <span class="kw">plot</span>(<span class="dt">y =</span> mileage, <span class="dt">x =</span> age, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:mil"></span>
@@ -426,7 +427,7 @@ Figure 1.1: Mileage of PC using E25
 </div>
 <div id="temporal-factors-for-passenger-cars" class="section level3">
 <h3><span class="header-section-number">1.4.3</span> Temporal factors for Passenger Cars</h3>
-<p>Temporal factors (TF) are marix of jourly traffic data normalized for the hour of interest, normally the morning rush hour 08:00-09:00 in local time (LT) <span class="citation">(S. Ibarra-Espinosa et al. <a href="#ref-gmd-2017-193">2018</a>)</span>. This dataset cover 168 hours of one week and it is based on traffic counts of toll stations near the center of the city of SãoPaulo, Brazil. The Fig. (<a href="intro.html#fig:tf">1.2</a> shows the temporal factors for PC.</p>
+<p>Temporal factors (TF) are the matrix of hourly traffic data normalized for the hour of interest, usually the morning rush hour 08:00-09:00 in local time (LT) <span class="citation">(S. Ibarra-Espinosa et al. <a href="#ref-gmd-2017-193">2018</a>)</span>. This dataset covers 168 hours of one week, from traffic counts of toll stations near the center of the city of SãoPaulo, Brazil. Fig. (<a href="intro.html#fig:tf">1.2</a> shows the temporal factors for PC.</p>
 <p>usage:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein, <span class="dt">quietly =</span> T)
 <span class="kw">data</span>(pc_profile)
@@ -443,7 +444,7 @@ Figure 1.2: Temporal Factors for PC
 </div>
 <div id="profile-for-cold-starts-of-passenger-cars" class="section level3">
 <h3><span class="header-section-number">1.4.4</span> Profile for cold starts of Passenger Cars</h3>
-<p>This is a profile with the hourly percentage of cold starts of Passenger Cars. This data covers 24 hours of a working day and it is based cold start recordings during the implementation of the International Vehicle Emissions (IVE) model <span class="citation">(Davis et al. <a href="#ref-Davisetal2005">2005</a>)</span> in São Paulo <span class="citation">(Lents et al. <a href="#ref-ivesp">2004</a>)</span>. The Fig. (<a href="intro.html#fig:cold">1.3</a> shows the cold-start profile.</p>
+<p>I included a profile of hourly percentage of cold starts of Passenger Cars. This data covers 24 hours of a working day, and it is based cold start recordings during the implementation of the International Vehicle Emissions (IVE) model <span class="citation">(Davis et al. <a href="#ref-Davisetal2005">2005</a>)</span> in São Paulo <span class="citation">(Lents et al. <a href="#ref-ivesp">2004</a>)</span>. The Fig. (<a href="intro.html#fig:cold">1.3</a> shows the cold-start profile.</p>
 <p>usage:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein, <span class="dt">quietly =</span> T)
 <span class="kw">data</span>(pc_cold)
@@ -461,7 +462,7 @@ Figure 1.3: Cold-starts profile for PC
 </div>
 <div id="acknowledgements" class="section level2">
 <h2><span class="header-section-number">1.5</span> Acknowledgements</h2>
-<p>Martin Ramacher, PhD Student Chemistry Transport Modelling, Institute for Coastal Research, Helmholtz-Zentrum Geesthacht, Germany - Proofreading. Leila Droprinchinski Martins, Professor (Associate) Federal Technological University of Parana, Brazil - Comments.</p>
+<p>Martin Ramacher, Ph.D. Student Chemistry Transport Modelling, Institute for Coastal Research, Helmholtz-Zentrum Geesthacht, Germany - Proofreading. Leila Droprinchinski Martins, Professor (Associate) Federal Technological University of Parana, Brazil - Comments.</p>
 
 </div>
 </div>
@@ -487,6 +488,9 @@ Figure 1.3: Cold-starts profile for PC
 </div>
 <div id="ref-sf">
 <p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+</div>
+<div id="ref-datatable">
+<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
 <div id="ref-sp">
 <p>Pebesma, Edzer J., and Roger S. Bivand. 2005. “Classes and Methods for Spatial Data in R.” <em>R News</em> 5 (2): 9–13. <a href="https://CRAN.R-project.org/doc/Rnews/" class="uri">https://CRAN.R-project.org/doc/Rnews/</a>.</p>
