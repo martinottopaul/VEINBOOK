@@ -7,7 +7,7 @@ The elaboration of vehicular emissions inventories in VEIN consists of four stag
 3. estimating the emissions and
 4. post-processing of emissions in maps and databases.
 
-VEIN provides functions to each of the stages. However, to follow these stages, a structure of directories with scripts including vein functions is necessary. Therefore, the vein function `inventory` was created to create this structure of directories.
+VEIN provides functions to each of the stages. However, to follow these stages, a structure of directories with scripts including vein functions is necessary. Therefore, the vein function `inventory` creates this structure of directories.
 
 
 ## Overview of emissions inventorying using VEIN {#veinstructure}
@@ -95,7 +95,7 @@ p1
 ```
 
 
-```{r diavein, echo = FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='100%', fig.asp=.75, fig.align='center'}
+```{r diavein, echo = FALSE, fig.cap='Structuring an emissions inventories with VEIN', out.width='70%', fig.asp=.75, fig.align='center'}
 knitr::include_graphics("figuras/dia1.png")
 ```
 
