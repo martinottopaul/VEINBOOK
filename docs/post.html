@@ -196,7 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
 <li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
 <li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
-<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrasion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrasion</a></li>
 <li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
 <li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
 <li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
@@ -221,7 +221,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
 <li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
 <li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
-<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#fuel-quality"><i class="fa fa-check"></i><b>10.2.7</b> Fuel quality</a></li>
+<li class="chapter" data-level="10.2.8" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.8</b> Emissions estimation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -419,26 +420,26 @@ Figure 7.6: NOx emissions of LT
 <p>To see how this functions works, let’s run the example in the <code>inventory</code> function. First, let’s create a project, or in other words, a directory named “YourCity”, into the temporary directory. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.main =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## files at /tmp/RtmpYgsztN/YourCity</code></pre>
+<pre><code>## files at /tmp/Rtmpm9wSQ0/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/RtmpYgsztN/YourCity&quot;             
-##  [2] &quot;/tmp/RtmpYgsztN/YourCity/ef&quot;          
-##  [3] &quot;/tmp/RtmpYgsztN/YourCity/emi&quot;         
-##  [4] &quot;/tmp/RtmpYgsztN/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/RtmpYgsztN/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/RtmpYgsztN/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/RtmpYgsztN/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/RtmpYgsztN/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/RtmpYgsztN/YourCity/est&quot;         
-## [10] &quot;/tmp/RtmpYgsztN/YourCity/images&quot;      
-## [11] &quot;/tmp/RtmpYgsztN/YourCity/network&quot;     
-## [12] &quot;/tmp/RtmpYgsztN/YourCity/post&quot;        
-## [13] &quot;/tmp/RtmpYgsztN/YourCity/post/df&quot;     
-## [14] &quot;/tmp/RtmpYgsztN/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/RtmpYgsztN/YourCity/post/streets&quot;
-## [16] &quot;/tmp/RtmpYgsztN/YourCity/profiles&quot;    
-## [17] &quot;/tmp/RtmpYgsztN/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/RtmpYgsztN/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/Rtmpm9wSQ0/YourCity&quot;             
+##  [2] &quot;/tmp/Rtmpm9wSQ0/YourCity/ef&quot;          
+##  [3] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi&quot;         
+##  [4] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/Rtmpm9wSQ0/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/Rtmpm9wSQ0/YourCity/est&quot;         
+## [10] &quot;/tmp/Rtmpm9wSQ0/YourCity/images&quot;      
+## [11] &quot;/tmp/Rtmpm9wSQ0/YourCity/network&quot;     
+## [12] &quot;/tmp/Rtmpm9wSQ0/YourCity/post&quot;        
+## [13] &quot;/tmp/Rtmpm9wSQ0/YourCity/post/df&quot;     
+## [14] &quot;/tmp/Rtmpm9wSQ0/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/Rtmpm9wSQ0/YourCity/post/streets&quot;
+## [16] &quot;/tmp/Rtmpm9wSQ0/YourCity/profiles&quot;    
+## [17] &quot;/tmp/Rtmpm9wSQ0/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/Rtmpm9wSQ0/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This script starts with <code>setwd</code> function, Then the first section is the network, where the user reads and prepares the traffic information. Then the second section runs a script which runs the age functions for the default vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>

@@ -2928,8 +2928,8 @@ function \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <bytecode: 0x562c3b9a51d0>
-## <environment: 0x562c7045d108>
+## <bytecode: 0x5608324da668>
+## <environment: 0x56085e391b50>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4695,31 +4695,31 @@ Then run \texttt{inventory} with the default configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/RtmpYgsztN/YourCity
+## files at /tmp/Rtmpm9wSQ0/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/RtmpYgsztN/YourCity"             
-##  [2] "/tmp/RtmpYgsztN/YourCity/ef"          
-##  [3] "/tmp/RtmpYgsztN/YourCity/emi"         
-##  [4] "/tmp/RtmpYgsztN/YourCity/emi/BUS_01"  
-##  [5] "/tmp/RtmpYgsztN/YourCity/emi/HGV_01"  
-##  [6] "/tmp/RtmpYgsztN/YourCity/emi/LCV_01"  
-##  [7] "/tmp/RtmpYgsztN/YourCity/emi/MC_01"   
-##  [8] "/tmp/RtmpYgsztN/YourCity/emi/PC_01"   
-##  [9] "/tmp/RtmpYgsztN/YourCity/est"         
-## [10] "/tmp/RtmpYgsztN/YourCity/images"      
-## [11] "/tmp/RtmpYgsztN/YourCity/network"     
-## [12] "/tmp/RtmpYgsztN/YourCity/post"        
-## [13] "/tmp/RtmpYgsztN/YourCity/post/df"     
-## [14] "/tmp/RtmpYgsztN/YourCity/post/grids"  
-## [15] "/tmp/RtmpYgsztN/YourCity/post/streets"
-## [16] "/tmp/RtmpYgsztN/YourCity/profiles"    
-## [17] "/tmp/RtmpYgsztN/YourCity/veh"
+##  [1] "/tmp/Rtmpm9wSQ0/YourCity"             
+##  [2] "/tmp/Rtmpm9wSQ0/YourCity/ef"          
+##  [3] "/tmp/Rtmpm9wSQ0/YourCity/emi"         
+##  [4] "/tmp/Rtmpm9wSQ0/YourCity/emi/BUS_01"  
+##  [5] "/tmp/Rtmpm9wSQ0/YourCity/emi/HGV_01"  
+##  [6] "/tmp/Rtmpm9wSQ0/YourCity/emi/LCV_01"  
+##  [7] "/tmp/Rtmpm9wSQ0/YourCity/emi/MC_01"   
+##  [8] "/tmp/Rtmpm9wSQ0/YourCity/emi/PC_01"   
+##  [9] "/tmp/Rtmpm9wSQ0/YourCity/est"         
+## [10] "/tmp/Rtmpm9wSQ0/YourCity/images"      
+## [11] "/tmp/Rtmpm9wSQ0/YourCity/network"     
+## [12] "/tmp/Rtmpm9wSQ0/YourCity/post"        
+## [13] "/tmp/Rtmpm9wSQ0/YourCity/post/df"     
+## [14] "/tmp/Rtmpm9wSQ0/YourCity/post/grids"  
+## [15] "/tmp/Rtmpm9wSQ0/YourCity/post/streets"
+## [16] "/tmp/Rtmpm9wSQ0/YourCity/profiles"    
+## [17] "/tmp/Rtmpm9wSQ0/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/RtmpYgsztN/YourCity. Now, if
+In my case, the files are in directory /tmp/Rtmpm9wSQ0/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5272,26 +5272,19 @@ mechanisms: ``e\_eth'', ``e\_hc3'', ``e\_hc5'', ``e\_hc8'', ``e\_ol2'',
 ``E\_MP2.5j'', ``E\_ORGi'', ``E\_ORGj'', ``E\_ECi'', ``E\_ECj'',
 ``H2O''.
 
-By the end of this book, more emission factors will be added.
-
-Because VEIN has the capabilities to produce species from this
-pollutants including volatile organic compunds (VOC) and particulate
-matter compounds.
-
 The speciation of emissions in VEIN can be done with three ways, by
-selecting the pollutants in ef\_speed* functions, other way explicit and
-the other implicit. The explicit way is by usint the function
-\texttt{speciate} for the specific available speciation. The implicit
-way is by adding a percentage value in the argument \texttt{k} in any of
-the functions of emission factors. The implicit way requires that the
-user must know the percentage of the species of pollutant.
+selecting the pollutants in ef\_speed* functions, another way explicit
+and the other implicit. The explicit way is by using the function
+\texttt{speciate} for the specifically available speciation. The
+implicit way is by adding a percentage value in the argument \texttt{k}
+in any of the functions of emission factors. The implicit way requires
+that the user must know the percentage of the species of pollutant.
 
 \section{Speed functions of VOC
 species}\label{speed-functions-of-voc-species}
 
 As mentioned before, the speed function emission factors, currently
-covers several pollutants. We firstly focus on som PAH and POP. They way
-to select them is just:
+cover several pollutants. We firstly focus on some PAH and POP.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5328,9 +5321,10 @@ to select them is just:
 ## 4.8e-07 [g/km]
 \end{verbatim}
 
-These pollutants comes from \citet{NtziachristosSamaras2016} and in this
+These pollutants come from \citet{NtziachristosSamaras2016} and in this
 case, are not dependent on speed. I used lapply to iterate in each
-pollutant at 10 km/h. Now I will show the same for dioxins and furans.
+pollutant at 10 km/h. Now I will show the same example for dioxins and
+furans.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5459,44 +5453,44 @@ Where,
 \item
   \texttt{spec}: speciation: The speciations are: ``bcom'',
   tyre``,''break``,''road``,''iag``,''nox" and ``nmhc''. `iag' now
-  includes a speciation for use of industrial and building paintings.
+  includes speciation for the use of industrial and building paintings.
   ``bcom'' stands for black carbon and organic matter.
 \item
-  \texttt{veh}: Type of vehicle: When spec is ``bcom'' or ``nox'' veh
-  can be ``PC'', ``LCV'', HDV" or ``Motorcycle''. When spec is ``iag''
-  veh can take two values depending: when the speciation is for vehicles
-  veh accepts ``veh'', eu ``Evaporative'', ``Liquid'' or ``Exhaust'' and
-  fuel ``G'', ``E'' or ``D'', when the speciation is for painting, veh
-  is ``paint'' fuel or eu can be ``industrial'' or ``building'' when
-  spec is ``nmhc'', veh can be ``LDV'' with fuel ``G'' or ``D'' and eu
-  ``PRE'', ``I'', ``II'', ``III'', ``IV'', ``V'', or ``VI''. when spec
-  is ``nmhc'', veh can be ``HDV'' with fuel ``D'' and eu ``PRE'', ``I'',
-  ``II'', ``III'', ``IV'', ``V'', or ``VI''. when spec is ``nmhc'' and
-  fuel is ``LPG'', veh and eu must be ``ALL''
+  \texttt{veh}: Type of vehicle: When the spec is ``bcom'' or ``nox''
+  veh can be ``PC'', ``LCV'', HDV" or ``Motorcycle''. When spec is
+  ``iag'' veh can take two values depending: when the speciation is for
+  vehicles veh accepts ``veh'', eu ``Evaporative'', ``Liquid'' or
+  ``Exhaust'' and fuel ``G'', ``E'' or ``D'', when the speciation is for
+  painting, veh is ``paint'' fuel or eu can be ``industrial'' or
+  ``building'' when spec is ``nmhc'', veh can be ``LDV'' with fuel ``G''
+  or ``D'' and eu ``PRE'', ``I'', ``II'', ``III'', ``IV'', ``V'', or
+  ``VI''. when spec is ``nmhc'', veh can be ``HDV'' with fuel ``D'' and
+  eu ``PRE'', ``I'', ``II'', ``III'', ``IV'', ``V'', or ``VI''. when
+  spec is ``nmhc'' and fuel is ``LPG'', veh and eu must be ``ALL''
 \item
-  \texttt{fuel}: Fuel. When spec is ``bcom'' fuel can be ``G'' or ``D''.
-  When spec is ``iag'' fuel can be ``G'', ``E'' or ``D''. When spec is
-  ``nox'' fuel can be ``G'', ``D'', ``LPG'', ``E85'' or ``CNG''. Not
-  required for ``tyre'', ``break'' or ``road''. When spec is ``nmhc''
-  fuel can be G, D or LPG.
+  \texttt{fuel}: Fuel. When the spec is ``bcom'' fuel can be ``G'' or
+  ``D''. When the spec is ``iag'' fuel can be ``G'', ``E'' or ``D''.
+  When spec is ``nox'' fuel can be ``G'', ``D'', ``LPG'', ``E85'' or
+  ``CNG''. Not required for ``tyre'', ``break'' or ``road''. When the
+  spec is ``nmhc'' fuel can be G, D or LPG.
 \item
-  \texttt{eu}: sEuro emission standard: ``PRE'', ``ECE\_1501'',
+  \texttt{eu}: Euro emission standard: ``PRE'', ``ECE\_1501'',
   ``ECE\_1502'', ``ECE\_1503'', ``I'', ``II'', ``III'', ``IV'', ``V'',
   ``III-CDFP'',``IV-CDFP'',``V-CDFP'', ``III-ADFP'',
-  ``IV-ADFP'',``V-ADFP'' and ``OPEN\_LOOP''. When spec is ``iag'' accept
-  the values ``Exhaust'' ``Evaporative'' and ``Liquid''. When spec is
-  ``nox'' eu can be ``PRE'', ``I'', ``II'', ``III'', ``IV'', ``V'',
-  ``VI'', ``VIc'', ``III-DPF'' or ``III+CRT''. Not required for
+  ``IV-ADFP'',``V-ADFP'' and ``OPEN\_LOOP''. When the spec is ``iag''
+  accept the values ``Exhaust'' ``Evaporative'' and ``Liquid''. When the
+  spec is ``nox'' eu can be ``PRE'', ``I'', ``II'', ``III'', ``IV'',
+  ``V'', ``VI'', ``VIc'', ``III-DPF'' or ``III+CRT''. Not required for
   ``tyre'', ``break'' or ``road''
 \item
-  \texttt{show}: when TRUE shows row of table with respective speciation
+  \texttt{show}: when TRUE shows the row of the table with respective
+  speciation
 \item
-  \texttt{list}: when TRUE returns a list with number of elements of the
-  list as the number species of pollutants
+  \texttt{list}: when TRUE returns a list with some elements of the list
+  as the number species of pollutants
 \end{itemize}
 
-As shown before, there are currently 8 type of speciations. Now, i will
-show examples for most of them.
+As shown before, there is currently 8 type of speciations.
 
 \section{Black carbon and organic
 matter}\label{black-carbon-and-organic-matter}
@@ -5594,7 +5588,7 @@ Now we have spatial objects of Back Carbon
 \caption{\label{fig:spplotbm}Black Carbon {[}g/168h{]}}
 \end{figure}
 
-and Organic Matter
+moreover, Organic Matter
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5646,14 +5640,14 @@ OM & 2730610.95001278 & 1222164.32331406 & 498177.451987945 & 20160.2301405245 &
 \end{table}
 
 \section{Tyre wear, breaks wear and road
-abrassion}\label{tyre-wear-breaks-wear-and-road-abrassion}
+abrasion}\label{tyre-wear-breaks-wear-and-road-abrasion}
 
-Tyre, break and road abrassions comes from
-\citet{NtziachristosBoulter2009}. Tyres consist in a complex mixture of
-rubber, which after the use starts to degradate. In deed, when the
-driving cycle ismore aggresive, higher is tyre mass emitted from tyre,
-with tyre wear emission factors higher in HDV than LDV. Break wear emits
-mass and with more aggresive driving, more emissions.
+Tire, break and road abrasions come from
+\citet{NtziachristosBoulter2009}. Tires consist of a complex mixture of
+rubber, which after the user starts to degrade. Indeed, when the driving
+cycle is more aggressive, higher is tire mass emitted from the tire,
+with tire wear emission factors higher in HDV than LDV. Break wear emits
+mass and with more aggressive driving, more emissions.
 
 The input are wear emissions in Total Suspended Particles (TSP) ,as
 explained in section @ref(\#ew). The speciation consists in 60\% PM10,
@@ -5759,12 +5753,13 @@ Hence,the speciation is:
 \caption{\label{fig:styre}Break and Tyre emissions (t/y)}
 \end{figure}
 
-It is interesting to see that break emissions are higher than tyre wear
-emissions, and the smalle the diameter, higher the difference, as shows:
+It is interesting to see that break emissions are higher than tire wear
+emissions, and the smaller the diameter, higher the difference, as
+shown:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-86}Ratio between break and tyre wear emissions}
+\caption{\label{tab:unnamed-chunk-86}Ratio between break and tire wear emissions}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -5781,14 +5776,14 @@ PM0.1 & 1.6931803\\
 \end{tabular}
 \end{table}
 
-The procudure can be used with \texttt{emis\_post} with
+The procedure can be used with \texttt{emis\_post} with
 \texttt{by\ \ =\ streets\_wide} to obtain the spatial speciation.
 
 \section{\texorpdfstring{\(NO\) and
 \(NO_2\)}{NO and NO\_2}}\label{no-and-no_2}
 
 The speciation of \(NO_X\) into \(NO\) and \(NO2\) depends on the type
-of vehicle, fuel and euro standard. The following example will consists
+of vehicle, fuel, and euro standard. The following example will consist
 in comparing a Gasoline passenger car and a Diesel truck.
 
 \begin{Shaded}
@@ -5845,9 +5840,9 @@ in comparing a Gasoline passenger car and a Diesel truck.
 \end{verbatim}
 
 Then, once the emissions are estimated, we will speciate the emissions
-by euro standard. The estimation covered 24 hours and for simplicity, we
-are assuming a year with 365 similar days and dividing by 1 million to
-have t/y.
+by euro standard. The estimation covered 24 hours, and for simplicity,
+we are assuming a year with 365 similar days and dividing by 1 million
+to have t/y.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5890,13 +5885,13 @@ HGV & 179.4756 & 1316.154\\
 \section{\texorpdfstring{Volatile organic compounds:
 \texttt{nmhc}}{Volatile organic compounds: nmhc}}\label{volatile-organic-compounds-nmhc}
 
-nmhc were shown earluier in this chapter, but they can be also used to
+nmhc was shown earlier in this chapter, but they can also be used to
 speciate objects, resulting in all species at once. The speciation of
 NMHC must be applied to NMHC. However, the emission guidelines of
-\citet{NtziachristosSamaras2016} does not show explicit emission factor
-of NMHC and the suggeted procedure is substract the \(CH_4\) from the
-\(HC\). This was done on VEIN and now, ef\_speed* functions returns NMHC
-directly. This makes easier to produce speciation.
+\citet{NtziachristosSamaras2016} does not show specific emission factor
+of NMHC and the suggested procedure is subtract the \(CH_4\) from the
+\(HC\). I included this aspect in VEIN with ef\_speed* functions to
+return NMHC directly.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5986,13 +5981,13 @@ directly. This makes easier to produce speciation.
 \section{\texorpdfstring{The speciation
 \texttt{iag}}{The speciation iag}}\label{the-speciation-iag}
 
-The Carbon Bond Mechanism Z \citeyearpar{cbmz} is an lumped-structure
+The Carbon Bond Mechanism Z \citeyearpar{cbmz} is a lumped-structure
 mechanism.
 
 Citing:
 
 **``it is currently unfeasible to treat the organic species individually
-in a regional or global chemistry model for three major reasons:**
+in a regional or global chemistry model for three primary reasons:**
 
 \textbf{- (1) limited computational resources,} \textbf{- (2) lack of
 detailed speciated emissions inventories, and } \textbf{- (3) lack of
@@ -6005,11 +6000,11 @@ reasonable accuracy, sensitivity, and speed at regional to global
 scales. }
 
 The research in this aspect is intense and out of the scope of this
-book. However, it is important that the user who intends to performs
-atmospheric simulation to understand this why it is important to
+book. However, it is vital that the user who intends to performs an
+atmospheric simulation to understand this why it is essential to
 speciate the emissions and what represent each group.
 
-A popular air quality model nowedays is the Weather Research and
+A popular air quality model nowadays is the Weather Research and
 Forecasting model coupled to Chemistry (WRF-Chem) \citep{Grelletal2005}
 \url{https://ruc.noaa.gov/wrf/wrf-chem/and} the \textbf{Emissions Guide}
 (\url{https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf}).
@@ -6018,26 +6013,25 @@ The speciation \texttt{iag} splits the NMHC into the lumped groups for
 the mechanism CMB-Z. The name \texttt{iag} comes from the Institute of
 Astronomy, Geophysics and Atmospheric Sciences (IAG,
 \url{http://www.iag.usp.br/}) from the University of São Paulo (USP).
-The Departament of Atmospheric Sciences (DAC) of IAG has measure and
+The Department of Atmospheric Sciences (DAC) of IAG has measure and
 model air quality models for several years. There are several scientific
-production such as: \citet{Nogueiraetal2015},
+productions such as: \citet{Nogueiraetal2015},
 \citet{HOSHYARIPOUR2016365}, \citet{Andradeetal2017},
 \citet{Freitasetal2005}, \citet{martins2006emission},
 \citet{perez2014emission}, \citet{ulke2001modeling},
 \citet{vivanco2006validation}, \citet{boian2012characterization},
 \citet{Andrade2012}, \citet{Andradeetal2015}, \citet{VaraVelaetal2015},
-\citet{Rafee2015}, \citet{Ibarraetal2017b}. The following figure, shows
-an air quality simulation over South Easth Brazil from DAC/IAG/USP.
+\citet{Rafee2015}, \citet{Ibarraetal2017b}. The following figure shows
+an air quality simulation over South East Brazil from DAC/IAG/USP.
 
 \begin{figure}
 \includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-90}
 \end{figure}
 
-Some of these papers show measurements in tunnels, fuel, etc. The
+Some of these papers show measurements in tunnels and fuel. The
 speciation \texttt{iag} it is based on these experiments, and the last
 versions, covers an update during 2015 so that the exhaust emissions
-speciation is more representative of brazilian gasoline. This means
-that:
+speciation is more representative of Brazilian gasoline, which means?
 
 \begin{itemize}
 \tightlist
@@ -6045,8 +6039,8 @@ that:
   ** THE SPECIATION \texttt{IAG} IS BASED ON BRAZILIAN MEASUREMENTS**.
 \end{itemize}
 
-and the user who wants to applt it outside Brazil, should be ensure,
-that the fleet and fuel are compatible. As that will be hard to
+Moreover, the user who wants to apply it outside Brazil should be
+ensured, that the fleet and fuel are compatible. As that will be hard to
 accomplish, I can say that this speciation is for and to be used in
 Brazil, even more, in São Paulo.
 
@@ -6080,7 +6074,7 @@ The arguments of the function \texttt{speciate} take the following form:
   \texttt{show}: Let this FALSE.
 \item
   \texttt{list}: Let this TRUE so that the result is a list, and each
-  element of the list a lumped specie.
+  element of the list a /lumped specie.
 \end{itemize}
 
 Example:
@@ -6096,12 +6090,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9298060
-## 2 0.9240286
-## 3 0.9272677
-## 4 0.9226016
-## 5 0.9313657
-## 6 0.9222840
+## 1 0.9297121
+## 2 0.9305598
+## 3 0.9270162
+## 4 0.9344628
+## 5 0.9351518
+## 6 0.9156361
 \end{verbatim}
 
 \begin{Shaded}
@@ -6128,31 +6122,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9298060 0.9240286 0.9272677
+## [1] 0.9297121 0.9305598 0.9270162
 ## Units: [mol/h]
-## [1] 1.431779 1.422883 1.427871
+## [1] 1.431635 1.432940 1.427483
 ## Units: [mol/h]
-## [1] 0.5218409 0.5185984 0.5204163
+## [1] 0.5217882 0.5222639 0.5202751
 ## Units: [mol/h]
-## [1] 0.2518014 0.2502368 0.2511140
+## [1] 0.2517760 0.2520055 0.2510459
 ## Units: [mol/h]
-## [1] 1.910505 1.898634 1.905290
+## [1] 1.910312 1.912054 1.904773
 ## Units: [mol/h]
-## [1] 0.8009589 0.7959821 0.7987723
+## [1] 0.8008780 0.8016082 0.7985556
 ## Units: [mol/h]
-## [1] 0.5310081 0.5277086 0.5295585
+## [1] 0.5309545 0.5314386 0.5294148
 ## Units: [mol/h]
-## [1] 0.02547113 0.02531286 0.02540160
+## [1] 0.02546856 0.02549178 0.02539470
 ## Units: [mol/h]
-## [1] 0.4622500 0.4593777 0.4609881
+## [1] 0.4622033 0.4626247 0.4608630
 ## Units: [mol/h]
-## [1] 0.8806611 0.8751890 0.8782569
+## [1] 0.8805721 0.8813750 0.8780187
 ## Units: [mol/h]
-## [1] 1.237028 1.229342 1.233651
+## [1] 1.236903 1.238031 1.233316
 ## Units: [mol/h]
-## [1] 0.3467567 0.3446021 0.3458101
+## [1] 0.3467217 0.3470378 0.3457163
 ## Units: [mol/h]
-## [1] 0.4522439 0.4494338 0.4510093
+## [1] 0.4521982 0.4526105 0.4508870
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -6211,7 +6205,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602083.62
+## Sum of street emissions 602041.15
 \end{verbatim}
 
 \begin{verbatim}
@@ -6219,7 +6213,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602083.62
+## Sum of gridded emissions 602041.15
 \end{verbatim}
 
 \begin{Shaded}
@@ -6256,18 +6250,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001442664 [g/m^2/s] 0.01167246 0.0004627767 0.001972890 0.01873590
-## 2 0.001433960 [g/m^2/s] 0.01160204 0.0004599844 0.001960986 0.01862285
-## 3 0.001469858 [g/m^2/s] 0.01189249 0.0004715001 0.002010079 0.01908907
-## 4 0.002544432 [g/m^2/s] 0.02058677 0.0008162009 0.003479593 0.03304457
-## 5 0.005777309 [g/m^2/s] 0.04674368 0.0018532406 0.007900657 0.07502998
+## 1 0.001450528 [g/m^2/s] 0.01173609 0.0004652991 0.001983644 0.01883802
+## 2 0.001441776 [g/m^2/s] 0.01166528 0.0004624917 0.001971675 0.01872436
+## 3 0.001477870 [g/m^2/s] 0.01195731 0.0004740701 0.002021036 0.01919312
+## 4 0.002554828 [g/m^2/s] 0.02067088 0.0008195358 0.003493811 0.03317959
+## 5 0.005811359 [g/m^2/s] 0.04701918 0.0018641633 0.007947223 0.07547220
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05620769 0.005695713 0.02428172 0.01049210 0.004496615 0.05189843
-## 2 0.05586856 0.005661347 0.02413522 0.01042880 0.004469484 0.05158530
-## 3 0.05726721 0.005803078 0.02473944 0.01068988 0.004581377 0.05287673
-## 4 0.09913371 0.010045550 0.04282576 0.01850496 0.007930697 0.09153346
-## 5 0.22508995 0.022809115 0.09723886 0.04201679 0.018007196 0.20783305
+## 1 0.05651407 0.005726759 0.02441408 0.01054929 0.004521125 0.05218132
+## 2 0.05617308 0.005692206 0.02426677 0.01048564 0.004493847 0.05186648
+## 3 0.05757936 0.005834709 0.02487429 0.01074815 0.004606349 0.05316495
+## 4 0.09953877 0.010086595 0.04300075 0.01858057 0.007963101 0.09190746
+## 5 0.22641660 0.022943548 0.09781197 0.04226443 0.018113328 0.20905799
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
@@ -6279,24 +6273,24 @@ atmospheric models, specifically, \textbf{WRF-Chem}
 (PNNL, \url{https://www.pnnl.gov/atmospheric/research/wrf-chem/})
 defines:
 
-\textbf{The Weather Research and Forecasting (WRF) model is a next
-generation } \textbf{meteorological model being developed
-collaboratively among several agencies} \textbf{(NOAA/NCEP, NOAA/ESRL,
-NCAR). WRF-Chem is a version of WRF that also} \textbf{simultaneously
-simulates the emission, turbulent mixing, transport,}
-\textbf{transformation, and fate of trace gases and aerosols.}
+\textbf{The Weather Research and Forecasting (WRF) model is a
+next-generation meteorological model being developed collaboratively
+among several agencies (NOAA/NCEP, NOAA/ESRL, NCAR). WRF-Chem is a
+version of WRF that also simultaneously simulates the emission,
+turbulent mixing, transport, transformation, and the fate of trace gases
+and aerosols.}
 
 Initially, VEIN counted with the function \texttt{emis\_wrf} which
 created a data.frame object of hourly gridded emissions with each
 pollutant as a column, from the first cell to the last. The data-frame
-extendend in long format to each hour. This data.frame was designed to
-be used with script Another Asimilation System for WRF (AS4WRF)
+extended in long format to each hour. This data.frame was designed to be
+used with script Another Assimilation System for WRF (AS4WRF)
 \citep{VaraVelaetal2015} written in NCL \citep{ncl}.
 
-This approach was effective and already tested for some Latinamerican
+This approach was practical and already tested for some Latinamerican
 cities \citep{micro}, \citep{icshmo}. However, this function depends on
-external software which may not be available. Therefore, me andsome
-collegues developed the package \texttt{eixport} \citep{eixport},
+external software which may not be available. Therefore, I and some
+colleagues developed the package \texttt{eixport} \citep{eixport},
 \citep{eixport2}, which is an R package to read and export emissions to
 atmospheric models. \texttt{eixport} currently covers the models
 WRF-Chem \citep{Grelletal2005}, SPM-BRAMS \citep{Freitasetal2005} and
@@ -6311,7 +6305,7 @@ with two approaches:
 \tightlist
 \item
   Generating \texttt{GriddedEmissionsArray} for the wrfinput grid and
-  inputting this emissions into the wrfchemi input file..
+  inputting this emission into the wrfchemi input file.
 \item
   Generating gridded emissions data-frame for AS4WRF.
 \end{enumerate}
@@ -6320,25 +6314,25 @@ with two approaches:
 \texttt{GriddedEmissionsArray}}{WRFChem input with wrfinput and GriddedEmissionsArray}}\label{wrfchem-input-with-wrfinput-and-griddedemissionsarray}
 
 The process for generation WRF-Chem input files with
-\texttt{GriddedEmissionsArray} is shown on Fig. \ref{fig:gea}. Pink
-boxes are classes, grey boxes are \texttt{vein} functions, green
+\texttt{GriddedEmissionsArray} is shown in Fig. \ref{fig:gea}. Pink
+boxes are classes; grey boxes are \texttt{vein} functions, green
 functions are \texttt{eixport} functions and white boxes, external
 objects. Here, the external input file is the \textbf{wrfinputd\_0x}
 file, where the \textbf{x} is for the domain. This file is inputted into
 the function \texttt{make\_grid} which creates a polygon grid needed by
-\texttt{emis\_grid}. The main characteristic of this grid, is that it
-has the resolution of the wrfinput file.
+\texttt{emis\_grid}. The main characteristic of this grid is that it has
+the resolution of the wrfinput file.
 
-The wrfinpiut\_d0x file isalso used by the \texttt{eixport} function
+The wrfinpiut\_d0x file is also used by the \texttt{eixport} function
 \texttt{wrf\_create} to create a wrfchemi input file with zeroes.
 
 The objects with class \texttt{EmissionsArray} for each type of vehicle
 and pollutant are processed by the function \texttt{emis\_post} which
 create street emissions. Then, the function \texttt{emis\_merge} merges
 all the street emissions files from
-\texttt{emis\_post\_\ into\ one\ street\ emissions\ by\ pollutant\ ehich\ is\ inputted\ into\ function}emis\_grid\texttt{to\ create\ a\ polygon\ grid\ of\ emissions,\ class\ Spatial\ Feature}sf\texttt{{[}@sf{]},\ {[}@RJ-2018-009{]}.\ Then,\ the\ spatial\ gridded\ emissions\ are\ inputted\ into\ the\ contructor\ function}GriddedEmissionsArray`
+\texttt{emis\_post\_\ into\ one\ street\ emissions\ by\ pollutant\ which\ is\ inputted\ into\ function}emis\_grid\texttt{to\ create\ a\ polygon\ grid\ of\ emissions,\ class\ Spatial\ Feature}sf\texttt{{[}@sf{]},\ {[}@RJ-2018-009{]}.\ Then,\ the\ spatial\ gridded\ emissions\ are\ inputted\ into\ the\ constructor\ function}GriddedEmissionsArray`
 to create an object of that class, and the dimensions of the wrfinput
-file, that is, the sanem number of spatial rows and columns.
+file, that is, the same number of spatial rows and columns.
 
 Finally, the \texttt{GriddedEmissionsArray} objects are inputted into
 the wrfchemi file with the \texttt{eixport} function \texttt{wrf\_put}.
@@ -6357,18 +6351,18 @@ Example
 \subsection{Creating a WRF-Chem input
 file}\label{creating-a-wrf-chem-input-file}
 
-The emission file will be generated with traffic simulation from the
-Traffic Engineering Company (CET) for 2012, which consists in traffic
-flow for morning rush hour of Light Duty Vehicles (LDV). The emission
-factors will be the data \texttt{fe2015} and the wrfinput comes from the
+The emission file is generated with traffic simulation from the Traffic
+Engineering Company (CET) for 2012, which consists in traffic flow for
+morning rush hour of Light-Duty Vehicles (LDV). The emission factors are
+the data \texttt{fe2015} and the wrfinput comes from the
 \texttt{eixport} package. Let's go:
 
 \subsubsection{0) Network}\label{network}
 
-The object net has a class \texttt{SpatialLinesDataFrame}, we transform
-it into a \texttt{sf}object. The length of the road is the field `lkm'
-in the object net, which are in km but has no units. We must add the
-right units in order to use \texttt{vein}
+The object net has a class \texttt{SpatialLinesDataFrame}; we transform
+it into a \texttt{sf} object. The length of the road is the field `lkm'
+in the object net, which is in km but has no units. We must add the
+right units to use \texttt{vein}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6385,7 +6379,7 @@ right units in order to use \texttt{vein}
 
 \subsubsection{1) Vehicular composition}\label{vehicular-composition-1}
 
-In this case, the vehicular composition consits in only to vehicles,
+In this case, the vehicular composition consists in only to vehicles,
 Passenger Cars using Gasoline with 25\% of Ethanol and Light Trucks
 consuming Diesel with 5\% od biodiesel. Also, the emission factors cover
 \(CO\). The temporal distribution will cover only one hour.
@@ -6399,11 +6393,12 @@ consuming Diesel with 5\% od biodiesel. Also, the emission factors cover
 \subsubsection{2) Emission factors}\label{emission-factors}
 
 The emission factors used comes from \citet{CETESB2015}, which are
-constant by age of use. In practice, this data.frame is like an Excel
-spreadsheet. Then, the constructor function \texttt{EmissionFactorsList}
-convert our numeric vector, which is the column of our data.frame, into
-required type of object of the \texttt{emis} function. Parenthesis were
-added in order to print the objects in one line.
+constant by the age of use. In practice, this data.frame is like an
+Excel spreadsheet. Then, the constructor function
+\texttt{EmissionFactorsList} convert our numeric vector, which is the
+column of our data.frame, into the required type of object of the
+\texttt{emis} function. Parenthesis was added to print the objects in
+one line.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6415,8 +6410,8 @@ added in order to print the objects in one line.
 \subsubsection{3) Estimation of
 emissions}\label{estimation-of-emissions}
 
-The estimation of emissions is shown in the following code chunk in a
-simplified way. The emissions array are aggregated.
+The estimation of emissions is in the following code chunk in a
+simplified way, where they are aggregated.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6440,10 +6435,10 @@ The resulting emissions array \texttt{emi} is now processed with
 \paragraph{\texorpdfstring{4a WRFChem input file with
 \texttt{eixport}}{4a WRFChem input file with eixport}}\label{a-wrfchem-input-file-with-eixport}
 
-Now it is time generate the emissions grid. In order to create a wrfchem
-input file, we need a wrfinput file. In this case, the wrfinput coversa
-wider area of the emissions, located in São Paulo, Brazil. The wrfinput
-file is available from the R package \texttt{eixport}.
+Now it is time to generate the emissions grid. To create a wrfchem input
+file, we need a wrfinput file. In this case, the wrfinput covers a
+broader area of the emissions, located in São Paulo, Brazil. The
+wrfinput file is available from the R package \texttt{eixport}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6472,9 +6467,9 @@ file is available from the R package \texttt{eixport}.
 
 \includegraphics{veinbook_files/figure-latex/9.8-1.pdf}
 
-Notice that weh we create grid from the path to wrfinput, there is a
-message with \emph{Number of lat points 51} and \emph{Number of lon
-points 63}. This information is crytical for later conversions. Now that
+Notice that we create a grid from the path to wrfinput, there is a
+message with \emph{Number of lat points 51} and \emph{Number of long
+points 63}. This information is critical for later conversions. Now that
 we have the street emissions and the grid, we can obtain our gridded
 emissions:
 
@@ -6594,13 +6589,13 @@ we plot the gridded emissions, we will see:
 \end{figure}
 
 The emissions are mostly distributed into main roads, as expected. The
-next step is create the \texttt{GriddedEmissionsArray} that will be
+next step is to create the \texttt{GriddedEmissionsArray} that will be
 inputted into the \texttt{eixport} functions. The
-\texttt{GriddedEmissionsArray} is a contructor function that reads
+\texttt{GriddedEmissionsArray} is a constructor function that reads
 class, \texttt{SpatialPolygonDataFrame}, \texttt{sf} of POLYGONs, a
 \texttt{data.frame} or a \texttt{matrix} to create an Array of the
-gridded emissions. The dimensions are lat, lon, mass and time.
-Therefore, it is important to know the number of lat and lon points!
+gridded emissions. The dimensions are lat, long, mass and time.
+Therefore, it is important to know the number of lat and long points!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6628,13 +6623,12 @@ Therefore, it is important to know the number of lat and lon points!
 \end{figure}
 
 The image is similar to the plot of the gridded emissions, which means
-that it is correct. Now we can input the our new created object
+that it is correct. Now we can input our newly created object
 \texttt{gCOA} into the wrfchem input file, but first, we need to create
-it. This is done using the \texttt{eixport} functions.
-
-We first load the library \texttt{eixport}. Then load the data
-\texttt{emis\_opt} which has the emissions options for WRFchem. In this
-case, we are creating an wrfchem input file with 40 pollutants, with 0.
+it. This is done using the \texttt{eixport} functions. We first load the
+library \texttt{eixport}. Then load the data \texttt{emis\_opt} which
+has the emissions options for WRFchem. In this case, we are creating a
+wrfchem input file with 40 pollutants, with 0.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6650,7 +6644,7 @@ case, we are creating an wrfchem input file with 40 pollutants, with 0.
 \end{Highlighting}
 \end{Shaded}
 
-The wrfchemi input file was created on a temporal directory with the
+The wrfchemi input file was created on a temporary directory with the
 function \texttt{tempdir}. Now we can input our
 \texttt{GriddedEmissionsArray} into our new wrfchem input file.
 
@@ -6662,8 +6656,8 @@ function \texttt{tempdir}. Now we can input our
 \end{Highlighting}
 \end{Shaded}
 
-Then, we just check our resulting NetCDF file plotting the emissions we
-just put.
+Then, we check our resulting NetCDF file plotting the emissions we just
+put.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6684,9 +6678,9 @@ just put.
 \texttt{emis\_wrf}}{4b WRFChem input file with emis\_wrf}}\label{b-wrfchem-input-file-with-emis_wrf}
 
 \texttt{emis\_wrf} creates a \texttt{data.frame} with columns lat, long,
-id, pollutants, local time and GMT time. This dataframe has the proper
-format to be used with WRF assimilation system: ``ASimilation System 4
-WRF (AS4WRF, \citet{angel})
+id, pollutants, local time and GMT. This dataframe has the proper format
+to be used with WRF assimilation system: ``assimilation System 4 WRF
+(AS4WRF, \citet{angel})
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6705,14 +6699,14 @@ where:
 \tightlist
 \item
   \texttt{sdf}: Gridded emissions, which can be a
-  SpatialPolygonsDataFrame, or a list of SpatialPolygonsDataFrame, or a
+  SpatialPolygonsDataFrame, or a list of SpatialPolygonsDataFrame, or an
   sf object of ``POLYGON''. The user must enter a list with 36
   SpatialPolygonsDataFrame with emissions for the mechanism CBM-Z.
 \item
   \texttt{nr}: Number of repetitions of the emissions period
 \item
   \texttt{dmyhm}: String indicating Day Month Year Hour and Minute in
-  the format ``d-m-Y H:M'' e.g.: ``01-05-2014 00:00'' It represents the
+  the format ``d-m-Y H:M'' e.g., ``01-05-2014 00:00'' It represents the
   time of the first hour of emissions in Local Time
 \item
   \texttt{tz}: Time zone as required in for function as.POSIXct
@@ -6758,7 +6752,7 @@ In this case, we can use our gridded emissions directly here:
 \end{verbatim}
 
 Then you must export this \texttt{data.frame} into a .txt file. You must
-include the number of columns to match your luped species and also take
+include the number of columns to match your lumped species and also take
 out the columns time\_lt, time\_utc and dutch. These three columns are
 just informative.
 
@@ -6770,94 +6764,94 @@ just informative.
 \end{Highlighting}
 \end{Shaded}
 
-Finally, in order to generate the wrfchem input file, you must have the
-resulting .txt file, a wrfinput file with the same grid spacing, the NCL
-script AS4WRF and a namelist. AS4WRF and the namelist can be obtained
+Finally, to generate the wrfchem input file, you must have the resulting
+.txt file, a wrfinput file with the same grid spacing, the NCL script
+AS4WRF and a namelist. AS4WRF and the namelist can be obtained
 contacting
 \href{mailto:angel.vela@iag.usp.br}{\nolinkurl{angel.vela@iag.usp.br}}
 and \href{mailto:alvv1986@gmail.com}{\nolinkurl{alvv1986@gmail.com}}.
 
 \chapter{Quality check and errors}\label{check}
 
-This last chapter of this book presents to aspestcs fthat must be
-considered for any practicioner interested in developing emissions
+This last chapter of this book presents to aspects that must be
+considered for any practitioner interested in developing emissions
 inventories. The first part covers a summary of the EMEP/EEA air
 pollutant emission inventory guidebook 2016, Technical guidance to
 prepare national emission inventories \citep{guia}, based on the
 Intergovernmental Panel on Climate Change (IPCC) 2006 Good Practice
-Guidance {[}\citet{change20062006}. The second part consists in advices
-and specific considerations for avoinding errors when runnign VEIN in
+Guidance {[}\citet{change20062006}. The second part consists of advice
+and specific considerations for avoiding errors when running VEIN in
 each part of the inventory.
 
 \section{Guidance from EMEP/EEA air pollutant emission inventory
 guidebook}\label{guidance-from-emepeea-air-pollutant-emission-inventory-guidebook}
 
-I believe that this part of this capter delivers knowledge that you
-really will gain with experience. But even with experience you can get
-lost, and returning to this part would save you. This part is based on
-the EMEP/EEA air pollutant emission inventory guidebook \citep{guia}.
+I believe that this part of this chapter delivers knowledge that you
+really will obtain with experience. However, even with experience, you
+can get lost, and returning to this part would save you. This chapter is
+based on the EMEP/EEA air pollutant emission inventory guidebook
+\citep{guia}.
 
 \subsection{Key categories}\label{key-categories}
 
 Key categories are the most important \textbf{source} categories. This
 section is based on the chapter Key category analysis and methodological
 choice \citep{guiak} of the EMEP/EEA air pollutant emission inventory
-guidebook 2013. They are important because they are responsabile for
-most of pollution in a determined region. For instance, it has been
+guidebook 2013. They are important because they are responsible for most
+of the pollution in a defined region. For instance, it has been
 described that vehicles are the most important source of pollution in
-mega-cities \citep{molina2004megacities}. Evenmore, in the case of São
+mega-cities \citep{molina2004megacities}. Even more, in the case of São
 Paulo, the official emissions inventory informs that vehicles are
-responsabiel for mor than 97 \% of \(CO\), 79 \% of \(HC\), 68 \% of
+responsible for more than 97 \% of \(CO\), 79 \% of \(HC\), 68 \% of
 \(NO_X\), and only 29 \% of \(PM\) and 22 \% of \(SO_X\)
-\citep{CETESB2015}. This shown another characteristics of key
-categories: they depend of specific pollutants.
+\citep{CETESB2015}. This shown another characteristic of key categories:
+they depend on specific pollutants.
 
 For another example, consider a city which suffers cold weather with use
-bio-mass burning for cooking and heating. The main source of
+biomass burning for cooking and heating. The primary source of
 \(PM_{2.5}\) will be certainly bio-mass burning.
 
-Now consider an industrial region with industrial process that emit too
-much \(SO_X\). The key-cateogries might be industrial sources.
+Now consider an industrial region with an industrial process that emit
+too much \(SO_X\). The key-categories might be industrial sources.
 
-And one more example, consider a huge mega-city with electric mobility.
-However, the main source of electricity are thermoelectric based on
-carbon (the key).
+Moreover, one more example, consider a massive mega-city with electric
+mobility. However, the primary source of electricity is thermoelectric
+based on carbon (the key).
 
-This implies that it should be a nomemclature for categorizing and
-naming sources. IPCC, has a nomenclature for instance.
+This implies that it should be a nomenclature for categorizing and
+naming sources. IPCC has a nomenclature for instance.
 
-The ideia behind key categories, is that most efforts must be applied in
-this categories, obtainging the highest level of detail with less
+The idea behind key categories is that most efforts must be applied in
+this categories, obtaining the highest level of detail with less
 uncertainty. Hence, the emissions guidelines \citep{guia} proposes three
 levels of complexity estimation methods, known as Tier Methods. The
 complexity increases from level 1, 2 and 3. The VEIN tier is 3, which is
-that the most complex function of vehicular emissions estimations are
-incporated, with the exception of evaporative. I need to improve that
-part.
+that the most complicated function of vehicular emissions estimations is
+incorporated, except evaporative. I need to improve that part.
 
 \begin{itemize}
 \tightlist
 \item
-  Tier 1: a simpler method which include available activity and
+  Tier 1: a more straightforward method which includes free activity and
   emissions factors.
 \item
   Tier 2: Similar to Tier 1, but includes more specific emission
   factors.
 \item
-  Tier 3: Most complex methodologies with higher level of detail,
+  Tier 3: Most complex methodologies with a higher level of detail,
   temporal and spatial.
 \end{itemize}
 
 \subsection{Uncertainty}\label{uncertainty}
 
-This is a very important part in any emissions inventory and a dedicated
+This is an essential part in any emissions inventory, and a dedicated
 chapter or section should be made in any report/paper. This section is
 based on the chapter Uncertainties \citep{guiau} of the EMEP/EEA air
-pollutant emission inventory guidebook 2013.The 2006 IPCC Guidelines
-chapter states that estimating the uncertainty of an inventory is needed
-\citep{change20062006}.
+pollutant emission inventory guidebook 2013. The 2006 IPCC Guidelines
+chapter states that estimating the the uncertainty of an inventory is
+needed \citep{change20062006}.
 
-It is recommended to use 95\% confidence interval. This means that:
+It is recommended to use a 95\% confidence interval. This means that:
 
 \begin{itemize}
 \tightlist
@@ -6873,15 +6867,15 @@ The general form for estimating emissions was shown on Eq.
 \eqref{eq:efGERAL} \citep{guiau}. This equation will be the base for
 calculating the uncertainty. This section is applied when measurements
 are made, for the case of activity or emission factors. In those case,
-it is possible calculate the required confiden intervals.
+it is possible to calculate the required confidence intervals.
 
 \subsubsection{Default uncertainty
 ranges}\label{default-uncertainty-ranges}
 
 \emph{Activity data}
 
-The following table is taking directly form \citet{guia} and propose
-indicative ranges that could be applies in cases where no independed
+The following table is taking directly from \citet{guia} and propose
+indicative ranges that could be applied in cases where no independent
 data are available.
 
 \begin{itemize}
@@ -6895,44 +6889,42 @@ data are available.
   International Energy Agency (IEA) statistics: OECD: 2 - 3\%, non-OECD
   5-10\%.
 \item
-  United Nation data bases: 5 - 10\%.
+  United Nation databases: 5 - 10\%.
 \item
   Default values, other sources: 30 - 100\%.
 \end{itemize}
 
 \emph{Emission factors}
 
-The following table is taking directly form \citet{guia} and propose
+The following table is taking directly from \citet{guia} and propose
 rating definitions for emission factors\citep{guia}.
 
 \begin{itemize}
 \tightlist
 \item
   A: An estimate based on a large number of measurements made at a large
-  number of facilities that fully represent the sector. Error: 10 o
+  number of facilities that adequately represent the sector. Error: 10 o
   30\%.
 \item
   B: An estimate based on a large number of measurements made at a large
   number of facilities that represent a large part of the sector. Error:
   20 to 60\%
 \item
-  C: An estimate based on a number of measurements made at a small
-  number of representative facilities, or an engineering judgement based
-  on a number of relevant facts. Error: 50 to 200\%.
+  C: An estimate based on some measurements made at a small number of
+  representative facilities, or an engineering judgment based on some
+  relevant facts. Error: 50 to 200\%.
 \item
   D: An estimate based on single measurements, or an engineering
-  calculation derived from a number of relevant facts. Error: 100 to
-  300\%.
+  calculation derived from some relevant facts. Error: 100 to 300\%.
 \item
   E: An estimate based on an engineering calculation derived from
   assumptions only. Error: Order of magnitude.
 \end{itemize}
 
 In \citet{guia} appears ratings for road transport emission factors that
-diffier from the ratings that appear in
-\citet{NtziachristosSamaras2016}. To preserve consistenty in this book,
-here is presented the precision indicators, Table 4-1 of
-\citet{NtziachristosSamaras2016} report.
+differ from the ratings that appear in \citet{NtziachristosSamaras2016}.
+To preserve consistency in this book here is presented the precision
+indicators, Table 4-1 of \citet{NtziachristosSamaras2016} report.
 
 \begin{table}
 
@@ -7003,9 +6995,9 @@ U_{total}=\frac{\sqrt{\sum_{i = 1}^{n}(U_i \cdot x_i )^2}}{\sum_{i = 1}^{n}}
 
 Where, \(x\) are the quantities, \(U_i\) are the uncertain quantities
 and the percentage uncertainties (half the 95\% confidence interval)
-associated with them, respectivly. \(U_{total}\) is the percentage
-uncertinti in the sum of the quantites (half the 95\% confidence
-interval divided by the total (i.e.~mean) and expressed as percentage).
+associated with them, respectively. \(U_{total}\) is the percentage
+uncertainty in the sum of the quantities (half the 95\% confidence
+interval divided by the total (i.e., mean) and expressed as percentage).
 
 \begin{itemize}
 \tightlist
@@ -7019,10 +7011,10 @@ U_{total}=\sqrt{\sum_{i = 1}^{n}(U_i)^2}
 \label{eq:sumul}
 \end{equation}
 
-Where, \(U_i\) are the percentage quantities (hal the 95\% confidence
-interval) associated with each of the quantities. \(U_{total}\) is the
-percentage in the product of the quantities (half the 95\% confidence
-interval divided by the total and expressed as percentage).
+Where \(U_i\) are the percentage quantities (95\% confidence interval)
+associated with each of the quantities. \(U_{total}\) is the percentage
+in the the product of the quantities (half the 95\% confidence interval
+divided by the total and expressed as a percentage).
 
 Alternatively, a Monte Carlo simulation can be done.
 
@@ -7046,32 +7038,32 @@ According to Wikipedia:
   the quality of all factors involved in production \citep{wiki:qc}.
 \end{itemize}
 
-The main reference in QA/QC are the International Organization for
+The primary reference in QA/QC is the International Organization for
 Standardization ISO 9000 \citep{wiki:iso}.
 
 The idea is to avoid errors in the development of the inventory. Hence,
-it is very important that the objective of the inventory, frequency and
-spatial and temporal resolution must be very clear. As mentioned before,
+it is essential that the objective of the inventory, frequency, and
+spatial and temporal resolution must be obvious. As mentioned before,
 the inventory can have a purpose of policy application or scientific. In
 any case, the QAQC procedures should be explicitly stated covering five
 data quality objectives \textbf{transparency}, \textbf{consistency},
-\textbf{comparability}, \textbf{completeness} and \textbf{acccuracy}.
+\textbf{comparability}, \textbf{completeness} and \textbf{accuracy}.
 
-This means that another researcher/practicioner should be able to
-reproduce the results. However, this is not always the case. Evenmore,
-it has been shown that there are currently a crisis of reproducibility
-in science, where `more than 70\% of researchers have tried and failed
-to reproduce another scientist's experiments, and more than half have
+This means that another researcher/practitioner should be able to
+reproduce the results. However, this is not always the case. Even more,
+it has been shown that there is currently a crisis of reproducibility in
+science, where `more than 70\% of researchers have tried and failed to
+reproduce another scientist's experiments, and more than half have
 failed to reproduce their own experiments' \citep{baker2016there}. I
 believe that emissions inventories should guarantee the reproducibility
 of results, in scientific and policy application inventories.
 
 \subsection{Inventory managment cycle}\label{inventory-managment-cycle}
 
-Another important aspect is the inventory managment cycle. The inventory
-manager is responsabile for institutional arrangments, meet deadlines
-and for the inventory managment cycle. The inventory complier gets the
-data and estimate the emissions with the respective Tier.
+Another important aspect is the inventory management cycle. The
+inventory manager is responsible for institutional arrangments, meet
+deadlines and for the inventory management cycle. The inventory compiler
+gets the data and estimate the emissions with the respective Tier.
 
 The cycle is:
 
@@ -7079,14 +7071,14 @@ The cycle is:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Priorization of improvements: As the resources are limited,
-  priorization must be given to key categories.
+  Prioritization of improvements: As the resources are limited,
+  prioritization must be given to critical categories.
 \item
-  Data-collection: It is important to stablish formal agreements needs
-  with data providers using protocols. The protocols must cleary show
-  the data needed, its format, content and dates of delivery.
+  Data-collection: It is important to establish formal agreements needs
+  with data providers using protocols. The protocols must clearly show
+  the data needed, its format, content, and dates of delivery.
 \item
-  Inventory compilation. The inventory compiler estimate the emissions.
+  Inventory compilation. The inventory compiler estimates the emissions.
 \item
   Consolidation. The inventory manager consolidates all the emissions
   ensuring quality in data and methods for estimating emissions.
@@ -7104,35 +7096,35 @@ The cycle is:
 
 \section{Avoiding errors with VEIN}\label{avoiding-errors-with-vein}
 
-The first part of this chapter covered some fundamental aspects in
-emissions inventory managment for quality assurance and quality control.
-This part covers typical erros that I've faced using VEIN and I hope it
-help users how to avoid them.
+The first part of this chapter covered some fundamental aspects of
+emissions inventory management for quality assurance and quality
+control. This part covers typical errors that I've faced using VEIN, and
+I hope it helps users how to avoid them.
 
-Currently, VEIN does not have grafical user interface (GUI) and runs on
-R \citep{R}, which can be intimidating for new users. Also, even
-experienced users can do mistakes. If you find a mistake, write it down
-to abooid it in future. Be organized. I recommend to code your inventory
-keeping in mind that you will have to check your scripts in the future,
-so it would be nice if in the first try your code looks nice. And also,
-don't panic.
+Currently, VEIN does not have a graphical user interface (GUI) and runs
+on R \citep{R}, which can be intimidating for new users. Also, even
+experienced users can make mistakes. If you find a mistake, write it
+down to avoid it in future. Be organized. I recommend coding your
+inventory keeping in mind that you will have to check your scripts in
+the future, so it would be nice if in the first try your code looks
+nice. And also, don't panic.
 
 \subsection{Traffic flow}\label{traffic-flow}
 
 One of the first inputs of it is the traffic flow data. You must have an
-agreement with data providers to get the data. Also, the compiler must
-understand the format of the data. In my experience, data providers
-comes from government agencies with limitated resources and few time.
-This means that, if there is not a formal agreement, they won't speed
-too much time for processing their data to meet your needs (because it
-is not part of their jobs). And even, if there was a formal agreement,
-the data processing must be done by the data compiler.
+agreementwith data providers to get the data. Also, the compiler must
+understand the format of the data. In my experience, data providers come
+from government agencies with limited resources and less time. This
+means that, if there is not a formal agreement, they won't speed too
+much time for processing their data to meet your needs (because it is
+not part of their jobs). And even, if there was a formal agreement, the
+data processing must be done by the data compiler.
 
 The data provided in this book covers a travel demand output for
 Metropolitan Are ofSão Paulo (MASP) made by the Traffic Company
 Engineering of São Paulo, for the year 2012. The has the same content
 inside VEIN package, with the exception that covers the whole MASP. The
-data originally is in format MAPINFO. Therefore, the package \textbf{sf}
+data initially is in format MAPINFO. Therefore, the package \textbf{sf}
 must be used to read the data.
 
 \begin{Shaded}
@@ -7151,29 +7143,29 @@ The section @ref(\#traffic) shows details about this data.
   regarding the data.
 \item
   Check if your data is projected or not. The data probably will be
-  projected with a UTM zone, for instance code 31983
+  projected with a UTM zone, for instance, code 31983
   \url{http://spatialreference.org/ref/epsg/sirgas-2000-utm-zone-23s/}.
   VEIN imports functions from \texttt{sf} and \texttt{lwgeom} which
   depend on GEOS libraries. This means that VEIN can work with data
-  projected or not. Nevertheless, I suggest to work with projected data
+  projected or not. Nevertheless, I suggest working with projected data
   for your location.
 \item
   Ensure that the data is correctly read and that there are no objects
   of class \texttt{factor} in the columns.
 \item
   Make sure that of what are the units of the traffic flow and remember
-  that most of VEIN functions are designed to work with hourly traffic
-  flow.
+  that most of the VEIN functions are designed to work with hourly
+  traffic flow.
 \item
   Plot the data. Check if the data looks fine or have some mistakes.
 \item
   Calculate the length of each road. Make proper transformations and
-  \textbf{make sure} \textbf{that resulting length of road as
-  \texttt{units} km}. I suggest to use the name lkm. This can be easily
-  done with in R with packages \texttt{sf} and \texttt{units} installed.
-  Let's say that your data is named \emph{net} and your data is already
-  projected. Also, that your traffic flow is named \emph{ldv} for light
-  duty vehicles and \emph{hdv} for heavy duty vehicles.
+  \textbf{make sure} \textbf{that resulting length of the road as
+  \texttt{units} km}. I suggest using the name lkm, which is done within
+  R with packages \texttt{sf} and \texttt{units} installed. Let's say
+  that your data is named \emph{net}, your data is already projected,
+  and that your traffic flow is named \emph{ldv} for light-duty vehicles
+  and \emph{hdv} for heavy-duty vehicles.
 \end{itemize}
 
 \begin{Shaded}
@@ -7188,32 +7180,32 @@ The section @ref(\#traffic) shows details about this data.
 Despite that this transformation can be done by dividing lkm by 1000,
 this would be wrong because the \texttt{units} wouldn't change and they
 must be \texttt{km}. Hence, using the functions of the \texttt{units}
-package is the recommended way.
+package are the recommended way.
 
 \subsection{Vehicular composition}\label{vehicular-composition-2}
 
-The vehicular composition is a critical part in the emissions
-inventories for vehicles. It consists in the percentage of each type of
+The vehicular composition is a critical part of the emissions
+inventories for vehicles. It consists of the percentage of each type of
 vehicle and technology. Despite that it seems pretty straightforward,
 making a mistake in this part of the emissions inventories would cost
 lots of time. \textbf{Developing an} \textbf{emissions inventory is a
-complex task, you must take great care in simple} \textbf{calculations,
-because if the resutls are not consistent, it can take LOTS} \textbf{of
-time, to find the error, usually when the dealines are dead}.
+complex task, you must take great care in simple} \textbf{calculations
+because if the results are not consistent, it can take LOTS} \textbf{of
+time, to find the error, usually when the deadlines are dead}.
 
 The function \texttt{inventory} needs the vehicular composition to
 create the respective directories to run VEIN. I have the feeling that
-most of model users like structured models with clear input and outputs.
-VEIN is not like that, and this is in part due to the nature of the
-emissions inventories. I could design a model that works perfectly with
-one type of input, but in real life, a desired input is not always easy
-to get. For instance, the traffic simulation used inside the model is
-not easy to get, even in cities of developed countries. Hence, the
-inventory compiler must struggle to do their job. Therefore, VEIN was
-designed with flexibility and verstility on mind.
+most the model users like structured models with clear input and
+outputs. VEIN is not like that, and this is in part due to the nature of
+the emissions inventories. I could design a model that works perfectly
+with one type of input, but in real life, the desired input is not
+always easy to get. For instance, the traffic simulation used inside the
+model is not easy to get, even in cities of developed countries. Hence,
+the inventory compiler must struggle to do their job. Therefore, VEIN
+was designed with flexibility and versatility on the mind.
 
-Anyways, the vehicular composition are the number of each type the
-following vehicles: PC, LCV, HGB, BUS, MC. Then, each sub category will
+Anyways, the vehicular composition is the number of each type the
+following vehicles: PC, LCV, HGV, BUS, MC. Then, each subcategory will
 be divided by type of age of use. For instance, the vehicular emissions
 inventory for São Paulo State considers 4 type of vehicles:
 
@@ -7235,46 +7227,47 @@ inventory for São Paulo State considers 4 type of vehicles:
 
 This means that the number of PC is 4.
 
-Then each of this vehicles is divided by age of use. As consecuence, we
-must know when each of these vehicle entered and went out of the market.
-Again, for São Paulo conditions, Flex engines entered into market in
-2003 and nowadays must of new cars are flex. Vehicles with engines
-designed for burning ethanol had a peak in early 80s, but they went of
-the market in 2006. Gasoline vehicles have been in circulation from the
-beginning and CETESB inventory considers a life span of 40 years of use.
+Then each of this vehicles is divided by the age of use. As a
+consequence, we must know when each of this vehicle entered and went out
+of the market. Again, for São Paulo conditions, Flex engines entered
+into the market in 2003 and nowadays must of new cars are flex. Vehicles
+with engines designed for burning ethanol had a peak in the early 80s,
+but they went off the market in 2006. Gasoline vehicles have been in
+circulation from the beginning and CETESB inventory considers a lifespan
+of 40 years of use.
 
 The same analyses must be done with each of the vehicle categories.
 
-The distribution by age of use indirectly shows the technology
-associated with emission standards by age of use.
+The distribution by the age of use indirectly shows the technology
+associated with emission standards by the age of use.
 
 \subsection{Units}\label{units}
 
 Currently, VEIN checks that the variable lkm (length) must be in km.
-This is to avoid that the user wrongly enter length in meters or without
-units. As a result, the emissions woult be huge and wrong.
+This is to avoid that the user wrongly enters the length in meters or
+without units. As a result, the emissions would be vast and wrong.
 
-In the case of vehicles, currently there are not designed a unit of
+In the case of vehicles, currently, there are not designed a unit of
 ``vehicles'' in VEIN. In transportation studies, it is used the unit
-``equivalent vehicle'' which standarize each type of vehicle by its
-size. For instance, LCV are sometimes equivalent of 1.2 vehicles. Buses
-or HGV can be equuvalent to 2 or more vehicles. however, there are no
-such typeof this things in VEIN and units managment is designed to
+``equivalent vehicle'' which standardize each type of vehicle by its
+size. For instance, LCV is sometimes equivalent to 1.2 vehicles. Buses
+or HGV can be equivalent to 2 or more vehicles. however, there are no
+such type of this things in VEIN and units management is designed to
 control emission factors and length.
 
 The temporal dimension is also an aspect difficult to handle regarding
 the units. This is because, sometimes mileage are correctly in km, but
-the timespan is in one year. Threfore, the units magament is degined to
-avoid errors with emission factors and calculation of emissions. This
-means that a future version of VEIN will erradicate all temporal
-dimensions ensure right calculation of mass only. This means that VEIN
-will not chech if the data is hourly or anunual.
+the timespan is in one year. Therefore, the management of the unit is
+designed to avoid errors with emission factors and calculation of
+emissions. This means that a future version of VEIN will eradicate all
+temporal dimensions ensure the right calculation of mass only. This
+means that VEIN will not check if the data is hourly or annual.
 
 \subsection{Emission factors}\label{emission-factors-1}
 
 When I started this book, VEIN contained few emission factors. Now, the
 version 0.5.7 has all the 2016 emission factors of CETESB, almost 100
-emisision factors from the European Emission guidelines the all the BASE
+emission factors from the European Emission guidelines the all the BASE
 emission factors from the International Vehicle Model (IVE). The
 functions to access this data are:
 
@@ -7296,27 +7289,37 @@ based traffic situation (very cool).
 \subsection{Deterioration}\label{deterioration}
 
 VEIN currently cover the deterioration emission factors from the
-Euroepan emission guidelines. This values results in a simply numeric
+European emission guidelines. This value results in a simple numeric
 vector depending on standard, mileage, type of vehicle and pollutant.
-However, it would be possible to use any other deterioation factors.
+However, it would be possible to use any other deterioration factors.
 
-Ensure to use correctly the data and cite respective literature.
+Ensure to use the data correctly and cite several kinds of literature.
 
 \subsection{Fuel evaluation}\label{fuel-evaluation}
 
-It is a good practice to ensure that the mass of fuel consumed of
-vehicle in your study area, matchs the fuel sale son your area. If not,
-calibrate your emissions by number of vehicles (if bottom-up) or a
+It is a good practice to ensure that the mass of fuel consumed of the
+vehicle in your study area, matches the fuel sale son your area. If not,
+calibrate your emissions by some vehicles (if bottom-up) or a
 combination of vehicles and mileage (if top-down) to match fuel sales.
+
+\subsection{Fuel quality}\label{fuel-quality}
+
+The chemical composition of the fuel has a direct effect on the
+emissions. New fuel designed to be used with clean vehicular
+technologies has the effect of producing fewer pollutants when applied
+in vehicles of older technologies. Hence, when Copert emission factors
+are used, \textbf{ALWAYS} has to be included in the effect of the
+chemical composition. VEIN includes the function \texttt{fuel\_corr} to
+account the impact of the fuel composition into emissions.
 
 \subsection{Emissions estimation}\label{emissions-estimation}
 
-Most of emission functions returns an array of emissions, which means a
-matrix of matrices. The idea was that each dimension has a meaning but
-I've been thinking that it is not necessary and each dimension should
-have different nature, for instance, it is not necessary two dimensions
-for time, despite that one indicates hour and the other days. So I mght
-change that in future. Dont panic, I'm always trying to change the
+Most of the emission functions return an array of emissions, which means
+a matrix of matrices. The idea was that each dimension has a meaning but
+I've thought that it is not necessary and each dimension should have
+different nature, for instance, it is not necessary two dimensions for
+time, despite that one indicates hour and the other days. So I might
+change that in the future. Don't panic; I'm always trying to change the
 functions without breaking older code.
 
 I hope you liked this book.

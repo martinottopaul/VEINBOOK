@@ -196,7 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="he.html"><a href="he.html#speed-functions-of-voc-species"><i class="fa fa-check"></i><b>8.1</b> Speed functions of VOC species</a></li>
 <li class="chapter" data-level="8.2" data-path="he.html"><a href="he.html#speciate-function"><i class="fa fa-check"></i><b>8.2</b> Speciate function</a></li>
 <li class="chapter" data-level="8.3" data-path="he.html"><a href="he.html#black-carbon-and-organic-matter"><i class="fa fa-check"></i><b>8.3</b> Black carbon and organic matter</a></li>
-<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrassion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrassion</a></li>
+<li class="chapter" data-level="8.4" data-path="he.html"><a href="he.html#tyre-wear-breaks-wear-and-road-abrasion"><i class="fa fa-check"></i><b>8.4</b> Tyre wear, breaks wear and road abrasion</a></li>
 <li class="chapter" data-level="8.5" data-path="he.html"><a href="he.html#no-and-no_2"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></a></li>
 <li class="chapter" data-level="8.6" data-path="he.html"><a href="he.html#volatile-organic-compounds-nmhc"><i class="fa fa-check"></i><b>8.6</b> Volatile organic compounds: <code>nmhc</code></a></li>
 <li class="chapter" data-level="8.7" data-path="he.html"><a href="he.html#the-speciation-iag"><i class="fa fa-check"></i><b>8.7</b> The speciation <code>iag</code></a></li>
@@ -221,7 +221,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.4" data-path="check.html"><a href="check.html#emission-factors-1"><i class="fa fa-check"></i><b>10.2.4</b> Emission factors</a></li>
 <li class="chapter" data-level="10.2.5" data-path="check.html"><a href="check.html#deterioration"><i class="fa fa-check"></i><b>10.2.5</b> Deterioration</a></li>
 <li class="chapter" data-level="10.2.6" data-path="check.html"><a href="check.html#fuel-evaluation"><i class="fa fa-check"></i><b>10.2.6</b> Fuel evaluation</a></li>
-<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.7</b> Emissions estimation</a></li>
+<li class="chapter" data-level="10.2.7" data-path="check.html"><a href="check.html#fuel-quality"><i class="fa fa-check"></i><b>10.2.7</b> Fuel quality</a></li>
+<li class="chapter" data-level="10.2.8" data-path="check.html"><a href="check.html#emissions-estimation"><i class="fa fa-check"></i><b>10.2.8</b> Emissions estimation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -271,12 +272,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><em>AROMATICS</em>: “toluene”, “ethylbenzene”, “m_p_xylene”, “o_xylene”, “ONE_2_3_trimethylbenzene”, “ONE_2_4_trimethylbenzene”, “ONE_3_5_trimethylbenzene”, “styrene”, “benzene”, “C9”, “C10”, “C13”.</li>
 </ul>
 <p>Also, some Brazilian emission factors and speciations for WRF-Chem, mechanisms: “e_eth”, “e_hc3”, “e_hc5”, “e_hc8”, “e_ol2”, “e_olt”, “e_oli”, “e_iso”, “e_tol”, “e_xyl”, “e_c2h5oh”, “e_ald”, “e_hcho”, “e_ch3oh”, “e_ket”, “E_SO4i”, “E_SO4j”, “E_NO3i”, “E_NO3j”, “E_MP2.5i”, “E_MP2.5j”, “E_ORGi”, “E_ORGj”, “E_ECi”, “E_ECj”, “H2O”.</p>
-<p>By the end of this book, more emission factors will be added.</p>
-<p>Because VEIN has the capabilities to produce species from this pollutants including volatile organic compunds (VOC) and particulate matter compounds.</p>
-<p>The speciation of emissions in VEIN can be done with three ways, by selecting the pollutants in ef_speed* functions, other way explicit and the other implicit. The explicit way is by usint the function <code>speciate</code> for the specific available speciation. The implicit way is by adding a percentage value in the argument <code>k</code> in any of the functions of emission factors. The implicit way requires that the user must know the percentage of the species of pollutant.</p>
+<p>The speciation of emissions in VEIN can be done with three ways, by selecting the pollutants in ef_speed* functions, another way explicit and the other implicit. The explicit way is by using the function <code>speciate</code> for the specifically available speciation. The implicit way is by adding a percentage value in the argument <code>k</code> in any of the functions of emission factors. The implicit way requires that the user must know the percentage of the species of pollutant.</p>
 <div id="speed-functions-of-voc-species" class="section level2">
 <h2><span class="header-section-number">8.1</span> Speed functions of VOC species</h2>
-<p>As mentioned before, the speed function emission factors, currently covers several pollutants. We firstly focus on som PAH and POP. They way to select them is just:</p>
+<p>As mentioned before, the speed function emission factors, currently cover several pollutants. We firstly focus on some PAH and POP.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 pol &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;indeno(1,2,3-cd)pyrene&quot;</span>, <span class="st">&quot;benzo(k)fluoranthene&quot;</span>,
          <span class="st">&quot;benzo(b)fluoranthene&quot;</span>, <span class="st">&quot;benzo(ghi)perylene&quot;</span>, <span class="st">&quot;fluoranthene&quot;</span>,
@@ -304,7 +303,7 @@ df</code></pre></div>
 ## 
 ## $`benzo(a)pyrene`
 ## 4.8e-07 [g/km]</code></pre>
-<p>These pollutants comes from <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> and in this case, are not dependent on speed. I used lapply to iterate in each pollutant at 10 km/h. Now I will show the same for dioxins and furans.</p>
+<p>These pollutants come from <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> and in this case, are not dependent on speed. I used lapply to iterate in each pollutant at 10 km/h. Now I will show the same example for dioxins and furans.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 pol &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;PCDD&quot;</span>, <span class="st">&quot;PCDF&quot;</span>, <span class="st">&quot;PCB&quot;</span>)
 df &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pol), <span class="cf">function</span>(i){
@@ -392,14 +391,14 @@ df</code></pre></div>
 <p>Where,</p>
 <ul>
 <li><code>x</code>: Emissions estimation</li>
-<li><code>spec</code>: speciation: The speciations are: “bcom”, tyre“,”break“,”road“,”iag“,”nox&quot; and “nmhc”. ‘iag’ now includes a speciation for use of industrial and building paintings. “bcom” stands for black carbon and organic matter.</li>
-<li><code>veh</code>: Type of vehicle: When spec is “bcom” or “nox” veh can be “PC”, “LCV”, HDV&quot; or “Motorcycle”. When spec is “iag” veh can take two values depending: when the speciation is for vehicles veh accepts “veh”, eu “Evaporative”, “Liquid” or “Exhaust” and fuel “G”, “E” or “D”, when the speciation is for painting, veh is “paint” fuel or eu can be “industrial” or “building” when spec is “nmhc”, veh can be “LDV” with fuel “G” or “D” and eu “PRE”, “I”, “II”, “III”, “IV”, “V”, or “VI”. when spec is “nmhc”, veh can be “HDV” with fuel “D” and eu “PRE”, “I”, “II”, “III”, “IV”, “V”, or “VI”. when spec is “nmhc” and fuel is “LPG”, veh and eu must be “ALL”</li>
-<li><code>fuel</code>: Fuel. When spec is “bcom” fuel can be “G” or “D”. When spec is “iag” fuel can be “G”, “E” or “D”. When spec is “nox” fuel can be “G”, “D”, “LPG”, “E85” or “CNG”. Not required for “tyre”, “break” or “road”. When spec is “nmhc” fuel can be G, D or LPG.</li>
-<li><code>eu</code>: sEuro emission standard: “PRE”, “ECE_1501”, “ECE_1502”, “ECE_1503”, “I”, “II”, “III”, “IV”, “V”, “III-CDFP”,“IV-CDFP”,“V-CDFP”, “III-ADFP”, “IV-ADFP”,“V-ADFP” and “OPEN_LOOP”. When spec is “iag” accept the values “Exhaust” “Evaporative” and “Liquid”. When spec is “nox” eu can be “PRE”, “I”, “II”, “III”, “IV”, “V”, “VI”, “VIc”, “III-DPF” or “III+CRT”. Not required for “tyre”, “break” or “road”</li>
-<li><code>show</code>: when TRUE shows row of table with respective speciation</li>
-<li><code>list</code>: when TRUE returns a list with number of elements of the list as the number species of pollutants</li>
+<li><code>spec</code>: speciation: The speciations are: “bcom”, tyre“,”break“,”road“,”iag“,”nox&quot; and “nmhc”. ‘iag’ now includes speciation for the use of industrial and building paintings. “bcom” stands for black carbon and organic matter.</li>
+<li><code>veh</code>: Type of vehicle: When the spec is “bcom” or “nox” veh can be “PC”, “LCV”, HDV&quot; or “Motorcycle”. When spec is “iag” veh can take two values depending: when the speciation is for vehicles veh accepts “veh”, eu “Evaporative”, “Liquid” or “Exhaust” and fuel “G”, “E” or “D”, when the speciation is for painting, veh is “paint” fuel or eu can be “industrial” or “building” when spec is “nmhc”, veh can be “LDV” with fuel “G” or “D” and eu “PRE”, “I”, “II”, “III”, “IV”, “V”, or “VI”. when spec is “nmhc”, veh can be “HDV” with fuel “D” and eu “PRE”, “I”, “II”, “III”, “IV”, “V”, or “VI”. when spec is “nmhc” and fuel is “LPG”, veh and eu must be “ALL”</li>
+<li><code>fuel</code>: Fuel. When the spec is “bcom” fuel can be “G” or “D”. When the spec is “iag” fuel can be “G”, “E” or “D”. When spec is “nox” fuel can be “G”, “D”, “LPG”, “E85” or “CNG”. Not required for “tyre”, “break” or “road”. When the spec is “nmhc” fuel can be G, D or LPG.</li>
+<li><code>eu</code>: Euro emission standard: “PRE”, “ECE_1501”, “ECE_1502”, “ECE_1503”, “I”, “II”, “III”, “IV”, “V”, “III-CDFP”,“IV-CDFP”,“V-CDFP”, “III-ADFP”, “IV-ADFP”,“V-ADFP” and “OPEN_LOOP”. When the spec is “iag” accept the values “Exhaust” “Evaporative” and “Liquid”. When the spec is “nox” eu can be “PRE”, “I”, “II”, “III”, “IV”, “V”, “VI”, “VIc”, “III-DPF” or “III+CRT”. Not required for “tyre”, “break” or “road”</li>
+<li><code>show</code>: when TRUE shows the row of the table with respective speciation</li>
+<li><code>list</code>: when TRUE returns a list with some elements of the list as the number species of pollutants</li>
 </ul>
-<p>As shown before, there are currently 8 type of speciations. Now, i will show examples for most of them.</p>
+<p>As shown before, there is currently 8 type of speciations.</p>
 </div>
 <div id="black-carbon-and-organic-matter" class="section level2">
 <h2><span class="header-section-number">8.3</span> Black carbon and organic matter</h2>
@@ -455,7 +454,7 @@ net<span class="op">$</span>OM &lt;-<span class="st"> </span>om[, <span class="d
 Figure 8.1: Black Carbon [g/168h]
 </p>
 </div>
-<p>and Organic Matter</p>
+<p>moreover, Organic Matter</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sp<span class="op">::</span><span class="kw">spplot</span>(net, <span class="st">&quot;OM&quot;</span>, <span class="dt">scales =</span> <span class="kw">list</span>(<span class="dt">draw =</span> T), <span class="dt">main =</span> <span class="st">&quot;Organic Matter [g/168h]&quot;</span>,
            <span class="dt">col.regions =</span> <span class="kw">rev</span>(cptcity<span class="op">::</span><span class="kw">cpt</span>()))</code></pre></div>
 <div class="figure"><span id="fig:spplotom"></span>
@@ -510,9 +509,9 @@ bcom &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span c
 </tbody>
 </table>
 </div>
-<div id="tyre-wear-breaks-wear-and-road-abrassion" class="section level2">
-<h2><span class="header-section-number">8.4</span> Tyre wear, breaks wear and road abrassion</h2>
-<p>Tyre, break and road abrassions comes from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span>. Tyres consist in a complex mixture of rubber, which after the use starts to degradate. In deed, when the driving cycle ismore aggresive, higher is tyre mass emitted from tyre, with tyre wear emission factors higher in HDV than LDV. Break wear emits mass and with more aggresive driving, more emissions.</p>
+<div id="tyre-wear-breaks-wear-and-road-abrasion" class="section level2">
+<h2><span class="header-section-number">8.4</span> Tyre wear, breaks wear and road abrasion</h2>
+<p>Tire, break and road abrasions come from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span>. Tires consist of a complex mixture of rubber, which after the user starts to degrade. Indeed, when the driving cycle is more aggressive, higher is tire mass emitted from the tire, with tire wear emission factors higher in HDV than LDV. Break wear emits mass and with more aggressive driving, more emissions.</p>
 <p>The input are wear emissions in Total Suspended Particles (TSP) ,as explained in section @ref(#ew). The speciation consists in 60% PM10, 42% PM2.5, 6% PM1 and 4.8% PM0.1. Now, a simple example for TP adspeciation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
@@ -565,9 +564,9 @@ df<span class="op">$</span>Emissions &lt;-<span class="st"> </span><span class="
 Figure 8.3: Break and Tyre emissions (t/y)
 </p>
 </div>
-<p>It is interesting to see that break emissions are higher than tyre wear emissions, and the smalle the diameter, higher the difference, as shows:</p>
+<p>It is interesting to see that break emissions are higher than tire wear emissions, and the smaller the diameter, higher the difference, as shown:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-86">Table 8.2: </span>Ratio between break and tyre wear emissions</caption>
+<caption><span id="tab:unnamed-chunk-86">Table 8.2: </span>Ratio between break and tire wear emissions</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -593,11 +592,11 @@ Figure 8.3: Break and Tyre emissions (t/y)
 </tr>
 </tbody>
 </table>
-<p>The procudure can be used with <code>emis_post</code> with <code>by  = streets_wide</code> to obtain the spatial speciation.</p>
+<p>The procedure can be used with <code>emis_post</code> with <code>by  = streets_wide</code> to obtain the spatial speciation.</p>
 </div>
 <div id="no-and-no_2" class="section level2">
 <h2><span class="header-section-number">8.5</span> <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO_2\)</span></h2>
-<p>The speciation of <span class="math inline">\(NO_X\)</span> into <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO2\)</span> depends on the type of vehicle, fuel and euro standard. The following example will consists in comparing a Gasoline passenger car and a Diesel truck.</p>
+<p>The speciation of <span class="math inline">\(NO_X\)</span> into <span class="math inline">\(NO\)</span> and <span class="math inline">\(NO2\)</span> depends on the type of vehicle, fuel, and euro standard. The following example will consist in comparing a Gasoline passenger car and a Diesel truck.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
 <span class="kw">data</span>(profiles)
@@ -623,7 +622,7 @@ emipc &lt;-<span class="st"> </span><span class="kw">emis</span>(<span class="dt
 <pre><code>## Average age of age is 11.17</code></pre>
 <pre><code>## Number of age is 148.12 * 10^3 veh</code></pre>
 <pre><code>## 14612.67 kg emissions in 24 hours and 1 days</code></pre>
-<p>Then, once the emissions are estimated, we will speciate the emissions by euro standard. The estimation covered 24 hours and for simplicity, we are assuming a year with 365 similar days and dividing by 1 million to have t/y.</p>
+<p>Then, once the emissions are estimated, we will speciate the emissions by euro standard. The estimation covered 24 hours, and for simplicity, we are assuming a year with 365 similar days and dividing by 1 million to have t/y.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">rowSums</span>(<span class="kw">apply</span>(<span class="dt">X =</span> emipc, <span class="dt">MARGIN =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">FUN =</span> sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 dfpc &lt;-<span class="st">   </span><span class="kw">rbind</span>(<span class="kw">speciate</span>(df[<span class="dv">1</span>], <span class="st">&quot;nox&quot;</span>, <span class="st">&quot;PC&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;V&quot;</span>),
                 <span class="kw">speciate</span>(df[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="st">&quot;nox&quot;</span>, <span class="st">&quot;PC&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;V&quot;</span>),
@@ -667,7 +666,7 @@ knitr<span class="op">::</span><span class="kw">kable</span>(df, <span class="dt
 </div>
 <div id="volatile-organic-compounds-nmhc" class="section level2">
 <h2><span class="header-section-number">8.6</span> Volatile organic compounds: <code>nmhc</code></h2>
-<p>nmhc were shown earluier in this chapter, but they can be also used to speciate objects, resulting in all species at once. The speciation of NMHC must be applied to NMHC. However, the emission guidelines of <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> does not show explicit emission factor of NMHC and the suggeted procedure is substract the <span class="math inline">\(CH_4\)</span> from the <span class="math inline">\(HC\)</span>. This was done on VEIN and now, ef_speed* functions returns NMHC directly. This makes easier to produce speciation.</p>
+<p>nmhc was shown earlier in this chapter, but they can also be used to speciate objects, resulting in all species at once. The speciation of NMHC must be applied to NMHC. However, the emission guidelines of <span class="citation">Ntziachristos and Samaras (<a href="#ref-NtziachristosSamaras2016">2016</a>)</span> does not show specific emission factor of NMHC and the suggested procedure is subtract the <span class="math inline">\(CH_4\)</span> from the <span class="math inline">\(HC\)</span>. I included this aspect in VEIN with ef_speed* functions to return NMHC directly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
 <span class="kw">data</span>(profiles)
@@ -729,25 +728,25 @@ spec &lt;-<span class="st"> </span><span class="kw">speciate</span>(<span class=
 </div>
 <div id="the-speciation-iag" class="section level2">
 <h2><span class="header-section-number">8.7</span> The speciation <code>iag</code></h2>
-<p>The Carbon Bond Mechanism Z <span class="citation">(<a href="#ref-cbmz">1999</a>)</span> is an lumped-structure mechanism.</p>
+<p>The Carbon Bond Mechanism Z <span class="citation">(<a href="#ref-cbmz">1999</a>)</span> is a lumped-structure mechanism.</p>
 <p>Citing:</p>
-<p>**“it is currently unfeasible to treat the organic species individually in a regional or global chemistry model for three major reasons:**</p>
+<p>**“it is currently unfeasible to treat the organic species individually in a regional or global chemistry model for three primary reasons:**</p>
 <p><strong>- (1) limited computational resources,</strong> <strong>- (2) lack of detailed speciated emissions inventories, and </strong> <strong>- (3) lack of kinetic and mechanistic information for all the species and their reaction products.</strong></p>
 <p><strong>Thus there exists a need for a condensed mechanism that is capable of describing the tropospheric hydrocarbon chemistry with reasonable accuracy, sensitivity, and speed at regional to global scales. </strong></p>
-<p>The research in this aspect is intense and out of the scope of this book. However, it is important that the user who intends to performs atmospheric simulation to understand this why it is important to speciate the emissions and what represent each group.</p>
-<p>A popular air quality model nowedays is the Weather Research and Forecasting model coupled to Chemistry (WRF-Chem) <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span> <a href="https://ruc.noaa.gov/wrf/wrf-chem/and" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/and</a> the <strong>Emissions Guide</strong> (<a href="https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf</a>).</p>
-<p>The speciation <code>iag</code> splits the NMHC into the lumped groups for the mechanism CMB-Z. The name <code>iag</code> comes from the Institute of Astronomy, Geophysics and Atmospheric Sciences (IAG, <a href="http://www.iag.usp.br/" class="uri">http://www.iag.usp.br/</a>) from the University of São Paulo (USP). The Departament of Atmospheric Sciences (DAC) of IAG has measure and model air quality models for several years. There are several scientific production such as: <span class="citation">Nogueira et al. (<a href="#ref-Nogueiraetal2015">2015</a>)</span>, <span class="citation">Hoshyaripour et al. (<a href="#ref-HOSHYARIPOUR2016365">2016</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2017">2017</a>)</span>, <span class="citation">Freitas et al. (<a href="#ref-Freitasetal2005">2005</a>)</span>, <span class="citation">Martins et al. (<a href="#ref-martins2006emission">2006</a>)</span>, <span class="citation">Pérez-Martinez et al. (<a href="#ref-perez2014emission">2014</a>)</span>, <span class="citation">Ulke and Andrade (<a href="#ref-ulke2001modeling">2001</a>)</span>, <span class="citation">Vivanco and Fátima Andrade (<a href="#ref-vivanco2006validation">2006</a>)</span>, <span class="citation">Boian and Andrade (<a href="#ref-boian2012characterization">2012</a>)</span>, <span class="citation">Fatima Andrade et al. (<a href="#ref-Andrade2012">2012</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2015">2015</a>)</span>, <span class="citation">Vara-Vela et al. (<a href="#ref-VaraVelaetal2015">2016</a>)</span>, <span class="citation">Rafee (<a href="#ref-Rafee2015">2015</a>)</span>, <span class="citation">Ibarra-Espinosa et al. (<a href="#ref-Ibarraetal2017b">2017</a>)</span>. The following figure, shows an air quality simulation over South Easth Brazil from DAC/IAG/USP.</p>
+<p>The research in this aspect is intense and out of the scope of this book. However, it is vital that the user who intends to performs an atmospheric simulation to understand this why it is essential to speciate the emissions and what represent each group.</p>
+<p>A popular air quality model nowadays is the Weather Research and Forecasting model coupled to Chemistry (WRF-Chem) <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span> <a href="https://ruc.noaa.gov/wrf/wrf-chem/and" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/and</a> the <strong>Emissions Guide</strong> (<a href="https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf</a>).</p>
+<p>The speciation <code>iag</code> splits the NMHC into the lumped groups for the mechanism CMB-Z. The name <code>iag</code> comes from the Institute of Astronomy, Geophysics and Atmospheric Sciences (IAG, <a href="http://www.iag.usp.br/" class="uri">http://www.iag.usp.br/</a>) from the University of São Paulo (USP). The Department of Atmospheric Sciences (DAC) of IAG has measure and model air quality models for several years. There are several scientific productions such as: <span class="citation">Nogueira et al. (<a href="#ref-Nogueiraetal2015">2015</a>)</span>, <span class="citation">Hoshyaripour et al. (<a href="#ref-HOSHYARIPOUR2016365">2016</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2017">2017</a>)</span>, <span class="citation">Freitas et al. (<a href="#ref-Freitasetal2005">2005</a>)</span>, <span class="citation">Martins et al. (<a href="#ref-martins2006emission">2006</a>)</span>, <span class="citation">Pérez-Martinez et al. (<a href="#ref-perez2014emission">2014</a>)</span>, <span class="citation">Ulke and Andrade (<a href="#ref-ulke2001modeling">2001</a>)</span>, <span class="citation">Vivanco and Fátima Andrade (<a href="#ref-vivanco2006validation">2006</a>)</span>, <span class="citation">Boian and Andrade (<a href="#ref-boian2012characterization">2012</a>)</span>, <span class="citation">Fatima Andrade et al. (<a href="#ref-Andrade2012">2012</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2015">2015</a>)</span>, <span class="citation">Vara-Vela et al. (<a href="#ref-VaraVelaetal2015">2016</a>)</span>, <span class="citation">Rafee (<a href="#ref-Rafee2015">2015</a>)</span>, <span class="citation">Ibarra-Espinosa et al. (<a href="#ref-Ibarraetal2017b">2017</a>)</span>. The following figure shows an air quality simulation over South East Brazil from DAC/IAG/USP.</p>
 <div class="figure"><span id="fig:unnamed-chunk-90"></span>
 <img src="figuras/wrf.png" alt="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php" width="245" />
 <p class="caption">
 Figure 8.4: <a href="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php" class="uri">http://www.lapat.iag.usp.br/aerossol/wrf9/index.php</a>
 </p>
 </div>
-<p>Some of these papers show measurements in tunnels, fuel, etc. The speciation <code>iag</code> it is based on these experiments, and the last versions, covers an update during 2015 so that the exhaust emissions speciation is more representative of brazilian gasoline. This means that:</p>
+<p>Some of these papers show measurements in tunnels and fuel. The speciation <code>iag</code> it is based on these experiments, and the last versions, covers an update during 2015 so that the exhaust emissions speciation is more representative of Brazilian gasoline, which means?</p>
 <ul>
 <li>** THE SPECIATION <code>IAG</code> IS BASED ON BRAZILIAN MEASUREMENTS**.</li>
 </ul>
-<p>and the user who wants to applt it outside Brazil, should be ensure, that the fleet and fuel are compatible. As that will be hard to accomplish, I can say that this speciation is for and to be used in Brazil, even more, in São Paulo.</p>
+<p>Moreover, the user who wants to apply it outside Brazil should be ensured, that the fleet and fuel are compatible. As that will be hard to accomplish, I can say that this speciation is for and to be used in Brazil, even more, in São Paulo.</p>
 <p>The currently speciation <code>iag</code> is:</p>
 <div class="figure"><span id="fig:unnamed-chunk-91"></span>
 <img src="figuras/iag1.png" alt="Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)" width="445" />
@@ -763,7 +762,7 @@ Figure 8.5: Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Esp
 <li><code>fuel</code>: “G”, “E” or “D”.</li>
 <li><code>eu</code>: “Exhaust” “Evaporative” or “Liquid”.</li>
 <li><code>show</code>: Let this FALSE.</li>
-<li><code>list</code>: Let this TRUE so that the result is a list, and each element of the list a lumped specie.</li>
+<li><code>list</code>: Let this TRUE so that the result is a list, and each element of the list a /lumped specie.</li>
 </ul>
 <p>Example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Do not run</span>
@@ -771,12 +770,12 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;e_eth&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>)
 <span class="kw">head</span>(dfa)</code></pre></div>
 <pre><code>##       e_eth
-## 1 0.9329971
-## 2 0.9253897
-## 3 0.9272621
-## 4 0.9249944
-## 5 0.9259329
-## 6 0.9272202</code></pre>
+## 1 0.9309422
+## 2 0.9277690
+## 3 0.9304294
+## 4 0.9352010
+## 5 0.9320021
+## 6 0.9290253</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;iag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(df)</code></pre></div>
@@ -787,31 +786,31 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
   <span class="kw">print</span>(df[[i]][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]) <span class="co"># Firt three lines of each element of the list</span>
 }</code></pre></div>
 <pre><code>## Units: [mol/h]
-## [1] 0.9329971 0.9253897 0.9272621
+## [1] 0.9309422 0.9277690 0.9304294
 ## Units: [mol/h]
-## [1] 1.436693 1.424979 1.427862
+## [1] 1.433529 1.428642 1.432739
 ## Units: [mol/h]
-## [1] 0.5236318 0.5193623 0.5204132
+## [1] 0.5224785 0.5206976 0.5221908
 ## Units: [mol/h]
-## [1] 0.2526656 0.2506054 0.2511125
+## [1] 0.2521091 0.2512497 0.2519702
 ## Units: [mol/h]
-## [1] 1.917062 1.901431 1.905278
+## [1] 1.912840 1.906320 1.911786
 ## Units: [mol/h]
-## [1] 0.8037078 0.7971546 0.7987675
+## [1] 0.8019376 0.7992041 0.8014959
 ## Units: [mol/h]
-## [1] 0.5328305 0.5284860 0.5295553
+## [1] 0.5316570 0.5298448 0.5313641
 ## Units: [mol/h]
-## [1] 0.02555855 0.02535015 0.02540144
+## [1] 0.02550225 0.02541533 0.02548821
 ## Units: [mol/h]
-## [1] 0.4638364 0.4600544 0.4609853
+## [1] 0.4628148 0.4612373 0.4625599
 ## Units: [mol/h]
-## [1] 0.8836835 0.8764782 0.8782516
+## [1] 0.8817372 0.8787317 0.8812515
 ## Units: [mol/h]
-## [1] 1.241274 1.231153 1.233644
+## [1] 1.238540 1.234318 1.237857
 ## Units: [mol/h]
-## [1] 0.3479468 0.3451097 0.3458080
+## [1] 0.3471804 0.3459970 0.3469892
 ## Units: [mol/h]
-## [1] 0.4537960 0.4500959 0.4510066
+## [1] 0.4527965 0.4512531 0.4525471
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -864,9 +863,9 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <pre><code>## Number of lon points: 23
 ## Number of lat points: 19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gx &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(net, g)</code></pre></div>
-<pre><code>## Sum of street emissions 602079.19</code></pre>
+<pre><code>## Sum of street emissions 602061.91</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 602079.19</code></pre>
+<pre><code>## Sum of gridded emissions 602061.91</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(gx, <span class="dt">spec =</span> <span class="st">&quot;pmiag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>, <span class="dt">dx =</span> <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## To be used in emissions grid only, emissions must be in g/(Xkm^2)/h</code></pre>
@@ -876,18 +875,18 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 ##  [7] &quot;e_orgi&quot;   &quot;e_orgj&quot;   &quot;e_eci&quot;    &quot;e_ecj&quot;    &quot;h2o&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
 <pre><code>##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001439112 [g/m^2/s] 0.01164372 0.0004616372 0.001968032 0.01868977
-## 2 0.001430429 [g/m^2/s] 0.01157347 0.0004588519 0.001956158 0.01857700
-## 3 0.001466239 [g/m^2/s] 0.01186321 0.0004703392 0.002005130 0.01904207
-## 4 0.002548269 [g/m^2/s] 0.02061781 0.0008174317 0.003484840 0.03309440
-## 5 0.005772160 [g/m^2/s] 0.04670202 0.0018515888 0.007893616 0.07496311
+## 1 0.001455979 [g/m^2/s] 0.01178019 0.0004670477 0.001991098 0.01890881
+## 2 0.001447194 [g/m^2/s] 0.01170911 0.0004642297 0.001979085 0.01879473
+## 3 0.001483424 [g/m^2/s] 0.01200225 0.0004758516 0.002028631 0.01926525
+## 4 0.002553370 [g/m^2/s] 0.02065909 0.0008190681 0.003491817 0.03316065
+## 5 0.005772053 [g/m^2/s] 0.04670116 0.0018515546 0.007893470 0.07496173
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05606930 0.005681689 0.02422194 0.01046627 0.004485544 0.05177065
-## 2 0.05573100 0.005647408 0.02407579 0.01040312 0.004458480 0.05145829
-## 3 0.05712621 0.005788790 0.02467852 0.01066356 0.004570097 0.05274654
-## 4 0.09928320 0.010060698 0.04289034 0.01853286 0.007942656 0.09167149
-## 5 0.22488933 0.022788786 0.09715219 0.04197934 0.017991147 0.20764782
+## 1 0.05672644 0.005748280 0.02450582 0.01058894 0.004538115 0.05237742
+## 2 0.05638418 0.005713597 0.02435796 0.01052505 0.004510734 0.05206139
+## 3 0.05779574 0.005856635 0.02496776 0.01078854 0.004623660 0.05336474
+## 4 0.09948196 0.010080838 0.04297621 0.01856997 0.007958557 0.09185501
+## 5 0.22488518 0.022788365 0.09715040 0.04197857 0.017990814 0.20764398
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000</code></pre>
 
 </div>
