@@ -5,10 +5,6 @@ The emissions estimation process was shown on Eq. \@ref(eq:emi) on chapter \@ref
 In this chapter, I will show how VEIN interprets this and other emission equations to estimate emissions. At the end of each section, The Fig. \@ref(fig:diaemis) shows a diagram with the estimation process. The pink boxes hows VEIN classes, the circle data, and the grey boxes functions. The object `Vehicles` is a class consisting of a matrix of vehicles with units $1 \cdot h^{-1}$, as shown in chapter \@ref(traffic). However, _the units in `Vehicles` is not a requirement for estimating emissions_. The object of class `Speed` is a  matrix of speeds with the number of columns as the calculated speeds at different hours at each row. This object can be present or not, depending on the type of emission factor considered, for an instant, emission factors not depending on speed. The object class of `EmissionFactorsList` are a list of functions depending on speed as $f(V)$. Each function can depend on speed or not as shown in chapter \@ref(ef), section \@ref(localef).  Lastly, the object lkm is the length of the road expressed in $lkm$.
 
 The function `emis` reads the inputs and estimates the emissions producing an object with class `EmissionsArray` which has 4 dimensions, number of streets, ages of use of a vehicle, number of hours and number of days.
-<!-- Newer -->
-<!-- versions of VEIN, since version XX, includes `EmissionsArray` of only three -->
-<!-- dimensions, streets, ages of use of a vehicle, number of hours, so that, if -->
-<!-- the estimations cover one week, it will have $168 = 7 \cdot 24$ hours. -->
 
 ```{r , include = FALSE, eval = FALSE, fig.cap='Emissions estimation process with VEIN', out.width='80%', fig.asp=.75, fig.align='center'}
 library(DiagrammeR)
@@ -68,20 +64,15 @@ p1 <-grViz("digraph boxes_and_circles {
 knitr::include_graphics("figuras/dia6.png")
 ```
 
-The estimation process is done with the emissions functions. The emissions 
-estimations functions are:
+The estimation process is done with the emissions functions. The emissions estimations functions are:
 
 - `emis` for hot emissions,
 - `emis_cold` for cold start emissions,
 - `emis_evap` for evaporative emissions,
 - `emis_paved` for resuspension emissions on paved roads, and
-- `emis_wear` for wear of brakes, tyres, and roads.
+- `emis_wear` for wear of brakes, tires, and roads.
 
-These functions perform internal checks for ensuring that the length lkm has
-the unit of $km$. This means that, if `lkm` has units different than $km$,
-the function will not run. These function runs internally `lapply` which are
-faster `for` written in C. Despite that these functions are fast, i will try
-to make them faster with some RCPP implementation in the future.
+These functions perform internal checks for ensuring that the length lkm has the unit of $km$. This means that, if `lkm` has units different than $km$, the function will not run. These function runs internally `lapply` which are faster `for` written in C. Despite that these functions are fast, i will try to make them faster with some RCPP implementation in the future.
 
 ## The `emis` function
 
@@ -101,17 +92,13 @@ hours.
 - `agemax`: Age of oldest vehicles of the vehicles veh. The information of this argument can be obtained from the `veh` argument. Therefore, this argument will be deprecated.
 - `profile`: Numerical or dataframe or matrix with nrows equal to the hours and cols to each day. This is traffic data normalized to the hour of the input traffic data.
 - `hour`: Number of considered hours in estimation. As this information
-can be derived from the argument `profile`, the default value is the number of
-rows of the matrix profile.
+can be derived from the argument `profile`, the default value is the number of rows of the matrix profile.
 - `day`: Number of considered days in estimation. As this information
-can be derived from the argument `profile`, the default value is the number of
-columns of the matrix profile.
+can be derived from the argument `profile`, the default value is the number of columns of the matrix profile.
 - `array`: When FALSE produces a dataframe of the estimation. When TRUE 
-expects a profile as a dataframe producing an array with dimensions (streets
-x columns x hours x days)
+expects a profile as a dataframe producing an array with dimensions (streets x columns x hours x days)
 
-When the only arguments present in the function are **veh**, **lkm** and **ef**
-assumes a _top-down_ and shows a message.
+When the only arguments present in the function are **veh**, **lkm** and **ef** assumes a _top-down_ and shows a message.
 
 ## The `emis_cold` function
 
@@ -132,8 +119,7 @@ The equation for estimating cold-start emissions is on Eq. \@ref(eq:cold).
 ## The `emis_evap` function
 
 The estimation of evaporative emissions applies Tier 2 from 
--@MelliosNtziachristos2016. The approach followed in VEIN was very merely,
-consisting in only adding elements of a data-frame.
+-@MelliosNtziachristos2016. The approach followed in VEIN was very merely, consisting in only adding elements of a data-frame.
 
 
 ```{r}
@@ -147,48 +133,32 @@ It is a `Vehicles` object.
 - `fuel`: Character indicating the fuel of the vehicle.
 - `age`: Numeric vector with the age distribution, for instance, 1:40 for vehicles between 1 and 40 years of use.
 - `nd4`: Number of days of your period of study with monthly average Temperature between 20 and 35 Celsius degrees. If the period is a year,
-this is the annual number of days under that condition.
+it is the annual number of days under that condition.
 - `nd3`: Number of days of your period of study with a monthly average 
 temperature between 10 and 25 Celsius degrees.
 - `nd2`: Number of days of your period of study with a monthly average 
 temperature between 0 and 15 Celcius degrees.
 - `nd1`: Number of days of your period of study with a monthly average 
 temperature between -5 and 10 Celsius degrees.
-- `hs_nd4`: Number of average daily hot-soak evaporative emissions for days with
-temperature between 20 and 35 Celcius degrees
-- `hs_nd3`: Number of average daily hot-soak evaporative emissions for days with
-temperature between 10 and 25 Celcius degrees
-- `hs_nd2`: Number of average daily hot-soak evaporative emissions for days with
-temperature between 0 and 15 Celcius degrees
-- `hs_nd1`: Number of average daily hot-soak evaporative emissions for days with
-temperature between -5 and 10 Celcius degrees
-- `rl_nd4`: Number of average daily running losses evaporative emissions for days
-with a temperature between 20 and 35 Celcius degrees
-- `rl_nd3`: Number of average daily running losses evaporative emissions for days 
-with a temperature between 10 and 25 Celcius degrees
-- `rl_nd2`: Number of average daily running losses evaporative emissions for days 
-with a temperature between 0 and 15 Celcius degrees
-- `rl_nd1`: Number of average daily running losses evaporative emissions for days 
-with a temperature between -5 and 10 Celcius degrees
-- `d_nd4`: Number of average daily diurnal evaporative emissions for days with
-temperature between 20 and 35 Celcius degrees
-- `d_nd3`: Number of average daily diurnal evaporative emissions for days with
-temperature between 10 and 25 Celcius degrees
-- `d_nd2`: Number of average daily diurnal evaporative emissions for days with
-temperature between 0 and 15 Celcius degrees
-- `d_nd1`: Number of average daily diurnal evaporative emissions for days with
-temperature between -5 and 10 Celcius degrees
+- `hs_nd4`: Number of average daily hot-soak evaporative emissions for days with the temperature between 20 and 35 Celcius degrees
+- `hs_nd3`: Number of average daily hot-soak evaporative emissions for days with the temperature between 10 and 25 Celcius degrees
+- `hs_nd2`: Number of average daily hot-soak evaporative emissions for days with the temperature between 0 and 15 Celcius degrees
+- `hs_nd1`: Number of average daily hot-soak evaporative emissions for days with the temperature between -5 and 10 Celcius degrees
+- `rl_nd4`: Number of average daily running losses evaporative emissions for days with a temperature between 20 and 35 Celcius degrees
+- `rl_nd3`: Number of average daily running losses evaporative emissions for days with a temperature between 10 and 25 Celcius degrees
+- `rl_nd2`: Number of average daily running losses evaporative emissions for days with a temperature between 0 and 15 Celcius degrees
+- `rl_nd1`: Number of average daily running losses evaporative emissions for days with a temperature between -5 and 10 Celcius degrees
+- `d_nd4`: Number of average daily diurnal evaporative emissions for days with the temperature between 20 and 35 Celcius degrees
+- `d_nd3`: Number of average daily diurnal evaporative emissions for days with the temperature between 10 and 25 Celcius degrees
+- `d_nd2`: Number of average daily diurnal evaporative emissions for days with the temperature between 0 and 15 Celcius degrees
+- `d_nd1`: Number of average daily diurnal evaporative emissions for days with the temperature between -5 and 10 Celcius degrees
 
 
 ## The `emis_paved` function
 
-Evaporative emissions are emissions of resuspended dust due to traffic circulating
-over paved or non-paved roads. These emissions can be a vital source of mass particulate matter and several cities programs that aim to improve air quality
-by diminishing these emissions [@AMATO20103070]. However, these emissions are not
-considered by in the European emissions guidelines, where their focus is on primary particles and not those resulting from the resuspension of previously deposited material [@NtziachristosBoulter2009].
+Evaporative emissions are emissions of resuspended dust due to traffic circulating over paved or non-paved roads. These emissions can be a vital source of mass particulate matter and several cities programs that aim to improve air quality by diminishing these emissions [@AMATO20103070]. However, these emissions are not considered by in the European emissions guidelines, where their focus is on primary particles and not those resulting from the resuspension of previously deposited material [@NtziachristosBoulter2009].
 
-The method adopted in VEIN comes from the USEPA [@paved] which presents equations
-for annual, daily and hourly estimations:
+The method adopted in VEIN comes from the USEPA [@paved] which presents equations for annual, daily and hourly estimations:
 
 \begin{equation}
 EF_{paved}=k \cdot sL^{0.91} \cdot W^{1.02}
@@ -202,8 +172,7 @@ Where
 - $sL$ road surface silt loading $g \cdot m^{-2}$.
 - $W$ average weight.
 
-Equation \@ref(eq:res1) can be extrapolated to consider natural mitigation of 
-rainy periods of time with daily basis:
+Equation \@ref(eq:res1) can be extrapolated to consider natural mitigation of  rainy periods of time with daily basis:
 
 \begin{equation}
 EF_{anual} = EF_{paved} \cdot (1 - \frac{P}{4 \cdot N})
@@ -248,10 +217,7 @@ Where,
 - `W`: array of dimensions of veh. It consists in the hourly averaged weight of traffic fleet in each road.
 
 For instance, Let's create an array of vehicles. The function `adt` calculates
-the number of vehicles at all hours. Let's use the `data(net)` assuming no buses.
-Let's calculate the total traffic for only 24 hours with the same profile. For
-Simplicity, let's assume that all vehicle are expressed in _vehicle equivalent_
-Moreover, it is a dry period.
+the number of vehicles at all hours. Let's use the `data(net)` assuming no buses. Let's calculate the total traffic for only 24 hours with the same profile. For Simplicity, let's assume that all are  _vehicle equivalent_ Moreover, it is a dry period.
 
 ```{r}
 library(vein)
@@ -265,10 +231,7 @@ vk <- vkpc + vklcv + vkmc + vkhgv
 dim(vk)
 ```
 
-`W` is the average hourly fleet weight. It has the same dimensions of `adt2`. Let's
-assume an individual weight of PC is 1, LCV 1.5, HGV = 10 and MC 0.5. This example
-is a simplification, `adt` should be calculated with a full characterization
-of the fleet.
+`W` is the average hourly fleet weight. It has the same dimensions of `adt2`. Let's assume an individual weight of PC is 1, LCV 1.5, HGV = 10 and MC 0.5. This example is a simplification, `adt` should be calculated with a full characterization of the fleet.
 
 ```{r}
 wpc  <- vkm(net$ldv*0.75, 1, profiles$PC_JUNE_2012[, 1])*1
@@ -280,7 +243,7 @@ W[is.na(W)] <- 0
 dim(W)
 ```
 
-moreover, now we estimate the emissions with the default values form PM10.
+Moreover, now we estimate the emissions with the default values form PM10.
 
 ```{r}
 emi <- emis_paved(veh = vk, lkm = net$lkm, W = W)
@@ -289,7 +252,7 @@ emi[1:4, 1:4]
 
 ## The `emis_wear` function {#ew}
 
-Wear emissions can be very important these are a second most important
+Wear emissions can be significant these are a second most important
 source of particulate matter in Europe [@eear]. These methods in VEIN comes from
 -@NtziachristosBoulter2009 which include wear of "tire", "break" and "road".
 

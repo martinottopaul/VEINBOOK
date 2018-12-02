@@ -13,8 +13,7 @@ project [@tim, @artemis].
 
 Perhaps the most used approach to obtain emission factors are speed functions. As emissions tests on driving cycles are valid for only one
 average speed, measuring emissions of different driving cycles at different average speeds, allows obtaining point clouds where regression is applied, obtaining an emission factor as a speed function. The literature shows experiments in different parts of the world, such as in Chile [@Corvalanetal2002] and Europe [@ntziachristos2000speed]. However, probably the most used source of emission factors as speed functions are the European emission guidelines developed by the European Monitoring and Evaluation Programme (EMEP, http://www.emep.int/) and published by the European
-Environment Agency (EEA, https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep) [@NtziachristosSamaras2016]. These emission factors are included
-in the VEIN model.
+Environment Agency (EEA, https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep) [@NtziachristosSamaras2016], which are included in the VEIN model.
 
 Another aspect important in vehicular emissions is the degradation of the
 emissions of old vehicles. Over time, the different part of the cars suffers deterioration, increasing the emissions. Therefore, approaches have been developed to account for this effect in inventories. One method consists in determining functions that increment the emissions by accumulated mileage, such as studies of -@CorvalanVargas2003.
@@ -361,7 +360,7 @@ $EF_{cold}(ta_n,V_{i,l})_{j,k,m}-1$ is the emission factors for cold start
 conditions at each street link $i$, vehicle category from composition $k$, hour $l$ and pollutant $m$ and monthly average temperature $n$.
 [@NtziachristosSamaras2016] suggest using monthly average temperature. 
 
-The second term $\beta_j$ is defined as the fraction of mileage driven with a cold engine/catalyst [@NtziachristosSamaras2016]. The VEIN model incorporates a dataset of cold starts recorded during the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005] in São Paulo [@ivesp], which provides the hourly mileage driven with cold start conditions.
+The second term $\beta_j$ is the fraction of mileage driven with a cold engine/catalyst [@NtziachristosSamaras2016]. The VEIN model incorporates a dataset of cold starts recorded during the implementation of the International Vehicle Emissions (IVE) model [@Davisetal2005] in São Paulo [@ivesp], which provides the hourly mileage driven with cold start conditions.
 
 The function for cold start emission factors is `ef_ldv_cold` and its arguments are:
 
@@ -409,7 +408,7 @@ There is another function called `ef_ldv_cold_list` which will be deprecated soo
 ## Deterioration {#det}
 
 By default, VEIN includes deterioration factors from Copert 
-[@NtziachristosSamaras2016]. However, it is possible to include other sources, such as from [@CorvalanVargas2003] or includes deteriorated local emission factors. This aspect is faced in VEIN with the function `emis_det`. This function returns deteriorated factors, as numeric vectors, which must be multiplied with the emission factors of vehicles with 0 mileage.
+[@NtziachristosSamaras2016]. However, it is possible to include other sources, such as from [@CorvalanVargas2003] or includes deteriorated local emission factors, which covered with the function `emis_det`. This function returns deteriorated factors, as numeric vectors, multiplied with the emission factors of vehicles with 0 mileage.
 
 The arguments of this functions are:
 
@@ -534,8 +533,8 @@ EF_{ev}(\frac{g}{km})=EF(_{ev})(\frac{g}{trip}) \cdot A(\frac{trips}{day}) \cdot
 
 Clearly, we need to know A $(\frac{trips}{day})$ and B$(\frac{km}{day})^{-1}$. Diurnal evaporative emissions factors are expressed as $(\frac{g}{day})$. To convert to $(\frac{g}{km})$ we only need the kilometers driven each day $\frac{km}{day}^{-1}$.
 
-Now, it will be shown an example of the evaporative emission factors from 
--@CETESB2015. These emission factors are based on the methodology Tier 2 from 
+Now, I will show an example of the evaporative emission factors from 
+-@CETESB2015, based on the methodology Tier 2 from 
 -@@MelliosNtziachristos2016. If we consider evaporative emission factors of Passenger Cars using Gasoline (blended with 25\% of Ethanol) [@CETESB2015] and4.6 $(\frac{trips}{day})$ [@ibarrathesis].
 
 ```{r echo = FALSE}
@@ -623,7 +622,7 @@ If the user wants to use tunnel emission factors from -@perez2014emission in VEI
 ## Emission factors from International Vehicle Emissions (IVE)
 
 The IVE model has calculated emission factors by correcting BASE emission factors with the vehicle specific power (VSP) methodology to predict
-emissions [@jimenez1999vehicle]. The formula is shown on Eq. \@ref(eq:vsp).
+emissions [@jimenez1999vehicle], see Eq. \@ref(eq:vsp).
 
 \begin{equation}
 VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3

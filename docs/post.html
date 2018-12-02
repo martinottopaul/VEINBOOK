@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-12-01">
+<meta name="date" content="2018-12-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#outputs-from-travel-demand-models"><i class="fa fa-check"></i><b>4.1.1</b> Outputs from travel demand models</a></li>
 <li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
@@ -262,24 +262,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Figure 7.1: Post-emissions
 </p>
 </div>
-<p>Now the function <code>emis_post</code> reads the <code>EmissionsArray</code> and and convert it to data-frames that are easier to manage.</p>
+<p>Now the function <code>emis_post</code> reads the <code>EmissionsArray</code> also, convert it to data-frames that are easier to manage.</p>
 <p>The arguments of <code>emis_post</code> are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_post)</code></pre></div>
 <pre><code>## function (arra, veh, size, fuel, pollutant, by = &quot;veh&quot;, net) 
 ## NULL</code></pre>
 <p>Where,</p>
 <ul>
-<li><code>arra</code>: <code>EmissionsArray</code> obtained with the <code>emis</code> functions. It is an array of emissions 4d: streets x category of vehicles x hours x days or 3d: streets x category of vehicles x hours</li>
-<li><code>veh</code>: Character indicating the type of vehicle , for instance: “PC”.</li>
+<li><code>arra</code>: <code>EmissionsArray</code> obtained with the <code>emis</code> functions. It is an array of emissions 4d: streets x category of vehicles x hours x days or 3d: streets x category of vehicles x hours.</li>
+<li><code>veh</code>: Character indicating the type of vehicle, for instance: “PC”.</li>
 <li><code>size</code>: Character indicating the size or weight, for instance: “&lt;1400”, “1400&lt;cc&lt;2000”, “GLP”, “Diesel”.</li>
 <li><code>fuel</code>: Character indicating fuel, for instance: “Gasoline”, “E_25”, “GLP”, “Diesel”.</li>
-<li><code>pollutant</code>: Character indicating the pollutant, for instance “CO”, “NOx”, etc.</li>
-<li><code>by</code>: Character indicating type of output, “veh” for total vehicular category , “streets_narrow” or “streets_wide”. This is the most important argument of this function. “streets_wide” returns a dataframe with rows as number of streets and columns the hours as days*hours considered, e.g. 168 columns as the hours of a whole week and “streets_wide repeats the row number of streets by hour and day of the week</li>
+<li><code>pollutant</code>: Character indicating the pollutant, for instance, “CO”, “NOx”, …</li>
+<li><code>by</code>: Character indicating the type of output, “veh” for the total vehicular category, “streets_narrow” or “streets_wide”. “streets_wide” or just “streets” returns a dataframe with rows as the number of streets and columns the hours as days*hours considered, e.g., 168 columns as the hours of a whole week and “streets_wide repeats the row number of streets by the hour and day of the week</li>
 </ul>
-<p>Lets create some objects</p>
+<p>Let’s create some objects</p>
 <div id="emissions-by-street" class="section level2">
 <h2><span class="header-section-number">7.1</span> Emissions by street</h2>
-<p>From previous chapters we worked with <code>Vehicles</code>, <code>EmissionFactors</code> and estimate emissions generating <code>EmissionsArray</code>. Now let’s create an <code>EmissionsArray</code> object.</p>
+<p>From previous chapters, we worked with <code>Vehicles</code>, <code>EmissionFactors</code> and estimate emissions generating <code>EmissionsArray</code>. Now let’s create an <code>EmissionsArray</code> object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">library</span>(veinreport)</code></pre></div>
 <pre><code>## 
@@ -349,7 +349,7 @@ Figure 7.3: NOx emisions of LT (g/h)
 </div>
 <div id="total-emissions-in-data-frames" class="section level2">
 <h2><span class="header-section-number">7.2</span> Total emissions in data-frames</h2>
-<p>In order to obtain the total emissions in data-frame, the same function <code>emis_post</code> is used, but in this case, with the argument <code>by</code> = “veh”. We also need to add arguments of <code>veh</code> for the type of vehicle, <code>size</code> the size or gross weight, <code>fuel</code> and <code>pollutant</code>. The argument <code>net</code> is not required in this case.</p>
+<p>To obtain the total emissions in data-frame, the same function <code>emis_post</code> is used, but in this case, with the argument <code>by</code> = “veh”. We also need to add arguments of <code>veh</code> for the type of vehicle, <code>size</code> the size or gross weight, <code>fuel</code> and <code>pollutant</code>. The argument <code>net</code> is not required in this case.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E_NOx_DF &lt;-<span class="st"> </span><span class="kw">emis_post</span>(<span class="dt">arra =</span> E_NOx, <span class="dt">veh =</span> <span class="st">&quot;LT&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;Small&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;B5&quot;</span>,
                       <span class="dt">by =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">pollutant =</span> <span class="st">&quot;NOx&quot;</span>)
 <span class="kw">head</span>(E_NOx_DF)</code></pre></div>
@@ -360,11 +360,11 @@ Figure 7.3: NOx emisions of LT (g/h)
 ## 4 E_NOx_4 208.5892 [g/h]  LT Small   B5       NOx   4    1
 ## 5 E_NOx_5 765.7001 [g/h]  LT Small   B5       NOx   5    1
 ## 6 E_NOx_6 885.6223 [g/h]  LT Small   B5       NOx   6    1</code></pre>
-<p>The resulting object is a data-frame with the name of the input array, then it has the g/h. Also, the name of the vehicle, the size, fuel, pollutant, age and hour. This is interesting because we can now what are the most pollutatn vehicle and at which hour this emissions ocurres.</p>
+<p>The resulting object is a data-frame with the name of the input array, and then it has the g/h. Also, the name of the vehicle, the size, fuel, pollutant, age and hour, which is interesting because we can know what the most pollutant vehicle is and at which hour these emissions occurred.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E_NOx_DF[E_NOx_DF<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(E_NOx_DF<span class="op">$</span>g), ]</code></pre></div>
 <pre><code>##        E_NOx              g veh  size fuel pollutant age hour
 ## 517 E_NOx_17 29139.51 [g/h]  LT Small   B5       NOx  17   11</code></pre>
-<p>The highest emissions by hour are of Light Trucks of 17 years of use at hour 11 on local time. However, it is possible to get more interesting insights of the data. The datra can be aggregated by age, hour or plot all together as shown on Fig. <a href="post.html#fig:noxlt3">7.6</a>. The highest emissions ocurre between 17 and 27 years of use. This figure also shows the effect of emissions standards introduced in different years.</p>
+<p>The highest emissions by the hour are of Light Trucks of 17 years of use at hour 11 on local time. However, it is possible to get more interesting insights into the data. The data can be aggregated by age, hour or plot all together as shown in Fig. <a href="post.html#fig:noxlt3">7.6</a>. The highest emissions occurred between 17 and 27 years of use. This figure also shows the effect of emissions standards introduced in different years.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">aggregate</span>(E_NOx_DF<span class="op">$</span>g, <span class="dt">by =</span> <span class="kw">list</span>(E_NOx_DF<span class="op">$</span>hour), sum)
 <span class="kw">plot</span>(df, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlab =</span> <span class="st">&quot;hour&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;NOx (g/h)&quot;</span>)</code></pre></div>
 <div class="figure"><span id="fig:noxlt1"></span>
@@ -402,7 +402,7 @@ Figure 7.6: NOx emissions of LT
 </div>
 <div id="merging-emissions" class="section level2">
 <h2><span class="header-section-number">7.3</span> Merging emissions</h2>
-<p>The function <code>inventory</code> was designed to store the emissions of each type of vehicle in each directory. Hence, it was necessary to create a function that read and merge the emissions that are in each directory, returning a data-frame os a spatial feature data-frame. The function is <code>emis_merge</code>. As it can be seen on Fig. <a href="post.html#fig:demispost">7.1</a>, <code>emis_merge</code> comes after <code>emis_post</code> or <code>speciate</code>. The arguments of <code>emis_merge</code> are:</p>
+<p>The function <code>inventory</code> was designed to store the emissions of each type of vehicle in each directory. Hence, it was necessary to create a function that reads and merge the emissions that are in each directory, returning a data-frame os a spatial feature data-frame. The function is <code>emis_merge</code>. Fig. <a href="post.html#fig:demispost">7.1</a>, <code>emis_merge</code> comes after <code>emis_post</code> or <code>speciate</code>. The arguments of <code>emis_merge</code> are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_merge)</code></pre></div>
 <pre><code>## function (pol = &quot;CO&quot;, what = &quot;STREETS.rds&quot;, streets = T, net, 
 ##     path = &quot;emi&quot;, crs, under = &quot;after&quot;, ignore = FALSE, as_list = FALSE) 
@@ -411,50 +411,50 @@ Figure 7.6: NOx emissions of LT
 <ul>
 <li><code>pol</code>: Character. Pollutant.</li>
 <li><code>what</code>: Character. Word to search the emissions names, “STREETS”, “DF” or whatever name. It is important to include the extension .‘rds’</li>
-<li><code>streets</code>: Logical. If true, emis_merge will read the street emissions created with emis_post by “streets_wide”, returning an object with class ‘sf’. If false, it will read the emissions data-frame and rbind them.</li>
-<li><code>net</code>: ‘Spatial feature’ or ‘SpatialLinesDataFrame’ with the streets. It is expected #‘that the number of rows is equal to the number of rows of street emissions. If #’ not, the function will stop.</li>
-<li><code>path</code>: Character. Path where emissions are located</li>
+<li><code>streets</code>: Logical. If true, emis_merge reads the street emissions created with emis_post by “streets_wide”, returning an object with class ‘sf’. If false, it reads the emissions data-frame and rbind them.</li>
+<li><code>net</code>: ‘Spatial feature’ or ‘SpatialLinesDataFrame’ with the streets. It is expected that the number of rows is equal to the number of rows of street emissions. If not, the function stops.</li>
+<li><code>path</code>: Character. A path where emissions are located</li>
 <li><code>crs</code>: coordinate reference system in numeric format from <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a> to transform/project spatial data using sf::st_transform</li>
 </ul>
-<p>In order to see how this functions works, let’s run the example in the <code>inventory</code> function. First, lets create a project, or in other words a directory named “YourCity”, into the temporary directory. In this part you can place your project wherever you want with the actual name of your city. Then run <code>inventory</code> with the default configuration.</p>
+<p>To see how this functions works, let’s run the example in the <code>inventory</code> function. First, let’s create a project, or in other words, a directory named “YourCity”, into the temporary directory. Then run <code>inventory</code> with the default configuration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name =<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">tempdir</span>(), <span class="st">&quot;YourCity&quot;</span>)
 vein<span class="op">::</span><span class="kw">inventory</span>(<span class="dt">name =</span> name, <span class="dt">show.main =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## files at /tmp/Rtmpxklera/YourCity</code></pre>
+<pre><code>## files at /tmp/RtmpYgsztN/YourCity</code></pre>
 <pre><code>## Directories:
-##  [1] &quot;/tmp/Rtmpxklera/YourCity&quot;             
-##  [2] &quot;/tmp/Rtmpxklera/YourCity/ef&quot;          
-##  [3] &quot;/tmp/Rtmpxklera/YourCity/emi&quot;         
-##  [4] &quot;/tmp/Rtmpxklera/YourCity/emi/BUS_01&quot;  
-##  [5] &quot;/tmp/Rtmpxklera/YourCity/emi/HGV_01&quot;  
-##  [6] &quot;/tmp/Rtmpxklera/YourCity/emi/LCV_01&quot;  
-##  [7] &quot;/tmp/Rtmpxklera/YourCity/emi/MC_01&quot;   
-##  [8] &quot;/tmp/Rtmpxklera/YourCity/emi/PC_01&quot;   
-##  [9] &quot;/tmp/Rtmpxklera/YourCity/est&quot;         
-## [10] &quot;/tmp/Rtmpxklera/YourCity/images&quot;      
-## [11] &quot;/tmp/Rtmpxklera/YourCity/network&quot;     
-## [12] &quot;/tmp/Rtmpxklera/YourCity/post&quot;        
-## [13] &quot;/tmp/Rtmpxklera/YourCity/post/df&quot;     
-## [14] &quot;/tmp/Rtmpxklera/YourCity/post/grids&quot;  
-## [15] &quot;/tmp/Rtmpxklera/YourCity/post/streets&quot;
-## [16] &quot;/tmp/Rtmpxklera/YourCity/profiles&quot;    
-## [17] &quot;/tmp/Rtmpxklera/YourCity/veh&quot;</code></pre>
-<p>In my case, the files are in directory /tmp/Rtmpxklera/YourCity. Now, if you open the file file main.R, you will see:</p>
+##  [1] &quot;/tmp/RtmpYgsztN/YourCity&quot;             
+##  [2] &quot;/tmp/RtmpYgsztN/YourCity/ef&quot;          
+##  [3] &quot;/tmp/RtmpYgsztN/YourCity/emi&quot;         
+##  [4] &quot;/tmp/RtmpYgsztN/YourCity/emi/BUS_01&quot;  
+##  [5] &quot;/tmp/RtmpYgsztN/YourCity/emi/HGV_01&quot;  
+##  [6] &quot;/tmp/RtmpYgsztN/YourCity/emi/LCV_01&quot;  
+##  [7] &quot;/tmp/RtmpYgsztN/YourCity/emi/MC_01&quot;   
+##  [8] &quot;/tmp/RtmpYgsztN/YourCity/emi/PC_01&quot;   
+##  [9] &quot;/tmp/RtmpYgsztN/YourCity/est&quot;         
+## [10] &quot;/tmp/RtmpYgsztN/YourCity/images&quot;      
+## [11] &quot;/tmp/RtmpYgsztN/YourCity/network&quot;     
+## [12] &quot;/tmp/RtmpYgsztN/YourCity/post&quot;        
+## [13] &quot;/tmp/RtmpYgsztN/YourCity/post/df&quot;     
+## [14] &quot;/tmp/RtmpYgsztN/YourCity/post/grids&quot;  
+## [15] &quot;/tmp/RtmpYgsztN/YourCity/post/streets&quot;
+## [16] &quot;/tmp/RtmpYgsztN/YourCity/profiles&quot;    
+## [17] &quot;/tmp/RtmpYgsztN/YourCity/veh&quot;</code></pre>
+<p>In my case, the files are in directory /tmp/RtmpYgsztN/YourCity. Now, if you open the file file main.R, you will see:</p>
 <p><img src="figuras/main.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>This script starts with <code>setwd</code> function, Then the first section is the network, where user reads and prepares the traffic information. Then the second section runs a script whichruns the age functions for the deault vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
+<p>This script starts with <code>setwd</code> function, Then the first section is the network, where the user reads and prepares the traffic information. Then the second section runs a script which runs the age functions for the default vehicular composition of the <code>inventory</code> function. The third section estimates the emissions by running each input.R file inside the directory <em>est</em> The fourth section, creates a grid and run the script post.R is shown below:</p>
 <p><img src="figuras/post.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The function <code>emis_merge</code> shown in line 2 is designed to read the all the files with names CO and the default argument <code>what</code> is “STREETS.rds”, for instance, PC_GASOLINE_CO_STREETS.rds. Hence, this function reads all the files under that condition. The other argument is <code>streets</code> with defailt value of <code>TRUE</code>, meaning that the function now knows that the resulting object must be an spatial network, and the <code>net</code> argument is already calling the net object part of the VEIN data, the function will merge all the objects summing the emissions of all vehicle street by street. The resulting object is a spatial “LINESTRING” class of <code>sf</code>. This function assumes that emissons files are data.frames and non tests have been made to see if this function would read work <code>sf</code> objects.</p>
-<p>On the other hand, the line 12 also runs all the emissions files whose names includes the word CO, but also including the words “DF.rds”, which are the files from <code>emis_post</code> with argument <code>by</code> equals to “veh”. In this case, it reads and merge the data-frames and prints the sum emissions by pollutant.</p>
-<p>If the user source he file main.R, it will calculate the emissions and produce some plots.</p>
+<p>The function <code>emis_merge</code> shown in line 2 is designed to read all the files with names CO and the default argument <code>what</code> is “STREETS.rds”, for instance, PC_GASOLINE_CO_STREETS.rds. Hence, this function reads all the files under that condition. The other argument is <code>streets</code> with default value of <code>TRUE</code>, meaning that the function now knows that the resulting object must be a spatial network, and the <code>net</code> argument is already calling the net object part of the VEIN data, the function merges all the objects summing the emissions of all vehicle street by street. The resulting object is a spatial “LINESTRING” class of <code>sf</code>. This function assumes that emissions files are data.frames and no tests have been made to see if this function would read work <code>sf</code> objects.</p>
+<p>On the other hand, the line 12 also runs all the emissions files whose names include the word CO, but also including the words “DF.rds”, which are the files from <code>emis_post</code> with argument <code>by</code> equals to “veh”. In this case, it reads and merges the data-frames and prints the sum emissions by pollutant.</p>
+<p>Sourcing the file main.R runs each line of this script, estimating emissions and producing some plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="kw">paste0</span>(name, <span class="st">&quot;/main.R&quot;</span>))</code></pre></div>
 </div>
 <div id="creating-grids" class="section level2">
 <h2><span class="header-section-number">7.4</span> Creating grids</h2>
-<p>Once we have processed our emissions array with <code>emis_post</code> and/or we have spatial emissions, we can then create grids and allocate our emissions into the grids. Lets check the function <code>make_grid</code> first:</p>
+<p>Once we have processed our emissions array with <code>emis_post</code> and we have spatial emissions, we can then create grids and allocate our emissions into the grids. Let’s check the function <code>make_grid</code> first:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>make_grid)</code></pre></div>
 <pre><code>## function (spobj, width, height = width, polygon, crs = 4326, 
 ##     ...) 
 ## NULL</code></pre>
-<p>This function originally used an <code>sp</code> approach. However, now uses an <code>sf</code> approach for creating the grid. Actually, the arguments are pretty much the same with the <code>sf::st_make_grid</code> with the exeption that is focused in returning polygons with coordinates at centroids of each cell. Therefore, the arguments height and polygon are deprecated. Lets create grid for our net.</p>
+<p>This function initially used an <code>sp</code> approach. However, now uses an <code>sf</code> approach for creating the grid. The arguments are pretty much the same with the <code>sf::st_make_grid</code> with the exception that is focused in returning polygons with coordinates at centroids of each cell. Therefore, the arguments height and polygon are deprecated. Let’s create a grid for our net.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">library</span>(sf)</code></pre></div>
 <pre><code>## Linking to GEOS 3.6.2, GDAL 2.2.3, PROJ 4.9.3</code></pre>
@@ -473,12 +473,12 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(<span class="d
 Figure 7.7: Grid with spacing of 500 mts
 </p>
 </div>
-<p>The class of <code>net</code> is <code>SpatialLinesDataFrame</code>, which is converted to <code>sf</code>. Then, as the coordinte reference system of net is WGS84 with epsg 4326, we are transforming to UTM to create a grid with grid spacing of 500 mts. The class of the grid object, <code>g</code> is “sf data.frame”.</p>
+<p>The class of <code>net</code> is <code>SpatialLinesDataFrame</code>, which is converted to <code>sf</code>. Then, as the coordinate reference system of the net is WGS84 with epsg 4326, we are transforming to UTM to create a grid with a grid spacing of 500 m. The class of the grid object, <code>g</code> is “sf data.frame”.</p>
 </div>
 <div id="gridding-bottom-up-emissions-with-emis_grid" class="section level2">
 <h2><span class="header-section-number">7.5</span> Gridding bottom-up emissions with <code>emis_grid</code></h2>
-<p>The function<code>emis_grid</code> allocates emissions proportionally to each grid cell. The process is performed by intersection between geometries and the grid. It means that requires “sr” according with your location for the projection. It is assumed that spobj is a spatial*DataFrame or an “sf” with the pollutants in data. This function return an object class “sf”.</p>
-<p>Before <code>sf</code> era, i tried to use<code>raster::intersect</code> which imports <code>rgeos</code> and took <strong>ages</strong>. Then I started to use <span class="citation">QGIS Development Team (<a href="#ref-QGIS">2017</a>)</span> (<a href="https://www.qgis.org" class="uri">https://www.qgis.org</a>), and later the R package <span class="citation">Muenchow, Schratz, and Brenning (<a href="#ref-RQGIS">2018</a>)</span> which takes 10 minutes for allocating emissions of the mega-city of São Paulo and a grid spacing of 1 km. <em>10 min is not bad</em>. However, when <code>sf</code> appeared and also, included the Spatial Indexes (<a href="https://www.r-spatial.org/r/2017/06/22/spatial-index.html" class="uri">https://www.r-spatial.org/r/2017/06/22/spatial-index.html</a>), it changed the game. A new era started. It took <strong>5.5 seconds</strong>. I could not believe it. But there also some i could accelerate this process importing some <code>data.table</code> aggregation functions. Now <code>emis_grid</code> can aggegate big spatial extensions. I havent tried yet at continental scale, but I will try. Anyways, let’s go see the arguments:</p>
+<p>The function<code>emis_grid</code> allocates emissions proportionally to each grid cell. The process is performed by the intersection between geometries and the grid. It means that requires “sr” according to with your location for the projection. It is assumed that spobj is a spatial*DataFrame or an “sf” with the pollutants in data. This function returns an object class “sf”.</p>
+<p>Before <code>sf</code> era, i tried to use<code>raster::intersect</code> which imports <code>rgeos</code> and took <strong>ages</strong>. Then I started to use <span class="citation">QGIS Development Team (<a href="#ref-QGIS">2017</a>)</span> (<a href="https://www.qgis.org" class="uri">https://www.qgis.org</a>), and later the R package <span class="citation">Muenchow, Schratz, and Brenning (<a href="#ref-RQGIS">2018</a>)</span> which takes 10 minutes for allocating emissions of the mega-city of São Paulo and a grid spacing of 1 km. <em>10 min is not bad</em>. However, when <code>sf</code> appeared and also, included the Spatial Indexes (<a href="https://www.r-spatial.org/r/2017/06/22/spatial-index.html" class="uri">https://www.r-spatial.org/r/2017/06/22/spatial-index.html</a>), it changed the game. A new era started. It took <strong>5.5 seconds</strong>. I could not believe it. However, there also some I could accelerate this process importing some <code>data.table</code> Aggregation functions. Now <code>emis_grid</code> can aggregate large spatial extensions. I haven’t tried yet at continental scale. Let’s see the arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_grid)</code></pre></div>
 <pre><code>## function (spobj, g, sr, type = &quot;lines&quot;) 
 ## NULL</code></pre>
@@ -486,7 +486,7 @@ Figure 7.7: Grid with spacing of 500 mts
 <ul>
 <li><code>spobj</code> : A spatial dataframe of class “sp” or “sf”. When class is “sp” it is transformed to “sf”.</li>
 <li><code>g</code>: A grid with class “SpatialPolygonsDataFrame” or “sf”.</li>
-<li><code>sr</code>: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a>.</li>
+<li><code>sr</code>: Spatial reference, e.g., 31983. It is required if spobj and g are not projected. Please, see <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a>.</li>
 <li><code>type</code>: type of geometry: “lines” or “points”.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(net)
@@ -535,7 +535,7 @@ Figure 7.9: NOx emissions for 00:00 [g/h]
 </div>
 <div id="gridding-top-down-emissions-with-emis_dist" class="section level2">
 <h2><span class="header-section-number">7.6</span> Gridding top-down emissions with <code>emis_dist</code></h2>
-<p>When a top-down approach emissions inventory is made, the spatial distribution of emissions must be made considering some proxy. In the case of vehicular emissions, it can be done with data of Open Street Maps,distributing the emissions into the streets. This can be done with the function with the function <code>emis_dist</code>. In generaly, this function distribute the emissions into spatial feature on any type, not only lines.</p>
+<p>When a top-down approach emissions inventory is made, the spatial distribution of emissions must be made considering some proxy. In the case of vehicular emissions, it can be done with data of Open Street Maps, distributing the emissions into the streets. This can be done with the function with the function <code>emis_dist</code>. In general, this function distributes the emissions into a spatial feature on any type, not only lines.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_dist)</code></pre></div>
 <pre><code>## function (gy, spobj, pro, osm, verbose = TRUE) 
 ## NULL</code></pre>
@@ -547,7 +547,7 @@ Figure 7.9: NOx emissions for 00:00 [g/h]
 <li><code>osm</code>: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers ‘motorway’ and ‘motorway_link. The second element covers ’trunk’ and ‘trunk_link’. The third element covers ‘primary’ and ‘primary_link’. The fourth element covers ‘secondary’ and ‘secondary_link’. The fifth element covers ‘tertiary’ and ‘tertiary_link’.</li>
 <li><code>verbose</code>: Logical; to show more info.</li>
 </ul>
-<p>In order test this function, it will be used the function <code>osmdata</code>. The process presented in the following code, consists in downloading the openstreetmap data delimited by the coordenaes og the grid <code>g</code>. Then filter only the lines</p>
+<p>Let’s use the package <code>osmdata</code> to download OpenStreetMap data. The process presented in the following code consists of downloading the OpenStreetMap data delimited by the coordinates og the grid <code>g</code>. Then filter only the lines</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(osmdata)</code></pre></div>
 <pre><code>## Data (c) OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf, <span class="dt">quietly =</span> T)
@@ -598,15 +598,15 @@ Figure 7.11: Emissions distributed into OSM lines
 </div>
 <div id="gridding-top-down-emissions-with-grid_emis" class="section level2">
 <h2><span class="header-section-number">7.7</span> Gridding top-down emissions with <code>grid_emis</code></h2>
-<p>Another option to distribute top-down emissions consits in the use of the function <code>grid_emis</code>, which does a similar job than <code>emis_dist</code> but cell by cell. This means that the total emissions are distributed inside each grid cell and not one distribution for the whole domain. This functions runs a lapply of <code>emis_dist</code>, hence it takes a litle bit of more time.</p>
+<p>Another option to distribute top-down emissions consists in the use of the function <code>grid_emis</code>, which does a similar job than <code>emis_dist</code> but cell by cell. This means that the total emissions are distributed inside each grid cell and not one distribution for the whole domain. This function runs a lapply of <code>emis_dist</code>; hence it takes a little bit more time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>grid_emis)</code></pre></div>
 <pre><code>## function (spobj, g, sr, pro, osm, verbose = TRUE) 
 ## NULL</code></pre>
 <p>Where,</p>
 <ul>
 <li><code>spobj</code>: A spatial dataframe of class “sp” or “sf”. When class is “sp” it is transformed to “sf”.</li>
-<li><code>g</code>: A grid with class “SpatialPolygonsDataFrame” or “sf”. This grid includes the total emissions with the column “emission”. If profile is going to be used, the column ‘emission’ must include the sum of the emissions for each profile. For instance, if profile covers the hourly emissions, the column ‘emission’ bust be the sum of the hourly emissions.</li>
-<li><code>sr</code>: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a>.</li>
+<li><code>g</code>: A grid with class “SpatialPolygonsDataFrame” or “sf”. This grid includes the total emissions with the column “emission”. If the profile is going to be used, the column ‘emission’ must include the sum of the emissions for each profile. For instance, if the profile covers the hourly emissions, the column ‘emission’ bust be the sum of the hourly emissions.</li>
+<li><code>sr</code>: Spatial reference e.g., 31983. It is required if spobj and g are not projected. Please, see <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a>.</li>
 <li><code>pro</code>: Numeric, Matrix or data-frame profiles, for instance, pc_profile.</li>
 <li><code>osm</code>: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers ‘motorway’ and ‘motorway_link. The second element covers ’trunk’ and ‘trunk_link’. The third element covers ‘primary’ and ‘primary_link’. The fourth element covers ‘secondary’ and ‘secondary_link’. The fifth element covers ‘tertiary’ and ‘tertiary_link’.</li>
 <li><code>verbose</code>: Logical; to show more info.</li>

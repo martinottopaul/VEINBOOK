@@ -1,10 +1,7 @@
 # Post estimation with `emis_post` {#post}
 
 
-Once the emissions are estimated we obtained `EmissionsArray` objects, which as
-mentioned before, they are arrays with the dimensions streets x age distribution of 
-vehicles x hours x days.
-
+Once the emissions are estimated we obtained `EmissionsArray` objects, which as mentioned before, they are arrays with the dimensions streets x age distribution of vehicles x hours x days.
 
 
 
@@ -65,7 +62,7 @@ knitr::include_graphics("figuras/dia7.png")
 ```
 
 Now the function `emis_post` reads the `EmissionsArray`
-and and convert it to data-frames that are easier to manage. 
+also, convert it to data-frames that are easier to manage. 
 
 The arguments of `emis_post` are:
 
@@ -77,27 +74,21 @@ Where,
 
 - `arra`: `EmissionsArray` obtained with the `emis` functions. It is an array of
 emissions 4d: streets x category of vehicles x hours x days or 3d: streets x 
-category of vehicles x hours
-- `veh`: Character indicating the type of vehicle , for instance: "PC".
+category of vehicles x hours.
+- `veh`: Character indicating the type of vehicle, for instance: "PC".
 - `size`: Character indicating the size or weight, for instance: "<1400", 
-"1400<cc<2000",
-"GLP", "Diesel".
+"1400<cc<2000", "GLP", "Diesel".
 - `fuel`: Character indicating fuel, for instance: "Gasoline", "E_25",
 "GLP", "Diesel".
-- `pollutant`:  Character indicating the pollutant, for instance "CO", "NOx", etc.
-- `by`: Character indicating type of output, "veh" for total vehicular category , 
-"streets_narrow" or "streets_wide". This is the most important argument of this 
-function. "streets_wide" returns a dataframe with rows as number of streets and 
-columns the hours as days*hours considered, e.g. 168 columns as the hours of a whole 
-week and "streets_wide repeats the row number of streets by hour and day of the week
+- `pollutant`:  Character indicating the pollutant, for instance, "CO", "NOx", ...
+- `by`: Character indicating the type of output, "veh" for the total vehicular category, "streets_narrow" or "streets_wide". "streets_wide" or just "streets" returns a dataframe with rows as the number of streets and columns the hours as days*hours considered, e.g., 168 columns as the hours of a whole 
+week and "streets_wide repeats the row number of streets by the hour and day of the week
 
-Lets create some objects
+Let's create some objects
 
 ## Emissions by street
 
-From previous chapters we worked with `Vehicles`, `EmissionFactors` and estimate
-emissions generating `EmissionsArray`. Now let's create an  `EmissionsArray`
-object.
+From previous chapters, we worked with `Vehicles`, `EmissionFactors` and estimate emissions generating `EmissionsArray`. Now let's create an  `EmissionsArray` object.
 
 ```{r 7.4}
 library(vein)
@@ -118,17 +109,14 @@ E_CO <- emis(veh = PC_G,lkm = net$lkm, ef = lef, speed = speed,
              profile = profiles$PC_JUNE_2014)
 ```
 
-Now that we have our `EmissionsArray` E_CO, we can process it with the function
-`emis_post`. The emissions by street are obtained with the argument `by` =
-"streets_wide":
+Now that we have our `EmissionsArray` E_CO, we can process it with the function `emis_post`. The emissions by street are obtained with the argument `by` = "streets_wide":
 
 ```{r 7.5}
 E_CO_STREETS <- emis_post(E_CO, by = "streets_wide")
 E_CO_STREETS[1:6, 1:3]
 ```
 
-In the version 0.3.17 it was added the capability of returning an spatial object
-class 'sf' with 'LINESTRING':
+In the version 0.3.17 it was added the capability of returning an spatial object class 'sf' with 'LINESTRING':
 
 ```{r pcco, fig.cap = "CO emisions of PC (g/h)"}
 E_CO_STREETS <- emis_post(E_CO, by = "streets_wide", net = net)
@@ -138,8 +126,7 @@ ggplot(E_CO_STREETS) + geom_sf(aes(colour = as.numeric(V9))) +
   ggtitle("CO emissions at 08:00 (g/h)")
 ```
 
-Now, if we estimate the NOx emissions of Light Trucks we will a slight different
-pattern of emissions:
+Now, if we estimate the NOx emissions of Light Trucks we will a slight different pattern of emissions:
 
 ```{r ltnox, fig.cap = "NOx emisions of LT (g/h)"}
 LT <- age_hdv(x = net$hdv, name = "LT")
@@ -155,9 +142,8 @@ ggplot(E_NOx_STREETS) + geom_sf(aes(colour = as.numeric(V9))) +
 
 ## Total emissions in data-frames
 
-In order to obtain the total emissions in data-frame, the same function
-`emis_post` is used, but in this case, with the argument `by` = "veh". We also
-need to add arguments of `veh` for the type of vehicle, `size` the size or
+To obtain the total emissions in data-frame, the same function
+`emis_post` is used, but in this case, with the argument `by` = "veh". We also need to add arguments of `veh` for the type of vehicle, `size` the size or
 gross weight, `fuel` and `pollutant`. The argument `net` is not required in
 this case.
 
@@ -167,21 +153,13 @@ E_NOx_DF <- emis_post(arra = E_NOx, veh = "LT", size = "Small", fuel = "B5",
 head(E_NOx_DF)
 ```
 
-The resulting object is a data-frame with the name of the input array, then it has
-the g/h. Also, the name of the vehicle, the size, fuel, pollutant, age and hour.
-This is interesting because we can now what are the most pollutatn vehicle and
-at which hour this emissions ocurres.
+The resulting object is a data-frame with the name of the input array, and then it has the g/h. Also, the name of the vehicle, the size, fuel, pollutant, age and hour, which is interesting because we can know what the most pollutant vehicle is and at which hour these emissions occurred.
 
 ```{r 7.9}
 E_NOx_DF[E_NOx_DF$g == max(E_NOx_DF$g), ]
 ```
 
-The highest emissions by hour are of Light Trucks of 17 years of use at hour 11
-on local time. However, it is possible to get more interesting insights of the
-data. The datra can be aggregated by age, hour or plot all together as shown on
-Fig. \@ref(fig:noxlt3). The highest emissions ocurre between 17 and 27 years of use.
-This figure also shows the effect of emissions standards introduced in 
-different years.
+The highest emissions by the hour are of Light Trucks of 17 years of use at hour 11 on local time. However, it is possible to get more interesting insights into the data. The data can be aggregated by age, hour or plot all together as shown in Fig. \@ref(fig:noxlt3). The highest emissions occurred between 17 and 27 years of use. This figure also shows the effect of emissions standards introduced in different years.
 
 ```{r noxlt1, fig.cap = "NOx emissions of LT by hour"}
 df <- aggregate(E_NOx_DF$g, by = list(E_NOx_DF$hour), sum)
@@ -212,12 +190,7 @@ ggplot(E_NOx_DF, aes(x = age, y = as.numeric(g), fill = hour)) +
 
 ## Merging emissions
 
-The function `inventory` was designed to store the emissions of each type of vehicle in 
-each directory. Hence, it was necessary to create a function that read and merge the 
-emissions that are in each directory, returning a data-frame os a spatial feature 
-data-frame. The function is `emis_merge`. As it can be seen on
-Fig. \@ref(fig:demispost), `emis_merge` comes after `emis_post` or `speciate`. The arguments
-of `emis_merge` are:
+The function `inventory` was designed to store the emissions of each type of vehicle in each directory. Hence, it was necessary to create a function that reads and merge the emissions that are in each directory, returning a data-frame os a spatial feature data-frame. The function is `emis_merge`. Fig. \@ref(fig:demispost), `emis_merge` comes after `emis_post` or `speciate`. The arguments of `emis_merge` are:
 
 ```{r 7.13}
 args(vein::emis_merge)
@@ -227,20 +200,12 @@ Where,
 
 - `pol`: Character. Pollutant.
 - `what`: Character. Word to search the emissions names, "STREETS", "DF" or whatever name. It is important to include the extension .'rds'
-- `streets`: Logical. If true, emis_merge will read the street emissions created with 
-emis_post by "streets_wide", returning an object with class 'sf'. If false, it will read the
-emissions data-frame and rbind them.
-- `net`: 'Spatial feature' or 'SpatialLinesDataFrame' with the streets. It is expected #' 
-that the number of rows is equal to the number of rows of street emissions. If #' not, the 
-function will stop.
-- `path`: Character. Path where emissions are located
-- `crs`: coordinate reference system in numeric format from http://spatialreference.org/ to 
-transform/project spatial data using sf::st_transform
+- `streets`: Logical. If true, emis_merge reads the street emissions created with  emis_post by "streets_wide", returning an object with class 'sf'. If false, it reads the emissions data-frame and rbind them.
+- `net`: 'Spatial feature' or 'SpatialLinesDataFrame' with the streets. It is expected that the number of rows is equal to the number of rows of street emissions. If not, the function stops.
+- `path`: Character. A path where emissions are located
+- `crs`: coordinate reference system in numeric format from http://spatialreference.org/ to transform/project spatial data using sf::st_transform
 
-In order to see how this functions works, let's run the example in the `inventory` function.
-First, lets create a project, or in other words a directory named "YourCity", into the 
-temporary directory. In this part you can place your project wherever you want with the
-actual name of your city. Then run `inventory` with the default configuration.
+To see how this functions works, let's run the example in the `inventory` function. First, let's create a project, or in other words, a directory named "YourCity", into the temporary directory. Then run `inventory` with the default configuration.
 
 ```{r 7.14}
 name = file.path(tempdir(), "YourCity")
@@ -254,9 +219,7 @@ main.R, you will see:
 knitr::include_graphics("figuras/main.png")
 ```
 
-This script starts with  `setwd` function, Then the first section is the network, where
-user reads and prepares the traffic information. Then the second section runs a script
-whichruns the age functions for the deault vehicular composition of the `inventory` function. The third section  estimates the emissions by running each input.R file inside the
+This script starts with  `setwd` function, Then the first section is the network, where the user reads and prepares the traffic information. Then the second section runs a script which runs the age functions for the default vehicular composition of the `inventory` function. The third section  estimates the emissions by running each input.R file inside the
 directory _est_ The fourth section, creates a grid and run the script post.R is shown below:
 
 
@@ -264,21 +227,12 @@ directory _est_ The fourth section, creates a grid and run the script post.R is 
 knitr::include_graphics("figuras/post.png")
 ```
 
-The function `emis_merge` shown in line 2 is designed to read the all the files with names 
-CO and the default argument `what` is "STREETS.rds", for instance, 
-PC_GASOLINE_CO_STREETS.rds. Hence, this function reads all
-the files under that condition. The other argument is `streets` with defailt value of 
-`TRUE`, meaning that the function now knows that the resulting object must be an spatial
-network, and the `net` argument is already calling the net object part of the VEIN data, 
-the function will merge all the objects summing the emissions of all vehicle street by 
-street. The resulting object is a spatial "LINESTRING" class of `sf`. This function assumes 
-that emissons files are data.frames and non tests have been made to see if this function would read work `sf` objects.
+The function `emis_merge` shown in line 2 is designed to read all the files with names CO and the default argument `what` is "STREETS.rds", for instance, PC_GASOLINE_CO_STREETS.rds. Hence, this function reads all
+the files under that condition. The other argument is `streets` with default value of `TRUE`, meaning that the function now knows that the resulting object must be a spatial network, and the `net` argument is already calling the net object part of the VEIN data, the function merges all the objects summing the emissions of all vehicle street by street. The resulting object is a spatial "LINESTRING" class of `sf`. This function assumes that emissions files are data.frames and no tests have been made to see if this function would read work `sf` objects.
 
-On the other hand, the line 12 also runs all the emissions files whose names includes the word CO, but also including the words "DF.rds", which are the files from `emis_post` with
-argument `by` equals to "veh". In this case, it reads and merge the data-frames and prints
-the sum emissions by pollutant.
+On the other hand, the line 12 also runs all the emissions files whose names include the word CO, but also including the words "DF.rds", which are the files from `emis_post` with argument `by` equals to "veh". In this case, it reads and merges the data-frames and prints the sum emissions by pollutant.
 
-If the user source he file main.R, it will calculate the emissions and produce some plots.
+Sourcing the file main.R runs each line of this script, estimating emissions and producing some plots.
 
 ```{r 7.17, eval = FALSE}
 source(paste0(name, "/main.R"))
@@ -287,19 +241,13 @@ source(paste0(name, "/main.R"))
 
 ## Creating grids
 
-Once we have processed our emissions array with `emis_post` and/or we have
-spatial emissions, we can then create grids and allocate our emissions
-into the grids. Lets check the function `make_grid` first:
+Once we have processed our emissions array with `emis_post` and we have spatial emissions, we can then create grids and allocate our emissions into the grids. Let's check the function `make_grid` first:
 
 ```{r 7.18}
 args(vein::make_grid)
 ```
 
-This function originally used an `sp` approach. However, now uses an `sf`
-approach for creating the grid. Actually, the arguments are pretty much the
-same with the `sf::st_make_grid` with the exeption that is focused in returning
-polygons with coordinates at centroids of each cell. Therefore, the arguments
-height and polygon are deprecated. Lets create grid for our net. 
+This function initially used an `sp` approach. However, now uses an `sf` approach for creating the grid. The arguments are pretty much the same with the `sf::st_make_grid` with the exception that is focused in returning polygons with coordinates at centroids of each cell. Therefore, the arguments height and polygon are deprecated. Let's create a grid for our net. 
 
 ```{r grid1, fig.cap="Grid with spacing of 500 mts"}
 library(vein)
@@ -312,29 +260,13 @@ plot(g$geometry, axes = TRUE)
 plot(net$geometry, add = TRUE)
 ```
 
-The class of `net` is `SpatialLinesDataFrame`, which is converted to `sf`. 
-Then, as the coordinte reference system of net is WGS84 with epsg 4326, we
-are transforming to UTM to create a grid with grid spacing of 500 mts. The class
-of the grid object, `g` is "sf data.frame". 
+The class of `net` is `SpatialLinesDataFrame`, which is converted to `sf`. Then, as the coordinate reference system of the net is WGS84 with epsg 4326, we are transforming to UTM to create a grid with a grid spacing of 500 m. The class of the grid object, `g` is "sf data.frame". 
 
 ## Gridding bottom-up emissions with `emis_grid`
 
-The function`emis_grid` allocates emissions proportionally to each grid cell. 
-The process is performed by intersection between geometries and the grid. It 
-means that requires "sr" according with your location for the projection. It is 
-assumed that spobj is a spatial*DataFrame or an "sf" with the pollutants in data.
-This function return an object class "sf".
+The function`emis_grid` allocates emissions proportionally to each grid cell.  The process is performed by the intersection between geometries and the grid. It means that requires "sr" according to with your location for the projection. It is assumed that spobj is a spatial*DataFrame or an "sf" with the pollutants in data. This function returns an object class "sf".
 
-Before `sf` era, i tried to use`raster::intersect` which imports `rgeos` and
-took **ages**. Then I started to use -@QGIS (https://www.qgis.org), and later 
-the R package -@RQGIS which takes 10 minutes for allocating emissions of the
-mega-city of São Paulo and a grid spacing of 1 km. *10 min is not bad*. However,
-when `sf` appeared and also, included the Spatial Indexes (https://www.r-spatial.org/r/2017/06/22/spatial-index.html), it changed the game.
-A new era started. It took **5.5 seconds**. I could not believe it. But there
-also some i could accelerate this process importing some `data.table` aggregation
-functions. Now `emis_grid` can aggegate big spatial extensions. I havent
-tried yet at continental scale, but I will try. Anyways, let's go see the
-arguments:
+Before `sf` era, i tried to use`raster::intersect` which imports `rgeos` and took **ages**. Then I started to use -@QGIS (https://www.qgis.org), and later the R package -@RQGIS which takes 10 minutes for allocating emissions of the mega-city of São Paulo and a grid spacing of 1 km. *10 min is not bad*. However, when `sf` appeared and also, included the Spatial Indexes (https://www.r-spatial.org/r/2017/06/22/spatial-index.html), it changed the game. A new era started. It took **5.5 seconds**. I could not believe it. However, there also some I could accelerate this process importing some `data.table` Aggregation functions. Now `emis_grid` can aggregate large spatial extensions. I haven't tried yet at continental scale. Let's see the arguments:
 
 ```{r 7.20}
 args(vein::emis_grid)
@@ -344,7 +276,7 @@ Where,
 
 - `spobj` : A spatial dataframe of class "sp" or "sf". When class is "sp" it is transformed to "sf".
 - `g`: A grid with class "SpatialPolygonsDataFrame" or "sf".
-- `sr`: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see http://spatialreference.org/.
+- `sr`: Spatial reference, e.g., 31983. It is required if spobj and g are not projected. Please, see http://spatialreference.org/.
 - `type`: type of geometry: "lines" or "points".
 
 ```{r netgldv, fig.cap="Spatial grid of HDV traffic 500 mts"}
@@ -356,10 +288,7 @@ head(netg)
 plot(netg["hdv"], axes = TRUE)
 ```
 
-The example in this case, showed the allocation of traffic. The resulting object
-is a `sf` with the sum of the attributes inside each grid cell. This means that,
-when the input are street emissions at different hours, it will return gridded
-emissions at each hour:
+The example in this case, showed the allocation of traffic. The resulting object is a `sf` with the sum of the attributes inside each grid cell. This means that, when the input are street emissions at different hours, it will return gridded emissions at each hour:
 
 ```{r Noxg, fig.cap="NOx emissions for 00:00 [g/h]"}
 E_NOx_STREETS <- emis_post(E_NOx, by = "streets_wide", net = net)
@@ -370,12 +299,7 @@ plot(NOxg["V1"], axes = TRUE)
 
 ## Gridding top-down emissions with `emis_dist`
 
-When a top-down approach emissions inventory is made, the spatial distribution
-of emissions must be made considering some proxy. In the case of vehicular 
-emissions, it can be done with data of Open Street Maps,distributing
-the emissions into the streets. This can be done with the function with
-the function `emis_dist`. In generaly, this function distribute the emissions
-into spatial feature on any type, not only lines.
+When a top-down approach emissions inventory is made, the spatial distribution of emissions must be made considering some proxy. In the case of vehicular emissions, it can be done with data of Open Street Maps, distributing the emissions into the streets. This can be done with the function with the function `emis_dist`. In general, this function distributes the emissions into a spatial feature on any type, not only lines.
 
 
 ```{r 7.23}
@@ -390,10 +314,7 @@ Where,
 - `osm`: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers 'motorway' and 'motorway_link. The second element covers 'trunk' and 'trunk_link'. The third element covers 'primary' and 'primary_link'. The fourth element covers 'secondary' and 'secondary_link'. The fifth element covers 'tertiary' and 'tertiary_link'.
 - `verbose`: Logical; to show more info.
 
-In order test this function, it will be used the function `osmdata`.
-The process presented in the following code, consists in downloading
-the openstreetmap data delimited by the coordenaes og the grid `g`.
-Then filter only the lines 
+Let's use the package  `osmdata` to download OpenStreetMap data. The process presented in the following code consists of downloading the OpenStreetMap data delimited by the coordinates og the grid `g`. Then filter only the lines 
 
 
 
@@ -414,10 +335,8 @@ plot(osm, axes = T)
 ```
 
 The we will distribute the total emissions of E_NOx `r sum(E_NOx)` into
-this new lines. There is the argument osm, which gives percentage weights to the
-type of streets in the following order: "motorway", "trunk", "primary",
-"secondary" and "tertiary" . For instance **osm = 5:1** means 33% of emissions
-into "motorway" because it is 5 / (1 + 2 + 3 + 4 + 5).
+this new lines. There is the argument osm, which gives percentage weights to the type of streets in the following order: "motorway", "trunk", "primary",
+"secondary" and "tertiary" . For instance **osm = 5:1** means 33% of emissions into "motorway" because it is 5 / (1 + 2 + 3 + 4 + 5).
 
 ```{r osmemi, fig.cap="Emissions distributed into OSM lines"}
 estreet <- emis_dist(gy = sum(E_NOx), spobj = osm)
@@ -436,12 +355,7 @@ plot(estreet[c("emission_osm")],
 
 ## Gridding top-down emissions with `grid_emis`
 
-Another option to distribute top-down emissions consits in the use of
-the function `grid_emis`, which does a similar job than `emis_dist`
-but cell by cell. This means that the total emissions are distributed 
-inside each grid cell and not one distribution for the whole domain.
-This functions runs a lapply of `emis_dist`, hence it takes a litle 
-bit of more time.
+Another option to distribute top-down emissions consists in the use of the function `grid_emis`, which does a similar job than `emis_dist` but cell by cell. This means that the total emissions are distributed inside each grid cell and not one distribution for the whole domain. This function runs a lapply of `emis_dist`; hence it takes a little bit more time.
 
 
 ```{r 7.26}
@@ -451,8 +365,8 @@ args(vein::grid_emis)
 Where,
 
 - `spobj`: A spatial dataframe of class "sp" or "sf". When class is "sp" it is transformed to "sf".
-- `g`: A grid with class "SpatialPolygonsDataFrame" or "sf". This grid includes the total emissions with the column "emission". If profile is going to be used, the column 'emission' must include the sum of the emissions for each profile. For instance, if profile covers the hourly emissions, the column 'emission' bust be the sum of the hourly emissions. 
-- `sr`: Spatial reference e.g: 31983. It is required if spobj and g are not projected. Please, see http://spatialreference.org/.
+- `g`: A grid with class "SpatialPolygonsDataFrame" or "sf". This grid includes the total emissions with the column "emission". If the profile is going to be used, the column 'emission' must include the sum of the emissions for each profile. For instance, if the profile covers the hourly emissions, the column 'emission' bust be the sum of the hourly emissions. 
+- `sr`: Spatial reference e.g., 31983. It is required if spobj and g are not projected. Please, see http://spatialreference.org/.
 - `pro`: Numeric, Matrix or data-frame profiles, for instance, pc_profile.
 - `osm`: Numeric; vector of length 5, for instance, c(5, 3, 2, 1, 1). The first element covers 'motorway' and 'motorway_link. The second element covers 'trunk' and 'trunk_link'. The third element covers 'primary' and 'primary_link'. The fourth element covers 'secondary' and 'secondary_link'. The fifth element covers 'tertiary' and 'tertiary_link'.
 - `verbose`: Logical; to show more info.

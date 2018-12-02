@@ -25,7 +25,7 @@
 <meta name="author" content="Sergio Ibarra-Espinosa">
 
 
-<meta name="date" content="2018-12-01">
+<meta name="date" content="2018-12-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -145,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="traffic.html"><a href="traffic.html"><i class="fa fa-check"></i><b>4</b> Traffic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="traffic.html"><a href="traffic.html#sources-of-traffic-data"><i class="fa fa-check"></i><b>4.1</b> Sources of traffic data</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#travel-demand-outputs"><i class="fa fa-check"></i><b>4.1.1</b> Travel demand outputs</a></li>
+<li class="chapter" data-level="4.1.1" data-path="traffic.html"><a href="traffic.html#outputs-from-travel-demand-models"><i class="fa fa-check"></i><b>4.1.1</b> Outputs from travel demand models</a></li>
 <li class="chapter" data-level="4.1.2" data-path="traffic.html"><a href="traffic.html#interpolation-of-traffic-counts"><i class="fa fa-check"></i><b>4.1.2</b> Interpolation of traffic counts</a></li>
 <li class="chapter" data-level="4.1.3" data-path="traffic.html"><a href="traffic.html#generating-traffic-flows-from-origin-destination-surveys-ods"><i class="fa fa-check"></i><b>4.1.3</b> Generating traffic flows from Origin-Destination-Surveys (ODS)</a></li>
 <li class="chapter" data-level="4.1.4" data-path="traffic.html"><a href="traffic.html#top-down-approach"><i class="fa fa-check"></i><b>4.1.4</b> Top-down approach</a></li>
@@ -257,7 +257,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 6</span> Estimation of emissions</h1>
 <p>The emissions estimation process was shown on Eq. <a href="ef.html#eq:emi">(5.1)</a> on chapter <a href="ef.html#ef">5</a>. In this equation, it was shown that how the emissions are obtained by multiplying the traffic flow with the distance that each car travels (length of the road if it is a road network), and emissions and deterioration factors.</p>
 <p>In this chapter, I will show how VEIN interprets this and other emission equations to estimate emissions. At the end of each section, The Fig. <a href="est.html#fig:diaemis">6.1</a> shows a diagram with the estimation process. The pink boxes hows VEIN classes, the circle data, and the grey boxes functions. The object <code>Vehicles</code> is a class consisting of a matrix of vehicles with units <span class="math inline">\(1 \cdot h^{-1}\)</span>, as shown in chapter <a href="traffic.html#traffic">4</a>. However, <em>the units in <code>Vehicles</code> is not a requirement for estimating emissions</em>. The object of class <code>Speed</code> is a matrix of speeds with the number of columns as the calculated speeds at different hours at each row. This object can be present or not, depending on the type of emission factor considered, for an instant, emission factors not depending on speed. The object class of <code>EmissionFactorsList</code> are a list of functions depending on speed as <span class="math inline">\(f(V)\)</span>. Each function can depend on speed or not as shown in chapter <a href="ef.html#ef">5</a>, section <a href="ef.html#localef">5.2</a>. Lastly, the object lkm is the length of the road expressed in <span class="math inline">\(lkm\)</span>.</p>
-<p>The function <code>emis</code> reads the inputs and estimates the emissions producing an object with class <code>EmissionsArray</code> which has 4 dimensions, number of streets, ages of use of a vehicle, number of hours and number of days. <!-- Newer --> <!-- versions of VEIN, since version XX, includes `EmissionsArray` of only three --> <!-- dimensions, streets, ages of use of a vehicle, number of hours, so that, if --> <!-- the estimations cover one week, it will have $168 = 7 \cdot 24$ hours. --></p>
+<p>The function <code>emis</code> reads the inputs and estimates the emissions producing an object with class <code>EmissionsArray</code> which has 4 dimensions, number of streets, ages of use of a vehicle, number of hours and number of days.</p>
 <div class="figure" style="text-align: center"><span id="fig:diaemis"></span>
 <img src="figuras/dia6.png" alt="Emissions estimation process with VEIN" width="80%" />
 <p class="caption">
@@ -270,7 +270,7 @@ Figure 6.1: Emissions estimation process with VEIN
 <li><code>emis_cold</code> for cold start emissions,</li>
 <li><code>emis_evap</code> for evaporative emissions,</li>
 <li><code>emis_paved</code> for resuspension emissions on paved roads, and</li>
-<li><code>emis_wear</code> for wear of brakes, tyres, and roads.</li>
+<li><code>emis_wear</code> for wear of brakes, tires, and roads.</li>
 </ul>
 <p>These functions perform internal checks for ensuring that the length lkm has the unit of <span class="math inline">\(km\)</span>. This means that, if <code>lkm</code> has units different than <span class="math inline">\(km\)</span>, the function will not run. These function runs internally <code>lapply</code> which are faster <code>for</code> written in C. Despite that these functions are fast, i will try to make them faster with some RCPP implementation in the future.</p>
 <div id="the-emis-function" class="section level2">
@@ -326,22 +326,22 @@ Figure 6.1: Emissions estimation process with VEIN
 <li><code>size</code>: Character indicating the size of the vehicle.</li>
 <li><code>fuel</code>: Character indicating the fuel of the vehicle.</li>
 <li><code>age</code>: Numeric vector with the age distribution, for instance, 1:40 for vehicles between 1 and 40 years of use.</li>
-<li><code>nd4</code>: Number of days of your period of study with monthly average Temperature between 20 and 35 Celsius degrees. If the period is a year, this is the annual number of days under that condition.</li>
+<li><code>nd4</code>: Number of days of your period of study with monthly average Temperature between 20 and 35 Celsius degrees. If the period is a year, it is the annual number of days under that condition.</li>
 <li><code>nd3</code>: Number of days of your period of study with a monthly average temperature between 10 and 25 Celsius degrees.</li>
 <li><code>nd2</code>: Number of days of your period of study with a monthly average temperature between 0 and 15 Celcius degrees.</li>
 <li><code>nd1</code>: Number of days of your period of study with a monthly average temperature between -5 and 10 Celsius degrees.</li>
-<li><code>hs_nd4</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 20 and 35 Celcius degrees</li>
-<li><code>hs_nd3</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 10 and 25 Celcius degrees</li>
-<li><code>hs_nd2</code>: Number of average daily hot-soak evaporative emissions for days with temperature between 0 and 15 Celcius degrees</li>
-<li><code>hs_nd1</code>: Number of average daily hot-soak evaporative emissions for days with temperature between -5 and 10 Celcius degrees</li>
+<li><code>hs_nd4</code>: Number of average daily hot-soak evaporative emissions for days with the temperature between 20 and 35 Celcius degrees</li>
+<li><code>hs_nd3</code>: Number of average daily hot-soak evaporative emissions for days with the temperature between 10 and 25 Celcius degrees</li>
+<li><code>hs_nd2</code>: Number of average daily hot-soak evaporative emissions for days with the temperature between 0 and 15 Celcius degrees</li>
+<li><code>hs_nd1</code>: Number of average daily hot-soak evaporative emissions for days with the temperature between -5 and 10 Celcius degrees</li>
 <li><code>rl_nd4</code>: Number of average daily running losses evaporative emissions for days with a temperature between 20 and 35 Celcius degrees</li>
 <li><code>rl_nd3</code>: Number of average daily running losses evaporative emissions for days with a temperature between 10 and 25 Celcius degrees</li>
 <li><code>rl_nd2</code>: Number of average daily running losses evaporative emissions for days with a temperature between 0 and 15 Celcius degrees</li>
 <li><code>rl_nd1</code>: Number of average daily running losses evaporative emissions for days with a temperature between -5 and 10 Celcius degrees</li>
-<li><code>d_nd4</code>: Number of average daily diurnal evaporative emissions for days with temperature between 20 and 35 Celcius degrees</li>
-<li><code>d_nd3</code>: Number of average daily diurnal evaporative emissions for days with temperature between 10 and 25 Celcius degrees</li>
-<li><code>d_nd2</code>: Number of average daily diurnal evaporative emissions for days with temperature between 0 and 15 Celcius degrees</li>
-<li><code>d_nd1</code>: Number of average daily diurnal evaporative emissions for days with temperature between -5 and 10 Celcius degrees</li>
+<li><code>d_nd4</code>: Number of average daily diurnal evaporative emissions for days with the temperature between 20 and 35 Celcius degrees</li>
+<li><code>d_nd3</code>: Number of average daily diurnal evaporative emissions for days with the temperature between 10 and 25 Celcius degrees</li>
+<li><code>d_nd2</code>: Number of average daily diurnal evaporative emissions for days with the temperature between 0 and 15 Celcius degrees</li>
+<li><code>d_nd1</code>: Number of average daily diurnal evaporative emissions for days with the temperature between -5 and 10 Celcius degrees</li>
 </ul>
 </div>
 <div id="the-emis_paved-function" class="section level2">
@@ -388,7 +388,7 @@ EF_{hourly} = EF_{paved} \cdot (1 - \frac{1.2 \cdot P}{N})
 ## NULL</code></pre>
 <p>Where,</p>
 <p>-<code>veh</code>: It is an array with dimenssions number of streets x hours of day x days of week. - <code>lkm</code>: Length of each link. - <code>k</code>: K_PM30 = 3.23, K_PM15 = 0.77, K_PM10 = 0.62 and K_PM2.5 = 0.15. - <code>sL1</code>: Silt loading (g/m2) for roads with ADT &lt;= 500. - <code>sL2</code>: Silt loading (g/m2) for roads with ADT &gt; 500 and &lt;= 5000. - <code>sL3</code>: Silt loading (g/m2) for roads with ADT &gt; 5000 and &lt;= 1000. - <code>sL4</code>: Silt loading (g/m2) for roads with ADT &gt; 10000. - <code>W</code>: array of dimensions of veh. It consists in the hourly averaged weight of traffic fleet in each road.</p>
-<p>For instance, Let’s create an array of vehicles. The function <code>adt</code> calculates the number of vehicles at all hours. Let’s use the <code>data(net)</code> assuming no buses. Let’s calculate the total traffic for only 24 hours with the same profile. For Simplicity, let’s assume that all vehicle are expressed in <em>vehicle equivalent</em> Moreover, it is a dry period.</p>
+<p>For instance, Let’s create an array of vehicles. The function <code>adt</code> calculates the number of vehicles at all hours. Let’s use the <code>data(net)</code> assuming no buses. Let’s calculate the total traffic for only 24 hours with the same profile. For Simplicity, let’s assume that all are <em>vehicle equivalent</em> Moreover, it is a dry period.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vein)
 <span class="kw">data</span>(net)
 <span class="kw">data</span>(profiles)
@@ -408,7 +408,7 @@ W &lt;-<span class="st"> </span>(wpc <span class="op">+</span><span class="st"> 
 W[<span class="kw">is.na</span>(W)] &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="kw">dim</span>(W)</code></pre></div>
 <pre><code>## [1] 1505   24</code></pre>
-<p>moreover, now we estimate the emissions with the default values form PM10.</p>
+<p>Moreover, now we estimate the emissions with the default values form PM10.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emi &lt;-<span class="st"> </span><span class="kw">emis_paved</span>(<span class="dt">veh =</span> vk, <span class="dt">lkm =</span> net<span class="op">$</span>lkm, <span class="dt">W =</span> W)
 emi[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
 <pre><code>## Result for Emissions 
@@ -420,7 +420,7 @@ emi[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,
 </div>
 <div id="ew" class="section level2">
 <h2><span class="header-section-number">6.5</span> The <code>emis_wear</code> function</h2>
-<p>Wear emissions can be very important these are a second most important source of particulate matter in Europe <span class="citation">(Lükewille, Tista, and Hoenders <a href="#ref-eear">2017</a>)</span>. These methods in VEIN comes from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span> which include wear of “tire”, “break” and “road”.</p>
+<p>Wear emissions can be significant these are a second most important source of particulate matter in Europe <span class="citation">(Lükewille, Tista, and Hoenders <a href="#ref-eear">2017</a>)</span>. These methods in VEIN comes from <span class="citation">Ntziachristos and Boulter (<a href="#ref-NtziachristosBoulter2009">2009</a>)</span> which include wear of “tire”, “break” and “road”.</p>
 <p>The arguments of the function <code>emis_wear</code> are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(vein<span class="op">::</span>emis_wear)</code></pre></div>
 <pre><code>## function (veh, lkm, ef, what = &quot;tyre&quot;, speed, agemax = ncol(veh), 

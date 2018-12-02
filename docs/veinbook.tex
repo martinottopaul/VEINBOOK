@@ -213,7 +213,7 @@
 
 \title{Vehicular emissions inventory with VEIN}
 \author{Sergio Ibarra-Espinosa}
-\date{2018-12-01}
+\date{2018-12-02}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -1572,7 +1572,8 @@ to obtain the amount of each type of vehicle by the age of use.
 
 \section{Sources of traffic data}\label{sources-of-traffic-data}
 
-\subsection{Travel demand outputs}\label{travel-demand-outputs}
+\subsection{Outputs from travel demand
+models}\label{outputs-from-travel-demand-models}
 
 VEIN was developed according to the available traffic data in São Paulo,
 Brazil. In this case, the available data was a 4-stage macroscopic
@@ -2440,8 +2441,7 @@ guidelines developed by the European Monitoring and Evaluation Programme
 (EMEP, \url{http://www.emep.int/}) and published by the European
 Environment Agency (EEA,
 \url{https://www.eea.europa.eu/themes/air/emep-eea-air-pollutant-emission-inventory-guidebook/emep})
-\citep{NtziachristosSamaras2016}. These emission factors are included in
-the VEIN model.
+\citep{NtziachristosSamaras2016}, which are included in the VEIN model.
 
 Another aspect important in vehicular emissions is the degradation of
 the emissions of old vehicles. Over time, the different part of the cars
@@ -2928,8 +2928,8 @@ function \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <bytecode: 0x5630d2848200>
-## <environment: 0x5630e3d33ce8>
+## <bytecode: 0x562c3b9a51d0>
+## <environment: 0x562c7045d108>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -3157,12 +3157,12 @@ composition \(k\), hour \(l\) and pollutant \(m\) and monthly average
 temperature \(n\). \citep{NtziachristosSamaras2016} suggest using
 monthly average temperature.
 
-The second term \(\beta_j\) is defined as the fraction of mileage driven
-with a cold engine/catalyst \citep{NtziachristosSamaras2016}. The VEIN
-model incorporates a dataset of cold starts recorded during the
-implementation of the International Vehicle Emissions (IVE) model
-\citep{Davisetal2005} in São Paulo \citep{ivesp}, which provides the
-hourly mileage driven with cold start conditions.
+The second term \(\beta_j\) is the fraction of mileage driven with a
+cold engine/catalyst \citep{NtziachristosSamaras2016}. The VEIN model
+incorporates a dataset of cold starts recorded during the implementation
+of the International Vehicle Emissions (IVE) model \citep{Davisetal2005}
+in São Paulo \citep{ivesp}, which provides the hourly mileage driven
+with cold start conditions.
 
 The function for cold start emission factors is \texttt{ef\_ldv\_cold}
 and its arguments are:
@@ -3228,10 +3228,10 @@ be deprecated soon.
 By default, VEIN includes deterioration factors from Copert
 \citep{NtziachristosSamaras2016}. However, it is possible to include
 other sources, such as from \citep{CorvalanVargas2003} or includes
-deteriorated local emission factors. This aspect is faced in VEIN with
-the function \texttt{emis\_det}. This function returns deteriorated
-factors, as numeric vectors, which must be multiplied with the emission
-factors of vehicles with 0 mileage.
+deteriorated local emission factors, which covered with the function
+\texttt{emis\_det}. This function returns deteriorated factors, as
+numeric vectors, multiplied with the emission factors of vehicles with 0
+mileage.
 
 The arguments of this functions are:
 
@@ -3486,12 +3486,11 @@ B\((\frac{km}{day})^{-1}\). Diurnal evaporative emissions factors are
 expressed as \((\frac{g}{day})\). To convert to \((\frac{g}{km})\) we
 only need the kilometers driven each day \(\frac{km}{day}^{-1}\).
 
-Now, it will be shown an example of the evaporative emission factors
-from \citet{CETESB2015}. These emission factors are based on the
-methodology Tier 2 from -@\citet{MelliosNtziachristos2016}. If we
-consider evaporative emission factors of Passenger Cars using Gasoline
-(blended with 25\% of Ethanol) \citep{CETESB2015} and4.6
-\((\frac{trips}{day})\) \citep{ibarrathesis}.
+Now, I will show an example of the evaporative emission factors from
+\citet{CETESB2015}, based on the methodology Tier 2 from
+-@\citet{MelliosNtziachristos2016}. If we consider evaporative emission
+factors of Passenger Cars using Gasoline (blended with 25\% of Ethanol)
+\citep{CETESB2015} and4.6 \((\frac{trips}{day})\) \citep{ibarrathesis}.
 
 \begin{verbatim}
 ##   year ed_20_35 eshot_20_35 erhot_20_35
@@ -3679,8 +3678,7 @@ factors in each \texttt{*input.R}.
 
 The IVE model has calculated emission factors by correcting BASE
 emission factors with the vehicle specific power (VSP) methodology to
-predict emissions \citep{jimenez1999vehicle}. The formula is shown on
-Eq. \eqref{eq:vsp}.
+predict emissions \citep{jimenez1999vehicle}, see Eq. \eqref{eq:vsp}.
 
 \begin{equation}
 VSP = v \cdot (1.1 \cdot a + 9.81(atan(sin(grade))) + 0.132) + 0.000302v^3
@@ -3867,7 +3865,7 @@ emissions estimations functions are:
 \item
   \texttt{emis\_paved} for resuspension emissions on paved roads, and
 \item
-  \texttt{emis\_wear} for wear of brakes, tyres, and roads.
+  \texttt{emis\_wear} for wear of brakes, tires, and roads.
 \end{itemize}
 
 These functions perform internal checks for ensuring that the length lkm
@@ -4014,7 +4012,7 @@ merely, consisting in only adding elements of a data-frame.
 \item
   \texttt{nd4}: Number of days of your period of study with monthly
   average Temperature between 20 and 35 Celsius degrees. If the period
-  is a year, this is the annual number of days under that condition.
+  is a year, it is the annual number of days under that condition.
 \item
   \texttt{nd3}: Number of days of your period of study with a monthly
   average temperature between 10 and 25 Celsius degrees.
@@ -4026,16 +4024,20 @@ merely, consisting in only adding elements of a data-frame.
   average temperature between -5 and 10 Celsius degrees.
 \item
   \texttt{hs\_nd4}: Number of average daily hot-soak evaporative
-  emissions for days with temperature between 20 and 35 Celcius degrees
+  emissions for days with the temperature between 20 and 35 Celcius
+  degrees
 \item
   \texttt{hs\_nd3}: Number of average daily hot-soak evaporative
-  emissions for days with temperature between 10 and 25 Celcius degrees
+  emissions for days with the temperature between 10 and 25 Celcius
+  degrees
 \item
   \texttt{hs\_nd2}: Number of average daily hot-soak evaporative
-  emissions for days with temperature between 0 and 15 Celcius degrees
+  emissions for days with the temperature between 0 and 15 Celcius
+  degrees
 \item
   \texttt{hs\_nd1}: Number of average daily hot-soak evaporative
-  emissions for days with temperature between -5 and 10 Celcius degrees
+  emissions for days with the temperature between -5 and 10 Celcius
+  degrees
 \item
   \texttt{rl\_nd4}: Number of average daily running losses evaporative
   emissions for days with a temperature between 20 and 35 Celcius
@@ -4053,16 +4055,16 @@ merely, consisting in only adding elements of a data-frame.
   degrees
 \item
   \texttt{d\_nd4}: Number of average daily diurnal evaporative emissions
-  for days with temperature between 20 and 35 Celcius degrees
+  for days with the temperature between 20 and 35 Celcius degrees
 \item
   \texttt{d\_nd3}: Number of average daily diurnal evaporative emissions
-  for days with temperature between 10 and 25 Celcius degrees
+  for days with the temperature between 10 and 25 Celcius degrees
 \item
   \texttt{d\_nd2}: Number of average daily diurnal evaporative emissions
-  for days with temperature between 0 and 15 Celcius degrees
+  for days with the temperature between 0 and 15 Celcius degrees
 \item
   \texttt{d\_nd1}: Number of average daily diurnal evaporative emissions
-  for days with temperature between -5 and 10 Celcius degrees
+  for days with the temperature between -5 and 10 Celcius degrees
 \end{itemize}
 
 \section{\texorpdfstring{The \texttt{emis\_paved}
@@ -4169,8 +4171,8 @@ For instance, Let's create an array of vehicles. The function
 \texttt{adt} calculates the number of vehicles at all hours. Let's use
 the \texttt{data(net)} assuming no buses. Let's calculate the total
 traffic for only 24 hours with the same profile. For Simplicity, let's
-assume that all vehicle are expressed in \emph{vehicle equivalent}
-Moreover, it is a dry period.
+assume that all are \emph{vehicle equivalent} Moreover, it is a dry
+period.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4212,7 +4214,7 @@ fleet.
 ## [1] 1505   24
 \end{verbatim}
 
-moreover, now we estimate the emissions with the default values form
+Moreover, now we estimate the emissions with the default values form
 PM10.
 
 \begin{Shaded}
@@ -4234,7 +4236,7 @@ PM10.
 \section{\texorpdfstring{The \texttt{emis\_wear}
 function}{The emis\_wear function}}\label{ew}
 
-Wear emissions can be very important these are a second most important
+Wear emissions can be significant these are a second most important
 source of particulate matter in Europe \citep{eear}. These methods in
 VEIN comes from \citet{NtziachristosBoulter2009} which include wear of
 ``tire'', ``break'' and ``road''.
@@ -4344,7 +4346,7 @@ streets x age distribution of vehicles x hours x days.
 \end{figure}
 
 Now the function \texttt{emis\_post} reads the \texttt{EmissionsArray}
-and and convert it to data-frames that are easier to manage.
+also, convert it to data-frames that are easier to manage.
 
 The arguments of \texttt{emis\_post} are:
 
@@ -4366,9 +4368,9 @@ Where,
 \item
   \texttt{arra}: \texttt{EmissionsArray} obtained with the \texttt{emis}
   functions. It is an array of emissions 4d: streets x category of
-  vehicles x hours x days or 3d: streets x category of vehicles x hours
+  vehicles x hours x days or 3d: streets x category of vehicles x hours.
 \item
-  \texttt{veh}: Character indicating the type of vehicle , for instance:
+  \texttt{veh}: Character indicating the type of vehicle, for instance:
   ``PC''.
 \item
   \texttt{size}: Character indicating the size or weight, for instance:
@@ -4378,23 +4380,22 @@ Where,
   \texttt{fuel}: Character indicating fuel, for instance: ``Gasoline'',
   ``E\_25'', ``GLP'', ``Diesel''.
 \item
-  \texttt{pollutant}: Character indicating the pollutant, for instance
-  ``CO'', ``NOx'', etc.
+  \texttt{pollutant}: Character indicating the pollutant, for instance,
+  ``CO'', ``NOx'', \ldots{}
 \item
-  \texttt{by}: Character indicating type of output, ``veh'' for total
-  vehicular category , ``streets\_narrow'' or ``streets\_wide''. This is
-  the most important argument of this function. ``streets\_wide''
-  returns a dataframe with rows as number of streets and columns the
-  hours as days*hours considered, e.g.~168 columns as the hours of a
-  whole week and ``streets\_wide repeats the row number of streets by
-  hour and day of the week
+  \texttt{by}: Character indicating the type of output, ``veh'' for the
+  total vehicular category, ``streets\_narrow'' or ``streets\_wide''.
+  ``streets\_wide'' or just ``streets'' returns a dataframe with rows as
+  the number of streets and columns the hours as days*hours considered,
+  e.g., 168 columns as the hours of a whole week and ``streets\_wide
+  repeats the row number of streets by the hour and day of the week
 \end{itemize}
 
-Lets create some objects
+Let's create some objects
 
 \section{Emissions by street}\label{emissions-by-street}
 
-From previous chapters we worked with \texttt{Vehicles},
+From previous chapters, we worked with \texttt{Vehicles},
 \texttt{EmissionFactors} and estimate emissions generating
 \texttt{EmissionsArray}. Now let's create an \texttt{EmissionsArray}
 object.
@@ -4534,7 +4535,7 @@ different pattern of emissions:
 \section{Total emissions in
 data-frames}\label{total-emissions-in-data-frames}
 
-In order to obtain the total emissions in data-frame, the same function
+To obtain the total emissions in data-frame, the same function
 \texttt{emis\_post} is used, but in this case, with the argument
 \texttt{by} = ``veh''. We also need to add arguments of \texttt{veh} for
 the type of vehicle, \texttt{size} the size or gross weight,
@@ -4560,9 +4561,10 @@ required in this case.
 \end{verbatim}
 
 The resulting object is a data-frame with the name of the input array,
-then it has the g/h. Also, the name of the vehicle, the size, fuel,
-pollutant, age and hour. This is interesting because we can now what are
-the most pollutatn vehicle and at which hour this emissions ocurres.
+and then it has the g/h. Also, the name of the vehicle, the size, fuel,
+pollutant, age and hour, which is interesting because we can know what
+the most pollutant vehicle is and at which hour these emissions
+occurred.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4575,12 +4577,12 @@ the most pollutatn vehicle and at which hour this emissions ocurres.
 ## 517 E_NOx_17 29139.51 [g/h]  LT Small   B5       NOx  17   11
 \end{verbatim}
 
-The highest emissions by hour are of Light Trucks of 17 years of use at
-hour 11 on local time. However, it is possible to get more interesting
-insights of the data. The datra can be aggregated by age, hour or plot
-all together as shown on Fig. \ref{fig:noxlt3}. The highest emissions
-ocurre between 17 and 27 years of use. This figure also shows the effect
-of emissions standards introduced in different years.
+The highest emissions by the hour are of Light Trucks of 17 years of use
+at hour 11 on local time. However, it is possible to get more
+interesting insights into the data. The data can be aggregated by age,
+hour or plot all together as shown in Fig. \ref{fig:noxlt3}. The highest
+emissions occurred between 17 and 27 years of use. This figure also
+shows the effect of emissions standards introduced in different years.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4635,12 +4637,11 @@ of emissions standards introduced in different years.
 
 The function \texttt{inventory} was designed to store the emissions of
 each type of vehicle in each directory. Hence, it was necessary to
-create a function that read and merge the emissions that are in each
+create a function that reads and merge the emissions that are in each
 directory, returning a data-frame os a spatial feature data-frame. The
-function is \texttt{emis\_merge}. As it can be seen on Fig.
-\ref{fig:demispost}, \texttt{emis\_merge} comes after
-\texttt{emis\_post} or \texttt{speciate}. The arguments of
-\texttt{emis\_merge} are:
+function is \texttt{emis\_merge}. Fig. \ref{fig:demispost},
+\texttt{emis\_merge} comes after \texttt{emis\_post} or
+\texttt{speciate}. The arguments of \texttt{emis\_merge} are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4665,29 +4666,26 @@ Where,
   ``STREETS'', ``DF'' or whatever name. It is important to include the
   extension .`rds'
 \item
-  \texttt{streets}: Logical. If true, emis\_merge will read the street
+  \texttt{streets}: Logical. If true, emis\_merge reads the street
   emissions created with emis\_post by ``streets\_wide'', returning an
-  object with class `sf'. If false, it will read the emissions
-  data-frame and rbind them.
+  object with class `sf'. If false, it reads the emissions data-frame
+  and rbind them.
 \item
   \texttt{net}: `Spatial feature' or `SpatialLinesDataFrame' with the
-  streets. It is expected \#`that the number of rows is equal to the
-  number of rows of street emissions. If \#' not, the function will
-  stop.
+  streets. It is expected that the number of rows is equal to the number
+  of rows of street emissions. If not, the function stops.
 \item
-  \texttt{path}: Character. Path where emissions are located
+  \texttt{path}: Character. A path where emissions are located
 \item
   \texttt{crs}: coordinate reference system in numeric format from
   \url{http://spatialreference.org/} to transform/project spatial data
   using sf::st\_transform
 \end{itemize}
 
-In order to see how this functions works, let's run the example in the
-\texttt{inventory} function. First, lets create a project, or in other
-words a directory named ``YourCity'', into the temporary directory. In
-this part you can place your project wherever you want with the actual
-name of your city. Then run \texttt{inventory} with the default
-configuration.
+To see how this functions works, let's run the example in the
+\texttt{inventory} function. First, let's create a project, or in other
+words, a directory named ``YourCity'', into the temporary directory.
+Then run \texttt{inventory} with the default configuration.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4697,66 +4695,66 @@ configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmpxklera/YourCity
+## files at /tmp/RtmpYgsztN/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmpxklera/YourCity"             
-##  [2] "/tmp/Rtmpxklera/YourCity/ef"          
-##  [3] "/tmp/Rtmpxklera/YourCity/emi"         
-##  [4] "/tmp/Rtmpxklera/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmpxklera/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmpxklera/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmpxklera/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmpxklera/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmpxklera/YourCity/est"         
-## [10] "/tmp/Rtmpxklera/YourCity/images"      
-## [11] "/tmp/Rtmpxklera/YourCity/network"     
-## [12] "/tmp/Rtmpxklera/YourCity/post"        
-## [13] "/tmp/Rtmpxklera/YourCity/post/df"     
-## [14] "/tmp/Rtmpxklera/YourCity/post/grids"  
-## [15] "/tmp/Rtmpxklera/YourCity/post/streets"
-## [16] "/tmp/Rtmpxklera/YourCity/profiles"    
-## [17] "/tmp/Rtmpxklera/YourCity/veh"
+##  [1] "/tmp/RtmpYgsztN/YourCity"             
+##  [2] "/tmp/RtmpYgsztN/YourCity/ef"          
+##  [3] "/tmp/RtmpYgsztN/YourCity/emi"         
+##  [4] "/tmp/RtmpYgsztN/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpYgsztN/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpYgsztN/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpYgsztN/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpYgsztN/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpYgsztN/YourCity/est"         
+## [10] "/tmp/RtmpYgsztN/YourCity/images"      
+## [11] "/tmp/RtmpYgsztN/YourCity/network"     
+## [12] "/tmp/RtmpYgsztN/YourCity/post"        
+## [13] "/tmp/RtmpYgsztN/YourCity/post/df"     
+## [14] "/tmp/RtmpYgsztN/YourCity/post/grids"  
+## [15] "/tmp/RtmpYgsztN/YourCity/post/streets"
+## [16] "/tmp/RtmpYgsztN/YourCity/profiles"    
+## [17] "/tmp/RtmpYgsztN/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/Rtmpxklera/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpYgsztN/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
 
 This script starts with \texttt{setwd} function, Then the first section
-is the network, where user reads and prepares the traffic information.
-Then the second section runs a script whichruns the age functions for
-the deault vehicular composition of the \texttt{inventory} function. The
-third section estimates the emissions by running each input.R file
-inside the directory \emph{est} The fourth section, creates a grid and
-run the script post.R is shown below:
+is the network, where the user reads and prepares the traffic
+information. Then the second section runs a script which runs the age
+functions for the default vehicular composition of the
+\texttt{inventory} function. The third section estimates the emissions
+by running each input.R file inside the directory \emph{est} The fourth
+section, creates a grid and run the script post.R is shown below:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/post} \end{center}
 
 The function \texttt{emis\_merge} shown in line 2 is designed to read
-the all the files with names CO and the default argument \texttt{what}
-is ``STREETS.rds'', for instance, PC\_GASOLINE\_CO\_STREETS.rds. Hence,
+all the files with names CO and the default argument \texttt{what} is
+``STREETS.rds'', for instance, PC\_GASOLINE\_CO\_STREETS.rds. Hence,
 this function reads all the files under that condition. The other
-argument is \texttt{streets} with defailt value of \texttt{TRUE},
-meaning that the function now knows that the resulting object must be an
+argument is \texttt{streets} with default value of \texttt{TRUE},
+meaning that the function now knows that the resulting object must be a
 spatial network, and the \texttt{net} argument is already calling the
-net object part of the VEIN data, the function will merge all the
-objects summing the emissions of all vehicle street by street. The
-resulting object is a spatial ``LINESTRING'' class of \texttt{sf}. This
-function assumes that emissons files are data.frames and non tests have
-been made to see if this function would read work \texttt{sf} objects.
+net object part of the VEIN data, the function merges all the objects
+summing the emissions of all vehicle street by street. The resulting
+object is a spatial ``LINESTRING'' class of \texttt{sf}. This function
+assumes that emissions files are data.frames and no tests have been made
+to see if this function would read work \texttt{sf} objects.
 
 On the other hand, the line 12 also runs all the emissions files whose
-names includes the word CO, but also including the words ``DF.rds'',
+names include the word CO, but also including the words ``DF.rds'',
 which are the files from \texttt{emis\_post} with argument \texttt{by}
-equals to ``veh''. In this case, it reads and merge the data-frames and
+equals to ``veh''. In this case, it reads and merges the data-frames and
 prints the sum emissions by pollutant.
 
-If the user source he file main.R, it will calculate the emissions and
-produce some plots.
+Sourcing the file main.R runs each line of this script, estimating
+emissions and producing some plots.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4766,10 +4764,10 @@ produce some plots.
 
 \section{Creating grids}\label{creating-grids}
 
-Once we have processed our emissions array with \texttt{emis\_post}
-and/or we have spatial emissions, we can then create grids and allocate
-our emissions into the grids. Lets check the function
-\texttt{make\_grid} first:
+Once we have processed our emissions array with \texttt{emis\_post} and
+we have spatial emissions, we can then create grids and allocate our
+emissions into the grids. Let's check the function \texttt{make\_grid}
+first:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4783,12 +4781,12 @@ our emissions into the grids. Lets check the function
 ## NULL
 \end{verbatim}
 
-This function originally used an \texttt{sp} approach. However, now uses
-an \texttt{sf} approach for creating the grid. Actually, the arguments
-are pretty much the same with the \texttt{sf::st\_make\_grid} with the
-exeption that is focused in returning polygons with coordinates at
-centroids of each cell. Therefore, the arguments height and polygon are
-deprecated. Lets create grid for our net.
+This function initially used an \texttt{sp} approach. However, now uses
+an \texttt{sf} approach for creating the grid. The arguments are pretty
+much the same with the \texttt{sf::st\_make\_grid} with the exception
+that is focused in returning polygons with coordinates at centroids of
+each cell. Therefore, the arguments height and polygon are deprecated.
+Let's create a grid for our net.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4829,20 +4827,20 @@ deprecated. Lets create grid for our net.
 \end{figure}
 
 The class of \texttt{net} is \texttt{SpatialLinesDataFrame}, which is
-converted to \texttt{sf}. Then, as the coordinte reference system of net
-is WGS84 with epsg 4326, we are transforming to UTM to create a grid
-with grid spacing of 500 mts. The class of the grid object, \texttt{g}
-is ``sf data.frame''.
+converted to \texttt{sf}. Then, as the coordinate reference system of
+the net is WGS84 with epsg 4326, we are transforming to UTM to create a
+grid with a grid spacing of 500 m. The class of the grid object,
+\texttt{g} is ``sf data.frame''.
 
 \section{\texorpdfstring{Gridding bottom-up emissions with
 \texttt{emis\_grid}}{Gridding bottom-up emissions with emis\_grid}}\label{gridding-bottom-up-emissions-with-emis_grid}
 
 The function\texttt{emis\_grid} allocates emissions proportionally to
-each grid cell. The process is performed by intersection between
-geometries and the grid. It means that requires ``sr'' according with
+each grid cell. The process is performed by the intersection between
+geometries and the grid. It means that requires ``sr'' according to with
 your location for the projection. It is assumed that spobj is a
 spatial*DataFrame or an ``sf'' with the pollutants in data. This
-function return an object class ``sf''.
+function returns an object class ``sf''.
 
 Before \texttt{sf} era, i tried to use\texttt{raster::intersect} which
 imports \texttt{rgeos} and took \textbf{ages}. Then I started to use
@@ -4853,11 +4851,10 @@ bad}. However, when \texttt{sf} appeared and also, included the Spatial
 Indexes
 (\url{https://www.r-spatial.org/r/2017/06/22/spatial-index.html}), it
 changed the game. A new era started. It took \textbf{5.5 seconds}. I
-could not believe it. But there also some i could accelerate this
-process importing some \texttt{data.table} aggregation functions. Now
-\texttt{emis\_grid} can aggegate big spatial extensions. I havent tried
-yet at continental scale, but I will try. Anyways, let's go see the
-arguments:
+could not believe it. However, there also some I could accelerate this
+process importing some \texttt{data.table} Aggregation functions. Now
+\texttt{emis\_grid} can aggregate large spatial extensions. I haven't
+tried yet at continental scale. Let's see the arguments:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4880,8 +4877,9 @@ Where,
 \item
   \texttt{g}: A grid with class ``SpatialPolygonsDataFrame'' or ``sf''.
 \item
-  \texttt{sr}: Spatial reference e.g: 31983. It is required if spobj and
-  g are not projected. Please, see \url{http://spatialreference.org/}.
+  \texttt{sr}: Spatial reference, e.g., 31983. It is required if spobj
+  and g are not projected. Please, see
+  \url{http://spatialreference.org/}.
 \item
   \texttt{type}: type of geometry: ``lines'' or ``points''.
 \end{itemize}
@@ -4993,10 +4991,10 @@ different hours, it will return gridded emissions at each hour:
 When a top-down approach emissions inventory is made, the spatial
 distribution of emissions must be made considering some proxy. In the
 case of vehicular emissions, it can be done with data of Open Street
-Maps,distributing the emissions into the streets. This can be done with
-the function with the function \texttt{emis\_dist}. In generaly, this
-function distribute the emissions into spatial feature on any type, not
-only lines.
+Maps, distributing the emissions into the streets. This can be done with
+the function with the function \texttt{emis\_dist}. In general, this
+function distributes the emissions into a spatial feature on any type,
+not only lines.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5032,10 +5030,10 @@ Where,
   \texttt{verbose}: Logical; to show more info.
 \end{itemize}
 
-In order test this function, it will be used the function
-\texttt{osmdata}. The process presented in the following code, consists
-in downloading the openstreetmap data delimited by the coordenaes og the
-grid \texttt{g}. Then filter only the lines
+Let's use the package \texttt{osmdata} to download OpenStreetMap data.
+The process presented in the following code consists of downloading the
+OpenStreetMap data delimited by the coordinates og the grid \texttt{g}.
+Then filter only the lines
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5123,12 +5121,12 @@ into ``motorway'' because it is 5 / (1 + 2 + 3 + 4 + 5).
 \section{\texorpdfstring{Gridding top-down emissions with
 \texttt{grid\_emis}}{Gridding top-down emissions with grid\_emis}}\label{gridding-top-down-emissions-with-grid_emis}
 
-Another option to distribute top-down emissions consits in the use of
+Another option to distribute top-down emissions consists in the use of
 the function \texttt{grid\_emis}, which does a similar job than
 \texttt{emis\_dist} but cell by cell. This means that the total
 emissions are distributed inside each grid cell and not one distribution
-for the whole domain. This functions runs a lapply of
-\texttt{emis\_dist}, hence it takes a litle bit of more time.
+for the whole domain. This function runs a lapply of
+\texttt{emis\_dist}; hence it takes a little bit more time.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5151,13 +5149,14 @@ Where,
 \item
   \texttt{g}: A grid with class ``SpatialPolygonsDataFrame'' or ``sf''.
   This grid includes the total emissions with the column ``emission''.
-  If profile is going to be used, the column `emission' must include the
-  sum of the emissions for each profile. For instance, if profile covers
-  the hourly emissions, the column `emission' bust be the sum of the
-  hourly emissions.
+  If the profile is going to be used, the column `emission' must include
+  the sum of the emissions for each profile. For instance, if the
+  profile covers the hourly emissions, the column `emission' bust be the
+  sum of the hourly emissions.
 \item
-  \texttt{sr}: Spatial reference e.g: 31983. It is required if spobj and
-  g are not projected. Please, see \url{http://spatialreference.org/}.
+  \texttt{sr}: Spatial reference e.g., 31983. It is required if spobj
+  and g are not projected. Please, see
+  \url{http://spatialreference.org/}.
 \item
   \texttt{pro}: Numeric, Matrix or data-frame profiles, for instance,
   pc\_profile.
@@ -6097,12 +6096,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9264749
-## 2 0.9209588
-## 3 0.9337412
-## 4 0.9243835
-## 5 0.9306481
-## 6 0.9242471
+## 1 0.9298060
+## 2 0.9240286
+## 3 0.9272677
+## 4 0.9226016
+## 5 0.9313657
+## 6 0.9222840
 \end{verbatim}
 
 \begin{Shaded}
@@ -6129,31 +6128,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9264749 0.9209588 0.9337412
+## [1] 0.9298060 0.9240286 0.9272677
 ## Units: [mol/h]
-## [1] 1.426650 1.418156 1.437839
+## [1] 1.431779 1.422883 1.427871
 ## Units: [mol/h]
-## [1] 0.5199713 0.5168755 0.5240495
+## [1] 0.5218409 0.5185984 0.5204163
 ## Units: [mol/h]
-## [1] 0.2508993 0.2494055 0.2528671
+## [1] 0.2518014 0.2502368 0.2511140
 ## Units: [mol/h]
-## [1] 1.903661 1.892327 1.918591
+## [1] 1.910505 1.898634 1.905290
 ## Units: [mol/h]
-## [1] 0.7980894 0.7933377 0.8043488
+## [1] 0.8009589 0.7959821 0.7987723
 ## Units: [mol/h]
-## [1] 0.5291057 0.5259555 0.5332555
+## [1] 0.5310081 0.5277086 0.5295585
 ## Units: [mol/h]
-## [1] 0.02537988 0.02522877 0.02557893
+## [1] 0.02547113 0.02531286 0.02540160
 ## Units: [mol/h]
-## [1] 0.4605939 0.4578516 0.4642063
+## [1] 0.4622500 0.4593777 0.4609881
 ## Units: [mol/h]
-## [1] 0.8775060 0.8722815 0.8843883
+## [1] 0.8806611 0.8751890 0.8782569
 ## Units: [mol/h]
-## [1] 1.232596 1.225258 1.242264
+## [1] 1.237028 1.229342 1.233651
 ## Units: [mol/h]
-## [1] 0.3455144 0.3434573 0.3482243
+## [1] 0.3467567 0.3446021 0.3458101
 ## Units: [mol/h]
-## [1] 0.4506237 0.4479407 0.4541579
+## [1] 0.4522439 0.4494338 0.4510093
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -6212,7 +6211,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 601905.2
+## Sum of street emissions 602083.62
 \end{verbatim}
 
 \begin{verbatim}
@@ -6220,7 +6219,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 601905.2
+## Sum of gridded emissions 602083.62
 \end{verbatim}
 
 \begin{Shaded}
@@ -6257,18 +6256,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001450505 [g/m^2/s] 0.01173591 0.0004652920 0.001983613 0.01883773
-## 2 0.001441754 [g/m^2/s] 0.01166510 0.0004624846 0.001971645 0.01872407
-## 3 0.001477848 [g/m^2/s] 0.01195713 0.0004740628 0.002021005 0.01919283
-## 4 0.002551616 [g/m^2/s] 0.02064489 0.0008185053 0.003489417 0.03313787
-## 5 0.005798116 [g/m^2/s] 0.04691203 0.0018599150 0.007929112 0.07530020
+## 1 0.001442664 [g/m^2/s] 0.01167246 0.0004627767 0.001972890 0.01873590
+## 2 0.001433960 [g/m^2/s] 0.01160204 0.0004599844 0.001960986 0.01862285
+## 3 0.001469858 [g/m^2/s] 0.01189249 0.0004715001 0.002010079 0.01908907
+## 4 0.002544432 [g/m^2/s] 0.02058677 0.0008162009 0.003479593 0.03304457
+## 5 0.005777309 [g/m^2/s] 0.04674368 0.0018532406 0.007900657 0.07502998
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05651320 0.005726671 0.02441370 0.01054913 0.004521056 0.05218052
-## 2 0.05617222 0.005692118 0.02426640 0.01048548 0.004493778 0.05186568
-## 3 0.05757848 0.005834619 0.02487390 0.01074798 0.004606278 0.05316413
-## 4 0.09941360 0.010073911 0.04294668 0.01855721 0.007953088 0.09179189
-## 5 0.22590061 0.022891262 0.09758906 0.04216811 0.018072049 0.20858157
+## 1 0.05620769 0.005695713 0.02428172 0.01049210 0.004496615 0.05189843
+## 2 0.05586856 0.005661347 0.02413522 0.01042880 0.004469484 0.05158530
+## 3 0.05726721 0.005803078 0.02473944 0.01068988 0.004581377 0.05287673
+## 4 0.09913371 0.010045550 0.04282576 0.01850496 0.007930697 0.09153346
+## 5 0.22508995 0.022809115 0.09723886 0.04201679 0.018007196 0.20783305
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 

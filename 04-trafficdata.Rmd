@@ -14,7 +14,7 @@ This Equation shows that $VC$ splits the total vehicular flow $Q$ to identify th
 
 ## Sources of traffic data
 
-### Travel demand outputs
+### Outputs from travel demand models
 
 VEIN was developed according to the available traffic data in São Paulo, Brazil. In this case, the available data was a 4-stage macroscopic travel
 model for morning rush hours and hourly traffic counts for morning and evening rush hours. The travel model is based on data from an Origin-Destination-Survey  (ODS) [@ODS] which started in the decade of 1950 in São Paulo. A classic reference of a 4-stage modeling transport is [@OrtuzarWillumsen2002]. The 4 stages of the traffic modeling include characterization of trip attractions and productions by zone in some regions, distribution of these trips, the preferred mode of transport for
