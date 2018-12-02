@@ -475,7 +475,7 @@ bcom &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span c
 <span class="kw">names</span>(bcom) &lt;-<span class="st"> </span>dfpmeuro<span class="op">$</span>euro</code></pre></div>
 <p>And the resulting speciation is:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-84">Table 8.1: </span>Black Carbon and Organic Matter [g/168h]</caption>
+<caption><span id="tab:unnamed-chunk-86">Table 8.1: </span>Black Carbon and Organic Matter [g/168h]</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -566,7 +566,7 @@ Figure 8.3: Break and Tyre emissions (t/y)
 </div>
 <p>It is interesting to see that break emissions are higher than tire wear emissions, and the smaller the diameter, higher the difference, as shown:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-86">Table 8.2: </span>Ratio between break and tire wear emissions</caption>
+<caption><span id="tab:unnamed-chunk-88">Table 8.2: </span>Ratio between break and tire wear emissions</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -736,7 +736,7 @@ spec &lt;-<span class="st"> </span><span class="kw">speciate</span>(<span class=
 <p>The research in this aspect is intense and out of the scope of this book. However, it is vital that the user who intends to performs an atmospheric simulation to understand this why it is essential to speciate the emissions and what represent each group.</p>
 <p>A popular air quality model nowadays is the Weather Research and Forecasting model coupled to Chemistry (WRF-Chem) <span class="citation">(Grell et al. <a href="#ref-Grelletal2005">2005</a>)</span> <a href="https://ruc.noaa.gov/wrf/wrf-chem/and" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/and</a> the <strong>Emissions Guide</strong> (<a href="https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf" class="uri">https://ruc.noaa.gov/wrf/wrf-chem/Emission_guide.pdf</a>).</p>
 <p>The speciation <code>iag</code> splits the NMHC into the lumped groups for the mechanism CMB-Z. The name <code>iag</code> comes from the Institute of Astronomy, Geophysics and Atmospheric Sciences (IAG, <a href="http://www.iag.usp.br/" class="uri">http://www.iag.usp.br/</a>) from the University of São Paulo (USP). The Department of Atmospheric Sciences (DAC) of IAG has measure and model air quality models for several years. There are several scientific productions such as: <span class="citation">Nogueira et al. (<a href="#ref-Nogueiraetal2015">2015</a>)</span>, <span class="citation">Hoshyaripour et al. (<a href="#ref-HOSHYARIPOUR2016365">2016</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2017">2017</a>)</span>, <span class="citation">Freitas et al. (<a href="#ref-Freitasetal2005">2005</a>)</span>, <span class="citation">Martins et al. (<a href="#ref-martins2006emission">2006</a>)</span>, <span class="citation">Pérez-Martinez et al. (<a href="#ref-perez2014emission">2014</a>)</span>, <span class="citation">Ulke and Andrade (<a href="#ref-ulke2001modeling">2001</a>)</span>, <span class="citation">Vivanco and Fátima Andrade (<a href="#ref-vivanco2006validation">2006</a>)</span>, <span class="citation">Boian and Andrade (<a href="#ref-boian2012characterization">2012</a>)</span>, <span class="citation">Fatima Andrade et al. (<a href="#ref-Andrade2012">2012</a>)</span>, <span class="citation">Andrade et al. (<a href="#ref-Andradeetal2015">2015</a>)</span>, <span class="citation">Vara-Vela et al. (<a href="#ref-VaraVelaetal2015">2016</a>)</span>, <span class="citation">Rafee (<a href="#ref-Rafee2015">2015</a>)</span>, <span class="citation">Ibarra-Espinosa et al. (<a href="#ref-Ibarraetal2017b">2017</a>)</span>. The following figure shows an air quality simulation over South East Brazil from DAC/IAG/USP.</p>
-<div class="figure"><span id="fig:unnamed-chunk-90"></span>
+<div class="figure"><span id="fig:unnamed-chunk-92"></span>
 <img src="figuras/wrf.png" alt="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php" width="245" />
 <p class="caption">
 Figure 8.4: <a href="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php" class="uri">http://www.lapat.iag.usp.br/aerossol/wrf9/index.php</a>
@@ -748,7 +748,7 @@ Figure 8.4: <a href="http://www.lapat.iag.usp.br/aerossol/wrf9/index.php" class=
 </ul>
 <p>Moreover, the user who wants to apply it outside Brazil should be ensured, that the fleet and fuel are compatible. As that will be hard to accomplish, I can say that this speciation is for and to be used in Brazil, even more, in São Paulo.</p>
 <p>The currently speciation <code>iag</code> is:</p>
-<div class="figure"><span id="fig:unnamed-chunk-91"></span>
+<div class="figure"><span id="fig:unnamed-chunk-93"></span>
 <img src="figuras/iag1.png" alt="Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)" width="445" />
 <p class="caption">
 Figure 8.5: Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)
@@ -770,12 +770,12 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="
 dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;e_eth&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>, <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>)
 <span class="kw">head</span>(dfa)</code></pre></div>
 <pre><code>##       e_eth
-## 1 0.9309422
-## 2 0.9277690
-## 3 0.9304294
-## 4 0.9352010
-## 5 0.9320021
-## 6 0.9290253</code></pre>
+## 1 0.9240251
+## 2 0.9256066
+## 3 0.9291833
+## 4 0.9214095
+## 5 0.9186011
+## 6 0.9301137</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span class="dt">spec =</span> <span class="st">&quot;iag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">TRUE</span>)
 <span class="kw">names</span>(df)</code></pre></div>
@@ -786,31 +786,31 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
   <span class="kw">print</span>(df[[i]][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]) <span class="co"># Firt three lines of each element of the list</span>
 }</code></pre></div>
 <pre><code>## Units: [mol/h]
-## [1] 0.9309422 0.9277690 0.9304294
+## [1] 0.9240251 0.9256066 0.9291833
 ## Units: [mol/h]
-## [1] 1.433529 1.428642 1.432739
+## [1] 1.422877 1.425313 1.430820
 ## Units: [mol/h]
-## [1] 0.5224785 0.5206976 0.5221908
+## [1] 0.5185964 0.5194840 0.5214914
 ## Units: [mol/h]
-## [1] 0.2521091 0.2512497 0.2519702
+## [1] 0.2502359 0.2506642 0.2516328
 ## Units: [mol/h]
-## [1] 1.912840 1.906320 1.911786
+## [1] 1.898627 1.901877 1.909226
 ## Units: [mol/h]
-## [1] 0.8019376 0.7992041 0.8014959
+## [1] 0.7959791 0.7973414 0.8004225
 ## Units: [mol/h]
-## [1] 0.5316570 0.5298448 0.5313641
+## [1] 0.5277067 0.5286099 0.5306525
 ## Units: [mol/h]
-## [1] 0.02550225 0.02541533 0.02548821
+## [1] 0.02531277 0.02535609 0.02545407
 ## Units: [mol/h]
-## [1] 0.4628148 0.4612373 0.4625599
+## [1] 0.4593760 0.4601623 0.4619404
 ## Units: [mol/h]
-## [1] 0.8817372 0.8787317 0.8812515
+## [1] 0.8751858 0.8766837 0.8800713
 ## Units: [mol/h]
-## [1] 1.238540 1.234318 1.237857
+## [1] 1.229337 1.231441 1.236200
 ## Units: [mol/h]
-## [1] 0.3471804 0.3459970 0.3469892
+## [1] 0.3446008 0.3451906 0.3465245
 ## Units: [mol/h]
-## [1] 0.4527965 0.4512531 0.4525471
+## [1] 0.4494322 0.4502014 0.4519410
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -820,7 +820,7 @@ dfa &lt;-<span class="st"> </span><span class="kw">speciate</span>(x, <span clas
 <h2><span class="header-section-number">8.8</span> The speciation <code>pmiag</code></h2>
 <p>The speciation <code>pmiag</code>is also based on IAG studies and applied only for PM2.5 emissions. The speciation splits the PM2.5 in percentages as follow:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-93">Table 8.4: </span>Speciation of PM2.5</caption>
+<caption><span id="tab:unnamed-chunk-95">Table 8.4: </span>Speciation of PM2.5</caption>
 <thead>
 <tr class="header">
 <th align="right">E_SO4i</th>
@@ -863,9 +863,9 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 <pre><code>## Number of lon points: 23
 ## Number of lat points: 19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gx &lt;-<span class="st"> </span><span class="kw">emis_grid</span>(net, g)</code></pre></div>
-<pre><code>## Sum of street emissions 602061.91</code></pre>
+<pre><code>## Sum of street emissions 602008.95</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
-<pre><code>## Sum of gridded emissions 602061.91</code></pre>
+<pre><code>## Sum of gridded emissions 602008.95</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">speciate</span>(gx, <span class="dt">spec =</span> <span class="st">&quot;pmiag&quot;</span>, <span class="dt">veh =</span> <span class="st">&quot;veh&quot;</span>, <span class="dt">fuel =</span> <span class="st">&quot;G&quot;</span>,
                <span class="dt">eu =</span> <span class="st">&quot;Exhaust&quot;</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>, <span class="dt">dx =</span> <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## To be used in emissions grid only, emissions must be in g/(Xkm^2)/h</code></pre>
@@ -875,18 +875,18 @@ g &lt;-<span class="st"> </span><span class="kw">make_grid</span>(net, <span cla
 ##  [7] &quot;e_orgi&quot;   &quot;e_orgj&quot;   &quot;e_eci&quot;    &quot;e_ecj&quot;    &quot;h2o&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df)</code></pre></div>
 <pre><code>##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001455979 [g/m^2/s] 0.01178019 0.0004670477 0.001991098 0.01890881
-## 2 0.001447194 [g/m^2/s] 0.01170911 0.0004642297 0.001979085 0.01879473
-## 3 0.001483424 [g/m^2/s] 0.01200225 0.0004758516 0.002028631 0.01926525
-## 4 0.002553370 [g/m^2/s] 0.02065909 0.0008190681 0.003491817 0.03316065
-## 5 0.005772053 [g/m^2/s] 0.04670116 0.0018515546 0.007893470 0.07496173
+## 1 0.001455174 [g/m^2/s] 0.01177368 0.0004667895 0.001989998 0.01889836
+## 2 0.001446394 [g/m^2/s] 0.01170264 0.0004639731 0.001977991 0.01878434
+## 3 0.001482604 [g/m^2/s] 0.01199561 0.0004755886 0.002027509 0.01925460
+## 4 0.002564343 [g/m^2/s] 0.02074787 0.0008225879 0.003506822 0.03330316
+## 5 0.005788235 [g/m^2/s] 0.04683209 0.0018567456 0.007915600 0.07517189
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05672644 0.005748280 0.02450582 0.01058894 0.004538115 0.05237742
-## 2 0.05638418 0.005713597 0.02435796 0.01052505 0.004510734 0.05206139
-## 3 0.05779574 0.005856635 0.02496776 0.01078854 0.004623660 0.05336474
-## 4 0.09948196 0.010080838 0.04297621 0.01856997 0.007958557 0.09185501
-## 5 0.22488518 0.022788365 0.09715040 0.04197857 0.017990814 0.20764398
+## 1 0.05669509 0.005745102 0.02449228 0.01058308 0.004535607 0.05234846
+## 2 0.05635301 0.005710438 0.02434450 0.01051923 0.004508241 0.05203261
+## 3 0.05776380 0.005853398 0.02495396 0.01078258 0.004621104 0.05333524
+## 4 0.09990947 0.010124159 0.04316089 0.01864977 0.007992757 0.09224974
+## 5 0.22551566 0.022852254 0.09742277 0.04209626 0.018041253 0.20822613
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000</code></pre>
 
 </div>

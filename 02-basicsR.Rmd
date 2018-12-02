@@ -196,13 +196,14 @@ There are several packages for filtering and manipulating data.frames and databa
 
 Let's create a data.frame with three columns and select all commons that match criteria for a row. Specifically, the column a fas rows with values equal of 2
 
-```
+```{r }
 df <- data.frame(a = 1:3, b = 4:6, c = 7:9)
 (aa <- df[df$a == 2,])
 class(aa)
 ```
 here we are selecting all columns and the class of `aa` is `data.frame`. The same applies for selecting columns, lets select the columns "b" and "c".
-```
+
+```{r }
 (df[, c("b", "c")])
 ```
 

@@ -1229,18 +1229,43 @@ Let's create a data.frame with three columns and select all commons that
 match criteria for a row. Specifically, the column a fas rows with
 values equal of 2
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{b =} \DecValTok{4}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\DataTypeTok{c =} \DecValTok{7}\OperatorTok{:}\DecValTok{9}\NormalTok{)}
+\NormalTok{(aa <-}\StringTok{ }\NormalTok{df[df}\OperatorTok{$}\NormalTok{a }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{verbatim}
-df <- data.frame(a = 1:3, b = 4:6, c = 7:9)
-(aa <- df[df$a == 2,])
-class(aa)
+##   a b c
+## 2 2 5 8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(aa)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
 \end{verbatim}
 
 here we are selecting all columns and the class of \texttt{aa} is
 \texttt{data.frame}. The same applies for selecting columns, lets select
 the columns ``b'' and ``c''.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(df[, }\KeywordTok{c}\NormalTok{(}\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)])}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{verbatim}
-(df[, c("b", "c")])
+##   b c
+## 1 4 7
+## 2 5 8
+## 3 6 9
 \end{verbatim}
 
 \section{Inputting data into R}\label{inputting-data-into-r}
@@ -1947,7 +1972,7 @@ origin and destination and maptools to transform points into lines.
 \end{Shaded}
 
 \begin{figure}
-\includegraphics[width=4.86in]{figuras/gway} \caption{Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo}\label{fig:unnamed-chunk-37}
+\includegraphics[width=4.86in]{figuras/gway} \caption{Driving route between zones 'Luz' and 'Bom Retiro' in São Paulo}\label{fig:unnamed-chunk-39}
 \end{figure}
 
 \subsubsection{The R package dodgr}\label{the-r-package-dodgr}
@@ -2166,7 +2191,7 @@ the argument \texttt{scheme\ =\ FALSE}, or when the user only has
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-40}speeds for scheme = T}
+\caption{\label{tab:unnamed-chunk-42}speeds for scheme = T}
 \centering
 \begin{tabular}[t]{cc}
 \toprule
@@ -2602,7 +2627,7 @@ matches. The probably most used combinations are:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-45}Most used combinations for emission factors for LDV}
+\caption{\label{tab:unnamed-chunk-47}Most used combinations for emission factors for LDV}
 \centering
 \begin{tabular}[t]{ll}
 \toprule
@@ -2777,7 +2802,7 @@ The arguments for \texttt{ef\_hdv\_speed} are:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{veinbook_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{veinbook_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 \section{\texorpdfstring{Local emission factors by age of use. The
 functions \texttt{EmissionFactors} and
@@ -2928,8 +2953,8 @@ function \(f(V)\).
 
 \begin{verbatim}
 ## function(V) x[j,i]
-## <bytecode: 0x5608324da668>
-## <environment: 0x56085e391b50>
+## <bytecode: 0x55fdd6165538>
+## <environment: 0x55fdedec3038>
 \end{verbatim}
 
 Also, as the speed functions are constant, there is no need to add
@@ -4695,31 +4720,31 @@ Then run \texttt{inventory} with the default configuration.
 \end{Shaded}
 
 \begin{verbatim}
-## files at /tmp/Rtmpm9wSQ0/YourCity
+## files at /tmp/RtmpSNspU0/YourCity
 \end{verbatim}
 
 \begin{verbatim}
 ## Directories:
-##  [1] "/tmp/Rtmpm9wSQ0/YourCity"             
-##  [2] "/tmp/Rtmpm9wSQ0/YourCity/ef"          
-##  [3] "/tmp/Rtmpm9wSQ0/YourCity/emi"         
-##  [4] "/tmp/Rtmpm9wSQ0/YourCity/emi/BUS_01"  
-##  [5] "/tmp/Rtmpm9wSQ0/YourCity/emi/HGV_01"  
-##  [6] "/tmp/Rtmpm9wSQ0/YourCity/emi/LCV_01"  
-##  [7] "/tmp/Rtmpm9wSQ0/YourCity/emi/MC_01"   
-##  [8] "/tmp/Rtmpm9wSQ0/YourCity/emi/PC_01"   
-##  [9] "/tmp/Rtmpm9wSQ0/YourCity/est"         
-## [10] "/tmp/Rtmpm9wSQ0/YourCity/images"      
-## [11] "/tmp/Rtmpm9wSQ0/YourCity/network"     
-## [12] "/tmp/Rtmpm9wSQ0/YourCity/post"        
-## [13] "/tmp/Rtmpm9wSQ0/YourCity/post/df"     
-## [14] "/tmp/Rtmpm9wSQ0/YourCity/post/grids"  
-## [15] "/tmp/Rtmpm9wSQ0/YourCity/post/streets"
-## [16] "/tmp/Rtmpm9wSQ0/YourCity/profiles"    
-## [17] "/tmp/Rtmpm9wSQ0/YourCity/veh"
+##  [1] "/tmp/RtmpSNspU0/YourCity"             
+##  [2] "/tmp/RtmpSNspU0/YourCity/ef"          
+##  [3] "/tmp/RtmpSNspU0/YourCity/emi"         
+##  [4] "/tmp/RtmpSNspU0/YourCity/emi/BUS_01"  
+##  [5] "/tmp/RtmpSNspU0/YourCity/emi/HGV_01"  
+##  [6] "/tmp/RtmpSNspU0/YourCity/emi/LCV_01"  
+##  [7] "/tmp/RtmpSNspU0/YourCity/emi/MC_01"   
+##  [8] "/tmp/RtmpSNspU0/YourCity/emi/PC_01"   
+##  [9] "/tmp/RtmpSNspU0/YourCity/est"         
+## [10] "/tmp/RtmpSNspU0/YourCity/images"      
+## [11] "/tmp/RtmpSNspU0/YourCity/network"     
+## [12] "/tmp/RtmpSNspU0/YourCity/post"        
+## [13] "/tmp/RtmpSNspU0/YourCity/post/df"     
+## [14] "/tmp/RtmpSNspU0/YourCity/post/grids"  
+## [15] "/tmp/RtmpSNspU0/YourCity/post/streets"
+## [16] "/tmp/RtmpSNspU0/YourCity/profiles"    
+## [17] "/tmp/RtmpSNspU0/YourCity/veh"
 \end{verbatim}
 
-In my case, the files are in directory /tmp/Rtmpm9wSQ0/YourCity. Now, if
+In my case, the files are in directory /tmp/RtmpSNspU0/YourCity. Now, if
 you open the file file main.R, you will see:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{figuras/main} \end{center}
@@ -5626,7 +5651,7 @@ And the resulting speciation is:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-84}Black Carbon and Organic Matter [g/168h]}
+\caption{\label{tab:unnamed-chunk-86}Black Carbon and Organic Matter [g/168h]}
 \centering
 \begin{tabular}[t]{l|l|l|l|l|l|l}
 \hline
@@ -5759,7 +5784,7 @@ shown:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-86}Ratio between break and tire wear emissions}
+\caption{\label{tab:unnamed-chunk-88}Ratio between break and tire wear emissions}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -6025,7 +6050,7 @@ productions such as: \citet{Nogueiraetal2015},
 an air quality simulation over South East Brazil from DAC/IAG/USP.
 
 \begin{figure}
-\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-90}
+\includegraphics[width=6.81in]{figuras/wrf} \caption{http://www.lapat.iag.usp.br/aerossol/wrf9/index.php}\label{fig:unnamed-chunk-92}
 \end{figure}
 
 Some of these papers show measurements in tunnels and fuel. The
@@ -6047,7 +6072,7 @@ Brazil, even more, in São Paulo.
 The currently speciation \texttt{iag} is:
 
 \begin{figure}
-\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-91}
+\includegraphics[width=12.36in]{figuras/iag1} \caption{Speciation for NMHC by type of fuel and process mol/100g (Ibarra-Espinosa, S., 2017)}\label{fig:unnamed-chunk-93}
 \end{figure}
 
 The arguments of the function \texttt{speciate} take the following form:
@@ -6090,12 +6115,12 @@ Example:
 
 \begin{verbatim}
 ##       e_eth
-## 1 0.9297121
-## 2 0.9305598
-## 3 0.9270162
-## 4 0.9344628
-## 5 0.9351518
-## 6 0.9156361
+## 1 0.9258232
+## 2 0.9276505
+## 3 0.9218701
+## 4 0.9228787
+## 5 0.9298865
+## 6 0.9199371
 \end{verbatim}
 
 \begin{Shaded}
@@ -6122,31 +6147,31 @@ Example:
 
 \begin{verbatim}
 ## Units: [mol/h]
-## [1] 0.9297121 0.9305598 0.9270162
+## [1] 0.9258232 0.9276505 0.9218701
 ## Units: [mol/h]
-## [1] 1.431635 1.432940 1.427483
+## [1] 1.425646 1.428460 1.419559
 ## Units: [mol/h]
-## [1] 0.5217882 0.5222639 0.5202751
+## [1] 0.5196056 0.5206312 0.5173869
 ## Units: [mol/h]
-## [1] 0.2517760 0.2520055 0.2510459
+## [1] 0.2507228 0.2512177 0.2496523
 ## Units: [mol/h]
-## [1] 1.910312 1.912054 1.904773
+## [1] 1.902322 1.906076 1.894199
 ## Units: [mol/h]
-## [1] 0.8008780 0.8016082 0.7985556
+## [1] 0.7975280 0.7991021 0.7941227
 ## Units: [mol/h]
-## [1] 0.5309545 0.5314386 0.5294148
+## [1] 0.5287335 0.5297771 0.5264759
 ## Units: [mol/h]
-## [1] 0.02546856 0.02549178 0.02539470
+## [1] 0.02536203 0.02541208 0.02525373
 ## Units: [mol/h]
-## [1] 0.4622033 0.4626247 0.4608630
+## [1] 0.4602699 0.4611784 0.4583046
 ## Units: [mol/h]
-## [1] 0.8805721 0.8813750 0.8780187
+## [1] 0.8768888 0.8786195 0.8731446
 ## Units: [mol/h]
-## [1] 1.236903 1.238031 1.233316
+## [1] 1.231729 1.234160 1.226470
 ## Units: [mol/h]
-## [1] 0.3467217 0.3470378 0.3457163
+## [1] 0.3452714 0.3459529 0.3437971
 ## Units: [mol/h]
-## [1] 0.4521982 0.4526105 0.4508870
+## [1] 0.4503067 0.4511955 0.4483840
 ## Units: [mol/h]
 ## [1] 0 0 0
 ## Units: [mol/h]
@@ -6162,7 +6187,7 @@ as follow:
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-93}Speciation of PM2.5}
+\caption{\label{tab:unnamed-chunk-95}Speciation of PM2.5}
 \centering
 \begin{tabular}[t]{r|r|r|r|r|r|r|r|r|r|r}
 \hline
@@ -6205,7 +6230,7 @@ dx is the length of the grid cell. Example:
 \end{Shaded}
 
 \begin{verbatim}
-## Sum of street emissions 602041.15
+## Sum of street emissions 601875.82
 \end{verbatim}
 
 \begin{verbatim}
@@ -6213,7 +6238,7 @@ dx is the length of the grid cell. Example:
 \end{verbatim}
 
 \begin{verbatim}
-## Sum of gridded emissions 602041.15
+## Sum of gridded emissions 601875.82
 \end{verbatim}
 
 \begin{Shaded}
@@ -6250,18 +6275,18 @@ dx is the length of the grid cell. Example:
 
 \begin{verbatim}
 ##                  e_so4i     e_so4j       e_no3i      e_no3j   e_pm2.5i
-## 1 0.001450528 [g/m^2/s] 0.01173609 0.0004652991 0.001983644 0.01883802
-## 2 0.001441776 [g/m^2/s] 0.01166528 0.0004624917 0.001971675 0.01872436
-## 3 0.001477870 [g/m^2/s] 0.01195731 0.0004740701 0.002021036 0.01919312
-## 4 0.002554828 [g/m^2/s] 0.02067088 0.0008195358 0.003493811 0.03317959
-## 5 0.005811359 [g/m^2/s] 0.04701918 0.0018641633 0.007947223 0.07547220
+## 1 0.001440819 [g/m^2/s] 0.01165754 0.0004621849 0.001970367 0.01871194
+## 2 0.001432126 [g/m^2/s] 0.01158720 0.0004593962 0.001958479 0.01859904
+## 3 0.001467979 [g/m^2/s] 0.01187728 0.0004708971 0.002007509 0.01906466
+## 4 0.002543292 [g/m^2/s] 0.02057755 0.0008158353 0.003478035 0.03302977
+## 5 0.005775954 [g/m^2/s] 0.04673272 0.0018528061 0.007898805 0.07501239
 ## 6 0.000000000 [g/m^2/s] 0.00000000 0.0000000000 0.000000000 0.00000000
 ##     e_pm2.5j      e_orgi     e_orgj      e_eci       e_ecj        h2o
-## 1 0.05651407 0.005726759 0.02441408 0.01054929 0.004521125 0.05218132
-## 2 0.05617308 0.005692206 0.02426677 0.01048564 0.004493847 0.05186648
-## 3 0.05757936 0.005834709 0.02487429 0.01074815 0.004606349 0.05316495
-## 4 0.09953877 0.010086595 0.04300075 0.01858057 0.007963101 0.09190746
-## 5 0.22641660 0.022943548 0.09781197 0.04226443 0.018113328 0.20905799
+## 1 0.05613581 0.005688429 0.02425067 0.01047869 0.004490865 0.05183207
+## 2 0.05579711 0.005654107 0.02410435 0.01041546 0.004463769 0.05151933
+## 3 0.05719398 0.005795657 0.02470780 0.01067621 0.004575519 0.05280911
+## 4 0.09908930 0.010041049 0.04280658 0.01849667 0.007927144 0.09149246
+## 5 0.22503717 0.022803767 0.09721606 0.04200694 0.018002974 0.20778432
 ## 6 0.00000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
 \end{verbatim}
 
